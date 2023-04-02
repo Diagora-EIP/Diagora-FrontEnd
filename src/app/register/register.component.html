@@ -1,0 +1,25 @@
+<div>
+    <div>
+        <h1>Créez votre compte</h1>
+        <div>
+            <label for="">E-mail <span>*</span></label>
+            <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
+        </div>
+        <div>
+            <label for="">Mot de passe <span>*</span></label>
+            <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
+        </div>
+        <div>
+            <label for="">Confirmez votre mot de passe <span>*</span></label>
+            <input type="password" id="passwordConfInput" #passConf (keyup)="onEnterPassConf(passConf.value)">
+        </div>
+        <button (click)="login()">Créer sont compte</button>
+    </div>
+    <div></div>
+    <div *ngIf="popUp">
+        <div>
+            <h1>{{Erreur}}</h1>
+            <button (click)="closePopUp()">Fermer</button>
+        </div>
+    </div>
+</div>

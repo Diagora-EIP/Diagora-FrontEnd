@@ -1,0 +1,31 @@
+<div>
+    <div>
+        <h1>Connectez-vous</h1>
+        <div>
+            <label for="">E-mail <span>*</span></label>
+            <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
+        </div>
+        <div>
+            <label for="">Mot de passe <span>*</span></label>
+            <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
+        </div>
+        <div>
+            <div>
+                <input type="checkbox" id="rememberMeInput">
+                <label for="">Se souvenir de moi</label>
+            </div>
+            <div>
+                <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+            </div>
+        </div>
+        <button (click)="login()">Se connecter</button>
+        <p>Pas encore de compte ? <span routerLink="/register">Créer votre compte</span></p>
+    </div>
+    <div></div>
+    <div *ngIf="popUp">
+        <div>
+            <h1>{{Erreur}}</h1>
+            <button (click)="closePopUp()">Fermer</button>
+        </div>
+    </div>
+</div>
