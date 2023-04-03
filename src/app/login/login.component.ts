@@ -11,13 +11,15 @@ export class LoginComponent implements OnInit {
   password!: string;
   popUp!: boolean;
   Erreur!: string;
+  remember!: boolean;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.popUp = false;
-    this.name = ""
-    this.password = ""
+    this.name = "";
+    this.password = "";
+    this.remember = false;
   }
 
   closePopUp() {
@@ -25,12 +27,15 @@ export class LoginComponent implements OnInit {
   }
 
   onEnterEmail(value : string) {
-    console.log(value)
     this.name = value
   }
 
   onEnterPass(value: string) {
     this.password = value
+  }
+
+  onRem() {
+    this.remember = !this.remember
   }
 
   async login() {
@@ -39,30 +44,38 @@ export class LoginComponent implements OnInit {
       this.popUp = true;
       return;
     }
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!this.name.match(validRegex)) {
+      this.Erreur = 'Veuillez entrer une adresse mail valide';
+      this.popUp = true;
+      return;
+    }
+    const body = {
+      "email": this.name,
+      "remember": this.remember,
+      "password": this.password
+    }
     await fetch("http://localhost:3000/user/login", {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        email: this.name,
-        // email: "william@epitech.eu",
-        password: this.password,
-        // password: "william",
-      }),
+      body: JSON.stringify(body),
     }).then(function (response) {
-      // The API call was successful!
-        if (response.ok) {
-            return response.json();
-        } else {
-            return Promise.reject(response);
-        }
+      console.log("test", response);
+      return response.json();
     }).then(data => {
-      // This is the JSON from our response
-      this.router.navigate(['home']);
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('id', data.user.user_id)
+      console.log(data);
+      if (data.statusCode == 201) {
+        this.router.navigate(['home']);
+        localStorage.setItem('token', data.token)
+      } else if (data.statusCode == 404) {
+        this.Erreur = data.error;
+        this.popUp = true;
+      } else if (data.statusCode == 400) {
+        this.Erreur = data.message[0];
+        this.popUp = true;
+      }
     })
 }
 }

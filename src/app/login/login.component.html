@@ -1,30 +1,35 @@
-<div>
-    <div>
-        <h1>Connectez-vous</h1>
-        <div>
+<div class="contentPage">
+    <div class="leftPart">
+        <h1 class="title">Bienvenue !</h1>
+        <div class="inputContent">
             <label for="">E-mail <span>*</span></label>
             <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
         </div>
-        <div>
+        <div class="inputContent">
             <label for="">Mot de passe <span>*</span></label>
             <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
         </div>
-        <div>
+        <div class="rememberContent">
             <div>
-                <input type="checkbox" id="rememberMeInput">
-                <label for="">Se souvenir de moi</label>
+                <input class="inputBox" type="checkbox" id="rememberMeInput" (click)="onRem()">
+                <label for="">Remember</label>
             </div>
             <div>
-                <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+                <a class="leftMDP" routerLink="/forgot-password">Mot de passe oublié ?</a>
             </div>
         </div>
-        <button (click)="login()">Se connecter</button>
-        <p>Pas encore de compte ? <span routerLink="/register">Créer votre compte</span></p>
+        <button (click)="login()" class="login">Se connecter</button>
+        <div class="contentRegister">
+            <p>Vous n'avez pas de compte ? <br><span class="register" routerLink="/register">Créer votre compte</span></p>
+        </div>
     </div>
-    <div></div>
+    <div class="rightPart">
+        <img class="imgLogo" src="../../assets/logo.png" alt="logo">
+        <h2 class="undertitle">DIAGORA</h2>
+    </div>
     <div *ngIf="popUp">
-        <div>
-            <h1>{{Erreur}}</h1>
+        <div class="popUp">
+            <h3>{{Erreur}}</h3>
             <button (click)="closePopUp()">Fermer</button>
         </div>
     </div>
