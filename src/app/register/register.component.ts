@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   name!: string;
+  email!: string;
   password!: string;
   passwordConf!: string;
   popUp!: boolean;
@@ -19,6 +20,8 @@ export class RegisterComponent {
     this.popUp = false;
     this.name = ""
     this.password = ""
+    this.passwordConf = ""
+    this.email = ""
   }
 
   closePopUp() {
@@ -26,8 +29,7 @@ export class RegisterComponent {
   }
 
   onEnterEmail(value : string) {
-    console.log(value)
-    this.name = value
+    this.email = value
   }
 
   onEnterPass(value: string) {
@@ -38,8 +40,12 @@ export class RegisterComponent {
     this.passwordConf = value
   }
 
-  async login() {
-    if (this.name == "" || this.password == "" || this.passwordConf == "") {
+  onEnterName(value: string) {
+    this.name = value
+  }
+
+  async register() {
+    if (this.email == "" || this.password == "" || this.passwordConf == "" || this.name == "") {
       this.Erreur = 'Veuillez remplir tous les champs';
       this.popUp = true;
       return;
@@ -50,5 +56,41 @@ export class RegisterComponent {
       this.popUp = true;
       return;
     }
+
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!this.email.match(validRegex)) {
+      this.Erreur = 'Veuillez entrer une adresse mail valide';
+      this.popUp = true;
+      return;
+    }
+
+    const body = {
+      "name": this.name,
+      "email": this.email,
+      "password": this.password
+    }
+
+    await fetch("http://localhost:3000/user/register", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then(function(response) {
+      console.log("res", response);
+      return response.json();
+    }).then(res => {
+      console.log("res", res);
+      if (res.error) {
+        this.Erreur = res.error;
+        this.popUp = true;
+        this.name = "";
+        this.password = "";
+        this.passwordConf = "";
+        this.email = "";
+      } else {
+        this.router.navigate(["/login"]);
+      }
+    })
   }
 }

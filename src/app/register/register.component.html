@@ -2,6 +2,10 @@
     <div class="leftPart">
         <h1 class="title">Créez votre compte !</h1>
         <div class="inputContent">
+            <label for="">Nom <span>*</span></label>
+            <input type="text" id="emailInput" #name (keyup)="onEnterName(name.value)">
+        </div>
+        <div class="inputContent">
             <label for="">E-mail <span>*</span></label>
             <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
         </div>
@@ -13,7 +17,7 @@
             <label for="">Confirmez votre mot de passe <span>*</span></label>
             <input type="password" id="passwordConfInput" #passConf (keyup)="onEnterPassConf(passConf.value)">
         </div>
-        <button (click)="login()" class="login">Créer sont compte</button>
+        <button (click)="register()" class="login">Créer sont compte</button>
     </div>
     <div class="rightPart">
         <img class="imgLogo" src="../../assets/logo.png" alt="logo">

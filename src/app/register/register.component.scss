@@ -7,13 +7,13 @@
 }
 
 .leftPart {
-    width: 40%;
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin-left: 10%;
+    margin-left: 5%;
 }
 
 .rightPart {
@@ -34,11 +34,11 @@
 
 .title {
     font-weight: 900;
-    font-size: 70px;
+    font-size: 65px;
 }
 
 .inputContent {
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -88,7 +88,7 @@
 }
 
 .login {
-    width: 100%;
+    width: 70%;
     height: 50px;
     border-radius: 10px;
     background: #01ABA8;
@@ -97,6 +97,7 @@
     color: #FFFFFF;
     border: none;
     cursor: pointer;
+    margin-top: 20px;
     &:hover {
         opacity: 0.8;
     }

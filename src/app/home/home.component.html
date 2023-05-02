@@ -1,1 +1,106 @@
-<p>home works!</p>
+<div id="calender">
+    <div class="top">
+        <div>
+            <button id="day" (click)="selectDay()">Day</button>
+            <button id="week" (click)="selectWeek()">Week</button>
+            <button id="month" (click)="selectMonth()">Month</button>
+        </div>
+        <div class="add">
+            <button id="today" (click)="newEvent()">ajouter une livraison</button>
+        </div>
+    </div>
+    <div class="popUp" *ngIf="openPopup">
+        <h2>Créez un nouvel evenement</h2>
+    </div>
+    <div class="header">
+        <button id="prev" (click)="prevDate()">Prev</button>
+        <h2 id="month-year">{{currentDate}}</h2>
+        <button id="next" (click)="nextDate()">Next</button>
+    </div>
+    <div id="view">
+        <div (click)="goCarte()" class="circle" *ngIf="showDay"></div>
+    </div>
+    <div class="events" *ngIf="showDay">
+        <div class="hours">
+            <h3 class="itemHeure">9:00</h3>
+            <h3 class="itemHeure">10:00</h3>
+            <h3 class="itemHeure">11:00</h3>
+            <h3 class="itemHeure">12:00</h3>
+            <h3 class="itemHeure">13:00</h3>
+            <h3 class="itemHeure">14:00</h3>
+            <h3 class="itemHeure">15:00</h3>
+            <h3 class="itemHeure">16:00</h3>
+            <h3 class="itemHeure">17:00</h3>
+        </div>
+        <div class="rdv">
+            <!-- <div *ngFor="let event of schedule" :style="{top: event.top + 'px', height: event.height + 'px', left: '10%'}" class="boxRdv"> -->
+            <div *ngFor="let event of schedule" [style.top]="event.top + 'px'" [style.height]="event.height + 'px'" [style.left]="10 + '%'" class="boxRdv">
+                <h2>{{event.name}}</h2>
+                <h2 class="heure">{{event.beginH}}h{{event.beginM}}-{{event.endH}}h{{event.endM}}</h2>
+            </div>
+        </div>
+        <div class="line">
+            <div class="line1"></div>
+            <div class="line2"> </div>
+            <div class="line3"> </div>
+            <div class="line4"> </div>
+            <div class="line5"> </div>
+            <div class="line6"> </div>
+            <div class="line7"> </div>
+            <div class="line8"> </div>
+            <div class="line9"> </div>
+        </div>
+    </div>
+    <div class="eventsCol parent" *ngIf="showWeek">
+        <div class="dayWeek div1">
+            <div *ngFor="let item of currentWeek">
+                <div class="day">{{item}}</div>
+            </div>
+        </div>
+        <div *ngFor="let event of schedule" [style.top]="event.top + 'px'" [style.height]="event.height + 'px'" [style.left]="event.left" [style.width]="130 + 'px'" class="boxRdv">
+            <h2>{{event.name}}</h2>
+            <h2 class="heure">{{event.beginH}}h{{event.beginM}}-{{event.endH}}h{{event.endM}}</h2>
+        </div>
+        <div class="div3 hours">
+            <h3 class="itemHeure">9:00</h3>
+            <h3 class="itemHeure">10:00</h3>
+            <h3 class="itemHeure">11:00</h3>
+            <h3 class="itemHeure">12:00</h3>
+            <h3 class="itemHeure">13:00</h3>
+            <h3 class="itemHeure">14:00</h3>
+            <h3 class="itemHeure">15:00</h3>
+            <h3 class="itemHeure">16:00</h3>
+            <h3 class="itemHeure">17:00</h3>
+        </div>
+        <div class="column div2">
+            <div class="column1"></div>
+            <div class="column2"> </div>
+            <div class="column3"> </div>
+            <div class="column4"> </div>
+            <div class="column5"> </div>
+            <div class="column6"> </div>
+        </div>
+        <div class="line">
+            <div class="line1"></div>
+            <div class="line2"> </div>
+            <div class="line3"> </div>
+            <div class="line4"> </div>
+            <div class="line5"> </div>
+            <div class="line6"> </div>
+            <div class="line7"> </div>
+            <div class="line8"> </div>
+            <div class="line9"> </div>
+        </div>
+    </div>
+    <div class="events" *ngIf="showMonth">
+        <div *ngFor="let event of schedule" [style.top]="event.top + 'px'" [style.height]="20 + 'px'" [style.left]="event.left" [style.width]="50 + 'px'" class="boxRdv">
+            <h2>{{event.name}}</h2>
+            <h2 class="heure">{{event.beginH}}h{{event.beginM}}-{{event.endH}}h{{event.endM}}</h2>
+        </div>
+        <div class="divMonth">
+            <div class="month" *ngFor="let item of currentMonth">
+                <div class="dayMonth">{{item}}</div>
+            </div>
+        </div>
+    </div>
+</div>
