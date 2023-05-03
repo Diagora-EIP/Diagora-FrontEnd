@@ -10,14 +10,17 @@
             <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
         </div>
         <div class="inputContent">
-            <label for="">Mot de passe <span>*</span></label>
+            <label for="">Mot-de-passe <span>*</span></label>
             <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
         </div>
         <div class="inputContent">
-            <label for="">Confirmez votre mot de passe <span>*</span></label>
+            <label for="">Confirmez votre mot-de-passe <span>*</span></label>
             <input type="password" id="passwordConfInput" #passConf (keyup)="onEnterPassConf(passConf.value)">
         </div>
         <button (click)="register()" class="login">Créer sont compte</button>
+        <div class="contentRegister">
+            <p>Vous n'avez pas de compte ? <br><span class="register" routerLink="/register">Créer votre compte</span></p>
+        </div>
     </div>
     <div class="rightPart">
         <img class="imgLogo" src="../../assets/logo.png" alt="logo">

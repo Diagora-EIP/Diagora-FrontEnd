@@ -6,19 +6,19 @@
             <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
         </div>
         <div class="inputContent">
-            <label for="">Mot de passe <span>*</span></label>
+            <label for="">Mot-de-passe <span>*</span></label>
             <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
         </div>
         <div class="rememberContent">
             <div>
                 <input class="inputBox" type="checkbox" id="rememberMeInput" (click)="onRem()">
-                <label for="">Remember</label>
+                <label for="">Rester connecté</label>
             </div>
             <div>
-                <a class="leftMDP" routerLink="/forgot-password">Mot de passe oublié ?</a>
+                <a class="leftMDP" routerLink="/forgot-password">Mot-de-passe oublié ?</a>
             </div>
         </div>
-        <button (click)="login()" class="login">Se connecter</button>
+        <button (click)="login()" class="login">Connectez-vous</button>
         <div class="contentRegister">
             <p>Vous n'avez pas de compte ? <br><span class="register" routerLink="/register">Créer votre compte</span></p>
         </div>

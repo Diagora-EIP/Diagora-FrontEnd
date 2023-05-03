@@ -28,16 +28,16 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    // if (localStorage.getItem('test') == "1") {
-    //   this.router.navigate(['/login']);
-    //   return;
-    // }
-    // if (localStorage.getItem('test') == "2") {
-    //   localStorage.setItem('test', "1");
-    // }
-    // if (localStorage.getItem('test') == "3") {
-    //   localStorage.setItem('test', "2");
-    // }
+    if (localStorage.getItem('test') == "1") {
+      this.router.navigate(['/login']);
+      return;
+    }
+    if (localStorage.getItem('test') == "2") {
+      localStorage.setItem('test', "1");
+    }
+    if (localStorage.getItem('test') == "3") {
+      localStorage.setItem('test', "2");
+    }
     // jwt.verify(token, 'secret', (err: any, decoded: any) => {
     //   if (err) {
     //     this.router.navigate(['/login']);
