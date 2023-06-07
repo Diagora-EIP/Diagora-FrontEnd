@@ -1,4 +1,4 @@
-FROM bayesimpact/react-base:latest
+FROM node:19-alpine3.16
 
 COPY . /Diagora/FrontEnd
 
