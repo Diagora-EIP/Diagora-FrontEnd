@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'carte', component: CarteComponent },
+  { path: 'carte/:date', component: CarteComponent },
   // { path: '**', component: notFoundComponent }
 ];
 

@@ -271,6 +271,12 @@
     text-align: center;
 }
 
+.text {
+    cursor: pointer;
+    border: #000000 1px solid;
+    padding: 5px;
+    border-radius: 5px;
+}
 .dayMonth {
     border-bottom: solid 1px black;
     text-align: center;
@@ -290,11 +296,108 @@
         font-size: 20px;
     }
 }
+.pop {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    justify-content: space-between;
+    align-items: center;
+}
 
-.circle {
+.circles {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: #B9B6EA;
     margin-right: 10px;
+}
+
+.textPrec {
+    color: #B9B6EA;
+    cursor: pointer;
+    border: #000000 1px solid;
+    padding: 5px;
+    border-radius: 5px;
+}
+.popup {
+    position: absolute;
+    display: flex;
+    background-color: #EBEBEB;
+    border: 10px solid #B9B6EA;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 600px;
+    height: 80%;
+    left: 35%;
+    top: 10%;
+    padding: 20px;
+    border-radius: 15px;
+    z-index: 2;
+}
+h2 {
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: 15px;
+    width: 30%;
+}
+
+.newTitle {
+    font-size: 35px;
+    font-weight: 500;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+.notMove {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.onOff {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 30px;
+    border: 3px solid #000000;
+}
+.circle {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 75px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #B9B6EA;
+    cursor: pointer;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    border: 2px solid #000000;
+    background-color: #B9B6EA;
+    cursor: pointer;
+}
+
+.pres {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }

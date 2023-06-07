@@ -18,26 +18,31 @@ export class HomeComponent implements OnInit {
   currentMonth!: Array<string>;
   schedule!: Array<any>;
   openPopup!: boolean;
+  precision!: boolean;
+  name!: string;
+  address!: string;
+  start!: string;
+  end!: string;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    console.log("token", token);
-    if (token == null) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    if (localStorage.getItem('test') == "1") {
-      this.router.navigate(['/login']);
-      return;
-    }
-    if (localStorage.getItem('test') == "2") {
-      localStorage.setItem('test', "1");
-    }
-    if (localStorage.getItem('test') == "3") {
-      localStorage.setItem('test', "2");
-    }
+    this.precision = false;
+    // if (token == null) {
+    //   this.router.navigate(['/login']);
+    //   return;
+    // }
+    // if (localStorage.getItem('test') == "1") {
+    //   this.router.navigate(['/login']);
+    //   return;
+    // }
+    // if (localStorage.getItem('test') == "2") {
+    //   localStorage.setItem('test', "1");
+    // }
+    // if (localStorage.getItem('test') == "3") {
+    //   localStorage.setItem('test', "2");
+    // }
     // jwt.verify(token, 'secret', (err: any, decoded: any) => {
     //   if (err) {
     //     this.router.navigate(['/login']);
@@ -63,56 +68,77 @@ export class HomeComponent implements OnInit {
     this.openPopup = !this.openPopup;
   }
   prevDate() {
-    console.log("prevDate");
-    let beginDate = this.date
-    beginDate.setHours(0, 0, 0, 0);
-    let begin = beginDate.toISOString();
-    let endDate = this.date
-    endDate.setHours(23, 59, 59, 999);
-    let end = endDate.toISOString();
     if (this.selected == 'day') {
       this.date.setDate(this.date.getDate() - 1);
       this.currentDate = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
+      let beginDate = this.date
+      beginDate.setHours(0, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.getSchedules(this.date, begin, end, []);
     } else if (this.selected == 'week') {
       this.date.setDate(this.date.getDate() - 7);
       let arr = this.getWeek(this.date)
+      let beginDate = this.date
+      beginDate.setHours(0, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.getSchedules(this.date, begin, end, arr);
     } else {
       this.date.setMonth(this.date.getMonth() - 1);
       let arr = this.getMonth(this.date)
+      let beginDate = this.date
+      beginDate.setHours(0, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.getSchedules(this.date, begin, end, arr);
     }
   }
 
   nextDate() {
-    let beginDate = this.date
-    beginDate.setHours(1, 0, 0, 0);
-    let begin = beginDate.toISOString();
-    let endDate = this.date
-    endDate.setHours(23, 59, 59, 999);
-    let end = endDate.toISOString();
-    console.log("nextDate");
     if (this.selected == 'day') {
       this.date.setDate(this.date.getDate() + 1);
+      let beginDate = this.date
+      beginDate.setHours(1, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.currentDate = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
       this.getSchedules(this.date, begin, end, []);
     } else if (this.selected == 'week') {
       this.date.setDate(this.date.getDate() + 7);
       let arr = this.getWeek(this.date)
+      let beginDate = this.date
+      beginDate.setHours(0, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.getSchedules(this.date, begin, end, arr);
     } else {
       this.date.setMonth(this.date.getMonth() + 1);
       let arr = this.getMonth(this.date)
+      let beginDate = this.date
+      beginDate.setHours(0, 0, 0, 0);
+      let begin = beginDate.toISOString();
+      let endDate = this.date
+      endDate.setHours(23, 59, 59, 999);
+      let end = endDate.toISOString();
       this.getSchedules(this.date, begin, end, arr);
     }
   }
 
   async getSchedules(date: Date, begin: string, end: string, arr: Array<any>) {
     // let id = localStorage.getItem('id');
-    console.log("bg en", begin, end)
     let id = 31
-    let link = "http://localhost:3000/schedule/" + id + "?begin=" + begin + "&end=" + end
+    let link = "http://localhost:3000/user/" + id + "/schedule/?begin=" + begin + "&end=" + end
     let token = localStorage.getItem('token');
     const response = await fetch(link,
     {
@@ -299,6 +325,99 @@ export class HomeComponent implements OnInit {
     return datesOfMonth;
   }
   goCarte() {
-    this.router.navigate(['/carte']);
+    let date = this.currentDate
+    this.router.navigate(['/carte', date]);
+  }
+
+  changeSelect() {
+    this.precision = !this.precision;
+    if (this.precision) {
+      
+    }
+  }
+  onEnterName(value: string) {
+    this.name = value;
+    console.log(this.name, value)
+  }
+  onEnterAdd(value: string) {
+    this.address = value;
+  }
+  onEnterStart(value: string) {
+    this.start = value;
+    console.log(this.start)
+  }
+  onEnterEnd(value: string) {
+    this.end = value;
+  }
+  dateIsValid(date: Date) {
+    return !Number.isNaN(new Date(date).getTime());
+  }
+  async addEvent() {
+    let id = 31
+    let link = "http://localhost:3000/user/" + id + "/schedule"
+    let startDate = new Date(this.start)
+    let endDate = new Date(this.end)
+    if (this.precision) {
+        let startHour = startDate.getHours()
+        let endHour = endDate.getHours()
+        if (startHour > endHour) {
+            alert("L'heure de depart doit etre inferieur a l'heure de fin")
+            return
+        }
+        if (startHour < 9 || startHour > 17) {
+            alert("L'heure de depart doit etre comprise entre 9h et 17h")
+            return
+        }
+        startDate.setHours(startDate.getHours() + 2)
+        endDate.setHours(endDate.getHours() + 2)
+    } else {
+        startDate.setHours(9)
+        endDate.setHours(17)
+    }
+    if (this.dateIsValid(startDate) == false || this.dateIsValid(endDate) == false) {
+        alert("Rentrez des dates valides")
+        return
+    }
+    console.log(startDate, endDate)
+    let startDateS = startDate.toISOString()
+    let endDateS = endDate.toISOString()
+    
+    fetch(link, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer Valorant-35"
+            // "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+            name: this.name,
+            begin: startDateS,
+            end: endDateS,
+            address: this.address
+        }),
+    }) .then(data => {
+        console.log(data)
+        this.openPopup = false;
+        // this.name = ''
+        // this.start = ''
+        // this.end = ''
+        this.updateitinary(this.name, startDateS, endDateS, this.address)
+    }) .catch(err => {
+        console.log("Error:", err)
+    })
+  }
+  updateitinary(name: string, start: string, end: string, address: string) {
+    let link = "http://localhost:3000/user/31/avalaibleSlots/?name=" + name + "&begin=" + start + "&end=" + end + "&address=" + address + "&returnTostart=false&itinaryDay" + start
+    fetch(link, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer Valorant-35"
+      }}).then(data => {
+        console.log(data)
+      })
+
   }
 }
