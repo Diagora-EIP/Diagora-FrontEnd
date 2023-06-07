@@ -325,7 +325,7 @@ export class HomeComponent implements OnInit {
     return datesOfMonth;
   }
   goCarte() {
-    let date = this.currentDate
+    let date = (this.date.getMonth() + 1) + '/' + this.date.getDate() + '/' + this.date.getFullYear();
     this.router.navigate(['/carte', date]);
   }
 

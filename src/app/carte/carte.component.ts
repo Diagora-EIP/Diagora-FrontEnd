@@ -42,7 +42,6 @@ export class CarteComponent implements AfterViewInit {
       return
     }
     let test = new Date(date)
-    console.log("carte", date)
     this.map = Leaflet.map('map', {
       center: [43.610769, 3.876716],
       zoom: 11
@@ -55,9 +54,7 @@ export class CarteComponent implements AfterViewInit {
     let end = new Date(test.getTime() + 23*59*59*1000)
     this.begin = begin.toISOString()
     this.end = end.toISOString()
-    console.log("begin: " + this.begin)
     let link = 'http://localhost:3000/user/' + id + '/itinary/?begin=' + this.begin + '&end=' + this.end;
-    // let link = 'http://localhost:3000/user/' + id + '/itinary/?begin=2023-06-05T22:00:41.684Z&end=2023-06-06T20:14:41.684Z';
     console.log(link)
     const response = await fetch(link, {
       method: 'GET',
@@ -86,7 +83,6 @@ export class CarteComponent implements AfterViewInit {
           lng: point_list.stop_point[y].long
         }
       }
-      console.log(this.markers)
       for (let y = 0; y < point_list.path.length; y++) {
         for (let x = 0; x < point_list.path[y].path.length; x++) {
           this.travel[x] = [point_list.path[y].path[x].lat, point_list.path[y].path[x].lon]
@@ -94,7 +90,6 @@ export class CarteComponent implements AfterViewInit {
       }
       let poly = Leaflet.polyline(this.travel, {color: 'red'});
       poly.addTo(this.map);
-      console.log(this.travel)
       this.disp = true
     });
   }
