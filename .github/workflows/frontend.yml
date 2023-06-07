@@ -95,4 +95,3 @@ jobs:
     - name: Discord Send Notification
       run: |
         echo "WIP for Discord Notification"
-
