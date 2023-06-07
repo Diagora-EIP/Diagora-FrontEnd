@@ -6,10 +6,10 @@ name: Diagora | Frontend - CI
 on:
   push:
     branches:
-      - CI
+      - main
   pull_request:
     branches:
-      - CI
+      - main
 
 jobs:
   # Execute the tests
