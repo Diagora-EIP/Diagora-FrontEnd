@@ -81,12 +81,9 @@ jobs:
       run: |
         echo "WIP for Discord Notification"
 
-    - name: Test Step for Discord Action
-      uses: Poss111/discord-hook-action@v1.6.12
+    - name: Action Discord Alert
+      uses: ErnaneJ/action-discord-alerts@main
       with:
-          discord-hook-url: 'https://discord.com/api/webhooks/1126047437157576765/ujEXZg_3Ruclp-ZQXDQw2d44JgKaG3lAIN151hnJSgbfeLfGRxQ2rn685Yb_QzMOtdWm'
-          title: 'Frontend Action Error'
-          message: 'An Error Occured during the Test action.'
-          message-color: '16711680'
-    - name: Was Job Successful
-      run: echo "The job was successful ran > ${{ steps.tested.outputs.successful }}"
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        color: '16711680'
+        description: 'An error occured during the action process'
