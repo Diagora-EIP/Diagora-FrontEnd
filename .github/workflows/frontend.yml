@@ -85,4 +85,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '{"embeds": [{"title": "Diagora Frontend - Action Failed", "url": "https://google.com/", "color": "16711680", "description": "{{ EVENT_PAYLOAD.action }}"]}'
+        args: '${{ to_JSON({"embeds": [{"title": "Diagora Frontend - Action Failed", "url": "https://google.com/", "color": "16711680", "description": "${{ github.event.head_commit.message }}"]}) }}'
