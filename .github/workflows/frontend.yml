@@ -61,22 +61,6 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend_react:latest
-
-    # steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v3
-
-    # - name: Login to Docker Hub
-    #   run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-    # - name: Build Image
-    #   run: docker build -t backend .
-
-    # - name: Tag Image
-    #   run: docker tag backend ${{ secrets.DOCKER_USERNAME }}/backend
-
-    # - name: Push Image
-    #   run: docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
   
   # Send a notification on Discord of the triggered error
   # Run condition: push or pull request on the CI branch and tests job is failed
@@ -101,4 +85,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+        args: '{"embeds": [{"title": "Diagora Frontend - Action Failed", "url": "https://google.com/", "color": "16711680", "description": "{{ EVENT_PAYLOAD.action }}"]}'
