@@ -33,6 +33,7 @@ jobs:
     #   run: npm run test
 
     - name: Run Test
+      id: tested
       run: |
         echo "No test to execute"
   
@@ -80,9 +81,13 @@ jobs:
       run: |
         echo "WIP for Discord Notification"
     
-    - name: Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
+        steps:
+    - name: Test Step for Discord Action
+      uses: Poss111/discord-hook-action@v1.6.12
       with:
-        args: '{ "content": null, "embeds": [{"title": "Frontend Action Error", "color": 12128015, "author": { "name": "Diagora FrontEnd", "icon_url": "https://cdn3.vectorstock.com/i/1000x1000/30/27/gear-fix-and-repair-logo-icon-design-vector-22653027.jpg" }}], "attachments": []}
+          discord-hook-url: 'https://discord.com/api/webhooks/1126047437157576765/ujEXZg_3Ruclp-ZQXDQw2d44JgKaG3lAIN151hnJSgbfeLfGRxQ2rn685Yb_QzMOtdWm'
+          title: 'Frontend Action Error'
+          message: 'An Error Occured during the Test action.'
+          message-color: '16711680'
+    - name: Was Job Successful
+      run: echo "The job was successful ran > ${{ steps.tested.outputs.successful }}"
