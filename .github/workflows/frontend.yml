@@ -27,7 +27,7 @@ jobs:
         node-version: 19
 
     - name: Install Dependencies
-      run: npm i
+      run: npm i --legacy-peer-deps
 
     # - name: Run Tests
     #   run: npm run test
