@@ -1,0 +1,16 @@
+<button id="nav" (click)="toggleNavbar()">Toggle Navbar</button>
+
+<!-- <button id="navigate" (click)="change()">Move To Commands Page</button> -->
+
+<nav [ngClass]="{'open': isNavbarOpen}">
+    <!-- Contenu de la navbar -->
+    <ul>
+        <li>Home</li>
+        <li id="current">Planning</li>
+        <li (click)="change()">Commandes</li>
+        <li>Stats</li>
+        <li>Vehicule</li>
+        <li>Admin</li>
+        <li>Carte</li>
+    </ul>
+</nav>

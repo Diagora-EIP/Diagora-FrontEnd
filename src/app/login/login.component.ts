@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
       //Si la requête est un succès, on redirige vers la page d'accueil et on stock le token dans le local storage
       console.log("data", data);  
       if (data.statusCode == 201) {
-        this.router.navigate(['home']);
+        this.router.navigate(['planning']);
         localStorage.setItem('token', data.token)
         localStorage.setItem('id', data.id)
         if (!this.remember) {

@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
+import { PlanningComponent } from './planning/planning.component';
+import { CommandsComponent } from './commands/commands.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { CarteComponent } from './carte/carte.component';
     ForgotPasswordComponent,
     RegisterComponent,
     CarteComponent,
+    PlanningComponent,
+    CommandsComponent,
   ],
   imports: [
     BrowserModule,
