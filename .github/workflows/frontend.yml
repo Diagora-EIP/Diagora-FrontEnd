@@ -80,8 +80,7 @@ jobs:
     - name: Discord Send Notification
       run: |
         echo "WIP for Discord Notification"
-    
-        steps:
+
     - name: Test Step for Discord Action
       uses: Poss111/discord-hook-action@v1.6.12
       with:
