@@ -12,8 +12,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   goto(params: string) {
     this.router.navigate([params]);
+  }
+  gotoplan() {
+    this.router.navigate(['planning']);
+  }
+  gotocomm() {
+    this.router.navigate(['commands']);
   }
 }

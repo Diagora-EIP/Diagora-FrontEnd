@@ -19,4 +19,7 @@ export class PlanningComponent {
   change() {
     this.route.navigate(['commands']);
   }
+  gohome() {
+    this.route.navigate(['home']);
+  }
 }
