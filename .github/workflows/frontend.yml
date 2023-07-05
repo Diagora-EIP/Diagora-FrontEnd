@@ -86,5 +86,5 @@ jobs:
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: '16711680'
-        description: 'An error occured during the action process'
+        description: 'An error occured during the test of the project or the required coverage is not met'
         title: 'Diagora - Frontend'
