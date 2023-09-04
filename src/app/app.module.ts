@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
 import { PlanningComponent } from './planning/planning.component';
 import { CommandsComponent } from './commands/commands.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CommandsComponent } from './commands/commands.component';
     CarteComponent,
     PlanningComponent,
     CommandsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

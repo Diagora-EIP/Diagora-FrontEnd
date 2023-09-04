@@ -1,20 +1,19 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-// import jwt from 'jsonwebtoken';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   logout1!: boolean;
   constructor(private router: Router) { }
+
 
   ngOnInit(): void {
     this.logout1 = false;
   }
-
   goto(params: string) {
     this.router.navigate([params]);
   }

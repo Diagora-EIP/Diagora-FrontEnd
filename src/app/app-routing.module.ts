@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
 import { PlanningComponent } from './planning/planning.component';
 import { CommandsComponent } from './commands/commands.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'carte/:date', component: CarteComponent },
   { path: 'planning', component: PlanningComponent},
-  { path: 'commands', component: CommandsComponent }
+  { path: 'commands', component: CommandsComponent },
+  { path: 'profile', component: ProfileComponent}
   // { path: '**', component: notFoundComponent }
 ];
 
