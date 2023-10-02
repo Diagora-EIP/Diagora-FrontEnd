@@ -12,26 +12,38 @@ import { CarteComponent } from './carte/carte.component';
 import { PlanningComponent } from './planning/planning.component';
 import { CommandsComponent } from './commands/commands.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    ForgotPasswordComponent,
-    RegisterComponent,
-    CarteComponent,
-    PlanningComponent,
-    CommandsComponent,
-    ProfileComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    // LeafletModule
-  ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        HomeComponent,
+        ForgotPasswordComponent,
+        RegisterComponent,
+        CarteComponent,
+        PlanningComponent,
+        CommandsComponent,
+        ProfileComponent,
+        UserListComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        // LeafletModule
+        MatSlideToggleModule,
+        MatTableModule,
+        MatInputModule,
+        FormsModule
+    ],
+    providers: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
