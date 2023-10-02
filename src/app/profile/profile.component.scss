@@ -13,6 +13,7 @@
 
 input {
     border-radius: 15px;
+    padding: 0 15px;
 }
 
 .logo {
@@ -288,6 +289,10 @@ input {
 }
 
 .contenModal {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
     position: absolute;
     left: 40%;
     top: 200px;
@@ -296,4 +301,12 @@ input {
     border: #000000 solid 1px;
     border-radius: 15px;
     background-color: #fff;
+}
+
+.contentButton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
 }

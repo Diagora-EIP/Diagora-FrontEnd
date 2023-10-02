@@ -72,7 +72,8 @@ export class LoginComponent implements OnInit {
       if (data.statusCode == 201) {
         this.router.navigate(['home']);
         localStorage.setItem('token', data.token)
-        localStorage.setItem('id', data.id)
+        localStorage.setItem('id', data.user.user_id)
+        localStorage.setItem('email', data.user.email)
         if (!this.remember) {
           localStorage.setItem('test', "2")
         } else {
