@@ -45,21 +45,66 @@
                 </div>
                 <div class="nom">
                     <h2 class="title">Nom</h2>
-                    <input type="text" class="text">
+                    <!-- <input type="text" class="text"> -->
+                    <h2 class="desc">{{name}}</h2>
                 </div>
                 <div class="nom">
                     <h2 class="title">Nom de l'entreprise</h2>
-                    <input type="text" class="text">
+                    <!-- <input type="text" class="text"> -->
+                    <h2 class="desc">{{nameEntreprise}}</h2>
+
                 </div>
                 <div class="nom">
                     <h2 class="title">Place dans l'entreprise</h2>
-                    <input type="text" class="text">
+                    <h2 class="desc">{{placeEntreprise}}</h2>
+                    <!-- <input type="text" class="text"> -->
                 </div>
             </div>
             <div class="button">
                 <div class="logoutButton" (click)="confirm()">
                     <h2>Déconnection</h2>
                 </div>
+            </div>
+        </div>
+        <div class="updatePassword">
+            <h2 class="titleMdp">Modifier votre mot-de-passe</h2>
+            <div class="password">
+                <label for="" class="title">Mot de passe</label>
+                <input type="password" class="text">
+            </div>
+            <div class="password">
+                <label for="" class="title">Confirmer le mot de passe</label>
+                <input type="password" class="text">
+            </div>
+            <div class="buttons">
+                <div class="buttonValidation">
+                    <h2> Valider</h2>
+                </div>
+                <div class="buttonValidation">
+                    <h2>Modier via e-mail</h2>
+                </div>
+            </div>
+        </div>
+        <div class="listEmpoye">
+            <div class="contentBoxEmploye">
+                <h2 class="titleEM">Liste des employés</h2>
+                <div class="line"></div>
+                <div class="contentEm">
+                    <h2 (click)="modal = true">test1</h2>
+                    <div class="line transp"></div>
+                    <h2>test1</h2>
+                    <div class="line transp"></div>
+                    <h2>test1</h2>
+                    <div class="line transp"></div>
+                    <h2>test1</h2>
+                    <div class="line transp"></div>
+                    <h2>test1</h2>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="modal" class="modal" (click)="modal = false">
+            <div class="contenModal">
+
             </div>
         </div>
     </div>

@@ -8,11 +8,22 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   logout1!: boolean;
+  name!: string;
+  nameEntreprise!: string;
+  placeEntreprise!: string;
+  password!: string;
+  confirmPassword!: string;
+  listEmployes!: any[];
+  modal!: boolean;
   constructor(private router: Router) { }
 
 
   ngOnInit(): void {
     this.logout1 = false;
+    this.modal = false;
+    this.name = 'Mehdi';
+    this.nameEntreprise = 'Groupe OCP';
+    this.placeEntreprise = 'directeur';
   }
   goto(params: string) {
     this.router.navigate([params]);
@@ -46,4 +57,5 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
   }
+
 }

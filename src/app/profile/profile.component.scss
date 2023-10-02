@@ -11,6 +11,10 @@
     box-shadow: 0 0 10px #000000;
 }
 
+input {
+    border-radius: 15px;
+}
+
 .logo {
     width: 100px;
     height: 100px;
@@ -118,6 +122,14 @@
     display: flex;
     justify-content: center;
 }
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .logoutButton {
     cursor: pointer;
@@ -127,6 +139,7 @@
     background-color: #1A8C8A;
     margin-bottom: 30px;
     border-radius: 13px;
+    color: #fff;
     h2 {
         font-family: poppins;
         font-size: 25px;
@@ -155,4 +168,132 @@
         height: 100%;
         border-radius: 50%;
     }
+}
+
+.updatePassword {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    border-right: #000000 solid 1px;
+    padding-top: 20px;
+}
+
+.password {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+.buttonValidation {
+    cursor: pointer;
+    width: 40%;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #1A8C8A;
+    margin-bottom: 30px;
+    border-radius: 13px;
+    h2 {
+        font-family: poppins;
+        font-size: 25px;
+        font-weight: 900;
+        color: #fff;
+        margin: 0;
+    }
+    &:hover {
+        scale: 1.01;
+    }
+}
+.titleMdp {
+    color: #1A8C8A;
+    font-family: poppins;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.titleEM {
+    color: #1A8C8A;
+    font-family: poppins;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    padding: 15px 15px 5px 15px;
+    margin: 0;
+}
+
+.listEmpoye {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.contentBoxEmploye {
+    border: #000000 solid 1px;
+    border-radius: 15px;
+}
+
+.line {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+}
+
+.contentEm {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 10px 20px;
+    align-items: center;
+    min-height: 150px;
+    h2 {
+        font-family: poppins;
+        font-size: 25px;
+        font-weight: 900;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.transp {
+    opacity: 0.3;
+}
+
+.nom {
+    width: 100%;
+}
+
+.desc {
+    border: #000000 solid 1px;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    width: 90%;
+}
+
+.modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #00000031;
+}
+
+.contenModal {
+    position: absolute;
+    left: 40%;
+    top: 200px;
+    width: 20%;
+    height: 40%;
+    border: #000000 solid 1px;
+    border-radius: 15px;
+    background-color: #fff;
 }
