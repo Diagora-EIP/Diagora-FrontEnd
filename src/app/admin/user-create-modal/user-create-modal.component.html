@@ -1,0 +1,35 @@
+<div>
+    <div>
+        <h1>Création d'un nouvel utilisateur</h1>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <mat-label>Entreprise</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let entreprise of entreprises" [value]="entreprise">
+                    {{entreprise.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nom</mat-label>
+            <input matInput placeholder="Ex. Pierre" [(ngModel)]="name" name="nameInput">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ex. Pierre@mail.com" [(ngModel)]="email" name="emailInput">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Rôles</mat-label>
+            <mat-select placeholder="Sélectionnez" [(value)]="roles" multiple>
+                <mat-option *ngFor="let role of rolesList" [value]="role">{{ role }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button color="warn" (click)="close()">Annuler</button>
+            <button mat-raised-button color="primary" (click)="createUser()">Valider</button>
+        </div>
+    </div>
+</div>
