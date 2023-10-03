@@ -70,7 +70,7 @@ export class RegisterComponent {
       "password": this.password
     }
 
-    await fetch("http://localhost:3000/user/register", {
+    await fetch("http://20.111.8.106:3000/user/register", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

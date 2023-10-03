@@ -54,7 +54,7 @@ export class CarteComponent implements AfterViewInit {
     let end = new Date(test.getTime() + 23*59*59*1000)
     this.begin = begin.toISOString()
     this.end = end.toISOString()
-    let link = 'http://localhost:3000/user/' + id + '/itinary/?begin=' + this.begin + '&end=' + this.end;
+    let link = 'http://20.111.8.106:3000/user/' + id + '/itinary/?begin=' + this.begin + '&end=' + this.end;
     console.log(link)
     const response = await fetch(link, {
       method: 'GET',

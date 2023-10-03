@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
             "password": this.password
         }
         //Requête pour se connecter
-        await fetch("http://localhost:3000/user/login", {
+        await fetch("http://20.111.8.106:3000/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

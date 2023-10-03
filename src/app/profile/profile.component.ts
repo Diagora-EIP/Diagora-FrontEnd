@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
   async getUserInfo() {
     const id = localStorage.getItem('id');
     console.log("id", id);
-    await fetch("http://localhost:3000/user/" + id, {
+    await fetch("http://20.111.8.106:3000/user/" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
     };
     console.log("body", body);
     //Requête pour se connecter
-    await fetch("http://localhost:3000/user/reset-password", {
+    await fetch("http://20.111.8.106:3000/user/reset-password", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
