@@ -42,20 +42,6 @@ export class ProfileComponent implements OnInit {
   goto(params: string) {
     this.router.navigate([params]);
   }
-  gotoplan() {
-    this.router.navigate(['planning']);
-  }
-  gotocomm() {
-    this.router.navigate(['commands']);
-  }
-
-  gotoProfile() {
-    this.router.navigate(['profile']);
-  }
-
-  gotoHome() {
-    this.router.navigate(['home']);
-  }
 
   logout() {
     this.logout1 = true;

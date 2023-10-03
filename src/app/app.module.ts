@@ -18,10 +18,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { VehiculeComponent } from './vehicule/vehicule.component';
+import { StatisticComponent } from './statistic/statistic.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
@@ -36,6 +42,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         CommandsComponent,
         ProfileComponent,
         UserListComponent,
+        VehiculeComponent,
+        StatisticComponent,
         UserCreateModalComponent,
     ],
     imports: [
@@ -47,6 +55,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatTableModule,
         MatInputModule,
         FormsModule,
+        MatCardModule,
+        MatIconModule,
+        MatDialogModule,
+        MatListModule,
+        MatSelectModule,
+        ScheduleModule,
         MatDialogModule,
         MatButtonModule,
         MatSelectModule,

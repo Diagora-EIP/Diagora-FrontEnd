@@ -1,25 +1,37 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
 
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.scss']
+  styleUrls: ['./planning.component.scss'],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService]
 })
+
 export class PlanningComponent {
 
-  constructor(private route: Router) { }
+  logout1!: boolean;
+  constructor(private router: Router) { }
 
-  isNavbarOpen = false;
-
-  toggleNavbar() {
-    this.isNavbarOpen = !this.isNavbarOpen;
+  ngOnInit(): void {
+    this.logout1 = false;
   }
 
-  change() {
-    this.route.navigate(['commands']);
+  goto(params: string) {
+    this.router.navigate([params]);
   }
-  gohome() {
-    this.route.navigate(['home']);
+
+  logout() {
+    this.logout1 = true;
+  }
+
+  cancel() {
+    this.logout1 = false;
+  }
+
+  confirm() {
+    localStorage.removeItem('token');
+    this.router.navigate(['login']);
   }
 }

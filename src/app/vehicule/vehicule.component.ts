@@ -18,20 +18,16 @@ import { MatIconModule } from '@angular/material/icon';
 
 export interface DialogData {
   id: number,
-  name: string,
-  date: string,
-  address: string,
-  livreur: string,
+  marque: number,
+  modele: string,
 }
 
 @Component({
-  selector: 'app-commands',
-  templateUrl: './commands.component.html',
-  styleUrls: ['./commands.component.scss']
+  selector: 'app-vehicule',
+  templateUrl: './vehicule.component.html',
+  styleUrls: ['./vehicule.component.scss']
 })
-
-export class CommandsComponent {
-
+export class VehiculeComponent {
   logout1!: boolean;
   constructor(private router: Router, public dialog: MatDialog) { }
 
@@ -42,7 +38,7 @@ export class CommandsComponent {
   goto(params: string) {
     this.router.navigate([params]);
   }
-  
+
   logout() {
     this.logout1 = true;
   }
@@ -56,28 +52,26 @@ export class CommandsComponent {
     this.router.navigate(['login']);
   }
 
-  openDialog(id:number = 0, name:string = '', date:string = '', address:string = '', livreur:string = ''): void {
+  openDialog(id:number = 0, marque:string = '', modele:string = ''): void {
     this.dialog.open(DetailsModalComponent, {
       data: {
         id: id,
-        name: name,
-        date: date,
-        address: address,
-        livreur: livreur,
+        marque: marque,
+        modele: modele,
       }
     });
   }
 
-  commandAction(type:string = 'null'): void {
+  vehiculeAction(type:string = 'null'): void {
     if (type === 'null') { return; }
-    else if (type === 'AddCommand') {
-      this.dialog.open(AddCommandModalComponent);
+    else if (type === 'AddVehicule') {
+      this.dialog.open(AddVehiculeModalComponent);
     }
-    else if (type === 'EditCommand') {
-      this.dialog.open(EditCommandModalComponent);
+    else if (type === 'EditVehicule') {
+      this.dialog.open(EditVehiculeModalComponent);
     }
-    else if (type === 'DeleteCommand') {
-      this.dialog.open(DeleteCommandModalComponent);
+    else if (type === 'DeleteVehicule') {
+      this.dialog.open(DeleteVehiculeModalComponent);
     }
   }
 }
@@ -101,34 +95,34 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'add-command-modal.component',
-  templateUrl: './add-command-modal.component.html',
-  styleUrls: ['./add-command-modal.component.scss'],
+  selector: 'add-vehicule-modal.component',
+  templateUrl: './add-vehicule-modal.component.html',
+  styleUrls: ['./add-vehicule-modal.component.scss'],
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule],
 })
 
-export class AddCommandModalComponent {
+export class AddVehiculeModalComponent {
   requiredValue = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
 }
 
 @Component({
-  selector: 'delete-command-modal.component',
-  templateUrl: './delete-command-modal.component.html',
+  selector: 'delete-vehicule-modal.component',
+  templateUrl: './delete-vehicule-modal.component.html',
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, MatIconModule],
 })
 
-export class DeleteCommandModalComponent { }
+export class DeleteVehiculeModalComponent { }
 
 @Component({
-  selector: 'edit-command-modal.component',
-  templateUrl: './edit-command-modal.component.html',
-  styleUrls: ['./edit-command-modal.component.scss'],
+  selector: 'edit-vehicule-modal.component',
+  templateUrl: './edit-vehicule-modal.component.html',
+  styleUrls: ['./edit-vehicule-modal.component.scss'],
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatDialogModule],
 })
 
-export class EditCommandModalComponent { }
+export class EditVehiculeModalComponent { }

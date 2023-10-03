@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Modifier cette commande</h1>
+<div mat-dialog-content class="commandEdit" >
+    <form class="commandEditForm">
+        <mat-form-field class="commandEditForm-full-with">
+          <mat-label>Commande pour:</mat-label>
+          <input matInput placeholder="Ex. Jean">
+        </mat-form-field>
+        <mat-form-field class="commandEditForm-full-with">
+            <mat-label>Livreur:</mat-label>
+            <input matInput placeholder="Ex. Jean">
+        </mat-form-field>
+        <mat-form-field class="commandEditForm-full-with">
+            <mat-label>Adresse de livraison:</mat-label>
+            <input matInput placeholder="Ex. 1 Place Paul Bec">
+        </mat-form-field>
+        <mat-form-field class="commandEditForm-full-with">
+            <mat-label>Date de livraison:</mat-label>
+            <input matInput placeholder="Ex. 2000-01-01_00:00">
+        </mat-form-field>
+      </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="warn" mat-dialog-close>Annuler</button>
+    <button mat-flat-button color="primary" mat-dialog-close>Valider</button>
+</div>
