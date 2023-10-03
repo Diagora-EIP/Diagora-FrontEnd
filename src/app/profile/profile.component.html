@@ -45,15 +45,19 @@
                 </div>
                 <div class="nom">
                     <h2 class="title">Nom</h2>
-                    <input type="text" class="text">
+                    <!-- <input type="text" class="text"> -->
+                    <h2 class="desc">{{name}}</h2>
                 </div>
                 <div class="nom">
                     <h2 class="title">Nom de l'entreprise</h2>
-                    <input type="text" class="text">
+                    <!-- <input type="text" class="text"> -->
+                    <h2 class="desc">{{nameEntreprise}}</h2>
+
                 </div>
                 <div class="nom">
                     <h2 class="title">Place dans l'entreprise</h2>
-                    <input type="text" class="text">
+                    <h2 class="desc">{{placeEntreprise}}</h2>
+                    <!-- <input type="text" class="text"> -->
                 </div>
             </div>
             <div class="button">
@@ -62,5 +66,60 @@
                 </div>
             </div>
         </div>
+        <div class="updatePassword">
+            <h2 class="titleMdp">Modifier votre mot-de-passe</h2>
+            <div class="password">
+                <label for="" class="title">Mot de passe</label>
+                <input type="password" class="text" #mdp (keyup)="mdpValue(mdp.value)">
+            </div>
+            <div class="password">
+                <label for="" class="title">Confirmer le mot de passe</label>
+                <input type="password" class="text" #mdpConf (keyup)="mdpValueConf(mdpConf.value)">
+            </div>
+            <div class="buttons">
+                <div class="buttonValidation">
+                    <h2 (click)="changeMdp()"> Valider</h2>
+                </div>
+                <div class="buttonValidation">
+                    <h2>Modier via e-mail</h2>
+                </div>
+            </div>
+        </div>
+        <div class="listEmpoye">
+            <div class="contentBoxEmploye">
+                <h2 class="titleEM">Liste des employés</h2>
+                <div class="line"></div>
+                <div class="contentEm" >
+                    <div *ngFor="let item of employe; let index = index" style="width: 100%; text-align: center;">
+                        <h2 (click)="modal = true; tmpIndex = index">{{item.name}}</h2>
+                        <div class="line transp" *ngIf="index < employe.length - 1"></div>
+                    </div>
+                    <div *ngIf="modal" class="modal">
+                        <div class="contenModal">
+                            <h2>Grade actuel: {{employe[tmpIndex].place}}</h2>
+                            <mat-form-field>
+                                <mat-label>Grade</mat-label>
+                                <select matNativeControl required #sel (change)="selection(sel.value)">
+                                  <option value="------">------</option>
+                                  <option value="livreur">livreur</option>
+                                  <option value="directeur">directeur</option>
+                                  <option value="admin">admin</option>
+                                  <option value="employer">employer</option>
+                                </select>
+                            </mat-form-field>
+                            <div class="contentButton">
+                                <div class="buttonValidation" >
+                                    <h2 (click)="modal= false">Annuler</h2>
+                                </div>
+                                <div class="buttonValidation" >
+                                    <h2 (click)="validation()">Valider</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

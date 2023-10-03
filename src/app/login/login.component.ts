@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['home']);
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('id', data.user.user_id)
+                localStorage.setItem('email', data.user.email)
                 if (!this.remember)
                     localStorage.setItem('remember', "true")
                 else
