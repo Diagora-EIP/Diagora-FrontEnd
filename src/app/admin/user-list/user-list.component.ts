@@ -11,7 +11,6 @@ import { UserCreateModalComponent } from '../user-create-modal/user-create-modal
 export class UserListComponent {
 
     constructor(private adminService: AdminService, public dialog: MatDialog) {
-        this.openModal();
         this.getUsers();
     }
     displayedColumns = ['entreprise', 'utilisateur', 'email', 'roles'];
@@ -39,7 +38,9 @@ export class UserListComponent {
     }
 
     openModal(): void {
-        const dialogRef = this.dialog.open(UserCreateModalComponent);
+        const dialogRef = this.dialog.open(UserCreateModalComponent, {
+            panelClass: "custom",
+        });
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal est fermée.', result);
@@ -77,7 +78,7 @@ export class UserListComponent {
 
         this.userList = users;
         this.getUserEntreprise();
-        // this.getUserRoles();
+        this.getUserRoles();
     }
 
     getUserRoles = async () => {

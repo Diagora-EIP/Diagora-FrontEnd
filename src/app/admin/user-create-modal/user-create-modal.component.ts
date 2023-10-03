@@ -31,15 +31,15 @@ export class UserCreateModalComponent {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(this.email))
             return false
-        // if (this.name.length == 0)
-        //     return false
-        // if (this.roles.length == 0)
-        //     return false
+        if (this.name.length == 0)
+            return false
+        if (this.roles.length == 0)
+            return false
         return true
     }
 
     createUser = async () => {
-        if (this.roles.length == 0 || this.name.length == 0 || this.email.length == 0) {
+        if (this.dataCheck() == false) {
             return
         }
         let roles: any = {
@@ -54,12 +54,10 @@ export class UserCreateModalComponent {
         }
         let data: any = await this.adminService.createUser(this.email, this.name, roles)
             .then((response: any) => {
-                data = response
+                this.dialogRef.close();
             })
             .catch((error: any) => {
                 console.log(error)
             })
-        console.log("data", data);
-        // this.dialogRef.close();
     }
 }
