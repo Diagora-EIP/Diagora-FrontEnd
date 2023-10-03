@@ -1,0 +1,67 @@
+.container-userCreateModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 80vw;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container-title-userCreateModal {
+    margin: 0 20px;
+}
+
+.title-userCreateModal {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.content-userCreateModal {
+
+}
+
+.content-input-userCreateModal {
+
+}
+
+.title-input-userCreateModal {
+
+}
+
+.container-selectInput-userCreateModal {
+
+}
+
+.option-selectInput-userCreateModal {
+
+}
+
+.input-userCreateModal {
+
+}
+
+.container-button-userCreateModal {
+
+}
+
+.button-userCreateModal {
+
+}
+
+.cancel .button-userCreateModal {
+
+}
+
+.validate .button-userCreateModal {
+
+}
+
+.mat-form-field-invalid .mat-form-field-underline {
+  background-color: red;
+}
+
+.mat-form-field-invalid .mat-form-field-label {
+  color: red;
+}

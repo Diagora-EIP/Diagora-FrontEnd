@@ -1,35 +1,50 @@
-<div>
-    <div>
-        <h1>Création d'un nouvel utilisateur</h1>
+<div ngClass="container-userCreateModal">
+    <div ngClass="container-title-userCreateModal">
+        <h1 ngClass="title-userCreateModal">Création d'un nouvel utilisateur</h1>
     </div>
 
-    <div>
-        <mat-form-field>
-            <mat-label>Entreprise</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let entreprise of entreprises" [value]="entreprise">
+    <div ngClass="content-userCreateModal">
+        <mat-form-field ngClass="content-input-userCreateModal">
+            <mat-label ngClass="title-input-userCreateModal">Entreprise</mat-label>
+            <mat-select ngClass="container-selectInput-userCreateModal">
+                <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let entreprise of entreprises"
+                    [value]="entreprise">
                     {{entreprise.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Nom</mat-label>
-            <input matInput placeholder="Ex. Pierre" [(ngModel)]="name" name="nameInput">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Ex. Pierre@mail.com" [(ngModel)]="email" name="emailInput">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Rôles</mat-label>
-            <mat-select placeholder="Sélectionnez" [(value)]="roles" multiple>
-                <mat-option *ngFor="let role of rolesList" [value]="role">{{ role }}</mat-option>
+
+        <mat-form-field ngClass="content-input-userCreateModal">
+            <mat-label ngClass="title-input-userCreateModal">Rôles</mat-label>
+            <mat-select ngClass="container-selectInput-userCreateModal" placeholder="Sélectionnez" [(value)]="roles"
+                multiple>
+                <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let role of rolesList"
+                    [value]="role">{{ role }}</mat-option>
             </mat-select>
         </mat-form-field>
 
+        <mat-form-field ngClass="content-input-userCreateModal">
+            <mat-label ngClass="title-input-userCreateModal">Nom</mat-label>
+            <input matInput ngClass="input-userCreateModal" placeholder="Ex. Pierre" [(ngModel)]="name" name="name">
+        </mat-form-field>
+
         <div>
-            <button mat-raised-button color="warn" (click)="close()">Annuler</button>
-            <button mat-raised-button color="primary" (click)="createUser()">Valider</button>
+            <mat-form-field ngClass="content-input-userCreateModal">
+                <mat-label ngClass="title-input-userCreateModal">Email</mat-label>
+                <input matInput ngClass="input-userCreateModal" placeholder="Ex. Pierre@mail.com" [(ngModel)]="email"
+                    name="email" #emailField="ngModel" [required]="true" email>
+            </mat-form-field>
+            <!-- <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
+                <mat-error *ngIf="emailField.errors?.['required']">L'email est requis.</mat-error>
+                <mat-error *ngIf="emailField.errors?.['email']">L'email n'est pas valide.</mat-error>
+            </div> -->
+        </div>
+
+        <div ngClass="container-button-userCreateModal">
+            <button ngClass="cancel button-userCreateModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-userCreateModal" mat-raised-button color="primary"
+                (click)="createUser()">Valider</button>
         </div>
     </div>
 </div>

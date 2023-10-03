@@ -14,6 +14,7 @@ export class UserCreateModalComponent {
     name: string = ''
     email: string = ''
 
+
     constructor(public dialogRef: MatDialogRef<UserCreateModalComponent>, private adminService: AdminService) {
         this.entreprises = this.adminService.getEntreprises().then((response: any) => {
             this.entreprises = response
@@ -24,6 +25,17 @@ export class UserCreateModalComponent {
 
     close(): void {
         this.dialogRef.close();
+    }
+
+    dataCheck() {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(this.email))
+            return false
+        // if (this.name.length == 0)
+        //     return false
+        // if (this.roles.length == 0)
+        //     return false
+        return true
     }
 
     createUser = async () => {
