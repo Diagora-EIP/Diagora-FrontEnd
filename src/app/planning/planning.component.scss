@@ -1,61 +1,78 @@
-* {
-    font-family: monospace;
-}
-
-nav {
+.NavBar {
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: fixed;
     top: 0;
-    left: -200px; /* Démarre en dehors de l'écran */
-    width: 200px;
-    height: 100vh;
-    background-color: #f0f0f0;
-    transition: left 0.3s ease-in-out;
-}
-  
-nav.open {
-    left: 0; /* S'affiche à partir de la gauche */
+    z-index: 100;
+    box-shadow: 0 0 10px #000000;
 }
 
-button#nav {
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.logo {
     width: 100px;
-    height: 50px;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 10%;
-    position: fixed;
-    top: 20px;
-    left: 700px;
+    height: 100px;
+    margin-left: 30px;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-button#navigate {
-    justify-content: center;
-    align-items: center;
+.contentCenter {
     display: flex;
-    width: 150px;
-    height: 50px;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 10%;
+    align-items: center;
+
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     position: fixed;
-    top: 90px;
-    left: 700px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
+    z-index: 100;
+    top: 70px;
+    background-color: #fff;
+    border: black solid 1px;
+    border-radius: 13px;
+    right: 0px;
+    height: 150px;
+    width: 150px;
 
-li {
-    list-style-type: none;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    font-weight: bold;
     cursor: pointer;
 }
 
-#current {
-    font-weight: normal;
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    align-items: center;
+    cursor: pointer;
+    &:hover > h2 {
+        text-decoration: underline;
+    }
+    &:hover > img {
+        scale: 1.1;
+    }
+    img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-family: poppins;
+        font-size: 20px;
+        font-weight: 900;
+        color: #1A8C8A;
+        margin: 0;
+    }
+}
+
+.boxProfile {
+    display: flex;
+    align-items: center;
+}
+
+.page {
+    margin-bottom: 100px;
 }

@@ -6,11 +6,11 @@
                 <img src="../../assets/planning.svg" alt="">
                 <h2>Planning</h2>
             </div>
-            <div class="contentBox">
+            <div class="contentBox" (click)="goto('commands')">
                 <img src="../../assets/command.svg" alt="">
                 <h2>Commandes</h2>
             </div>
-            <div class="contentBox" (click)="goto('vehicule')">
+            <div class="contentBox">
                 <img src="../../assets/vehicule.svg" alt="">
                 <h2>Vehicules</h2>
             </div>
@@ -41,21 +41,20 @@
         <mat-card class="card">
             <mat-card-header>
               <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Jean</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
+                <mat-card-title>Vehicule: <strong>1</strong></mat-card-title>
               </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
             </mat-card-content>
             <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(1, 'Jean', '2023-10-03_10:30', '1 Place Vendome', 'Mark')">
+                <a mat-fab extended color="accent" (click)="openDialog(1, 'Mercedes Bens', 'Camion')">
                     <mat-icon>menu</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('EditCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
                     <mat-icon>settings</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('DeleteCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
                     <mat-icon>delete</mat-icon>
                 </a>
             </mat-card-actions>
@@ -63,21 +62,20 @@
           <mat-card class="card">
             <mat-card-header>
               <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Pierre</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
+                <mat-card-title>Vehicule: <strong>2</strong></mat-card-title>
               </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
             </mat-card-content>
             <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(2, 'Pierre', '2023-10-03_12:30', '6 Place Paul Bec', 'Mark')">
+                <a mat-fab extended color="accent" (click)="openDialog(2, 'Mercedes Bens', 'Camion')">
                     <mat-icon>menu</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('EditCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
                     <mat-icon>settings</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('DeleteCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
                     <mat-icon>delete</mat-icon>
                 </a>
             </mat-card-actions>
@@ -85,27 +83,26 @@
           <mat-card class="card">
             <mat-card-header>
               <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Maxime</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>James</strong> </mat-card-subtitle>
+                <mat-card-title>Vehicule: <strong>3</strong></mat-card-title>
               </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
             </mat-card-content>
             <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(3, 'Maxime', '2023-10-03_11:00', '3 Rue Neptune', 'James')">
+                <a mat-fab extended color="accent" (click)="openDialog(3, 'BMW', 'Camion')">
                     <mat-icon>menu</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('EditCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
                     <mat-icon>settings</mat-icon>
                 </a>
-                <a mat-fab extended color="accent" (click)="commandAction('DeleteCommand')">
+                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
                     <mat-icon>delete</mat-icon>
                 </a>
             </mat-card-actions>
           </mat-card>
     </div>
     <div class="editPage">
-        <button mat-flat-button color="primary" (click)="commandAction('AddCommand')">Nouvelle Commande</button>
+        <button mat-flat-button color="primary" (click)="vehiculeAction('AddVehicule')">Nouvelle Commande</button>
     </div>
 </div>

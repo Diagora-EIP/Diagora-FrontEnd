@@ -1,0 +1,102 @@
+<div>
+    <div class="NavBar">
+        <img class="logo" src="../../assets/logo.png" alt="" (click)="goto('home')">
+        <div class="contentCenter">
+            <div class="contentBox" (click)="goto('planning')">
+                <img src="../../assets/planning.svg" alt="">
+                <h2>Planning</h2>
+            </div>
+            <div class="contentBox" (click)="goto('commands')">
+                <img src="../../assets/command.svg" alt="">
+                <h2>Commandes</h2>
+            </div>
+            <div class="contentBox" (click)="goto('vehicule')">
+                <img src="../../assets/vehicule.svg" alt="">
+                <h2>Vehicules</h2>
+            </div>
+            <div class="contentBox">
+                <img src="../../assets/statistic.svg" alt="">
+                <h2>Statistiques</h2>
+            </div>
+        </div>
+        <div class="boxProfile">
+            <div class="contentBox" (click)="goto('profile')">
+                <img src="../../assets/profile.svg" alt="">
+                <h2>Profile</h2>
+            </div>
+            <div class="contentBox" (click)="logout()">
+                <h2>Déconnection</h2>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="logout1" class="logout">
+        <div class="contentBox" (click)="cancel()">
+            <h2>Annuler</h2>
+        </div>
+        <div class="contentBox" (click)="confirm()">
+            <h2>Confirmer</h2>
+        </div>
+    </div>
+    <div class="chart-container">
+        <canvas id="MyChart" >{{ chart }}</canvas>
+    </div>
+    <div class="pageContent">
+        <h2>Factures 2023</h2>
+        <mat-list class="factureList">
+            <mat-list-item class="factureItems">
+                <span matListItemTitle class="factureItemTitle">
+                    <strong>Essences</strong>
+                </span>
+                <span matListItemLine>essences_01.pdf</span>
+                <span matListItemLine>essences_02.pdf</span>
+                <span matListItemLine>essences_03.pdf</span>
+                <span matListItemLine>essences_04.pdf</span>
+                <span matListItemLine>essences_05.pdf</span>
+                <div class="actionButtons">
+                    <a mat-fab extended color="warn" (click)="statsAction('DeleteStats', 'essences')">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                    <a mat-fab extended color="accent" (click)="statsAction('AddStats')">
+                        <mat-icon>add</mat-icon>
+                    </a>
+                </div>
+            </mat-list-item>
+            <mat-list-item class="factureItems">
+                <span matListItemTitle class="factureItemTitle">
+                    <strong>Salaires</strong>
+                </span>
+                <span matListItemLine>salaires_01.pdf</span>
+                <span matListItemLine>salaires_02.pdf</span>
+                <span matListItemLine>salaires_03.pdf</span>
+                <span matListItemLine>salaires_04.pdf</span>
+                <span matListItemLine>salaires_05.pdf</span>
+                <div class="actionButtons">
+                    <a mat-fab extended color="warn" (click)="statsAction('DeleteStats', 'salaires')">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                    <a mat-fab extended color="accent" (click)="statsAction('AddStats')">
+                        <mat-icon>add</mat-icon>
+                    </a>
+                </div>
+            </mat-list-item>
+            <mat-list-item class="factureItems">
+                <span matListItemTitle class="factureItemTitle">
+                    <strong>Materiels</strong>
+                </span>
+                <span matListItemLine>materiels_01.pdf</span>
+                <span matListItemLine>materiels_02.pdf</span>
+                <span matListItemLine>materiels_03.pdf</span>
+                <span matListItemLine>materiels_04.pdf</span>
+                <span matListItemLine>materiels_05.pdf</span>
+                <div class="actionButtons">
+                    <a mat-fab extended color="warn" (click)="statsAction('DeleteStats', 'materiels')">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                    <a mat-fab extended color="accent" (click)="statsAction('AddStats')">
+                        <mat-icon>add</mat-icon>
+                    </a>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

@@ -18,6 +18,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { VehiculeComponent } from './vehicule/vehicule.component';
+import { StatisticComponent } from './statistic/statistic.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
     declarations: [
@@ -31,6 +39,8 @@ import { FormsModule } from '@angular/forms';
         CommandsComponent,
         ProfileComponent,
         UserListComponent,
+        VehiculeComponent,
+        StatisticComponent,
     ],
     imports: [
         BrowserModule,
@@ -40,7 +50,13 @@ import { FormsModule } from '@angular/forms';
         MatSlideToggleModule,
         MatTableModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        MatCardModule,
+        MatIconModule,
+        MatDialogModule,
+        MatListModule,
+        MatSelectModule,
+        ScheduleModule,
     ],
     providers: [
     ],

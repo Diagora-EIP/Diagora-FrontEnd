@@ -1,16 +1,41 @@
-<button id="nav" (click)="toggleNavbar()">Toggle Navbar</button>
-
-<!-- <button id="navigate" (click)="change()">Move To Commands Page</button> -->
-
-<nav [ngClass]="{'open': isNavbarOpen}">
-    <!-- Contenu de la navbar -->
-    <ul>
-        <li (click)="gohome()">Home</li>
-        <li id="current">Planning</li>
-        <li (click)="change()">Commandes</li>
-        <li>Stats</li>
-        <li>Vehicule</li>
-        <li>Admin</li>
-        <li>Carte</li>
-    </ul>
-</nav>
+<div class="page">
+    <div class="NavBar">
+        <img class="logo" src="../../assets/logo.png" alt="" (click)="goto('home')">
+        <div class="contentCenter">
+            <div class="contentBox">
+                <img src="../../assets/planning.svg" alt="">
+                <h2>Planning</h2>
+            </div>
+            <div class="contentBox" (click)="goto('commands')">
+                <img src="../../assets/command.svg" alt="">
+                <h2>Commandes</h2>
+            </div>
+            <div class="contentBox" (click)="goto('vehicule')">
+                <img src="../../assets/vehicule.svg" alt="">
+                <h2>Vehicules</h2>
+            </div>
+            <div class="contentBox" (click)="goto('statistic')">
+                <img src="../../assets/statistic.svg" alt="">
+                <h2>Statistiques</h2>
+            </div>
+        </div>
+        <div class="boxProfile">
+            <div class="contentBox" (click)="goto('profile')">
+                <img src="../../assets/profile.svg" alt="">
+                <h2>Profile</h2>
+            </div>
+            <div class="contentBox" (click)="logout()">
+                <h2>Déconnection</h2>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="logout1" class="logout">
+        <div class="contentBox" (click)="cancel()">
+            <h2>Annuler</h2>
+        </div>
+        <div class="contentBox" (click)="confirm()">
+            <h2>Confirmer</h2>
+        </div>
+    </div>
+</div>
+<ejs-schedule> </ejs-schedule>

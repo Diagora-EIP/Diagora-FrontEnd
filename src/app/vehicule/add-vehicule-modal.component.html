@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Ajouter un nouveau vehicule</h1>
+<div mat-dialog-content class="vehiculeAdd" >
+    <form class="vehiculeAddForm">
+        <mat-form-field class="vehiculeAddForm-full-with">
+          <mat-label>Marque:</mat-label>
+          <input matInput [formControl]="requiredValue" placeholder="Ex. BMW">
+          <mat-error *ngIf="requiredValue.hasError('required')">
+            La marque est <strong>obligatoire</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="vehiculeAddForm-full-with">
+            <mat-label>Modele:</mat-label>
+            <input matInput [formControl]="requiredValue" placeholder="Ex. Camion">
+            <mat-error *ngIf="requiredValue.hasError('required')">
+              Le modele est <strong>obligatoire</strong>
+            </mat-error>
+        </mat-form-field>
+      </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="warn" mat-dialog-close>Fermer</button>
+    <button mat-flat-button color="primary" mat-dialog-close>Valider</button>
+</div>

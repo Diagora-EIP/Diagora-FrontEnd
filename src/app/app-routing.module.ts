@@ -11,18 +11,23 @@ import { PlanningComponent } from './planning/planning.component';
 import { CommandsComponent } from './commands/commands.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
+import { VehiculeComponent } from './vehicule/vehicule.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'carte/:date', component: CarteComponent },
+  { path: 'admin/userList', component: UserListComponent },
+  
+  { path: 'profile', component: ProfileComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'planning', component: PlanningComponent },
   { path: 'commands', component: CommandsComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'admin/userList', component: UserListComponent }
+  { path: 'vehicule', component: VehiculeComponent },
+  { path: 'statistic', component: StatisticComponent },
   // { path: '**', component: notFoundComponent }
 ];
 
