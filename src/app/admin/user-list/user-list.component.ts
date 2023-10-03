@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
 
 @Component({
     selector: 'app-user-list',
@@ -8,7 +10,7 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class UserListComponent {
 
-    constructor(private adminService: AdminService) {
+    constructor(private adminService: AdminService, public dialog: MatDialog) {
         this.getUsers();
     }
     displayedColumns = ['entreprise', 'utilisateur', 'email', 'roles'];
@@ -25,7 +27,6 @@ export class UserListComponent {
         this.updateDataSource();
     }
 
-
     private _userList: any[] = [];
     get userList(): any[] {
         return this._userList;
@@ -34,6 +35,16 @@ export class UserListComponent {
         this._userList = value;
 
         this.updateDataSource();
+    }
+
+    openModal(): void {
+        const dialogRef = this.dialog.open(UserCreateModalComponent, {
+            panelClass: "custom",
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('La modal est fermée.', result);
+        });
     }
 
     updateDataSource() {

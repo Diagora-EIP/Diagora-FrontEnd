@@ -7,6 +7,7 @@ import { environment } from 'environnement';
 })
 export class AdminService {
     token = localStorage.getItem('token');
+    user_id = localStorage.getItem('id');
 
     header: any = {};
 
@@ -33,6 +34,11 @@ export class AdminService {
 
     async getEntreprises() {
         const response = await axios.get(this.apiUrl + '/company', this.header);
+        return response.data;
+    }
+
+    async createUser(email: string, name: string, roles: any) {
+        const response = await axios.post(this.apiUrl + '/admin/createUser', { email: email, name: name, roles: roles, user_id: this.user_id }, this.header);
         return response.data;
     }
 }
