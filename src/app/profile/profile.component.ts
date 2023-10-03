@@ -115,7 +115,8 @@ export class ProfileComponent implements OnInit {
     }).then(function (response) {
       return response.json();
     }).then(data => {
-      if (data.statusCode == 500) {
+      console.log("data", data);
+      if (data.statusCode == 200) {
         alert('Mot de passe changé avec succès');
         this.password = "";
         this.confirmPassword = "";
