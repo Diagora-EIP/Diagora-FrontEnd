@@ -1,33 +1,38 @@
-<div>
-    <div>
-        <h1>Utilisateurs de Diagora</h1>
+<div ngClass="container-userList">
+    <div ngClass="container-title-userList">
+        <h1 ngClass="title-userList">Utilisateurs de Diagora</h1>
     </div>
-    <div>
-        <mat-form-field class="example-full-width">
-            <mat-label>Entreprise</mat-label>
-            <input matInput placeholder="Ex. Diagora" [(ngModel)]="entrepriseFilter" name="filterEntreprise">
-        </mat-form-field>
+    <div ngClass="container-utils-userList">
+        <button ngClass="new button-utils-userList" mat-raised-button color="primary" (click)="openModal()">+
+            Nouvelle Utilisateur</button>
+        <div ngClass="container-filter-userList">
+            <mat-form-field class="content-filter-userList">
+                <mat-label ngClass="title-filter-userList">Entreprise</mat-label>
+                <input matInput ngClass="input-filter-userList" placeholder="Ex. Diagora" [(ngModel)]="entrepriseFilter"
+                    name="filterEntreprise">
+            </mat-form-field>
+        </div>
     </div>
-    <section class="example-container mat-elevation-z8" tabindex="0">
-        <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="entreprise">
-                <th mat-header-cell *matHeaderCellDef> Entreprise </th>
-                <td mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
+    <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
+            <ng-container class="content-tab-userList" matColumnDef="entreprise">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
             </ng-container>
-            <ng-container matColumnDef="utilisateur">
-                <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
-                <td mat-cell *matCellDef="let element"> {{element.utilisateur}} </td>
+            <ng-container class="content-tab-userList" matColumnDef="utilisateur">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td>
             </ng-container>
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            <ng-container class="content-tab-userList" matColumnDef="email">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td>
             </ng-container>
-            <ng-container matColumnDef="roles">
-                <th mat-header-cell *matHeaderCellDef> Rôles </th>
-                <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
+            <ng-container class="content-tab-userList" matColumnDef="roles">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    </section>
+    </div>
 </div>

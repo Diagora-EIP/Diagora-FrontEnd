@@ -26,6 +26,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
+import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
@@ -41,6 +44,7 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
         UserListComponent,
         VehiculeComponent,
         StatisticComponent,
+        UserCreateModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -57,6 +61,10 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
         MatListModule,
         MatSelectModule,
         ScheduleModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
     ],
     providers: [
     ],
