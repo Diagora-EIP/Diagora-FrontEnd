@@ -29,6 +29,7 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -65,6 +66,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatButtonModule,
         MatSelectModule,
         MatFormFieldModule,
+        HttpClientModule
     ],
     providers: [
     ],
