@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as Leaflet from 'leaflet'; 
+import { environment } from 'environnement';
 
 // Leaflet.Icon.Default.imagePath = 'assets/'; 
 
@@ -54,7 +55,7 @@ export class CarteComponent implements AfterViewInit {
     let end = new Date(test.getTime() + 23*59*59*1000)
     this.begin = begin.toISOString()
     this.end = end.toISOString()
-    let link = 'http://20.111.8.106:3000/user/' + id + '/itinary/?begin=' + this.begin + '&end=' + this.end;
+    let link = environment.apiUrl + 'user/' + id + '/itinary/?begin=' + this.begin + '&end=' + this.end;
     console.log(link)
     const response = await fetch(link, {
       method: 'GET',

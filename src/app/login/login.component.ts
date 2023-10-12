@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from 'environnement';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
             "password": this.password
         }
         //Requête pour se connecter
-        await fetch("http://20.111.8.106:3000/user/login", {
+        await fetch(environment.apiUrl + "/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
