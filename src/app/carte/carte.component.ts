@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as Leaflet from 'leaflet'; 
-import { environment } from 'environnement';
+import { environment } from 'environment';
 
 // Leaflet.Icon.Default.imagePath = 'assets/'; 
 

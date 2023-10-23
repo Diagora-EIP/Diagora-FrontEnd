@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'environnement';
+import { environment } from 'environment';
 
 @Component({
   selector: 'app-profile',
