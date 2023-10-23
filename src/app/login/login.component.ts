@@ -4,6 +4,7 @@ import { SecurityService } from '../services/security.service';
 import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -12,14 +13,21 @@ import { Subscription, throwError } from 'rxjs';
 })
 
 export class LoginComponent {
-    email: string = "";
-    password: string = "";
+    loginForm: FormGroup;
+    // email: string = "";
+    // password: string = "";
     Erreur: string = "";
     popUp: boolean = false;
-    remember: boolean = false;
+    // remember: boolean = false;
     loginSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService) { }
+    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+        this.loginForm = this.fb.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required]],
+            remember: [false]
+        });
+    }
 
     ngOnDestroy() {
         this.loginSubscription?.unsubscribe();
@@ -30,29 +38,32 @@ export class LoginComponent {
     }
 
     //Fonction qui permet de changer la valeur de la variable remember
-    onRem() {
-        this.remember = !this.remember
-    }
+    // onRem() {
+    //     this.remember = !this.remember
+    // }
 
     async login() {
-        if (this.email == "" || this.password == "") {
-            this.Erreur = 'Veuillez remplir tous les champs';
+        if (this.loginForm.invalid) {
+            this.Erreur = 'Veuillez remplir tous les champs correctement.';
             this.popUp = true;
             return;
         }
-        if (!this.utilsService.checkEmail(this.email)) {
+
+        const { email, password, remember } = this.loginForm.value;
+
+        if (!this.utilsService.checkEmail(email)) {
             this.Erreur = 'Veuillez entrer une adresse mail valide';
             this.popUp = true;
             return;
         }
-        this.loginSubscription = this.securityService.login(this.email, this.password, this.remember)
+        this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
                     next: data => {
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('id', data.user.user_id);
                         localStorage.setItem('email', data.user.email);
-                        if (!this.remember) {
+                        if (!remember) {
                             localStorage.setItem('remember', 'true');
                         } else {
                             localStorage.setItem('remember', 'false');
@@ -61,7 +72,7 @@ export class LoginComponent {
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
-                    }
+                    },
                 }),
             )
             .subscribe({

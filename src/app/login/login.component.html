@@ -1,37 +1,46 @@
-<div class="contentPage">
-    <div class="leftPart">
-        <h1 class="title">Bienvenue !</h1>
-        <div class="inputContent">
-            <label for="">E-mail <span>*</span></label>
-            <input type="text" id="emailInput" #box [(ngModel)]="email">
+<div class="container-login">
+    <div class="container-left-login">
+        <div class="container-title-login">
+            <h1 class="title-login">Bienvenue !</h1>
+            <h4 class="subtitle-login">Entrez vos identifiants afin d'accéder à votre compte</h4>
         </div>
-        <div class="inputContent">
-            <label for="">Mot de passe <span>*</span></label>
-            <input type="password" id="passwordInput" #pass [(ngModel)]="password">
-        </div>
-        <div class="rememberContent">
-            <div>
-                <input class="inputBox" type="checkbox" id="rememberMeInput" (click)="onRem()">
-                <label for="">Rester connecté</label>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="container-form-login">
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Ex. entreprise@diagora.com">
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
             </div>
-            <div>
-                <a class="leftMDP" routerLink="/forgot-password">Mot de passe oublié ?</a>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Mot de passe</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
-        </div>
-        <button (click)="login()" class="login">Connectez-vous</button>
-        <div class="contentRegister">
-            <p>Vous n'avez pas de compte ? <br><span class="register" routerLink="/register">Créer votre compte</span>
+            <div class="rememberContainer-form-login">
+                <mat-checkbox formControlName="remember" color="primary"
+                    class="custom-checkbox checkbox-form-login">Rester connecté</mat-checkbox>
+                <a class="forgotPassword-form-login">Mot de passe oublié ?</a>
+            </div>
+            <button mat-raised-button type="submit" class="button-form-login"
+                [disabled]="loginForm.invalid">Connectez-vous</button>
+        </form>
+        <div class="regirsterLinkContainer-login">
+            <p class="regirsterLinkContent-login">
+                Vous n'avez pas de compte ? <a class="regirsterLink-login" routerLink="/register">Créer Un Compte</a>
             </p>
         </div>
     </div>
-    <div class="rightPart">
-        <img class="imgLogo" src="../../assets/logo.png" alt="logo">
-        <h2 class="undertitle">DIAGORA</h2>
-    </div>
-    <div *ngIf="popUp">
-        <div class="popUp">
-            <h3>{{Erreur}}</h3>
-            <button (click)="closePopUp()">Fermer</button>
-        </div>
+    <div class="container-right-login">
+        <div class="background-login"></div>
     </div>
 </div>

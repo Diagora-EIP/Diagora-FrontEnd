@@ -30,6 +30,8 @@ import { UserCreateModalComponent } from './admin/user-create-modal/user-create-
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -66,7 +68,9 @@ import { HttpClientModule } from '@angular/common/http';
         MatButtonModule,
         MatSelectModule,
         MatFormFieldModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
     ],
     providers: [
     ],
