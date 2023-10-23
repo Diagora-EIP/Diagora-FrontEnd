@@ -14,11 +14,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class LoginComponent {
     loginForm: FormGroup;
-    // email: string = "";
-    // password: string = "";
     Erreur: string = "";
     popUp: boolean = false;
-    // remember: boolean = false;
     loginSubscription: Subscription | undefined;
 
     constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
@@ -36,11 +33,6 @@ export class LoginComponent {
     closePopUp() {
         this.popUp = false;
     }
-
-    //Fonction qui permet de changer la valeur de la variable remember
-    // onRem() {
-    //     this.remember = !this.remember
-    // }
 
     async login() {
         if (this.loginForm.invalid) {
