@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'environment';
 
 @Component({
     selector: 'app-register',
@@ -70,7 +71,7 @@ export class RegisterComponent {
             "password": this.password
         }
 
-        await fetch("http://localhost:3000/user/register", {
+        await fetch(environment.apiUrl + "/user/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
