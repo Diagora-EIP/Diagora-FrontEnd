@@ -11,12 +11,12 @@
 @import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
 
 @font-face {
-    font-family: 'inter';
-    src: url('./assets/inter.ttf');
+    font-family: 'Nunito';
+    src: url('./assets/font/Nunito.ttf');
 }
 
 h1, h2, h3, h4, h5, h6, button, input, label, p, span {
-    font-family: 'inter';
+    font-family: 'Nunito';
 }
 
 html, body { height: 100%; }

@@ -29,6 +29,9 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -65,6 +68,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatButtonModule,
         MatSelectModule,
         MatFormFieldModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
     ],
     providers: [
     ],
