@@ -1,30 +1,74 @@
 <div class="contentPage">
-    <div class="leftPart">
-        <h1 class="title">Créez votre compte !</h1>
-        <div class="inputContent">
-            <label for="">Nom <span>*</span></label>
-            <input type="text" id="emailInput" #name (keyup)="onEnterName(name.value)">
+    <div class="contentRegister">
+        <div class="container-title-login">
+            <h1 class="title-login">Créer votre compte !</h1>
         </div>
-        <div class="inputContent">
-            <label for="">E-mail <span>*</span></label>
-            <input type="text" id="emailInput" #box (keyup)="onEnterEmail(box.value)">
-        </div>
-        <div class="inputContent">
-            <label for="">Mot-de-passe <span>*</span></label>
-            <input type="password" id="passwordInput" #pass (keyup)="onEnterPass(pass.value)">
-        </div>
-        <div class="inputContent">
-            <label for="">Confirmez votre mot-de-passe <span>*</span></label>
-            <input type="password" id="passwordConfInput" #passConf (keyup)="onEnterPassConf(passConf.value)">
-        </div>
-        <button (click)="register()" class="login">Créer sont compte</button>
-        <div class="contentRegister">
-            <p>Vous avez déjà un compte ? <br><span class="register" routerLink="/login">Connectez-vous</span></p>
-        </div>
+        <form [formGroup]="registerGroup" (ngSubmit)="register()" class="container-form-login">
+            <div class="nameFirstContainer">
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Name</mat-label>
+                        <input type="name" matInput formControlName="name" placeholder="Ex. piloz">
+                        <mat-error *ngIf="registerGroup.get('name')?.hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Firstname</mat-label>
+                        <input type="firstname" matInput formControlName="firstname" placeholder="Ex. william">
+                        <mat-error *ngIf="registerGroup.get('firstname')?.hasError('required')">
+                            Firstname is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Entreprise</mat-label>
+                    <input type="entreprise" matInput formControlName="entreprise" placeholder="Ex. Diagora">
+                    <mat-error *ngIf="registerGroup.get('entreprise')?.hasError('required')">
+                        Entreprise is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Ex. entreprise@diagora.com">
+                    <mat-error *ngIf="registerGroup.get('email')?.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="registerGroup.get('email')?.hasError('email')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Mot de passe</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
+                    <mat-error *ngIf="registerGroup.get('password')?.hasError('required')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Confirmer mot de passe</mat-label>
+                    <input type="password" matInput formControlName="passwordConf" placeholder="Confirmer votre mot de passe">
+                    <mat-error *ngIf="registerGroup.get('passwordConf')?.hasError('required')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <button mat-raised-button type="submit" class="button-form-login"
+                [disabled]="registerGroup.invalid">Créée votre compte</button>
+        </form>
     </div>
-    <div class="rightPart">
-        <img class="imgLogo" src="../../assets/logo.png" alt="logo">
-        <h2 class="undertitle">DIAGORA</h2>
+    <div class="container-right-login">
+        <div class="background-login"></div>
     </div>
     <div *ngIf="popUp">
         <div class="popUp">
