@@ -5,6 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'environment';
 
 @Component({
     selector: 'app-register',
@@ -40,7 +41,6 @@ export class RegisterComponent {
             return;
         }
         
-        
         const { name, firstname, entreprise, email, password, passwordConf } = this.registerGroup.value;
         
         if (password != passwordConf) {
@@ -49,57 +49,30 @@ export class RegisterComponent {
             return;
         }
 
-        // if (!this.utilsService.checkEmail(email)) {
-        //     this.Erreur = 'Veuillez entrer une adresse mail valide';
-        //     this.popUp = true;
-        //     return;
-        // }
-        // if (this.email == "" || this.password == "" || this.passwordConf == "" || this.name == "") {
-        //     this.Erreur = 'Veuillez remplir tous les champs';
-        //     this.popUp = true;
-        //     return;
-        // }
+        const body = {
+            "name": name,
+            "email": email,
+            "password": password
+        }
 
-        // if (this.password != this.passwordConf) {
-        //     this.Erreur = "Les mots de passe ne sont pas identique"
-        //     this.popUp = true;
-        //     return;
-        // }
-
-        // var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        // if (!this.email.match(validRegex)) {
-        //     this.Erreur = 'Veuillez entrer une adresse mail valide';
-        //     this.popUp = true;
-        //     return;
-        // }
-
-        // const body = {
-        //     "name": this.name,
-        //     "email": this.email,
-        //     "password": this.password
-        // }
-
-        // await fetch(environment.apiUrl + "/user/register", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(body)
-        // }).then(function (response) {
-        //     console.log("res", response);
-        //     return response.json();
-        // }).then(res => {
-        //     console.log("res", res);
-        //     if (res.error) {
-        //         this.Erreur = res.error;
-        //         this.popUp = true;
-        //         this.name = "";
-        //         this.password = "";
-        //         this.passwordConf = "";
-        //         this.email = "";
-        //     } else {
-        //         this.router.navigate(["/login"]);
-        //     }
-        // })
+        await fetch(environment.apiUrl + "/user/register", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then(function (response) {
+            console.log("res", response);
+            return response.json();
+        }).then(res => {
+            console.log("res", res);
+            if (res.error) {
+                this.Erreur = res.error;
+                this.popUp = true;
+                this.registerGroup.reset();
+            } else {
+                this.router.navigate(["/login"]);
+            }
+        })
     }
 }
