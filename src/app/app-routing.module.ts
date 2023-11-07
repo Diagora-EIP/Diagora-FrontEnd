@@ -13,22 +13,35 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
+import { userGuard, adminGuard } from './guards/role-guard.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'carte/:date', component: CarteComponent },
-    { path: 'admin/userList', component: UserListComponent },
-
-    { path: 'profile', component: ProfileComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'planning', component: PlanningComponent },
-    { path: 'commands', component: CommandsComponent },
-    { path: 'vehicule', component: VehiculeComponent },
-    { path: 'statistic', component: StatisticComponent },
-    // { path: '**', component: notFoundComponent }
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    {
+        path: '', canActivate: [AuthLeftGuard], children: [
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+            { path: 'forgot-password', component: ForgotPasswordComponent },
+        ]
+    },
+    {
+        path: '', canActivate: [AuthGuard], children: [
+            { path: 'carte/:date', component: CarteComponent },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'home', component: HomeComponent },
+            { path: 'planning', component: PlanningComponent },
+            { path: 'commands', component: CommandsComponent },
+            { path: 'vehicule', component: VehiculeComponent },
+            { path: 'statistic', component: StatisticComponent },
+        ]
+    },
+    {
+        path: 'admin', canActivate: [adminGuard], children: [
+            { path: 'userList', component: UserListComponent, },
+        ]
+    },
+    { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
