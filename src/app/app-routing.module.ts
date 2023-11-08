@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'carte/:date', component: CarteComponent },
     { path: 'admin/userList', component: UserListComponent },
+    { path: 'manager/userList', component: ManagerUserListComponent },
 
     { path: 'profile', component: ProfileComponent },
     { path: 'home', component: HomeComponent },
