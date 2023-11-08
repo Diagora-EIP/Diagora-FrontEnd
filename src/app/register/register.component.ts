@@ -16,6 +16,7 @@ export class RegisterComponent {
     registerGroup: FormGroup;
     popUp!: boolean;
     Erreur!: string;
+    registerSubscription: Subscription | undefined;
 
     constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder) { 
         this.registerGroup = this.fb.group({
@@ -27,7 +28,9 @@ export class RegisterComponent {
             passwordConf: ['', [Validators.required]],
         });
     }
-
+    ngOnDestroy() {
+        this.registerSubscription?.unsubscribe();
+    }
 
     closePopUp() {
         this.Erreur = "";
@@ -55,24 +58,24 @@ export class RegisterComponent {
             "password": password
         }
 
-        await fetch(environment.apiUrl + "/user/register", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        }).then(function (response) {
-            console.log("res", response);
-            return response.json();
-        }).then(res => {
-            console.log("res", res);
-            if (res.error) {
-                this.Erreur = res.error;
-                this.popUp = true;
-                this.registerGroup.reset();
-            } else {
+        
+        this.registerSubscription = this.securityService.register(name, email, password)
+        .pipe(
+            tap({
+                next: data => {
+                },
+                error: (err) => {
+                    console.log("err", err);
+                    this.Erreur = err.error;
+                    this.popUp = true;
+                    this.registerGroup.reset();
+                }
+            })
+        )
+        .subscribe({
+            next: (data) => {
                 this.router.navigate(["/login"]);
             }
-        })
+        });
     }
 }
