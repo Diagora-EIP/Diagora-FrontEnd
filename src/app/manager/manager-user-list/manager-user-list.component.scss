@@ -1,0 +1,56 @@
+$font-color: #01ABA8;
+
+.container-userList {
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    justify-items: center;
+}
+
+.container-title-userList {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.container-utils-userList {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.title-filter-userList {
+    font-weight: bold;
+    color: $font-color;
+}
+
+.button-utils-userList {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.container-tab-userList {
+    display: flex;
+    width: 80%;
+    justify-self: center;
+    margin-bottom: 20px;
+}
+
+.header-tab-userList {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.data-tab-userList {
+    font-size: 1rem;
+}

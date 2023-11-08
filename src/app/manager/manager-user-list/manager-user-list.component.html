@@ -1,0 +1,27 @@
+<div ngClass="container-userList">
+    <div ngClass="container-title-userList">
+        <h1 ngClass="title-userList">Utilisateurs de l'entreprise</h1>
+    </div>
+    <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
+            <!-- <ng-container class="content-tab-userList" matColumnDef="entreprise">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
+            </ng-container> -->
+            <ng-container class="content-tab-userList" matColumnDef="utilisateur">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="email">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="roles">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

@@ -28,4 +28,9 @@ export class SecurityService {
         const requestBody = { email, password, remember };
         return this.http.post<any>(`${this.apiUrl}/user/login`, requestBody);
     }
+
+    register(name: string, email: string, password: string): Observable<any> {
+        const requestBody = { name, email, password };
+        return this.http.post<any>(`${this.apiUrl}/user/register`, requestBody);
+    }
 }

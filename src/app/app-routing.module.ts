@@ -15,6 +15,7 @@ import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
 import { userGuard, adminGuard } from './guards/role-guard.guard';
+import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,6 +35,7 @@ const routes: Routes = [
             { path: 'commands', component: CommandsComponent },
             { path: 'vehicule', component: VehiculeComponent },
             { path: 'statistic', component: StatisticComponent },
+            { path: 'manager/userList', component: ManagerUserListComponent },
         ]
     },
     {
