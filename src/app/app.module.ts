@@ -25,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,7 +54,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        // LeafletModule
+        // LeafletModule,
         MatSlideToggleModule,
         MatTableModule,
         MatInputModule,
@@ -65,7 +64,6 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         MatDialogModule,
         MatListModule,
         MatSelectModule,
-        ScheduleModule,
         MatDialogModule,
         MatButtonModule,
         MatSelectModule,

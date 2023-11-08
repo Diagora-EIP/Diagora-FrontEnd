@@ -28,7 +28,7 @@ const routes: Routes = [
     },
     {
         path: '', canActivate: [AuthGuard], children: [
-            { path: 'carte/:date', component: CarteComponent },
+            { path: 'carte', component: CarteComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'home', component: HomeComponent },
             { path: 'planning', component: PlanningComponent },

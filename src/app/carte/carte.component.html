@@ -1,17 +1,11 @@
 <div class="map-container">
-    <div class="map-frame">
-      <div id="map">
-      </div>
-      <div class="recapBox">
-        <h1>Résumé de la tourné</h1>
-        <div *ngFor="let item of markers" class="recapItem">
-            <h2>{{item.adress}}</h2>
-            <div class="hours">
-                <p>{{item.begin}}</p>
-                <p>-</p>
-                <p>{{item.end}}</p>
-            </div>
-        </div>
-      </div>
+  <div class="map-frame">
+    <div id="map">
+    </div>
+    <div class="map-return">
+      <button mat-fab matTooltip="Warn" color="warn" aria-label="Return to planning" routerLink="/planning">
+        <mat-icon>keyboard_return</mat-icon>
+      </button>
     </div>
   </div>
+</div>
