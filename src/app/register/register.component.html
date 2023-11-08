@@ -7,19 +7,19 @@
             <div class="nameFirstContainer">
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Name</mat-label>
+                        <mat-label>Nom</mat-label>
                         <input type="name" matInput formControlName="name" placeholder="Ex. piloz">
                         <mat-error *ngIf="registerGroup.get('name')?.hasError('required')">
-                            Name is <strong>required</strong>
+                            Le nom est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Firstname</mat-label>
+                        <mat-label>Prénom</mat-label>
                         <input type="firstname" matInput formControlName="firstname" placeholder="Ex. william">
                         <mat-error *ngIf="registerGroup.get('firstname')?.hasError('required')">
-                            Firstname is <strong>required</strong>
+                            Le prénom est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -29,7 +29,7 @@
                     <mat-label>Entreprise</mat-label>
                     <input type="entreprise" matInput formControlName="entreprise" placeholder="Ex. Diagora">
                     <mat-error *ngIf="registerGroup.get('entreprise')?.hasError('required')">
-                        Entreprise is <strong>required</strong>
+                        Entreprise est <strong>obligatoire</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -38,10 +38,10 @@
                     <mat-label>Email</mat-label>
                     <input type="email" matInput formControlName="email" placeholder="Ex. entreprise@diagora.com">
                     <mat-error *ngIf="registerGroup.get('email')?.hasError('required')">
-                        Email is <strong>required</strong>
+                        Email est <strong>obligatoire</strong>
                     </mat-error>
                     <mat-error *ngIf="registerGroup.get('email')?.hasError('email')">
-                        Please enter a valid email address
+                        Entrez une email valide
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -50,21 +50,22 @@
                     <mat-label>Mot de passe</mat-label>
                     <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
                     <mat-error *ngIf="registerGroup.get('password')?.hasError('required')">
-                        Password is <strong>required</strong>
+                        Mot de passe est <strong>obligatoire</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="inputContainer-form-login">
                 <mat-form-field class="example-full-width">
                     <mat-label>Confirmer mot de passe</mat-label>
-                    <input type="password" matInput formControlName="passwordConf" placeholder="Confirmer votre mot de passe">
+                    <input type="password" matInput formControlName="passwordConf"
+                        placeholder="Confirmer votre mot de passe">
                     <mat-error *ngIf="registerGroup.get('passwordConf')?.hasError('required')">
-                        Password is <strong>required</strong>
+                        Confirmation de mot de passe est <strong>obligatoire</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
-            <button mat-raised-button type="submit" class="button-form-login"
-                [disabled]="registerGroup.invalid">Créée votre compte</button>
+            <button mat-raised-button type="submit" class="button-form-login" [disabled]="registerGroup.invalid">Créer
+                votre compte</button>
         </form>
     </div>
     <div class="container-right-login">
