@@ -1,5 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'environment';
+
 // import jwt from 'jsonwebtoken';
 
 @Component({
@@ -9,7 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   logout1!: boolean;
-  constructor(private router: Router) { }
+  admin = false;
+  constructor(private router: Router) { 
+    this.getPermissions();
+  }
+  
+  async getPermissions() {
+    let userId = localStorage.getItem('id');
+    await fetch(environment.apiUrl + '/user/permissions?' + userId, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    }) .then(function (response) {
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+      if (data.permissions === "manager") {
+        this.admin = true;
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   ngOnInit(): void {
     this.logout1 = false;

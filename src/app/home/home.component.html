@@ -18,6 +18,10 @@
                 <img src="../../assets/statistic.svg" alt="">
                 <h2>Statistiques</h2>
             </div>
+            <div *ngIf="admin" class="contentBox" (click)="goto('admin/userList')">
+                <img src="../../assets/panel.svg" alt="">
+                <h2>Admin Panel</h2>
+            </div>
         </div>
         <div class="boxProfile">
             <div class="contentBox" (click)="goto('profile')">
@@ -53,6 +57,10 @@
         <div class="box" (click)="goto('vehicule')">
             <h2>Vehicule</h2>
             <img class="imgBox" src="../../assets/vehicule.jpg" alt="">
+        </div>
+        <div class="box" *ngIf="admin" (click)="goto('admin/userList')">
+            <h2>Admin Panel</h2>
+            <img class="imgBox" src="../../assets/panel.svg" alt="">
         </div>
     </div>
 </div>
