@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SecurityService } from '../services/security.service';
+import { UtilsService } from '../services/utils.service';
+import { tap } from 'rxjs/operators';
+import { Subscription, throwError } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'environment';
 
 @Component({
@@ -8,90 +13,69 @@ import { environment } from 'environment';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-    name!: string;
-    email!: string;
-    password!: string;
-    passwordConf!: string;
+    registerGroup: FormGroup;
     popUp!: boolean;
     Erreur!: string;
+    registerSubscription: Subscription | undefined;
 
-    constructor(private router: Router) { }
-
-    ngOnInit() {
-        this.popUp = false;
-        this.name = ""
-        this.password = ""
-        this.passwordConf = ""
-        this.email = ""
+    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder) { 
+        this.registerGroup = this.fb.group({
+            name: ['', [Validators.required]],
+            firstname: ['', [Validators.required]],
+            entreprise: ['', [Validators.required]],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required]],
+            passwordConf: ['', [Validators.required]],
+        });
+    }
+    ngOnDestroy() {
+        this.registerSubscription?.unsubscribe();
     }
 
     closePopUp() {
+        this.Erreur = "";
         this.popUp = false;
     }
 
-    onEnterEmail(value: string) {
-        this.email = value
-    }
-
-    onEnterPass(value: string) {
-        this.password = value
-    }
-
-    onEnterPassConf(value: string) {
-        this.passwordConf = value
-    }
-
-    onEnterName(value: string) {
-        this.name = value
-    }
-
     async register() {
-        if (this.email == "" || this.password == "" || this.passwordConf == "" || this.name == "") {
-            this.Erreur = 'Veuillez remplir tous les champs';
+        if (this.registerGroup.invalid) {
+            this.Erreur = 'Veuillez remplir tous les champs correctement.';
             this.popUp = true;
             return;
         }
-
-        if (this.password != this.passwordConf) {
+        
+        const { name, firstname, entreprise, email, password, passwordConf } = this.registerGroup.value;
+        
+        if (password != passwordConf) {
             this.Erreur = "Les mots de passe ne sont pas identique"
             this.popUp = true;
             return;
         }
 
-        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!this.email.match(validRegex)) {
-            this.Erreur = 'Veuillez entrer une adresse mail valide';
-            this.popUp = true;
-            return;
-        }
-
         const body = {
-            "name": this.name,
-            "email": this.email,
-            "password": this.password
+            "name": name,
+            "email": email,
+            "password": password
         }
 
-        await fetch(environment.apiUrl + "/user/register", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        }).then(function (response) {
-            console.log("res", response);
-            return response.json();
-        }).then(res => {
-            console.log("res", res);
-            if (res.error) {
-                this.Erreur = res.error;
-                this.popUp = true;
-                this.name = "";
-                this.password = "";
-                this.passwordConf = "";
-                this.email = "";
-            } else {
+        
+        this.registerSubscription = this.securityService.register(name, email, password)
+        .pipe(
+            tap({
+                next: data => {
+                },
+                error: (err) => {
+                    console.log("err", err);
+                    this.Erreur = err.error;
+                    this.popUp = true;
+                    this.registerGroup.reset();
+                }
+            })
+        )
+        .subscribe({
+            next: (data) => {
                 this.router.navigate(["/login"]);
             }
-        })
+        });
     }
 }
