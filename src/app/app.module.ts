@@ -32,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
     declarations: [
@@ -71,6 +72,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         HttpClientModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatDatepickerModule,
     ],
     providers: [
     ],

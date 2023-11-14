@@ -15,6 +15,8 @@ import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { CommandsService } from 'src/app/services/commands.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 export interface DialogData {
   id: number,
@@ -105,13 +107,25 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './add-command-modal.component.html',
   styleUrls: ['./add-command-modal.component.scss'],
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule, MatDatepickerModule],
 })
 
 export class AddCommandModalComponent {
   requiredValue = new FormControl('', [Validators.required]);
-
   matcher = new MyErrorStateMatcher();
+  name: string = '';
+  date: string = '';
+  address: string = '';
+
+  constructor(private CommandsService: CommandsService) { }
+
+  createOrder = async () => {
+    let dateFormated = this.date + "T00:00:00.000Z";
+    let data: any = await this.CommandsService.createOrder(this.name, dateFormated, this.address)
+    .catch((error: any) => {
+        console.log(error)
+    })
+  }
 }
 
 @Component({

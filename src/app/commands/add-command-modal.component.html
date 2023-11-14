@@ -2,36 +2,30 @@
 <div mat-dialog-content class="command" >
     <form class="commandAddForm">
         <mat-form-field class="commandAddForm-full-with">
-          <mat-label>Commande pour:</mat-label>
+          <mat-label>Nom</mat-label>
           <input matInput [formControl]="requiredValue" placeholder="Ex. Jean">
           <mat-error *ngIf="requiredValue.hasError('required')">
             Le nom est <strong>obligatoire</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="commandAddForm-full-with">
-            <mat-label>Livreur:</mat-label>
-            <input matInput [formControl]="requiredValue" placeholder="Ex. Jean">
-            <mat-error *ngIf="requiredValue.hasError('required')">
-              Le nom est <strong>obligatoire</strong>
-            </mat-error>
-        </mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [formControl]="requiredValue" placeholder="Ex. 2000-01-01">
+          <mat-hint>YYYY/MM/DD</mat-hint>
+          <mat-error *ngIf="requiredValue.hasError('required')">
+            La date est <strong>obligatoire</strong>
+          </mat-error>
+      </mat-form-field>
         <mat-form-field class="commandAddForm-full-with">
-            <mat-label>Adresse de livraison:</mat-label>
+            <mat-label>Adresse</mat-label>
             <input matInput [formControl]="requiredValue" placeholder="Ex. 1 Place Paul Bec">
             <mat-error *ngIf="requiredValue.hasError('required')">
               L'adresse est <strong>obligatoire</strong>
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="commandAddForm-full-with">
-            <mat-label>Date de livraison:</mat-label>
-            <input matInput [formControl]="requiredValue" placeholder="Ex. 2000-01-01_00:00">
-            <mat-error *ngIf="requiredValue.hasError('required')">
-              La date est <strong>obligatoire</strong>
-            </mat-error>
-        </mat-form-field>
       </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-flat-button color="warn" mat-dialog-close>Fermer</button>
-    <button mat-flat-button color="primary" mat-dialog-close>Valider</button>
+    <button ngClass="cancel" mat-flat-button color="warn" mat-dialog-close>Annuler</button>
+    <button ngClass="validate" mat-flat-button color="primary" (click)="createOrder()" mat-dialog-close>Valider</button>
 </div>
