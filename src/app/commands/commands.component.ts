@@ -1,148 +1,102 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { NgIf } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { CommandsService } from 'src/app/services/commands.service';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 
-export interface DialogData {
-  id: number,
-  name: string,
-  date: string,
-  address: string,
-  livreur: string,
-}
+import { CommandsService } from 'src/app/services/commands.service';
+import { AddCommandComponent } from './modals/add-command/add-command.component';
+import { DetailsCommandComponent } from './modals/details-command/details-command.component';
+import { EditCommandComponent } from './modals/edit-command/edit-command.component';
+import { DeleteCommandComponent } from './modals/delete-command/delete-command.component';
+
+const modalComponentMapping: { [key: string]: Type<any> } = {
+    DETAILS: DetailsCommandComponent,
+    ADD: AddCommandComponent,
+    EDIT: EditCommandComponent,
+    DELETE: DeleteCommandComponent,
+};
 
 @Component({
-  selector: 'app-commands',
-  templateUrl: './commands.component.html',
-  styleUrls: ['./commands.component.scss']
+    selector: 'app-commands',
+    templateUrl: './commands.component.html',
+    styleUrls: ['./commands.component.scss']
 })
 
 export class CommandsComponent {
 
-  logout1!: boolean;
-  constructor(private router: Router, public dialog: MatDialog) { }
+    logout1!: boolean;
+    constructor(private router: Router, public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.logout1 = false;
-  }
-
-  goto(params: string) {
-    this.router.navigate([params]);
-  }
-  
-  logout() {
-    this.logout1 = true;
-  }
-
-  cancel() {
-    this.logout1 = false;
-  }
-
-  confirm() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login']);
-  }
-
-  openDialog(id:number = 0, name:string = '', date:string = '', address:string = '', livreur:string = ''): void {
-    this.dialog.open(DetailsModalComponent, {
-      data: {
-        id: id,
-        name: name,
-        date: date,
-        address: address,
-        livreur: livreur,
-      }
-    });
-  }
-
-  commandAction(type:string = 'null'): void {
-    if (type === 'null') { return; }
-    else if (type === 'AddCommand') {
-      this.dialog.open(AddCommandModalComponent);
+    ngOnInit(): void {
+        this.logout1 = false;
     }
-    else if (type === 'EditCommand') {
-      this.dialog.open(EditCommandModalComponent);
+
+    goto(params: string) {
+        this.router.navigate([params]);
     }
-    else if (type === 'DeleteCommand') {
-      this.dialog.open(DeleteCommandModalComponent);
+
+    logout() {
+        this.logout1 = true;
     }
-  }
+
+    cancel() {
+        this.logout1 = false;
+    }
+
+    confirm() {
+        localStorage.removeItem('token');
+        this.router.navigate(['login']);
+    }
+
+    openModal(type: string = 'DETAILS'): void {
+        const modalComponent: Type<any> = modalComponentMapping[type];
+        if (!modalComponent) {
+            throw new Error(`Type de modal non pris en charge : ${type}`);
+        }
+
+        const dialogRef = this.dialog.open(modalComponent, {
+            panelClass: 'custom',
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('La modal', type, 'est fermée.', result);
+        });
+    }
+
 }
 
-@Component({
-  selector: 'details-modal.component',
-  templateUrl: './details-modal.component.html',
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
+// @Component({
+//   selector: 'details-modal.component',
+//   templateUrl: './details-modal.component.html',
+//   standalone: true,
+//   imports: [MatDialogModule, MatButtonModule],
+// })
 
-export class DetailsModalComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-}
+// export class DetailsModalComponent {
+//   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+// }
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+// export class MyErrorStateMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//     const isSubmitted = form && form.submitted;
+//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+//   }
+// }
 
-@Component({
-  selector: 'add-command-modal.component',
-  templateUrl: './add-command-modal.component.html',
-  styleUrls: ['./add-command-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule, MatDatepickerModule],
-})
+// @Component({
+//   selector: 'delete-command-modal.component',
+//   templateUrl: './delete-command-modal.component.html',
+//   standalone: true,
+//   imports: [MatButtonModule, MatDialogModule, MatIconModule],
+// })
 
-export class AddCommandModalComponent {
-  requiredValue = new FormControl('', [Validators.required]);
-  matcher = new MyErrorStateMatcher();
-  name: string = '';
-  date: string = '';
-  address: string = '';
+// export class DeleteCommandModalComponent { }
 
-  constructor(private CommandsService: CommandsService) { }
+// @Component({
+//   selector: 'edit-command-modal.component',
+//   templateUrl: './edit-command-modal.component.html',
+//   styleUrls: ['./edit-command-modal.component.scss'],
+//   standalone: true,
+//   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatDialogModule],
+// })
 
-  createOrder = async () => {
-    let dateFormated = this.date + "T00:00:00.000Z";
-    let data: any = await this.CommandsService.createOrder(this.name, dateFormated, this.address)
-    .catch((error: any) => {
-        console.log(error)
-    })
-  }
-}
-
-@Component({
-  selector: 'delete-command-modal.component',
-  templateUrl: './delete-command-modal.component.html',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatIconModule],
-})
-
-export class DeleteCommandModalComponent { }
-
-@Component({
-  selector: 'edit-command-modal.component',
-  templateUrl: './edit-command-modal.component.html',
-  styleUrls: ['./edit-command-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatDialogModule],
-})
-
-export class EditCommandModalComponent { }
+// export class EditCommandModalComponent { }

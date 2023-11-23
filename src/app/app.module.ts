@@ -33,6 +33,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
+import { DeleteCommandComponent } from './commands/modals/delete-command/delete-command.component';
+import { EditCommandComponent } from './commands/modals/edit-command/edit-command.component';
+import { DetailsCommandComponent } from './commands/modals/details-command/details-command.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +54,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         StatisticComponent,
         UserCreateModalComponent,
         ManagerUserListComponent,
+        AddCommandComponent,
+        DeleteCommandComponent,
+        EditCommandComponent,
+        DetailsCommandComponent,
     ],
     imports: [
         BrowserModule,

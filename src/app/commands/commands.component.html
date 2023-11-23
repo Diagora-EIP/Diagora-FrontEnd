@@ -37,75 +37,81 @@
             <h2>Confirmer</h2>
         </div>
     </div>
+    <div class="buttonADD"> 
+        <button mat-fab extended color="primary" (click)="openModal('ADD')">
+            Ajouter une commande
+            <mat-icon>playlist_add</mat-icon>
+        </button>
+    </div>
     <div class="pageContent">
         <mat-card class="card">
             <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Jean</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
-              </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-title>Commande pour: <strong>Jean</strong></mat-card-title>
+                    <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
+                </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
             </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab color="accent" (click)="openDialog(1, 'Jean', '2023-10-03_10:30', '1 Place Vendome', 'Mark')">
+            <mat-card-actions align="end">
+                <button mat-fab color="primary"
+                    (click)="openModal()">
                     <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('EditCommand')">
+                </button>
+                <button mat-fab color="accent" (click)="openModal('EDIT')">
                     <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('DeleteCommand')">
+                </button>
+                <button mat-fab color="warn" (click)="openModal('DELETE')">
                     <mat-icon>delete</mat-icon>
-                </a>
+                </button>
             </mat-card-actions>
-          </mat-card>
-          <mat-card class="card">
+        </mat-card>
+        <mat-card class="card">
             <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Pierre</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
-              </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-title>Commande pour: <strong>Pierre</strong></mat-card-title>
+                    <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
+                </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
             </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab color="accent" (click)="openDialog(2, 'Pierre', '2023-10-03_12:30', '6 Place Paul Bec', 'Mark')">
+            <mat-card-actions align="end">
+                <button mat-fab color="primary"
+                    (click)="openModal()">
                     <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('EditCommand')">
+                </button>
+                <button mat-fab color="accent" (click)="openModal('EDIT')">
                     <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('DeleteCommand')">
+                </button>
+                <button mat-fab color="warn" (click)="openModal('DELETE')">
                     <mat-icon>delete</mat-icon>
-                </a>
+                </button>
             </mat-card-actions>
-          </mat-card>
-          <mat-card class="card">
+        </mat-card>
+        <mat-card class="card">
             <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Commande pour: <strong>Maxime</strong></mat-card-title>
-                <mat-card-subtitle>Livreur: <strong>James</strong> </mat-card-subtitle>
-              </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-title>Commande pour: <strong>Maxime</strong></mat-card-title>
+                    <mat-card-subtitle>Livreur: <strong>James</strong> </mat-card-subtitle>
+                </mat-card-title-group>
             </mat-card-header>
             <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg" >
+                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
             </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab color="accent" (click)="openDialog(3, 'Maxime', '2023-10-03_11:00', '3 Rue Neptune', 'James')">
+            <mat-card-actions align="end">
+                <button mat-fab color="primary"
+                    (click)="openModal()">
                     <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('EditCommand')">
+                </button>
+                <button mat-fab color="accent" (click)="openModal('EDIT')">
                     <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab color="accent" (click)="commandAction('DeleteCommand')">
+                </button>
+                <button mat-fab color="warn" (click)="openModal('DELETE')">
                     <mat-icon>delete</mat-icon>
-                </a>
+                </button>
             </mat-card-actions>
-          </mat-card>
-    </div>
-    <div class="editPage">
-        <button mat-flat-button color="primary" (click)="commandAction('AddCommand')">Nouvelle Commande</button>
+        </mat-card>
     </div>
 </div>
