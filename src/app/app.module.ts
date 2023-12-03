@@ -35,6 +35,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
+
 
 @NgModule({
     declarations: [
@@ -53,6 +55,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         UserCreateModalComponent,
         ManagerUserListComponent,
         NavbarComponent,
+        CompanyCreateModalComponent,
     ],
     imports: [
         BrowserModule,
