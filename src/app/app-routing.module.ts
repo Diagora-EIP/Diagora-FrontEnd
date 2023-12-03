@@ -39,7 +39,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'admin', canActivate: [adminGuard], children: [
+        path: 'admin', canActivate: [AuthGuard], children: [
             { path: 'userList', component: UserListComponent, },
         ]
     },

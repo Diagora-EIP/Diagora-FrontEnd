@@ -1,0 +1,25 @@
+<div ngClass="container-companyCreateModal">
+    <div ngClass="container-title-companyCreateModal">
+        <h1 ngClass="title-companyCreateModal">Création d'une nouvelle entreprise</h1>
+    </div>
+
+    <div ngClass="content-companyCreateModal">
+        <div ngClass="container-input-companyCreateModal">
+            <mat-form-field ngClass="content-input-companyCreateModal">
+                <mat-label ngClass="title-input-companyCreateModal">Nom de l'entreprise</mat-label>
+                <input matInput ngClass="input-companyCreateModal" placeholder="Ex. Diagora" [(ngModel)]="name"
+                    name="name" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-button-companyCreateModal">
+            <button ngClass="cancel button-companyCreateModal" mat-raised-button color="warn" (click)="close()">
+                Annuler
+            </button>
+            <button ngClass="validate button-companyCreateModal" mat-raised-button color="primary"
+                (click)="createCompany()">
+                Valider
+            </button>
+        </div>
+    </div>
+</div>
