@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
+import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
+
+const modalComponentMapping: { [key: string]: Type<any> } = {
+    USERCREATE: UserCreateModalComponent,
+    COMPANYCREATE: CompanyCreateModalComponent,
+};
 
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
     styleUrls: ['./user-list.component.scss'],
 })
+
 export class UserListComponent {
 
     constructor(private adminService: AdminService, public dialog: MatDialog) {
@@ -37,16 +44,21 @@ export class UserListComponent {
         this.updateDataSource();
     }
 
-    openModal(): void {
-        const dialogRef = this.dialog.open(UserCreateModalComponent, {
-            panelClass: "custom",
+    openModal(modalType: string): void {
+        const modalComponent: Type<any> = modalComponentMapping[modalType.toUpperCase()];
+
+        if (!modalComponent) {
+            throw new Error(`Type de modal non pris en charge : ${modalType}`);
+        }
+
+        const dialogRef = this.dialog.open(modalComponent, {
+            panelClass: 'custom',
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            console.log('La modal est fermée.', result);
+            console.log('La modal', modalType, 'est fermée.', result);
         });
     }
-
     updateDataSource() {
         let users = this.userList
 

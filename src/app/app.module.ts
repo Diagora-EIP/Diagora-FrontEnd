@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
+import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         StatisticComponent,
         UserCreateModalComponent,
         ManagerUserListComponent,
+        CompanyCreateModalComponent,
     ],
     imports: [
         BrowserModule,
