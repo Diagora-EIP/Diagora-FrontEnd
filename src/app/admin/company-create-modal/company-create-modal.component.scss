@@ -49,6 +49,7 @@ $test2: #888585;
 
 .container-input-companyCreateModal {
     width: 50%;
+    position: relative;
 }
 
 .container-button-companyCreateModal {
@@ -59,6 +60,16 @@ $test2: #888585;
     align-items: center;
     grid-area: button;
     gap: 30px;
+}
+
+.error-message-input-companyCreateModal {
+    position: absolute;
+    margin: 0;
+    top: 60px;
+    left: 0;
+    color: red;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .button-companyCreateModal {

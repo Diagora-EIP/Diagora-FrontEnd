@@ -10,6 +10,7 @@
                 <input matInput ngClass="input-companyCreateModal" placeholder="Ex. Diagora" [(ngModel)]="name"
                     name="name" [required]="true">
             </mat-form-field>
+            <p ngClass="error-message-input-companyCreateModal" *ngIf="errorMessage !== ''">*{{errorMessage}}</p>
         </div>
 
         <div ngClass="container-button-companyCreateModal">
