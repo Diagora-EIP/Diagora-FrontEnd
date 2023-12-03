@@ -33,6 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -50,6 +52,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         StatisticComponent,
         UserCreateModalComponent,
         ManagerUserListComponent,
+        NavbarComponent,
     ],
     imports: [
         BrowserModule,
@@ -73,6 +76,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
         HttpClientModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatTooltipModule,
     ],
     providers: [
     ],
