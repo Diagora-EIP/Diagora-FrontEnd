@@ -1,34 +1,4 @@
 <div>
-    <div class="NavBar">
-        <img class="logo" src="../../assets/logo.png" alt="" (click)="goto('home')">
-        <div class="contentCenter">
-            <div class="contentBox" (click)="goto('planning')">
-                <img src="../../assets/planning.svg" alt="">
-                <h2>Planning</h2>
-            </div>
-            <div class="contentBox" (click)="goto('commands')">
-                <img src="../../assets/command.svg" alt="">
-                <h2>Commandes</h2>
-            </div>
-            <div class="contentBox" (click)="goto('vehicule')">
-                <img src="../../assets/vehicule.svg" alt="">
-                <h2>Vehicules</h2>
-            </div>
-            <div class="contentBox" (click)="goto('statistic')">
-                <img src="../../assets/statistic.svg" alt="">
-                <h2>Statistiques</h2>
-            </div>
-        </div>
-        <div class="boxProfile">
-            <div class="contentBox">
-                <img src="../../assets/profile.svg" alt="">
-                <h2>Profil</h2>
-            </div>
-            <div class="contentBox" (click)="logout()">
-                <h2>Déconnexion</h2>
-            </div>
-        </div>
-    </div>
     <div *ngIf="logout1" class="logout">
         <div class="contentBox" (click)="cancel()">
             <h2>Annuler</h2>
