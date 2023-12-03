@@ -24,7 +24,7 @@ export class AdminService {
     }
 
     async getUsers() {
-        const response = await axios.get(this.apiUrl + '/user', this.header);
+        const response = await axios.get(this.apiUrl + '/user/all', this.header);
         return response.data;
     }
 

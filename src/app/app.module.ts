@@ -32,6 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         VehiculeComponent,
         StatisticComponent,
         UserCreateModalComponent,
+        ManagerUserListComponent,
     ],
     imports: [
         BrowserModule,

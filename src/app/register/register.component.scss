@@ -1,115 +1,59 @@
+@import "../../variables.scss";
+
 .contentPage {
+    display: flex;
     width: 100%;
     height: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: row;
 }
 
-.leftPart {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: 5%;
+.container-form-login {
+    display: grid;
+    width: 100%;
+    gap: 20px;
 }
 
-.rightPart {
-    width: 50%;
-    height: 90vh;
-    position: relative;
+.contentRegister {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    width: 100%;
+    padding: 20px;
 }
 
-.imgLogo {
+.container-right-login {
+    width: 100%;
+    height: 100%;
+}
+
+.background-login {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background-image: url('/assets/background/background.png');
+    background-size: cover;
+    background-position: center;
 }
-
-.title {
-    font-weight: 900;
-    font-size: 65px;
-}
-
-.inputContent {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    label {
-        font-weight: 900;
-        font-size: 20px;
-    }
-
-    input {
-        margin-top: 10px;
-        border-radius: 10px;
-        height: 50px;
-        font-size: 25px;
-    }
-}
-
-.rememberContent {
+.inputContainer-form-login {
+    display: grid;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    label {
-        font-weight: 900;
-        font-size: 20px;
-    }
-    .inputBox {
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
-        margin-right: 5px;
-    }
+    gap: 5px;
 }
 
-.leftMDP {
-    text-decoration: none;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 24px;
-    color: #01ABA8;
-    &:hover {
-        text-decoration: underline;
-    }
+.button-form-login {
+    background-color: $button-main-color !important;
+    color: #ffffff !important;
+    font-size: $font-size !important;
+    font-weight: bold !important;
+    text-shadow: 0px 2px 4px rgba($color: red, $alpha: 0.25);
 }
 
-.login {
-    width: 70%;
-    height: 50px;
-    border-radius: 10px;
-    background: #01ABA8;
-    font-weight: 900;
-    font-size: 20px;
-    color: #FFFFFF;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
-.undertitle {
-    font-weight: 900;
-    font-size: 100px;
-    line-height: 182px;
-    color: #01ABA8;
-    position: absolute;
-    top: 50%;
+.nameFirstContainer {
+    display: grid;
+    width: 100%;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
 }
 
 .popUp {
@@ -118,40 +62,13 @@
     left: calc(50% - 100px);
     width: 200px;
     height: 100px;
-    background: #FFFFFF;
-    border: #01ABA8 5px solid;
+    background: #ffffff;
+    border: 5px solid #01ABA8;
     border-radius: 10px;
-    display: flex;
+    display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px;
     text-align: center;
-}
-
-.contentRegister {
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    p {
-        font-weight: 900;
-        font-size: 20px;
-        color: #888585;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .register {
-        text-decoration: none;
-        font-weight: 900;
-        font-size: 20px;
-        line-height: 24px;
-        color: #01ABA8;
-        cursor: pointer;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
 }
