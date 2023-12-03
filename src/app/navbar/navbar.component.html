@@ -2,30 +2,30 @@
 <div class="navbar-wrapper">
     <nav class="navbar">
 
-            <a routerLink="/">
+            <a routerLink="/" routerLinkActive="active">
                 <div class="logo-container">
                     <img class="logo" src="../../assets/logo.png" alt="Home">
                 </div>
             </a>
 
             <ul class="left-nav-links">
-                <li class="contentBox">
-                    <a routerLink="/planning">Planning</a>
+                <li routerLink="/planning" class="contentBox" routerLinkActive="active">
+                    <a>Planning</a>
                 </li>
-                <li class="contentBox">
-                    <a routerLink="/commands">Commandes</a>
+                <li routerLink="/commands" class="contentBox" routerLinkActive="active">
+                    <a>Commandes</a>
                 </li>
-                <li class="contentBox">
-                    <a routerLink="/vehicule">Vehicules</a>
+                <li routerLink="/vehicule" class="contentBox" routerLinkActive="active">
+                    <a>Vehicules</a>
                 </li>
-                <li class="contentBox">
-                    <a routerLink="/statistic">Statistiques</a>
+                <li routerLink="/statistic" class="contentBox" routerLinkActive="active">
+                    <a>Statistiques</a>
                 </li>
                 
             </ul>
             <ul class="right-nav-links">
-                <li class="profile-button">
-                    <a routerLink="/profile" matTooltip="Profile">
+                <li routerLink="/profile" class="profile-button" routerLinkActive="active">
+                    <a matTooltip="Profile">
                         <mat-icon>account_circle</mat-icon>
                     </a>
                 </li>
