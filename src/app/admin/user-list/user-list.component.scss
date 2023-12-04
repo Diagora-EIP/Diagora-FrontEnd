@@ -59,3 +59,38 @@ $font-color: #01ABA8;
 .data-tab-userList {
     font-size: 1rem;
 }
+
+.company-container {
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+}
+
+.company-name {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.button-data-tab-userList {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.button-data-tab-userList:hover, .button-data-tab-userList:active {
+    color: #01ABA8;
+}
+
+.button-data-tab-userList .mat-icon {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
