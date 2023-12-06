@@ -29,7 +29,7 @@
             <div class="rememberContainer-form-login">
                 <mat-checkbox formControlName="remember" color="primary"
                     class="custom-checkbox checkbox-form-login">Rester connecté</mat-checkbox>
-                <a class="forgotPassword-form-login">Mot de passe oublié ?</a>
+                <a class="forgotPassword-form-login" routerLink="/forgot-password">Mot de passe oublié ?</a>
             </div>
             <button mat-raised-button type="submit" class="button-form-login"
                 [disabled]="loginForm.invalid">Connectez-vous</button>

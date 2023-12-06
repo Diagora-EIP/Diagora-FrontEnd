@@ -33,4 +33,15 @@ export class SecurityService {
         const requestBody = { name, email, password };
         return this.http.post<any>(`${this.apiUrl}/user/register`, requestBody);
     }
+
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/user/send-email/${email}`, {});
+    }
+
+    resetPassword(id: string, password: string): Observable<any> {
+        const user_id = parseInt(id);
+        const requestBody = { user_id: user_id, password: password };
+        console.log(requestBody);
+        return this.http.post<any>(`${this.apiUrl}/user/reset-password-without-token-email`, requestBody);
+    }
 }
