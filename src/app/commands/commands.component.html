@@ -44,74 +44,32 @@
         </button>
     </div>
     <div class="pageContent">
-        <mat-card class="card">
-            <mat-card-header>
-                <mat-card-title-group>
-                    <mat-card-title>Commande pour: <strong>Jean</strong></mat-card-title>
-                    <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
-                </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
-            </mat-card-content>
-            <mat-card-actions align="end">
-                <button mat-fab color="primary"
-                    (click)="openModal()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <button mat-fab color="accent" (click)="openModal('EDIT')">
-                    <mat-icon>settings</mat-icon>
-                </button>
-                <button mat-fab color="warn" (click)="openModal('DELETE')">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="card">
-            <mat-card-header>
-                <mat-card-title-group>
-                    <mat-card-title>Commande pour: <strong>Pierre</strong></mat-card-title>
-                    <mat-card-subtitle>Livreur: <strong>Mark</strong> </mat-card-subtitle>
-                </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
-            </mat-card-content>
-            <mat-card-actions align="end">
-                <button mat-fab color="primary"
-                    (click)="openModal()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <button mat-fab color="accent" (click)="openModal('EDIT')">
-                    <mat-icon>settings</mat-icon>
-                </button>
-                <button mat-fab color="warn" (click)="openModal('DELETE')">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="card">
-            <mat-card-header>
-                <mat-card-title-group>
-                    <mat-card-title>Commande pour: <strong>Maxime</strong></mat-card-title>
-                    <mat-card-subtitle>Livreur: <strong>James</strong> </mat-card-subtitle>
-                </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
-            </mat-card-content>
-            <mat-card-actions align="end">
-                <button mat-fab color="primary"
-                    (click)="openModal()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <button mat-fab color="accent" (click)="openModal('EDIT')">
-                    <mat-icon>settings</mat-icon>
-                </button>
-                <button mat-fab color="warn" (click)="openModal('DELETE')">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
+        <div ngclass="allCards" *ngFor="let order of allOrders" >
+            <mat-card class="card">
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>Commande pour: <strong>{{ order.description }}</strong></mat-card-title>
+                        <mat-card-subtitle>Livreur: <strong>Non attribué</strong> </mat-card-subtitle>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content align="end">
+                    <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
+                </mat-card-content>
+                <div class="cardButtons">
+                    <mat-card-actions>
+                        <button mat-fab color="primary"
+                            (click)="openModal('DETAILS', order)">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <button mat-fab color="accent" (click)="openModal('EDIT', order)">
+                            <mat-icon>settings</mat-icon>
+                        </button>
+                        <button mat-fab color="warn" (click)="openModal('DELETE', order)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card>
+        </div>
     </div>
 </div>

@@ -24,10 +24,21 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 export class CommandsComponent {
 
     logout1!: boolean;
-    constructor(private router: Router, public dialog: MatDialog) { }
+    allOrders: any;
+    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService) { }
 
     ngOnInit(): void {
         this.logout1 = false;
+        this.getOrders();
+    }
+
+    getOrders = async () => {
+        const date = new Date();
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        const dateFormated = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + day;
+        this.commandsService.getOrders(dateFormated).subscribe((data) => {
+            this.allOrders = data.data;
+        });
     }
 
     goto(params: string) {
@@ -47,7 +58,7 @@ export class CommandsComponent {
         this.router.navigate(['login']);
     }
 
-    openModal(type: string = 'DETAILS'): void {
+    openModal(type: string = 'DETAILS', info: any = {}): void {
         const modalComponent: Type<any> = modalComponentMapping[type];
         if (!modalComponent) {
             throw new Error(`Type de modal non pris en charge : ${type}`);
@@ -55,6 +66,15 @@ export class CommandsComponent {
 
         const dialogRef = this.dialog.open(modalComponent, {
             panelClass: 'custom',
+            data: {
+                id: info.order_id,
+                description: info.description,
+                delivery_address: info.delivery_address,
+                order_date: info.order_date,
+                company_id: info.company_id,
+                order_status: info.order_status,
+                schedule_id: info.schedule_id,
+            }
         });
 
         dialogRef.afterClosed().subscribe((result) => {

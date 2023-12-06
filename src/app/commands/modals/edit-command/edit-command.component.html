@@ -1,1 +1,38 @@
-<p>edit-command works!</p>
+<div ngClass="container-editCommandModal">
+    <div ngClass="container-title-editCommandModal">
+        <h1 ngClass="title-editCommandModal">Modifier une commande</h1>
+    </div>
+
+    <div ngClass="content-editCommandModal">
+        <div ngClass="container-input-editCommandModal">
+            <mat-form-field ngClass="content-input-editCommandModal">
+                <mat-label ngClass="title-input-editCommandModal">Nom</mat-label>
+                <input matInput ngClass="input-editCommandModal" placeholder="Ex. Pierre" [(ngModel)]="description" name="description"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-editCommandModal">
+            <mat-form-field ngClass="content-input-editCommandModal">
+                <mat-label ngClass="title-input-editCommandModal">Adresse</mat-label>
+                <input matInput ngClass="input-editCommandModal" placeholder="Ex. 1 Rue de la fontaine, 34000 Montpellier"
+                    [(ngModel)]="address" name="address" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-editCommandModal">
+            <mat-form-field ngClass="content-input-editCommandModal">
+                <mat-label ngClass="title-input-editCommandModal">Date</mat-label>
+                <input matInput ngClass="input-editCommandModal" placeholder="Ex. 2023-01-01" [(ngModel)]="date" name="date"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+    
+        <div ngClass="container-button-editCommandModal">
+            <button ngClass="cancel button-editCommandModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-editCommandModal" mat-raised-button color="primary"
+                (click)="editCommand()">Valider</button>
+        </div>
+    </div>
+</div>

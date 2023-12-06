@@ -1,34 +1,49 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
 import { environment } from 'environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CommandsService {
-  token = localStorage.getItem('token');
-  user_id = localStorage.getItem('id');
+    token = localStorage.getItem('token');
+    user_id = localStorage.getItem('id');
 
-  header: any = {};
+    header: any = {};
 
-  apiUrl = environment.apiUrl;
-  constructor() {
-      if (this.token != null) {
-          this.header = {
-              headers: {
-                  Authorization: 'Bearer ' + this.token
-              }
-          }
-      }
-  }
+    apiUrl = environment.apiUrl;
 
-  async getOrders() {
-    const response = await axios.get(this.apiUrl + '/orders/between-dates?begin=2023-11-09T00:00:00.000Z&end=2023-11-09T23:59:59.999Z', this.header);
-    return response.data;
-  }
+    constructor(private http: HttpClient) {
+        if (this.token != null) {
+            this.header = {
+                headers: {
+                    Authorization: 'Bearer ' + this.token
+                }
+            }
+        }
+    }
 
-  async createOrder(name: string, date: string, address: string) {
-    const response = await axios.post(this.apiUrl + '/orders/create', { description: name, order_date: date, delivery_address: address, company_id: 0, order_status: 0, schedule_id: 0}, this.header);
-    return response.data;
-  }
+    getOrders(date: string): Observable<any> {
+        const begin = `${date}T00:00:00.000Z`;
+        const end = `${date}T23:59:59.999Z`;
+        console.log(begin);
+        console.log(end);
+        return this.http.get<any>(`${this.apiUrl}/orders/between-dates?begin=${begin}&end=${end}`, this.header);
+    }
+
+    createOrder(description: string, order_date: string, delivery_address: string, company_id: number = 0, order_status: number = 0, schedule_id: number = 0): Observable<any> {
+        const requestBody = { description, order_date, delivery_address, company_id, order_status, schedule_id };
+        return this.http.post<any>(`${this.apiUrl}/orders/create`, requestBody, this.header);
+    }
+
+    updateOrder(id: number, description: string, order_date: string, delivery_address: string, company_id: number = 0, order_status: number = 0, schedule_id: number = 0): Observable<any> {
+        const requestBody = { description, order_date, delivery_address, company_id, order_status, schedule_id };
+        return this.http.patch<any>(`${this.apiUrl}/orders/${id}`, requestBody, this.header);
+    }
+
+    deleteOrder(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/orders/${id}`, this.header);
+    }
+
 }

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommandsService } from 'src/app/services/commands.service';
+import { tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
     selector: 'app-add-command',
@@ -12,7 +14,7 @@ export class AddCommandComponent {
     address: string = ''
     date: string = ''
 
-    constructor(public dialogRef: MatDialogRef<AddCommandComponent>, private commandService: CommandsService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddCommandComponent>, private commandService: CommandsService) { }
 
     close(): void {
         this.dialogRef.close();
@@ -31,12 +33,17 @@ export class AddCommandComponent {
     addCommand = async () => {
         if (!this.dataCheck()) { return }
         let dateFormated: string = this.date + "T00:00:00.000Z";
-        let data: any = await this.commandService.createOrder(this.description, dateFormated, this.address)
-            .then((response: any) => {
-                this.dialogRef.close();
-            })
-            .catch((error: any) => {
-                console.log(error)
-            })
+        this.commandService.createOrder(this.description, dateFormated, this.address)
+            .pipe(
+                tap({
+                    next: data => {
+                        this.dialogRef.close();
+                    },
+                    error: error => {
+                        console.log(error);
+                        this.dialogRef.close();
+                    }
+                })
+            ).subscribe();
     }
 }
