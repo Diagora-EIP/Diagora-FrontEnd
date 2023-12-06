@@ -38,6 +38,9 @@ import { DeleteCommandComponent } from './commands/modals/delete-command/delete-
 import { EditCommandComponent } from './commands/modals/edit-command/edit-command.component';
 import { DetailsCommandComponent } from './commands/modals/details-command/details-command.component';
 import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/details-vehicule.component';
+import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
+import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
+import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 
 @NgModule({
     declarations: [
@@ -60,6 +63,9 @@ import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/det
         EditCommandComponent,
         DetailsCommandComponent,
         DetailsVehiculeComponent,
+        AddVehiculeComponent,
+        DeleteVehiculeComponent,
+        EditVehiculeComponent,
     ],
     imports: [
         BrowserModule,

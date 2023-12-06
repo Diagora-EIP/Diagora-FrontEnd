@@ -27,8 +27,6 @@ export class CommandsService {
     getOrders(date: string): Observable<any> {
         const begin = `${date}T00:00:00.000Z`;
         const end = `${date}T23:59:59.999Z`;
-        console.log(begin);
-        console.log(end);
         return this.http.get<any>(`${this.apiUrl}/orders/between-dates?begin=${begin}&end=${end}`, this.header);
     }
 

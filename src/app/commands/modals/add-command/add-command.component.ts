@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommandsService } from 'src/app/services/commands.service';
 import { tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Component({
     selector: 'app-add-command',

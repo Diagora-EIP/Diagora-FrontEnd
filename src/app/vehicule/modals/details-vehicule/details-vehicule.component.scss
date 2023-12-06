@@ -1,0 +1,35 @@
+$font-color: #01ABA8;
+
+.container-detailsVehiculeModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container-title-detailsVehiculeModal {
+    margin: 0 20px;
+}
+
+.title-detailsVehiculeModal {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 30px;
+    margin-bottom: 40px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.content-detailsVehiculeModal {
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.text-detailsVehiculeModal {
+    font-size: 1.3rem;
+}
+

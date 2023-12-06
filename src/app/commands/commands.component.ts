@@ -22,9 +22,9 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class CommandsComponent {
-
     logout1!: boolean;
     allOrders: any;
+
     constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService) { }
 
     ngOnInit(): void {
@@ -83,40 +83,3 @@ export class CommandsComponent {
     }
 
 }
-
-// @Component({
-//   selector: 'details-modal.component',
-//   templateUrl: './details-modal.component.html',
-//   standalone: true,
-//   imports: [MatDialogModule, MatButtonModule],
-// })
-
-// export class DetailsModalComponent {
-//   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-// }
-
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
-
-// @Component({
-//   selector: 'delete-command-modal.component',
-//   templateUrl: './delete-command-modal.component.html',
-//   standalone: true,
-//   imports: [MatButtonModule, MatDialogModule, MatIconModule],
-// })
-
-// export class DeleteCommandModalComponent { }
-
-// @Component({
-//   selector: 'edit-command-modal.component',
-//   templateUrl: './edit-command-modal.component.html',
-//   styleUrls: ['./edit-command-modal.component.scss'],
-//   standalone: true,
-//   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatDialogModule],
-// })
-
-// export class EditCommandModalComponent { }

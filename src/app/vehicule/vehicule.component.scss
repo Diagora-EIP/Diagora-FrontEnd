@@ -74,12 +74,12 @@
 }
 
 .pageContent {
-    margin-top: 100px;
+    margin-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    // justify-content: center;
+    // height: 100vh;
 }
 
 .card {
@@ -91,4 +91,17 @@
     border-radius: 13px;
     box-shadow: 0 0 10px #000000;
     margin: 20px;
+}
+
+.buttonADD {
+    z-index: 5;
+    position: fixed;
+    display: flex;
+    align-self: end;
+    bottom: 3%;
+    right: 1%;
+}
+
+.cardButtons {
+    align-self: end;
 }

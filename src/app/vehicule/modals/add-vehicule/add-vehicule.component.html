@@ -1,0 +1,38 @@
+<div ngClass="container-addVehiculeModal">
+    <div ngClass="container-title-addVehiculeModal">
+        <h1 ngClass="title-addVehiculeModal">Ajouter un véhicule</h1>
+    </div>
+
+    <div ngClass="content-addVehiculeModal">
+        <div ngClass="container-input-addVehiculeModal">
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Nom</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="name" name="name"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-addVehiculeModal">
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Dimentions</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. grand"
+                    [(ngModel)]="dimentions" name="dimentions" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-addVehiculeModal">
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Capacité</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. 40" [(ngModel)]="capacity" name="capacity"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+    
+        <div ngClass="container-button-addVehiculeModal">
+            <button ngClass="cancel button-addVehiculeModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-addVehiculeModal" mat-raised-button color="primary"
+                (click)="addVehicule()">Valider</button>
+        </div>
+    </div>
+</div>
