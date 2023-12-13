@@ -36,7 +36,7 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
-
+import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +56,7 @@ import { CompanyCreateModalComponent } from './admin/company-create-modal/compan
         ManagerUserListComponent,
         NavbarComponent,
         CompanyCreateModalComponent,
+        CompanyUpdateModalComponent,
     ],
     imports: [
         BrowserModule,
