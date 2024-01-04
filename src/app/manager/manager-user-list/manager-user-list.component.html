@@ -1,13 +1,49 @@
-<div ngClass="container-userList">
+<div ngClass="container-userList" *ngIf="dataLoad; else loading">
     <div ngClass="container-title-userList">
-        <h1 ngClass="title-userList">Utilisateurs de l'entreprise</h1>
+        <h1 ngClass="title-userList">Utilisateurs de <strong>{{ entreprise }}</strong></h1>
     </div>
     <div ngClass="container-new-user">
+        <button mat-raised-button class="button-new-user"routerLink="/home">Retour à la page home</button>
         <button mat-raised-button class="button-new-user" (click)="openModalNewUser()">Ajouter un utilisateur</button>
     </div>
-    <!-- <div ngIf="">
-
-    </div> -->
+    <div *ngIf="popUp" ngClass="PopUpContainer">
+        <div class="popUp">
+            <h2>Nouvelle utilisateur</h2>
+            <form [formGroup]="newUserForm" (ngSubmit)="addUser()" class="container-form-newUser">
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" placeholder="Ex. william@diagora.fr">
+                        <mat-error *ngIf="newUserForm.get('email')?.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="newUserForm.get('email')?.hasError('email')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Prénom</mat-label>
+                        <input type="text" matInput formControlName="name" placeholder="Ex. William">
+                        <mat-error *ngIf="newUserForm.get('name')?.hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Mot de passe</mat-label>
+                        <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
+                        <mat-error *ngIf="newUserForm.get('password')?.hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <button mat-raised-button type="submit" class="button-form" [disabled]="newUserForm.invalid">Créer votre Nouvelle utilisateur</button>
+            </form>
+        </div>
+    </div>
     <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <!-- <ng-container class="content-tab-userList" matColumnDef="entreprise">
@@ -16,18 +52,24 @@
             </ng-container> -->
             <ng-container class="content-tab-userList" matColumnDef="utilisateur">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td>
+                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td> -->
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="email">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td>
+                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td> -->
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="roles">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td>
+                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td> -->
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
 </div>
+<ng-template #loading>
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Chargement...</p>
+    </div>
+</ng-template>

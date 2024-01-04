@@ -34,6 +34,7 @@ export class SecurityService {
         return this.http.post<any>(`${this.apiUrl}/user/registerManager`, requestBody);
     }
 
+
     forgotPassword(email: string): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/send-email/${email}`, {});
     }
