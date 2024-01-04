@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environment';
+import { ManagerService } from 'src/app/services/manager.service';
 
 // import jwt from 'jsonwebtoken';
 
@@ -11,10 +12,27 @@ import { environment } from 'environment';
 })
 export class HomeComponent implements OnInit {
   logout1!: boolean;
-  admin = false;
-  constructor(private router: Router) { 
-    this.getPermissions();
+  admin = true;
+  entreprise!: string;
+  constructor(private router: Router, private managerService: ManagerService) { 
+    // this.getPermissions();
+    if (this.admin = true) {
+      this.getManagerEntreprise();
+    }
   }
+
+  getManagerEntreprise() {
+    this.managerService.getManagerEntreprise().subscribe(
+        (res) => {
+            console.log(res);
+            this.entreprise = res.company.name;
+            localStorage.setItem('entreprise', this.entreprise);
+        },
+        (err) => {
+            console.log(err);
+        }
+    );
+}
   
   async getPermissions() {
     let userId = localStorage.getItem('id');

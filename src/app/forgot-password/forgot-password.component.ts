@@ -1,52 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SecurityService } from '../services/security.service';
+import { UtilsService } from '../services/utils.service';
+import { tap } from 'rxjs/operators';
+import { Subscription, throwError } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
-  name!: string;
-  password!: string;
-  confirmPassword!: string;
-  popUp!: boolean;
-  Erreur!: string;
 
-  constructor(private router: Router) { }
+export class ForgotPasswordComponent  {
+  emailForm: FormGroup;
 
-  ngOnInit() {
-    this.name = "";
-    this.password = "";
-    this.confirmPassword = "";
-    this.popUp = false;
-    this.Erreur = "";
+  constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+    this.emailForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
-  closePopUp() {
-    this.popUp = false;
-  }
-
-  onEnterEmail(value: string) {
-    this.name = value
-  }
-
-  onEnterPass(value: string) {
-    this.password = value
-  }
-
-  onEnterConfirmPass(value: string) {
-    this.confirmPassword = value
-  }
-
-  update() {
-    if (this.name == "" || this.password == "" || this.confirmPassword == "") {
-      this.Erreur = 'Veuillez remplir tous les champs';
-      this.popUp = true;
+  forgotPassword() {
+    if (this.emailForm.invalid) {
+      return;
     }
-    if (this.password != this.confirmPassword) {
-      this.Erreur = 'Les mots de passe ne correspondent pas';
-      this.popUp = true;
+
+    const { email } = this.emailForm.value;
+
+    if (!this.utilsService.checkEmail(email)) {
+      return;
     }
+
+    this.securityService.forgotPassword(email)
+      .pipe(
+        tap({
+          next: data => {
+            alert('Un email vous a été envoyé, veuillez vérifier votre boîte mail');
+          },
+          error: error => {
+            throwError(error);
+          }
+        })
+      ).subscribe();
   }
+
 }

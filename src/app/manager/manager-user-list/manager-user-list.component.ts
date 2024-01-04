@@ -1,120 +1,65 @@
-import { Component } from '@angular/core';
-import { AdminService } from 'src/app/services/admin.service';
-import { MatDialog } from '@angular/material/dialog';
-import { UserCreateModalComponent } from 'src/app/admin/user-create-modal/user-create-modal.component';
+    import { Component, OnInit } from '@angular/core';
+    import { ManagerService } from 'src/app/services/manager.service';
+    import { MatDialog } from '@angular/material/dialog';
+    import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-@Component({
-    selector: 'app-manager-user-list',
-    templateUrl: './manager-user-list.component.html',
-    styleUrls: ['./manager-user-list.component.scss'],
-})
-export class ManagerUserListComponent {
 
-    constructor(private adminService: AdminService, public dialog: MatDialog) {
-        this.getUsers();
-    }
-    displayedColumns = ['utilisateur', 'email', 'roles'];
+    @Component({
+        selector: 'app-manager-user-list',
+        templateUrl: './manager-user-list.component.html',
+        styleUrls: ['./manager-user-list.component.scss'],
+    })
 
-    dataSource: any = []
-    entrepriseList: any = []
-    private _entrepriseFilter: string = '';
-    get entrepriseFilter(): string {
-        return this._entrepriseFilter;
-    }
-    set entrepriseFilter(value: string) {
-        this._entrepriseFilter = value;
+    export class ManagerUserListComponent {
+        displayedColumns = ['utilisateur', 'email', 'roles'];
+        dataSource: any = [];
+        popUp: boolean = false;
+        dataLoad: boolean = true;
+        newUserForm: FormGroup;
+        entreprise: string = ""
 
-        this.updateDataSource();
-    }
+        constructor(private managerService: ManagerService, public dialog: MatDialog,  private fb: FormBuilder, ) {
+            this.newUserForm = this.fb.group({
+                email: ['', [Validators.required, Validators.email]],
+                name: ['', [Validators.required]],
+                password: ['', [Validators.required]],
+            });
+            console.log('constructor');
+            // this.getUserEntreprise();
+        }
+                
+        
 
-    private _userList: any[] = [];
-    get userList(): any[] {
-        return this._userList;
-    }
-    set userList(value: any[]) {
-        this._userList = value;
-
-        this.updateDataSource();
-    }
-
-    openModal(): void {
-        const dialogRef = this.dialog.open(UserCreateModalComponent, {
-            panelClass: "custom",
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('La modal est fermée.', result);
-        });
-    }
-
-    updateDataSource() {
-        let users = this.userList
-
-        if (this.entrepriseFilter && this.entrepriseFilter.length > 0) {
-            users = users.filter((user: any) => user.entreprise.toLowerCase().startsWith(this.entrepriseFilter.toLowerCase()))
+        getUserEntreprise() {
+            this.managerService.getUserEntreprise(this.entreprise).subscribe(
+                (res) => {
+                    console.log(res);
+                    this.dataSource = res;
+                    this.dataLoad = true;
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
         }
 
-        this.dataSource = users
-    }
+        openModalNewUser(): void {
+            console.log('openModalNewUser');
+            this.popUp = !this.popUp;
 
-    getUsers = async () => {
-        let data: any = await this.adminService.getUsers()
-            .then((response: any) => {
-                return response.users;
-            })
-            .catch((error: any) => {
-                console.error("error", error)
-            });
+        }
 
-        const users = data.map((user: any) => {
-            return {
-                id: user.user_id ? user.user_id : '',
-                entreprise: user.entreprise ? user.entreprise : '',
-                utilisateur: user.name ? user.name : '',
-                email: user.email ? user.email : '',
-                roles: user.roles ? user.roles : '',
-            }
-        })
-
-        this.userList = users;
-        this.getUserEntreprise();
-        this.getUserRoles();
-    }
-
-    getUserRoles = async () => {
-        this.userList.forEach(async (user: any) => {
-            const roles: any = await this.adminService.getRoles(user.id)
-                .then((response: any) => {
-                    let perm = []
-                    if (response.isAdmin === true)
-                        perm.push('Admin')
-                    if (response.isUser === true)
-                        perm.push('User')
-                    return perm;
-                })
-                .catch((error: any) => {
-                    console.error("error", error)
-                    return "Old Account without rôles";
-                });
-            user.roles = roles;
-        })
-    }
-
-    getUserEntreprise = async () => {
-        this.entrepriseList = await this.adminService.getEntreprises()
-            .then((response: any) => {
-                return response;
-            })
-            .catch((error: any) => {
-                console.error("error", error)
-            });
-        this.entrepriseList.forEach((entreprise: any) => {
-            entreprise.users_ids.forEach((user_id: any) => {
-                const user = this.userList.find((user: any) => user.id === user_id)
-                if (user) {
-                    user.entreprise = entreprise.name
+        addUser() {
+            console.log('addUser');
+            this.managerService.newUserByManager(this.newUserForm.value).subscribe(
+                (res) => {
+                    console.log(res);
+                    this.popUp = !this.popUp;
+                },
+                (err) => {
+                    console.log(err);
                 }
-            })
-        })
+            );
+        }
+
     }
-}
