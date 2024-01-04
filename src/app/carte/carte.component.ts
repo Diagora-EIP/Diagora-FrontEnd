@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { ScheduleService } from '../services/schedule.service';
 import { ItineraryService } from '../services/itinerary.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-carte',
@@ -21,6 +22,7 @@ export class CarteComponent implements AfterViewInit {
   date: string = new Date().toISOString().split('T')[0];
   itineraryLayer: any;
   selectedStepIndex: number | null = null;
+  user: any
 
   icon = {
     icon: Leaflet.icon({
@@ -34,7 +36,8 @@ export class CarteComponent implements AfterViewInit {
   constructor(
     private http: HttpClient,
     private scheduleService: ScheduleService,
-    private itineraryService: ItineraryService
+    private itineraryService: ItineraryService,
+    private userService: UserService
   ) {}
 
   ngAfterViewInit(): void {
@@ -112,6 +115,15 @@ export class CarteComponent implements AfterViewInit {
       const selectedPoint = this.itineraryData.path.points[index];
       this.map.panTo([selectedPoint.y, selectedPoint.x]);
     }
+
+    if (!this.routeSteps || this.routeSteps.length === 0) {
+      this.displayDefaultMessage();
+    }
+  }
+
+  private displayDefaultMessage() {
+    const defaultMessage = 'No delivery steps available.';
+    this.routeSteps = [defaultMessage];
   }
 
   getSchedule() {
@@ -138,6 +150,20 @@ export class CarteComponent implements AfterViewInit {
           },
           error: (err) => {
             console.error('Error fetching schedule:', err);
+          },
+        }),
+      )
+      .subscribe();
+
+      this.userService.getUserInfos()
+      .pipe(
+        tap({
+          next: (data: any) => {
+            console.log(data);
+            this.user = data; // Assuming your user object is assigned to this.user
+          },
+          error: (err) => {
+            console.error('Error fetching user:', err);
           },
         }),
       )
