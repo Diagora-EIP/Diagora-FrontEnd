@@ -1,24 +1,41 @@
 <!-- carte.component.html -->
 
 <div class="container">
-  <div class="left-container">
-    <div class="delivery-steps-container">
-      <h2>Delivery Steps</h2>
+  <div class="filter-container">
+    
+    <h2 class="filter-section-heading">Filtres</h2>
+    <div class="filter-components">
       <div class="date-selector">
-        <label for="deliveryDate">Select Delivery Date:</label>
+        <label for="deliveryDate">Jour de Livraison :</label>
         <input type="date" id="deliveryDate" [(ngModel)]="date">
-        <button class="schedule-button" (click)="getSchedule()">Get Schedule</button>
       </div>
-      <ul>
-        <li *ngFor="let step of routeSteps; let i = index" (click)="selectStep(i)">
-          {{ step }}
-        </li>
-      </ul>
+      <div class="display-button-container">
+        <button class="schedule-button" (click)="getSchedule()"> Afficher </button>
+      </div>
     </div>
   </div>
-  <div class="right-container">
-    <div class="map-container">
-      <div id="map"></div>
+
+  <div class="itinerary-container">
+    <h2 class="itinerary-section-heading">Livraison</h2>
+
+    <!-- Left Container -->
+    <div class="left-right-container">
+      <div class="left-container">
+        <div class="delivery-steps-container">
+          <ul>
+            <li *ngFor="let step of routeSteps; let i = index" (click)="selectStep(i)">
+              {{ step }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Container -->
+      <div class="right-container">
+        <div class="map-container">
+          <div id="map"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

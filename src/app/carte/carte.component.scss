@@ -1,84 +1,101 @@
+$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
+
+@import 'filter/filter.component.scss';
+@import 'delivery-steps/delivery-steps.component.scss';
+
 body {
-    margin: 0;
-    overflow: hidden; /* hide any potential overflow */
-  }
-  
-  .container {
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  height: 94vh;
+  overflow: hidden;
+}
+
+.filter-container {
+    flex: 2; /* Take 20% of the width */
+    box-sizing: border-box;
+    overflow-y: auto;
     display: flex;
-    height: 94vh;
-    overflow: hidden; /* hide any potential overflow */
-  }
-  
-  .left-container,
-  .right-container {
-    padding: 20px;
-    flex: 1;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    overflow-y: auto; /* Enable vertical scroll if needed */
-  }
-  
-  .inner-container {
-    padding: 20px;
+    flex-direction: column;
     height: 100%;
+    width: 100%;
+    padding-left: 5px;
+}
+
+.itinerary-container {
+    flex: 11;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  .itinerary-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+  }
+
+  .left-right-container {
+    display: flex;
+    flex-direction: row;
+    flex: 3; /* Take 50% of the width each within the itinerary container */
+  }
+
+  .right-container {
+    position: relative;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    height: 100%;
+    width: 40%; /* Fix the width value here */
+    flex: 1;
+    padding-left: 10px;
   }
   
-  .delivery-steps-container {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+  .left-container {
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 100%;
+    width: 40%;
+  }
+
+li:hover {
+  background-color: #95B1AF; /* Use the correct variable */
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #e8e9ea; /* Light gray background */
+    border: 1px solid #dee2e6; /* Light border color */
     box-sizing: border-box;
     text-align: center;
-    padding: 10px;
-    overflow-y: auto; /* Enable vertical scroll if needed */
-    max-height: calc(100vh - 40px); /* Adjust based on your needs */
-  }
-  
-  .date-selector {
-    margin-bottom: 20px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-    background-color: #e0e0e0;
-    border: 1px solid #999;
-    box-sizing: border-box;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .right-container {
-    position: relative;
-    box-sizing: border-box;
-    overflow-y: hidden; /* Change this to hidden */
-    height: 100%;
-  }
-  
-  .map-container {
-    height: 100%;
-    overflow: hidden; /* Add this line */
-  }
-  
-  #map {
-    width: 100%;
-    height: 100%;
-  }
-  
+    padding: 10px; /* Uncomment this line if necessary */
+    overflow-y: auto; /* Uncomment this line if necessary */
+    max-height: calc(100vh - 40px);
+    border-radius: 4px; /* Rounded corners */
+    }
 
-  .schedule-button {
-    position: absolute;
-    bottom: 10px; /* Adjust the bottom spacing as needed */
-    right: 10px; /* Adjust the right spacing as needed */
-  }
+#map {
+  width: 100%;
+  height: 100%;
+}
 
 /* Additional styles for better button positioning */
-.date-selector {
-    position: relative;
-  }
-  .left-container {
-    position: relative;
-  }

@@ -60,10 +60,22 @@ export class CarteComponent implements AfterViewInit {
   
     if (!stops || stops.length === 0) {
       console.warn('No valid road data in the itinerary.');
-      return []; // Provide a default value, an empty array in this case
+      return [];
     }
   
-    return stops.map((stop: any) => `Deliver to: ${stop.address}`);
+    const routeSteps: string[] = [];
+    for (let i = 0; i < stops.length - 1; i++) {
+      const currentStop = stops[i];
+      const nextStop = stops[i + 1];
+      const travelTime = nextStop.time_elapsed - currentStop.time_elapsed;
+  
+      routeSteps.push(`Deliver to: ${currentStop.address} - Travel time: ${travelTime.toFixed(2)} seconds`);
+    }
+  
+    // Add the last delivery step
+    routeSteps.push(`Deliver to: ${stops[stops.length - 1].address}`);
+  
+    return routeSteps;
   }
 
   private plotItinerary(itineraryData: any) {
