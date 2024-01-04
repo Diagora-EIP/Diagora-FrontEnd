@@ -19,7 +19,7 @@ body {
 }
 
 .filter-container {
-    flex: 2; /* Take 20% of the width */
+    flex: 2;
     box-sizing: border-box;
     overflow-y: auto;
     display: flex;
@@ -55,7 +55,7 @@ body {
   .left-right-container {
     display: flex;
     flex-direction: row;
-    flex: 3; /* Take 50% of the width each within the itinerary container */
+    flex: 3;
   }
 
   .right-container {
@@ -63,7 +63,7 @@ body {
     box-sizing: border-box;
     overflow-y: hidden;
     height: 100%;
-    width: 40%; /* Fix the width value here */
+    width: 40%;
     flex: 1;
     padding-left: 10px;
   }
@@ -76,26 +76,24 @@ body {
   }
 
 li:hover {
-  background-color: #95B1AF; /* Use the correct variable */
+  background-color: #95B1AF;
 }
 
 .map-container {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: #e8e9ea; /* Light gray background */
-    border: 1px solid #dee2e6; /* Light border color */
+    background-color: #e8e9ea;
+    border: 1px solid #dee2e6;
     box-sizing: border-box;
     text-align: center;
-    padding: 10px; /* Uncomment this line if necessary */
-    overflow-y: auto; /* Uncomment this line if necessary */
+    padding: 10px;
+    overflow-y: auto;
     max-height: calc(100vh - 40px);
-    border-radius: 4px; /* Rounded corners */
+    border-radius: 4px;
     }
 
 #map {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
-
-/* Additional styles for better button positioning */

@@ -33,7 +33,7 @@ input {
 }
 
 .fa-calendar-alt {
-    margin-left: -25px; /* Adjust the margin to align the icon with the input */
+    margin-left: -25px;
     color: #555;
 }
 
@@ -63,7 +63,7 @@ input {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding-bottom: 10px; /* Add padding if needed */
+    padding-bottom: 10px;
     flex: 1;
 }
 
@@ -81,8 +81,8 @@ input {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    align-self: flex-end; /* Align the button to the flex-end */
-  }
+    align-self: flex-end; 
+}
 
 .schedule-button:hover {
     background-color: #86A8A6;

@@ -67,17 +67,25 @@ export class CarteComponent implements AfterViewInit {
     }
   
     const routeSteps: string[] = [];
-    for (let i = 0; i < stops.length - 1; i++) {
+    for (let i = 0; i < stops.length; i++) {
       const currentStop = stops[i];
+
+      const timeInSeconds = stops[i].arrive_at;
+      const timeInMilliseconds = timeInSeconds * 1000;
+      const date = new Date(timeInMilliseconds);
+      const formattedDate = date.toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
       const nextStop = stops[i + 1];
-      const travelTime = nextStop.time_elapsed - currentStop.time_elapsed;
-  
-      routeSteps.push(`Deliver to: ${currentStop.address} - Travel time: ${travelTime.toFixed(2)} seconds`);
+      routeSteps.push(`${currentStop.address} - Arrivée prévue le ${formattedDate}`);
     }
-  
-    // Add the last delivery step
-    routeSteps.push(`Deliver to: ${stops[stops.length - 1].address}`);
-  
+
+    // routeSteps.push(`Deliver to: ${stops[stops.length - 1].address}`);
+
     return routeSteps;
   }
 
