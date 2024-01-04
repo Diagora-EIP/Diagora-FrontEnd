@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
   async getUserInfo() {
     const id = localStorage.getItem('id');
     console.log("id", id);
-    await fetch(environment.apiUrl + "/user/" + id, {
+    await fetch(environment.apiUrl + "/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
       return response.json();
     }).then(data => {
       console.log("data", data);
-      this.name = data.user.name;
+      this.name = data.name;
     }).catch((error) => {
       console.log(error);
     });

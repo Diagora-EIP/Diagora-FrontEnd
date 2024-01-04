@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   
   async getPermissions() {
     let userId = localStorage.getItem('id');
-    await fetch(environment.apiUrl + '/user/permissions?' + userId, {
+    await fetch(environment.apiUrl + '/userRoles', {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -46,9 +46,11 @@ export class HomeComponent implements OnInit {
       return response.json();
     }).then((data) => {
       console.log(data);
-      if (data.permissions === "manager") {
-        this.admin = true;
-      }
+      data.forEach((element: any) => {
+        if (element.name == "admin") {
+          this.admin = true;
+        }
+      });
     }).catch((error) => {
       console.log(error);
     });

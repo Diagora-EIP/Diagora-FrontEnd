@@ -3,8 +3,16 @@
         <h1 ngClass="title-userList">Utilisateurs de Diagora</h1>
     </div>
     <div ngClass="container-utils-userList">
-        <button ngClass="new button-utils-userList" mat-raised-button color="primary" (click)="openModal()">+
-            Nouvelle Utilisateur</button>
+        <div ngClass="container-button-utils-userList">
+            <button ngClass="new button-utils-userList" mat-raised-button color="primary"
+                (click)='openModal("COMPANYCREATE")'>
+                + Nouvelle Entreprise
+            </button>
+            <button ngClass="new button-utils-userList" mat-raised-button color="primary"
+                (click)='openModal("USERCREATE")'>
+                + Nouvelle Utilisateur
+            </button>
+        </div>
         <div ngClass="container-filter-userList">
             <mat-form-field class="content-filter-userList">
                 <mat-label ngClass="title-filter-userList">Entreprise</mat-label>
@@ -17,7 +25,15 @@
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <ng-container class="content-tab-userList" matColumnDef="entreprise">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
+                <td class="data-tab-userList" mat-cell *matCellDef="let element">
+                    <div class="company-container">
+                        <span class="company-name">{{element.entreprise}}</span>
+                        <button *ngIf="element.entreprise" class="button-data-tab-userList"
+                            (click)='openModalUpdateCompany(element)'>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="utilisateur">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>

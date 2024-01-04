@@ -34,6 +34,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
+import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +56,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         UserCreateModalComponent,
         ManagerUserListComponent,
         ResetPasswordComponent,
+        NavbarComponent,
+        CompanyCreateModalComponent,
+        CompanyUpdateModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -75,6 +82,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         HttpClientModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatTooltipModule,
     ],
     providers: [
     ],
