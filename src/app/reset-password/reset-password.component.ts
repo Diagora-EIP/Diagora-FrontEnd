@@ -33,9 +33,12 @@ export class ResetPasswordComponent {
       return;
     }
 
-    const id = this.router.url.split('/')[2];
 
-    this.securityService.resetPassword(id, password)
+    const urlSegments = this.router.url.split('/');
+    const resetPasswordIndex = urlSegments.indexOf('reset-password');
+    const token = urlSegments[resetPasswordIndex + 1];
+    console.log(token);
+    this.securityService.resetPassword(token, password)
       .pipe(
         tap({
           next: data => {

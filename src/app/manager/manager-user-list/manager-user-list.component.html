@@ -2,6 +2,12 @@
     <div ngClass="container-title-userList">
         <h1 ngClass="title-userList">Utilisateurs de l'entreprise</h1>
     </div>
+    <div ngClass="container-new-user">
+        <button mat-raised-button class="button-new-user" (click)="openModalNewUser()">Ajouter un utilisateur</button>
+    </div>
+    <!-- <div ngIf="">
+
+    </div> -->
     <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <!-- <ng-container class="content-tab-userList" matColumnDef="entreprise">

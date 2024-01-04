@@ -52,9 +52,11 @@ export class LoginComponent {
             .pipe(
                 tap({
                     next: data => {
+                        console.log(data);
                         localStorage.setItem('token', data.token);
-                        localStorage.setItem('id', data.user.user_id);
-                        localStorage.setItem('email', data.user.email);
+                        localStorage.setItem('id', data.user_id);
+                        localStorage.setItem('email', data.email);
+                        localStorage.setItem('name', data.name);
                         if (!remember) {
                             localStorage.setItem('remember', 'true');
                         } else {
@@ -63,6 +65,7 @@ export class LoginComponent {
                     },
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
+                        alert(errorMessage);
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
