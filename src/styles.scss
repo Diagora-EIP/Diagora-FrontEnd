@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~leaflet/dist/leaflet.css";
 
+$background-color: #F4F4F4;
+
 @font-face {
     font-family: 'Nunito';
     src: url('./assets/font/Nunito.ttf');
@@ -10,5 +12,12 @@ h1, h2, h3, h4, h5, h6, button, input, label, p, span {
     font-family: 'Nunito';
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $background-color;
+}

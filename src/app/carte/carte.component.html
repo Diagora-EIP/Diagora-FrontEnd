@@ -1,11 +1,24 @@
-<div class="map-container">
-  <div class="map-frame">
-    <div id="map">
+<!-- carte.component.html -->
+
+<div class="container">
+  <div class="left-container">
+    <div class="delivery-steps-container">
+      <h2>Delivery Steps</h2>
+      <div class="date-selector">
+        <label for="deliveryDate">Select Delivery Date:</label>
+        <input type="date" id="deliveryDate" [(ngModel)]="date">
+        <button class="schedule-button" (click)="getSchedule()">Get Schedule</button>
+      </div>
+      <ul>
+        <li *ngFor="let step of routeSteps; let i = index" (click)="selectStep(i)">
+          {{ step }}
+        </li>
+      </ul>
     </div>
-    <div class="map-return">
-      <button mat-fab matTooltip="Warn" color="warn" aria-label="Return to planning" routerLink="/planning">
-        <mat-icon>keyboard_return</mat-icon>
-      </button>
+  </div>
+  <div class="right-container">
+    <div class="map-container">
+      <div id="map"></div>
     </div>
   </div>
 </div>

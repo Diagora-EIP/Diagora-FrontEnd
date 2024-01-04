@@ -22,7 +22,7 @@ export class LoginComponent {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
-            remember: [false]
+            remember: [false],
         });
     }
 
@@ -32,6 +32,16 @@ export class LoginComponent {
 
     closePopUp() {
         this.popUp = false;
+    }
+
+    loginRequest(data: any) {
+        if (data.status === 401) {
+            this.Erreur = 'Veuillez vérifier vos identifiants';
+            this.popUp = true;
+            this.loginForm.controls['password'].setErrors({ 'loginFailed': true });
+            this.loginForm.controls['email'].setErrors({ 'loginFailed': true });
+            return;
+        }
     }
 
     async login() {
@@ -48,13 +58,15 @@ export class LoginComponent {
             this.popUp = true;
             return;
         }
+        
         this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
                     next: data => {
+                        console.log(data);
                         localStorage.setItem('token', data.token);
-                        localStorage.setItem('id', data.user.user_id);
-                        localStorage.setItem('email', data.user.email);
+                        localStorage.setItem('id', data.user_id);
+                        localStorage.setItem('email', data.email);
                         if (!remember) {
                             localStorage.setItem('remember', 'true');
                         } else {
@@ -63,6 +75,7 @@ export class LoginComponent {
                     },
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
+                        this.loginRequest(err);
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
@@ -72,5 +85,6 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
+        
     }
 }
