@@ -1,5 +1,5 @@
 // Import necessary modules
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import 'leaflet-routing-machine';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 import { ScheduleService } from '../services/schedule.service';
 import { ItineraryService } from '../services/itinerary.service';
 import { UserService } from '../services/user.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-carte',
   templateUrl: './carte.component.html',
@@ -23,6 +23,7 @@ export class CarteComponent implements AfterViewInit {
   itineraryLayer: any;
   selectedStepIndex: number | null = null;
   user: any
+  redirectEventDate: any
 
   icon = {
     icon: Leaflet.icon({
@@ -37,8 +38,25 @@ export class CarteComponent implements AfterViewInit {
     private http: HttpClient,
     private scheduleService: ScheduleService,
     private itineraryService: ItineraryService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      if (params.has('date')) {
+        this.redirectEventDate = params.get('date');
+
+        const originalDate = new Date(this.redirectEventDate);
+        const date = originalDate.toISOString().split('T')[0];
+        this.date = date;
+        this.cdr.detectChanges();
+        this.initializeMap();
+
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -47,7 +65,8 @@ export class CarteComponent implements AfterViewInit {
     }, 0);
   }
 
-  private initializeMap() {
+
+  initializeMap() {
     this.map = Leaflet.map('map', {
       center: [43.610769, 3.876716],
       zoom: 13

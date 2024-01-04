@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
-import { PlanningComponent } from './planning/planning.component';
+import { ScheduleComponent } from './planning/schedule.component';
 import { CommandsComponent } from './commands/commands.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
             { path: 'carte', component: CarteComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'home', component: HomeComponent },
-            { path: 'planning', component: PlanningComponent },
+            { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
             { path: 'vehicule', component: VehiculeComponent },
             { path: 'statistic', component: StatisticComponent },
