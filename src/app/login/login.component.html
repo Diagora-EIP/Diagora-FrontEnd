@@ -15,6 +15,9 @@
                     <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
                         Please enter a valid email address
                     </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('loginFailed')">
+                        Wrong email or password
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="inputContainer-form-login">
@@ -23,6 +26,9 @@
                     <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
                     <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
                         Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('loginFailed')">
+                        Wrong email or password
                     </mat-error>
                 </mat-form-field>
             </div>
