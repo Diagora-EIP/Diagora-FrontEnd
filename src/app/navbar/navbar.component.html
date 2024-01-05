@@ -21,11 +21,11 @@
                 <li *ngIf="checkPermission('user')" routerLink="/statistic" class="contentBox" routerLinkActive="active">
                     <a>Statistiques</a>
                 </li>
-                <li *ngIf="checkPermission('admin')" routerLink="/manager/userList" class="contentBox" routerLinkActive="active">
-                    <a>Manager Panel</a>
-                </li>
                 <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
                     <a>Carte</a>
+                </li>
+                <li *ngIf="checkPermission('admin')" routerLink="/manager/userList" class="contentBox" routerLinkActive="active">
+                    <a>Manager Panel</a>
                 </li>
                 
             </ul>
