@@ -10,8 +10,10 @@ import { tap } from 'rxjs/operators';
     styleUrls: ['./company-create-modal.component.scss'],
 })
 export class CompanyCreateModalComponent {
-    errorMessage: string = '';
+    nameErrorMessage: string = '';
+    addressErrorMessage: string = '';
     name: string = ''
+    address: string = ''
     createCompanySubscription: Subscription | undefined;
 
     constructor(
@@ -26,33 +28,48 @@ export class CompanyCreateModalComponent {
     }
 
     dataCheck() {
-        if (this.name.length == 0)
+        if (this.name.length == 0) {
+            this.nameErrorMessage = 'Le nom ne peux être vide';
             return false
+        }
+        if (this.address.length == 0) {
+            this.addressErrorMessage = 'L\'adresse ne peux être vide';
+            return false
+        }
         return true
     }
 
+
     createCompany = async () => {
+        this.resetError();
         if (this.dataCheck() == false) {
             return
         }
-        this.createCompanySubscription = this.adminService.createCompany(this.name)
+        this.createCompanySubscription = this.adminService.createCompany(this.name, this.address)
             .pipe(
                 tap({
                     error: (err) => {
                         if (err.status === 409) {
-                            this.errorMessage = 'Cette entreprise existe déjà';
+                            this.nameErrorMessage = 'Cette entreprise existe déjà';
                             return;
                         }
-                        this.errorMessage = 'Une erreur est survenue';
+                        this.nameErrorMessage = 'Une erreur est survenue';
+                        this.addressErrorMessage = 'Une erreur est survenue';
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
             )
             .subscribe({
                 next: (data) => {
-                    this.errorMessage = '';
-                    this.dialogRef.close();
+                    this.nameErrorMessage = '';
+                    this.addressErrorMessage = '';
+                    this.dialogRef.close(data);
                 }
             });
+    }
+
+    resetError() {
+        this.nameErrorMessage = '';
+        this.addressErrorMessage = '';
     }
 }

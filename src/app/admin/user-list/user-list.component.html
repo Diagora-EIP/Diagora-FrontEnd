@@ -16,8 +16,8 @@
         <div ngClass="container-filter-userList">
             <mat-form-field class="content-filter-userList">
                 <mat-label ngClass="title-filter-userList">Entreprise</mat-label>
-                <input matInput ngClass="input-filter-userList" placeholder="Ex. Diagora" [(ngModel)]="entrepriseFilter"
-                    name="filterEntreprise">
+                <input matInput ngClass="input-filter-userList" placeholder="Ex. Diagora" [(ngModel)]="companyFilter"
+                    name="filterCompany">
             </mat-form-field>
         </div>
     </div>
@@ -28,8 +28,9 @@
                 <td class="data-tab-userList" mat-cell *matCellDef="let user">
                     <div class="company-container">
                         <span class="company-name">{{getUserCompany(user.company_id)}}</span>
-                        <button *ngIf="user.company_id !== 0 || user.company_id !== null"
-                            class="button-data-tab-userList" (click)='openModalUpdateCompany(user)'>
+                        <button
+                            *ngIf="user.company_id !== undefined && user.company_id !== 0 && user.company_id !== null"
+                            class="button-data-tab-userList" (click)='callUpdateCompany(user.company_id)'>
                             <mat-icon>edit</mat-icon>
                         </button>
                     </div>
@@ -37,7 +38,7 @@
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="utilisateur">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.utilisateur}} </td>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.name}} </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="email">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>

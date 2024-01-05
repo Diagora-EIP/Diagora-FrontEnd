@@ -12,9 +12,10 @@ import { tap } from 'rxjs/operators';
 export class CompanyUpdateModalComponent {
     errorMessage: string = '';
     original_company_name: string = ''
+    original_company_address: string = ''
     company_name: string = ''
+    company_address: string = ''
     company_id: number = 0
-    users_id: number[] = []
     updateCompanySubscription: Subscription | undefined;
 
     constructor(
@@ -22,10 +23,11 @@ export class CompanyUpdateModalComponent {
         public dialogRef: MatDialogRef<CompanyUpdateModalComponent>,
         private adminService: AdminService,
     ) {
-        this.original_company_name = data.company_name
-        this.company_name = data.company_name
-        this.company_id = data.company_id
-        this.users_id = data.users_id
+        this.original_company_name = data.company.company_name
+        this.company_name = data.company.company_name
+        this.company_id = data.company.company_id
+        this.original_company_address = data.company.company_address
+        this.company_address = data.company.company_address
     }
 
 
@@ -37,6 +39,8 @@ export class CompanyUpdateModalComponent {
     dataCheck() {
         if (this.company_name.length == 0)
             return false
+        if (this.company_address.length == 0)
+            return false
         return true
     }
 
@@ -44,11 +48,11 @@ export class CompanyUpdateModalComponent {
         if (this.dataCheck() == false) {
             return
         }
-        if (this.company_name == this.original_company_name) {
+        if (this.company_name == this.original_company_name && this.company_address == this.original_company_address) {
             this.dialogRef.close();
             return
         }
-        this.updateCompanySubscription = this.adminService.updateCompany(this.company_name, this.company_id, this.users_id)
+        this.updateCompanySubscription = this.adminService.updateCompany(this.company_name.trim(), this.company_id, this.company_address.trim())
             .pipe(
                 tap({
                     error: (err) => {
