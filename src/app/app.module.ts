@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
-import { PlanningComponent } from './planning/planning.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { CommandsComponent } from './commands/commands.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
@@ -25,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,6 +37,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
     declarations: [
@@ -47,7 +47,7 @@ import { CompanyUpdateModalComponent } from './admin/company-update-modal/compan
         ForgotPasswordComponent,
         RegisterComponent,
         CarteComponent,
-        PlanningComponent,
+        ScheduleComponent,
         CommandsComponent,
         ProfileComponent,
         UserListComponent,
@@ -64,7 +64,6 @@ import { CompanyUpdateModalComponent } from './admin/company-update-modal/compan
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        // LeafletModule
         MatSlideToggleModule,
         MatTableModule,
         MatInputModule,
@@ -74,7 +73,6 @@ import { CompanyUpdateModalComponent } from './admin/company-update-modal/compan
         MatDialogModule,
         MatListModule,
         MatSelectModule,
-        ScheduleModule,
         MatDialogModule,
         MatButtonModule,
         MatSelectModule,
@@ -83,6 +81,7 @@ import { CompanyUpdateModalComponent } from './admin/company-update-modal/compan
         ReactiveFormsModule,
         MatCheckboxModule,
         MatTooltipModule,
+        FullCalendarModule
     ],
     providers: [
     ],
