@@ -5,6 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PermissionsService } from '../services/permissions.service';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
     popUp: boolean = false;
     loginSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder, private permissionsService: PermissionsService) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
@@ -44,6 +45,20 @@ export class LoginComponent {
         }
     }
 
+    // savePermissions() {
+    //     let permissions: string[] = [];
+    //     this.permissionsService.getPermissions().subscribe({
+    //         next: (data) => {
+    //             for (let i = 0; i < data.length; i++) {
+    //                 permissions.push(data[i].name);
+    //             }
+    //             console.log("PERMISSIONS ", permissions);
+    //             this.permissionsService.setUserPermissions(permissions);
+    //             console.log("PERMISSIONS 2", this.permissionsService.userPermissions);
+    //         }
+    //     });
+    // }
+
     async login() {
         if (this.loginForm.invalid) {
             this.Erreur = 'Veuillez remplir tous les champs correctement.';
@@ -63,7 +78,6 @@ export class LoginComponent {
             .pipe(
                 tap({
                     next: data => {
-                        console.log(data);
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('id', data.user_id);
                         localStorage.setItem('email', data.email);
@@ -72,6 +86,7 @@ export class LoginComponent {
                         } else {
                             localStorage.setItem('remember', 'false');
                         }
+                        this.permissionsService.forceRefreshPermissions();
                     },
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
@@ -85,6 +100,8 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
+        
+        // this.savePermissions();
         
     }
 }
