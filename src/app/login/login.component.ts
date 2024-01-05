@@ -5,6 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PermissionsService } from '../services/permissions.service';
 
 @Component({
     selector: 'app-login',
@@ -18,11 +19,11 @@ export class LoginComponent {
     popUp: boolean = false;
     loginSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder, private permissionsService: PermissionsService) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
-            remember: [false]
+            remember: [false],
         });
     }
 
@@ -33,6 +34,30 @@ export class LoginComponent {
     closePopUp() {
         this.popUp = false;
     }
+
+    loginRequest(data: any) {
+        if (data.status === 401) {
+            this.Erreur = 'Veuillez vérifier vos identifiants';
+            this.popUp = true;
+            this.loginForm.controls['password'].setErrors({ 'loginFailed': true });
+            this.loginForm.controls['email'].setErrors({ 'loginFailed': true });
+            return;
+        }
+    }
+
+    // savePermissions() {
+    //     let permissions: string[] = [];
+    //     this.permissionsService.getPermissions().subscribe({
+    //         next: (data) => {
+    //             for (let i = 0; i < data.length; i++) {
+    //                 permissions.push(data[i].name);
+    //             }
+    //             console.log("PERMISSIONS ", permissions);
+    //             this.permissionsService.setUserPermissions(permissions);
+    //             console.log("PERMISSIONS 2", this.permissionsService.userPermissions);
+    //         }
+    //     });
+    // }
 
     async login() {
         if (this.loginForm.invalid) {
@@ -48,21 +73,25 @@ export class LoginComponent {
             this.popUp = true;
             return;
         }
+        
         this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
                     next: data => {
                         localStorage.setItem('token', data.token);
-                        localStorage.setItem('id', data.user.user_id);
-                        localStorage.setItem('email', data.user.email);
+                        localStorage.setItem('id', data.user_id);
+                        localStorage.setItem('email', data.email);
+                        localStorage.setItem('name', data.name);
                         if (!remember) {
                             localStorage.setItem('remember', 'true');
                         } else {
                             localStorage.setItem('remember', 'false');
                         }
+                        this.permissionsService.forceRefreshPermissions();
                     },
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
+                        this.loginRequest(err);
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
@@ -72,5 +101,8 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
+        
+        // this.savePermissions();
+        
     }
 }

@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
-import { PlanningComponent } from './planning/planning.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { CommandsComponent } from './commands/commands.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
@@ -25,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,10 +32,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
-
+import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
+import { DeleteCommandComponent } from './commands/modals/delete-command/delete-command.component';
+import { EditCommandComponent } from './commands/modals/edit-command/edit-command.component';
+import { DetailsCommandComponent } from './commands/modals/details-command/details-command.component';
+import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/details-vehicule.component';
+import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
+import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
+import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +56,7 @@ import { CompanyCreateModalComponent } from './admin/company-create-modal/compan
         ForgotPasswordComponent,
         RegisterComponent,
         CarteComponent,
-        PlanningComponent,
+        ScheduleComponent,
         CommandsComponent,
         ProfileComponent,
         UserListComponent,
@@ -54,14 +64,23 @@ import { CompanyCreateModalComponent } from './admin/company-create-modal/compan
         StatisticComponent,
         UserCreateModalComponent,
         ManagerUserListComponent,
+        ResetPasswordComponent,
         NavbarComponent,
         CompanyCreateModalComponent,
+        CompanyUpdateModalComponent,
+        AddCommandComponent,
+        DeleteCommandComponent,
+        EditCommandComponent,
+        DetailsCommandComponent,
+        DetailsVehiculeComponent,
+        AddVehiculeComponent,
+        DeleteVehiculeComponent,
+        EditVehiculeComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        // LeafletModule
         MatSlideToggleModule,
         MatTableModule,
         MatInputModule,
@@ -71,7 +90,6 @@ import { CompanyCreateModalComponent } from './admin/company-create-modal/compan
         MatDialogModule,
         MatListModule,
         MatSelectModule,
-        ScheduleModule,
         MatDialogModule,
         MatButtonModule,
         MatSelectModule,
@@ -80,6 +98,8 @@ import { CompanyCreateModalComponent } from './admin/company-create-modal/compan
         ReactiveFormsModule,
         MatCheckboxModule,
         MatTooltipModule,
+        FullCalendarModule,
+        MatDatepickerModule,
     ],
     providers: [
     ],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environment';
+import { PermissionsService } from '../services/permissions.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
   tmpIndex!: number;
   selected!: string;
   tmpValue!: string;
-  constructor(private router: Router) { 
+  constructor(private router: Router, public permissionsService: PermissionsService) { 
     this.getUserInfo();
   }
 
@@ -46,6 +47,8 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.logout1 = true;
+    // this.permissionsService.setUserPermissions([]);
+    // localStorage.removeItem('permissions');
     // localStorage.removeItem('token');
     // this.router.navigate(['login']);
   }
@@ -56,6 +59,8 @@ export class ProfileComponent implements OnInit {
 
   confirm() {
     localStorage.removeItem('token');
+    localStorage.removeItem('permissions');
+    this.permissionsService.setUserPermissions([]);
     this.router.navigate(['login']);
   }
 
@@ -72,7 +77,7 @@ export class ProfileComponent implements OnInit {
   async getUserInfo() {
     const id = localStorage.getItem('id');
     console.log("id", id);
-    await fetch(environment.apiUrl + "/user/" + id, {
+    await fetch(environment.apiUrl + "/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +87,7 @@ export class ProfileComponent implements OnInit {
       return response.json();
     }).then(data => {
       console.log("data", data);
-      this.name = data.user.name;
+      this.name = data.name;
     }).catch((error) => {
       console.log(error);
     });

@@ -21,8 +21,8 @@ export class RegisterComponent {
     constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder) { 
         this.registerGroup = this.fb.group({
             name: ['', [Validators.required]],
-            firstname: ['', [Validators.required]],
-            entreprise: ['', [Validators.required]],
+            address: ['', [Validators.required]],
+            company: ['', [Validators.required]],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
             passwordConf: ['', [Validators.required]],
@@ -44,7 +44,7 @@ export class RegisterComponent {
             return;
         }
         
-        const { name, firstname, entreprise, email, password, passwordConf } = this.registerGroup.value;
+        const { name, address, company, email, password, passwordConf } = this.registerGroup.value;
         
         if (password != passwordConf) {
             this.Erreur = "Les mots de passe ne sont pas identique"
@@ -55,17 +55,25 @@ export class RegisterComponent {
         const body = {
             "name": name,
             "email": email,
-            "password": password
+            "password": password,
+            "company": company,
+            "address": address,
         }
 
         
-        this.registerSubscription = this.securityService.register(name, email, password)
+        this.registerSubscription = this.securityService.registerManager(body)
         .pipe(
             tap({
                 next: data => {
                 },
                 error: (err) => {
                     console.log("err", err);
+                    if (err.status == 409) {
+                        this.Erreur = "l'entreprise existe déjà";
+                        this.popUp = true;
+                        this.registerGroup.reset();
+                        return;
+                    }
                     this.Erreur = err.error;
                     this.popUp = true;
                     this.registerGroup.reset();

@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
 export class CompanyCreateModalComponent {
     errorMessage: string = '';
     name: string = ''
-    loginSubscription: Subscription | undefined;
+    createCompanySubscription: Subscription | undefined;
 
     constructor(
         public dialogRef: MatDialogRef<CompanyCreateModalComponent>,
@@ -22,7 +22,7 @@ export class CompanyCreateModalComponent {
 
     close(): void {
         this.dialogRef.close();
-        this.loginSubscription?.unsubscribe();
+        this.createCompanySubscription?.unsubscribe();
     }
 
     dataCheck() {
@@ -35,11 +35,7 @@ export class CompanyCreateModalComponent {
         if (this.dataCheck() == false) {
             return
         }
-        let roles: any = {
-            "admin": false,
-            "user": false
-        }
-        this.loginSubscription = this.adminService.createCompany(this.name)
+        this.createCompanySubscription = this.adminService.createCompany(this.name)
             .pipe(
                 tap({
                     error: (err) => {

@@ -45,9 +45,18 @@ export class AdminService {
         return response.data;
     }
 
+    getCompany(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/company`, this.header);
+    }
+
     createCompany(name: string): Observable<any> {
         const empty: number[] = []
         const requestBody = { name, users_ids: empty };
         return this.http.post<any>(`${this.apiUrl}/company`, requestBody, this.header);
+    }
+
+    updateCompany(name: string, company_id: number, users_id: number[]): Observable<any> {
+        const requestBody = { name, users_ids: users_id };
+        return this.http.patch<any>(`${this.apiUrl}/company/${company_id}`, requestBody, this.header);
     }
 }

@@ -15,6 +15,9 @@
                     <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
                         Please enter a valid email address
                     </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('loginFailed')">
+                        Wrong email or password
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="inputContainer-form-login">
@@ -24,12 +27,15 @@
                     <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
                         Password is <strong>required</strong>
                     </mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('loginFailed')">
+                        Wrong email or password
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="rememberContainer-form-login">
                 <mat-checkbox formControlName="remember" color="primary"
                     class="custom-checkbox checkbox-form-login">Rester connecté</mat-checkbox>
-                <a class="forgotPassword-form-login">Mot de passe oublié ?</a>
+                <a class="forgotPassword-form-login" routerLink="/forgot-password">Mot de passe oublié ?</a>
             </div>
             <button mat-raised-button type="submit" class="button-form-login"
                 [disabled]="loginForm.invalid">Connectez-vous</button>

@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environment';
+import { PermissionsService } from '../services/permissions.service';
+import { ManagerService } from 'src/app/services/manager.service';
 
 // import jwt from 'jsonwebtoken';
 
@@ -11,29 +13,59 @@ import { environment } from 'environment';
 })
 export class HomeComponent implements OnInit {
   logout1!: boolean;
-  admin = false;
-  constructor(private router: Router) { 
-    this.getPermissions();
+  admin = true;
+  entreprise!: string;
+  constructor(private router: Router, private managerService: ManagerService, public permissionsService: PermissionsService) { 
+    // this.getPermissions();
+    if (this.admin = true) {
+      this.getManagerEntreprise();
+    }
   }
+
+  getManagerEntreprise() {
+    this.managerService.getManagerEntreprise().subscribe(
+        (res) => {
+            console.log(res);
+            this.entreprise = res.company.name;
+            localStorage.setItem('entreprise', this.entreprise);
+        },
+        (err) => {
+            console.log(err);
+        }
+    );
+}
   
-  async getPermissions() {
-    let userId = localStorage.getItem('id');
-    await fetch(environment.apiUrl + '/user/permissions?' + userId, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
-    }) .then(function (response) {
-      return response.json();
-    }).then((data) => {
-      console.log(data);
-      if (data.permissions === "manager") {
-        this.admin = true;
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
+  // async getPermissions() {
+  //   let userId = localStorage.getItem('id');
+  //   await fetch(environment.apiUrl + '/userRoles', {
+  //     method: 'GET',
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": "Bearer " + localStorage.getItem('token')
+  //     },
+  //   }) .then(function (response) {
+  //     return response.json();
+  //   }).then((data) => {
+  //     data.forEach((element: any) => {
+  //       if (element.name == "admin") {
+  //         this.admin = true;
+  //       }
+  //     });
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+  hasPermission(permission: string): boolean {
+    if (localStorage.getItem('token') === null) {
+      return false;
+    }
+    // let permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
+    // let res = Object.values(permissions);
+    let res2 = this.permissionsService.hasPermission(permission);
+    // console.log("RES ", res);
+    // console.log("RES2 ", res2);
+    return res2;
   }
 
   ngOnInit(): void {

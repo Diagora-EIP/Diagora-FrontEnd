@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'Diagora';
-  showNavbar: boolean = true;
+  showNavbar: boolean = false;
 
   constructor(private router: Router) {
     // Subscribe to route changes
