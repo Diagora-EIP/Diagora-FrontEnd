@@ -29,8 +29,19 @@ export class SecurityService {
         return this.http.post<any>(`${this.apiUrl}/user/login`, requestBody);
     }
 
-    register(name: string, email: string, password: string): Observable<any> {
-        const requestBody = { name, email, password };
-        return this.http.post<any>(`${this.apiUrl}/user/register`, requestBody);
+    registerManager(body: any): Observable<any> {
+        const requestBody = body;
+        return this.http.post<any>(`${this.apiUrl}/user/registerManager`, requestBody);
+    }
+
+
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/send-email/${email}`, {});
+    }
+
+    resetPassword(token: string, password: string): Observable<any> {
+        const requestBody = { password: password };
+        console.log(requestBody);
+        return this.http.patch<any>(`${this.apiUrl}/resetPassword/${token}`, requestBody);
     }
 }

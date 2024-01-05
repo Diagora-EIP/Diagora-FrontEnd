@@ -7,19 +7,19 @@
             <div class="nameFirstContainer">
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Nom</mat-label>
-                        <input type="name" matInput formControlName="name" placeholder="Ex. piloz">
+                        <mat-label>Prénom</mat-label>
+                        <input type="name" matInput formControlName="name" placeholder="Ex. William">
                         <mat-error *ngIf="registerGroup.get('name')?.hasError('required')">
-                            Le nom est <strong>obligatoire</strong>
+                            Le prénom est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Prénom</mat-label>
-                        <input type="firstname" matInput formControlName="firstname" placeholder="Ex. william">
-                        <mat-error *ngIf="registerGroup.get('firstname')?.hasError('required')">
-                            Le prénom est <strong>obligatoire</strong>
+                        <mat-label>Adresse de l'entreprise</mat-label>
+                        <input type="address" matInput formControlName="address" placeholder="Ex. 3 place paul bec, 34000, France">
+                        <mat-error *ngIf="registerGroup.get('address')?.hasError('required')">
+                            L'addresse est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -27,8 +27,8 @@
             <div class="inputContainer-form-login">
                 <mat-form-field class="example-full-width">
                     <mat-label>Entreprise</mat-label>
-                    <input type="entreprise" matInput formControlName="entreprise" placeholder="Ex. Diagora">
-                    <mat-error *ngIf="registerGroup.get('entreprise')?.hasError('required')">
+                    <input type="company" matInput formControlName="company" placeholder="Ex. Diagora">
+                    <mat-error *ngIf="registerGroup.get('company')?.hasError('required')">
                         Entreprise est <strong>obligatoire</strong>
                     </mat-error>
                 </mat-form-field>

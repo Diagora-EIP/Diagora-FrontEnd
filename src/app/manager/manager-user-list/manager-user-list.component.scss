@@ -1,4 +1,5 @@
 $font-color: #01ABA8;
+@import "../../../variables.scss";
 
 .container-userList {
     width: 100%;
@@ -53,4 +54,72 @@ $font-color: #01ABA8;
 
 .data-tab-userList {
     font-size: 1rem;
+}
+
+.container-new-user {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+
+.PopUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.button-form {
+    background-color: $button-main-color !important;
+    color: #ffffff !important;
+    font-size: $font-size !important;
+    font-weight: bold !important;
+    text-shadow: 0px 2px 4px rgba($color: red, $alpha: 0.25);
+}
+
+.inputContainer-form-login {
+    display: grid;
+    width: 100%;
+    gap: 5px;
+}
+
+.popUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.container-form-newUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

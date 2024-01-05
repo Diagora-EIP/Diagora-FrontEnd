@@ -81,6 +81,7 @@ export class LoginComponent {
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('id', data.user_id);
                         localStorage.setItem('email', data.email);
+                        localStorage.setItem('name', data.name);
                         if (!remember) {
                             localStorage.setItem('remember', 'true');
                         } else {
