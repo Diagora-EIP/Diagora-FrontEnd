@@ -5,6 +5,7 @@ import { UserCreateModalComponent } from '../user-create-modal/user-create-modal
 import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from '../company-update-modal/company-update-modal.component';
 import { Subscription, tap, throwError } from 'rxjs';
+import { Roles } from 'src/app/models/Roles.dto';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     USERCREATE: UserCreateModalComponent,
@@ -22,9 +23,12 @@ export class UserListComponent {
     displayedColumns = ['entreprise', 'utilisateur', 'email', 'roles'];
 
     dataSource: any = []
-    entrepriseList: any = []
+    companyList: any = []
+    RolesList: any = []
     private _entrepriseFilter: string = '';
+    getUsersSubscription: Subscription | undefined;
     getCompanySubscription: Subscription | undefined;
+    getRolesSubscription: Subscription | undefined;
 
     get entrepriseFilter(): string {
         return this._entrepriseFilter;
@@ -47,10 +51,14 @@ export class UserListComponent {
 
     constructor(private adminService: AdminService, public dialog: MatDialog) {
         this.getUsers();
+        this.getCompany();
+        this.getRoles();
     }
 
     ngOnDestroy() {
+        this.getUsersSubscription?.unsubscribe();
         this.getCompanySubscription?.unsubscribe();
+        this.getRolesSubscription?.unsubscribe();
     }
 
     openModal(modalType: string): void {
@@ -70,7 +78,7 @@ export class UserListComponent {
     }
 
     openModalUpdateCompany(user: any): void {
-        const users_id = this.entrepriseList.filter((entreprise: any) => entreprise.company_id === user.company_id)[0].users_id
+        const users_id = this.companyList.filter((entreprise: any) => entreprise.company_id === user.company_id)[0].users_id
         const dataToSend = {
             company_id: user.company_id,
             company_name: user.entreprise,
@@ -85,7 +93,7 @@ export class UserListComponent {
         dialogRef.afterClosed().subscribe((result) => {
             if (!result || !result.company_name)
                 return
-            const entrepriseToUpdate = this.entrepriseList.find((entreprise: any) => entreprise.company_id === user.company_id);
+            const entrepriseToUpdate = this.companyList.find((entreprise: any) => entreprise.company_id === user.company_id);
             if (entrepriseToUpdate) {
                 entrepriseToUpdate.company_name = result.company_name;
 
@@ -109,59 +117,7 @@ export class UserListComponent {
     }
 
     getUsers = async () => {
-        let data: any = await this.adminService.getUsers()
-            .then((response: any) => {
-                return response.users;
-            })
-            .catch((error: any) => {
-                console.error("error", error)
-            });
-
-        const users = data.map((user: any) => {
-            return {
-                id: user.user_id ? user.user_id : '',
-                entreprise: user.entreprise ? user.entreprise : '',
-                utilisateur: user.name ? user.name : '',
-                email: user.email ? user.email : '',
-                roles: user.roles ? user.roles : '',
-                company_id: user.company_id ? user.company_id : '',
-            }
-        })
-
-        // this.userList = [{
-        //     id: 1,
-        //     entreprise: "test",
-        //     utilisateur: "test",
-        //     email: "test",
-        //     roles: "test",
-        //     company_id: 1
-        // }]
-        this.userList = users;
-        this.getUserEntreprise();
-        this.getUserRoles();
-    }
-
-    getUserRoles = async () => {
-        this.userList.forEach(async (user: any) => {
-            const roles: any = await this.adminService.getRoles(user.id)
-                .then((response: any) => {
-                    let perm = []
-                    if (response.isAdmin === true)
-                        perm.push('Admin')
-                    if (response.isUser === true)
-                        perm.push('User')
-                    return perm;
-                })
-                .catch((error: any) => {
-                    console.error("error", error)
-                    return "Old Account without rôles";
-                });
-            user.roles = roles;
-        })
-    }
-
-    getUserEntreprise = async () => {
-        this.getCompanySubscription = this.adminService.getCompany()
+        this.getUsersSubscription = this.adminService.newgetUsers()
             .pipe(
                 tap({
                     error: (err) => {
@@ -174,23 +130,100 @@ export class UserListComponent {
             )
             .subscribe({
                 next: (data) => {
-                    this.entrepriseList = data.map((company: any) => {
+                    this.userList = data.map((user: any) => {
+                        return {
+                            id: user.user_id ? user.user_id : '',
+                            utilisateur: user.name ? user.name : '',
+                            email: user.email ? user.email : '',
+                            roles: user.roles ? this.getRolesId(user.roles) : '',
+                            company_id: user.company ? user.company.company_id : 0,
+                        }
+                    });
+                }
+            });
+
+        // this.userList = [{
+        //     id: 1,
+        //     entreprise: "test",
+        //     utilisateur: "test",
+        //     email: "test",
+        //     roles: "test",
+        //     company_id: 1
+        // }]
+    }
+
+    getRolesId = (roles: Roles[]) => {
+        const roles_id = roles.map((role: any) => {
+            return role.role_id
+        })
+        return roles_id;
+    }
+
+    getRoles = async () => {
+        this.getRolesSubscription = this.adminService.getRoles()
+            .pipe(
+                tap({
+                    error: (err) => {
+                        if (err.status === 409) {
+                            return;
+                        }
+                        return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.RolesList = data
+                }
+            });
+    }
+
+    getUserRoles = (roles_id: number[]) => {
+        if (roles_id === null)
+            return "No Roles"
+
+        const roles = this.RolesList.filter((role: any) => roles_id.includes(role.role_id))
+
+        if (roles)
+            return roles.map((role: any) => role.name).join(', ')
+
+        return "No Roles"
+    }
+
+    getCompany = async () => {
+        this.getCompanySubscription = this.adminService.getAllCompany()
+            .pipe(
+                tap({
+                    error: (err) => {
+                        if (err.status === 409) {
+                            return;
+                        }
+                        return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.companyList = data.map((company: any) => {
                         return {
                             company_id: company.company_id,
                             company_name: company.name,
-                            users_id: []
+                            company_address: company.address,
                         }
                     })
-                    this.userList.forEach((user: any) => {
-                        this.entrepriseList.forEach((entreprise: any) => {
-                            if (user.company_id == entreprise.company_id) {
-                                user.entreprise = entreprise.company_name
-                                entreprise.users_id.push(user.id)
-                            }
-                        })
-                    })
-
                 }
             });
+    }
+
+    getUserCompany = (company_id: number) => {
+        if (company_id === null || company_id === 0)
+            return "No Company"
+
+        const company = this.companyList.find((company: any) => company.company_id === company_id)
+
+        if (company)
+            return company.company_name
+
+        return "No Company"
     }
 }

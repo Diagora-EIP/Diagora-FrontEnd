@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'environment';
 import { Observable } from 'rxjs';
+import { UserWithCompany } from '../models/User.dto';
+import { Roles } from '../models/Roles.dto';
 
 
 @Injectable({
@@ -30,11 +32,6 @@ export class AdminService {
         return response.data;
     }
 
-    async getRoles(user_id: string) {
-        const response = await axios.get(this.apiUrl + '/user/permissions/' + user_id, this.header);
-        return response.data;
-    }
-
     async getEntreprises() {
         const response = await axios.get(this.apiUrl + '/company', this.header);
         return response.data;
@@ -45,8 +42,20 @@ export class AdminService {
         return response.data;
     }
 
+    newgetUsers(): Observable<any> {
+        return this.http.get<UserWithCompany>(`${this.apiUrl}/admin/users`, this.header);
+    }
+
+    getRoles(): Observable<any> {
+        return this.http.get<Roles>(`${this.apiUrl}/admin/roles`, this.header);
+    }
+
     getCompany(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/company`, this.header);
+    }
+
+    getAllCompany(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/admin/companies`, this.header);
     }
 
     createCompany(name: string): Observable<any> {
