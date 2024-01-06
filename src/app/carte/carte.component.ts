@@ -124,7 +124,6 @@ export class CarteComponent implements AfterViewInit {
     const path_coordinates = road.map((point: any) => [point.y, point.x]);
     this.itineraryLayer = Leaflet.polyline(path_coordinates, { color: 'blue' }).addTo(this.map);
 
-    const marker = Leaflet.marker([51.5, -0.09], this.icon).addTo(this.map);
 
     stops.forEach((point: any) => {
       Leaflet.marker([point.y, point.x, point.address], this.icon).addTo(this.map)
