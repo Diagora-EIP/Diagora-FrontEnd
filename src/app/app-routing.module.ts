@@ -14,7 +14,7 @@ import { UserListComponent } from './admin/user-list/user-list.component';
 import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
-import { userGuard, adminGuard } from './guards/role-guard.guard';
+// import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
@@ -37,13 +37,26 @@ const routes: Routes = [
             { path: 'commands', component: CommandsComponent },
             { path: 'vehicule', component: VehiculeComponent },
             { path: 'statistic', component: StatisticComponent },
+        ],
+        data: {
+            permission: 'user'
+        }
+    },
+    {
+        path : '', canActivate: [AuthGuard], children: [
             { path: 'manager/userList', component: ManagerUserListComponent },
-        ]
+        ],
+        data: {
+            permission: 'admin'
+        }
     },
     {
         path: 'admin', canActivate: [AuthGuard], children: [
             { path: 'userList', component: UserListComponent, },
-        ]
+        ],
+        data: {
+            permission: 'admin'
+        }
     },
     { path: '**', redirectTo: 'home' }
 ];

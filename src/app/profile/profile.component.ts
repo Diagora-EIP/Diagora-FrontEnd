@@ -59,8 +59,7 @@ export class ProfileComponent implements OnInit {
 
   confirm() {
     localStorage.removeItem('token');
-    localStorage.removeItem('permissions');
-    this.permissionsService.setUserPermissions([]);
+    this.permissionsService.deleteUserPermissions();
     this.router.navigate(['login']);
   }
 

@@ -9,7 +9,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class PermissionsService {
     private userPermissionsSubject = new BehaviorSubject<string[]>([]);
-    public userPermissions = this.userPermissionsSubject.asObservable();
+    userPermissions = this.userPermissionsSubject.asObservable();
     token = localStorage.getItem('token');
 
     header: any = {};
@@ -33,6 +33,11 @@ export class PermissionsService {
                 this.setUserPermissions(permissions);
             }
         });
+    }
+
+    deleteUserPermissions(): void {
+        this.userPermissionsSubject = new BehaviorSubject<string[]>([]);
+        this.userPermissions = this.userPermissionsSubject.asObservable();
     }
 
     forceRefreshPermissions(): void {
