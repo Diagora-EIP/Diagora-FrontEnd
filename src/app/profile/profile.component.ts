@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SecurityService } from '../services/security.service';
 import { UserService } from '../services/user.service';
 import { ManagerService } from '../services/manager.service';
-
+import { PermissionsService } from '../services/permissions.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,7 @@ export class ProfileComponent {
   manager: boolean = false;
   users_company: any = [];
 
-  constructor(private router: Router, private fb: FormBuilder, private securityService: SecurityService, private userService: UserService, private managerService: ManagerService) { 
+  constructor(private router: Router, private fb: FormBuilder, private securityService: SecurityService, private userService: UserService, private managerService: ManagerService, public permissionsService: PermissionsService) { 
     this.userInformationFrom = this.fb.group({
       email: [localStorage.getItem('email'), [Validators.required, Validators.email]],
       name: [localStorage.getItem("name"), [Validators.required]],
@@ -35,21 +35,9 @@ export class ProfileComponent {
   }
 
   getRoles() {
-    this.securityService.getUserRoles().subscribe(
-      (res) => {
-        res.forEach((element: any) => {
-          if (element.name == "manager") {
-            this.manager = true;
-            this.users_company = localStorage.getItem('users');
-            this.users_company = JSON.parse(this.users_company);
-            console.log(this.users_company);
-          }
-        });
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.users_company = localStorage.getItem('users');
+    this.users_company = JSON.parse(this.users_company);
+    this.manager = this.permissionsService.hasPermission('manager');
   }
 
 

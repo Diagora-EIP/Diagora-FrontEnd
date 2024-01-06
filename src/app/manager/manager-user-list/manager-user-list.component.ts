@@ -1,5 +1,5 @@
     import { Component, OnInit } from '@angular/core';
-    import { ManagerService } from 'src/app/services/manager.service';
+    import { ManagerService } from '../../services/manager.service';
     import { MatDialog } from '@angular/material/dialog';
     import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
