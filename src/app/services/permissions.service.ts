@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -23,16 +22,6 @@ export class PermissionsService {
                 }
             }
         }
-        this.getPermissions().subscribe({
-            next: (data) => {
-                console.log("DATA ", data);
-                let permissions = [];
-                for (let i = 0; i < data.length; i++) {
-                    permissions.push(data[i].name);
-                }
-                this.setUserPermissions(permissions);
-            }
-        });
     }
 
     deleteUserPermissions(): void {

@@ -13,8 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
-import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
-// import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
+// import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
+import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
@@ -60,6 +60,40 @@ const routes: Routes = [
     },
     { path: '**', redirectTo: 'home' }
 ];
+
+// const routes: Routes = [
+//     { path: '', redirectTo: 'home', pathMatch: 'full' },
+//     {
+//         path: '', canActivate: [AuthLeftGuard] , children: [
+//             { path: 'login', component: LoginComponent },
+//             { path: 'register', component: RegisterComponent },
+//             { path: 'forgot-password', component: ForgotPasswordComponent },
+//             { path: 'reset-password/:id', component: ResetPasswordComponent },
+//         ]
+//     },
+//     {
+//         path: '', children: [
+//             { path: 'carte', component: CarteComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//             { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//             { path: 'home', component: HomeComponent, canActivate: [AuthLeftGuard], data: { permission: 'user' } },
+//             { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//             { path: 'commands', component: CommandsComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//             { path: 'vehicule', component: VehiculeComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//             { path: 'statistic', component: StatisticComponent, canActivate: [AuthGuard], data: { permission: 'user' } },
+//         ]
+//     },
+//     {
+//         path: '', children: [
+//             { path: 'manager/userList', component: ManagerUserListComponent, canActivate: [AuthGuard], data: { permission: 'admin' } },
+//         ]
+//     },
+//     {
+//         path: 'admin', children: [
+//             { path: 'userList', component: UserListComponent, canActivate: [AuthGuard], data: { permission: 'admin' } },
+//         ]
+//     },
+//     { path: '**', redirectTo: 'home' }
+// ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

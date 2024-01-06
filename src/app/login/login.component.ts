@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SecurityService } from '../services/security.service';
 import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
-import { Subscription, throwError } from 'rxjs';
+import { Subscription, throwError, lastValueFrom } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermissionsService } from '../services/permissions.service';
 
@@ -73,7 +73,7 @@ export class LoginComponent {
             this.popUp = true;
             return;
         }
-        
+
         this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
@@ -101,8 +101,46 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
-        
-        // this.savePermissions();
-        
+
     }
+
+    // async login() {
+    //     if (this.loginForm.invalid) {
+    //         this.Erreur = 'Veuillez remplir tous les champs correctement.';
+    //         this.popUp = true;
+    //         return;
+    //     }
+
+    //     const { email, password, remember } = this.loginForm.value;
+
+    //     if (!this.utilsService.checkEmail(email)) {
+    //         this.Erreur = 'Veuillez entrer une adresse mail valide';
+    //         this.popUp = true;
+    //         return;
+    //     }
+
+    //     try {
+    //         const data = await lastValueFrom(this.securityService.login(email, password, remember));
+
+    //         localStorage.setItem('token', data.token);
+    //         localStorage.setItem('id', data.user_id);
+    //         localStorage.setItem('email', data.email);
+    //         localStorage.setItem('name', data.name);
+
+    //         if (remember) {
+    //             localStorage.setItem('remember', 'true');
+    //         } else {
+    //             localStorage.setItem('remember', 'false');
+    //         }
+
+    //         this.permissionsService.forceRefreshPermissions();
+
+    //         this.router.navigate(['home']);
+    //     } catch (err) {
+    //         let errorMessage = 'Une erreur est survenue';
+    //         this.loginRequest(err);
+    //         console.error(err);
+            
+    //     }
+    // }
 }
