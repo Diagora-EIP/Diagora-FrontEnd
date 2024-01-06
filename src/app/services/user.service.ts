@@ -25,6 +25,11 @@ export class UserService {
       }
   }
 
+  getUserInfos(): Observable<any> {
+    console.log(this.apiUrl)
+    return this.http.get<any>(`${this.apiUrl}/user`, this.header);
+}
+
   updateUserInformations(body: any): Observable<any> {
     const requestBody = body;
     return this.http.patch<any>(`${this.apiUrl}/user/`, requestBody, this.header);

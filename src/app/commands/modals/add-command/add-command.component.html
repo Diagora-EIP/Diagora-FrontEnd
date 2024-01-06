@@ -1,0 +1,38 @@
+<div ngClass="container-addCommandModal">
+    <div ngClass="container-title-addCommandModal">
+        <h1 ngClass="title-addCommandModal">Ajouter une commande</h1>
+    </div>
+
+    <div ngClass="content-addCommandModal">
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Nom</mat-label>
+                <input matInput ngClass="input-addCommandModal" placeholder="Ex. Pierre" [(ngModel)]="description" name="description"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Adresse</mat-label>
+                <input matInput ngClass="input-addCommandModal" placeholder="Ex. 1 Rue de la fontaine, 34000 Montpellier"
+                    [(ngModel)]="address" name="address" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Date</mat-label>
+                <input matInput ngClass="input-addCommandModal" placeholder="Ex. 2023-01-01" [(ngModel)]="date" name="date"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+    
+        <div ngClass="container-button-addCommandModal">
+            <button ngClass="cancel button-addCommandModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-addCommandModal" mat-raised-button color="primary"
+                (click)="addCommand()">Valider</button>
+        </div>
+    </div>
+</div>

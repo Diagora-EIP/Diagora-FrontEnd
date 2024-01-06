@@ -1,0 +1,14 @@
+<div ngClass="container-deleteCommandModal">
+    <div ngClass="container-title-deleteCommandModal">
+        <h1 ngClass="title-deleteCommandModal">Suppression de la commande</h1>
+    </div>
+    <div class="content-deleteCommandModal">
+        <p class="text-deleteCommandModal">Êtes-vous sûr de vouloir supprimer cette commande ?</p>
+        <div ngClass="container-button-deleteCommandModal">
+            <button ngClass="cancel button-deleteCommandModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-deleteCommandModal" mat-raised-button color="primary"
+                (click)="deleteCommand()">Valider</button>
+        </div>
+    </div>
+</div>

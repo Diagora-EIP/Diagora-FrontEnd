@@ -1,128 +1,77 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { NgIf } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 
-export interface DialogData {
-  id: number,
-  marque: number,
-  modele: string,
-}
+import { VehiculesService } from 'src/app/services/vehicules.service';
+import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
+import { DetailsVehiculeComponent } from './modals/details-vehicule/details-vehicule.component';
+import { EditVehiculeComponent } from './modals/edit-vehicule/edit-vehicule.component';
+import { DeleteVehiculeComponent } from './modals/delete-vehicule/delete-vehicule.component';
+
+const modalComponentMapping: { [key: string]: Type<any> } = {
+    DETAILS: DetailsVehiculeComponent,
+    ADD: AddVehiculeComponent,
+    EDIT: EditVehiculeComponent,
+    DELETE: DeleteVehiculeComponent,
+};
 
 @Component({
-  selector: 'app-vehicule',
-  templateUrl: './vehicule.component.html',
-  styleUrls: ['./vehicule.component.scss']
+    selector: 'app-vehicule',
+    templateUrl: './vehicule.component.html',
+    styleUrls: ['./vehicule.component.scss']
 })
 export class VehiculeComponent {
-  logout1!: boolean;
-  constructor(private router: Router, public dialog: MatDialog) { }
+    logout1!: boolean;
+    allVehicules: any;
 
-  ngOnInit(): void {
-    this.logout1 = false;
-  }
+    constructor(private router: Router, public dialog: MatDialog, private vehiculesService: VehiculesService) { }
 
-  goto(params: string) {
-    this.router.navigate([params]);
-  }
-
-  logout() {
-    this.logout1 = true;
-  }
-
-  cancel() {
-    this.logout1 = false;
-  }
-
-  confirm() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login']);
-  }
-
-  openDialog(id:number = 0, marque:string = '', modele:string = ''): void {
-    this.dialog.open(DetailsModalComponent, {
-      data: {
-        id: id,
-        marque: marque,
-        modele: modele,
-      }
-    });
-  }
-
-  vehiculeAction(type:string = 'null'): void {
-    if (type === 'null') { return; }
-    else if (type === 'AddVehicule') {
-      this.dialog.open(AddVehiculeModalComponent);
+    ngOnInit(): void {
+        this.logout1 = false;
+        this.getVehicules();
     }
-    else if (type === 'EditVehicule') {
-      this.dialog.open(EditVehiculeModalComponent);
+
+    getVehicules = async () => {
+        this.vehiculesService.getVehicules().subscribe((data) => {
+            this.allVehicules = data;
+        });
     }
-    else if (type === 'DeleteVehicule') {
-      this.dialog.open(DeleteVehiculeModalComponent);
+
+    goto(params: string) {
+        this.router.navigate([params]);
     }
-  }
+
+    logout() {
+        this.logout1 = true;
+    }
+
+    cancel() {
+        this.logout1 = false;
+    }
+
+    confirm() {
+        localStorage.removeItem('token');
+        this.router.navigate(['login']);
+    }
+
+    openModal(type: string = 'DETAILS', info: any = {}): void {
+        const modalComponent: Type<any> = modalComponentMapping[type];
+        if (!modalComponent) {
+            throw new Error(`Type de modal non pris en charge : ${type}`);
+        }
+
+        const dialogRef = this.dialog.open(modalComponent, {
+            panelClass: 'custom',
+            data: {
+                id: info.vehicle_id,
+                name: info.vehicle_name,
+                dimentions: info.dimentions,
+                capacity: info.capacity
+            }
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('La modal', type, 'est fermée.', result);
+        });
+    }
 }
-
-@Component({
-  selector: 'details-modal.component',
-  templateUrl: './details-modal.component.html',
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
-
-export class DetailsModalComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-}
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-@Component({
-  selector: 'add-vehicule-modal.component',
-  templateUrl: './add-vehicule-modal.component.html',
-  styleUrls: ['./add-vehicule-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule],
-})
-
-export class AddVehiculeModalComponent {
-  requiredValue = new FormControl('', [Validators.required]);
-
-  matcher = new MyErrorStateMatcher();
-}
-
-@Component({
-  selector: 'delete-vehicule-modal.component',
-  templateUrl: './delete-vehicule-modal.component.html',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatIconModule],
-})
-
-export class DeleteVehiculeModalComponent { }
-
-@Component({
-  selector: 'edit-vehicule-modal.component',
-  templateUrl: './edit-vehicule-modal.component.html',
-  styleUrls: ['./edit-vehicule-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatDialogModule],
-})
-
-export class EditVehiculeModalComponent { }

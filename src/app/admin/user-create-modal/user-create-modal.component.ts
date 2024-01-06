@@ -14,14 +14,12 @@ export class UserCreateModalComponent {
     name: string = ''
     email: string = ''
 
-
     constructor(public dialogRef: MatDialogRef<UserCreateModalComponent>, private adminService: AdminService) {
         this.entreprises = this.adminService.getEntreprises().then((response: any) => {
             this.entreprises = response
             this.entreprises.unshift({ id: null, name: 'Aucune' })
         })
     }
-
 
     close(): void {
         this.dialogRef.close();

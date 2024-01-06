@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { SecurityService } from '../services/security.service';
 import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
-import { Subscription, throwError } from 'rxjs';
+import { Subscription, throwError, lastValueFrom } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PermissionsService } from '../services/permissions.service';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
     popUp: boolean = false;
     loginSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder, private permissionsService: PermissionsService) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
@@ -58,12 +59,12 @@ export class LoginComponent {
             this.popUp = true;
             return;
         }
-        
+        this.permissionsService.deleteUserPermissions();
+
         this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
                     next: data => {
-                        console.log(data);
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('id', data.user_id);
                         localStorage.setItem('email', data.email);
@@ -73,6 +74,7 @@ export class LoginComponent {
                         } else {
                             localStorage.setItem('remember', 'false');
                         }
+                        this.permissionsService.forceRefreshPermissions();
                     },
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
@@ -86,6 +88,6 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
-        
+
     }
 }

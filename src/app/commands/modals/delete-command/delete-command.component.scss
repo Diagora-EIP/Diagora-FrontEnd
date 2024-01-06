@@ -1,0 +1,53 @@
+$font-color: #01ABA8;
+
+.container-deleteCommandModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container-title-deleteCommandModal {
+    margin: 0 20px;
+}
+
+.title-deleteCommandModal {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 30px;
+    margin-bottom: 20px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.content-deleteCommandModal {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.text-deleteCommandModal {
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.container-button-deleteCommandModal {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    grid-area: button;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.button-deleteCommandModal {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
