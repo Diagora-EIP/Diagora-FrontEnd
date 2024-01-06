@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.permissionsService.userPermissions.subscribe((permissions) => {
-        console.log('ICI', permissions);
         this.cdr.detectChanges();
     });
   }
