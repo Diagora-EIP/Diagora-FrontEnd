@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { PermissionsService } from '../services/permissions.service';
 import { Observable } from 'rxjs';
 
@@ -9,13 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public permissionsService: PermissionsService, private cdr: ChangeDetectorRef, private zone: NgZone) {
+  constructor(public permissionsService: PermissionsService, private cdr: ChangeDetectorRef) {
     changeDetection: ChangeDetectionStrategy.Default
   }
 
   ngOnInit() {
     this.permissionsService.userPermissions.subscribe((permissions) => {
-        console.log('ICI', permissions);
         this.cdr.detectChanges();
     });
   }
@@ -24,10 +23,6 @@ export class NavbarComponent implements OnInit {
     if (localStorage.getItem('token') === null) {
       return false;
     }
-    // console.log("Res", this.permissionsService.hasPermission(permission));
-    // console.log("Res2", permission);
-    // console.log("Res3", this.permissionsService.userPermissions);
-    
     return this.permissionsService.hasPermission(permission);
   }
 }

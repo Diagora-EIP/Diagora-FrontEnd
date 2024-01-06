@@ -1,65 +1,78 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environment';
-import { Observable, BehaviorSubject } from 'rxjs';
-
+import { Observable, BehaviorSubject, switchMap } from 'rxjs';
+import { take, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PermissionsService {
-    private userPermissionsSubject = new BehaviorSubject<string[]>([]);
-    public userPermissions = this.userPermissionsSubject.asObservable();
+    userPermissionsSubject = new BehaviorSubject<string[]>([]);
+    userPermissions = this.userPermissionsSubject.asObservable();
     token = localStorage.getItem('token');
 
     header: any = {};
 
     apiUrl = environment.apiUrl;
+
     constructor(private http: HttpClient) {
-        if (this.token != null) {
+        if (localStorage.getItem('token') != null) {
             this.header = {
                 headers: {
                     Authorization: 'Bearer ' + this.token
                 }
             }
         }
-        this.getPermissions().subscribe({
-            next: (data) => {
-                console.log("DATA ", data);
-                let permissions = [];
-                for (let i = 0; i < data.length; i++) {
-                    permissions.push(data[i].name);
+    }
+
+    deleteUserPermissions(): void {
+        this.userPermissionsSubject = new BehaviorSubject<string[]>([]);
+        this.userPermissions = this.userPermissionsSubject.asObservable();
+    }
+
+    forceRefreshPermissions(): Observable<void | null> {
+        return this.refreshPermissions().pipe(take(1));
+    }
+
+    public refreshPermissions(): Observable<void | null> {
+        if (localStorage.getItem('token') !== null) {
+            this.token = localStorage.getItem('token');
+            this.header = {
+                headers: {
+                    Authorization: 'Bearer ' + this.token
                 }
-                this.setUserPermissions(permissions);
             }
-        });
-    }
-
-    forceRefreshPermissions(): void {
-        console.log('Forcing refresh of permissions');
-        this.refreshPermissions();
-    }
-
-    private refreshPermissions(): void {
-        if (this.token !== null) {
-            this.getPermissions().subscribe({
-                next: (data) => {
-                    console.log("DATA ", data);
-                    let permissions = [];
+            return this.getPermissions().pipe(
+                switchMap((data: { name: string }[]) => {
+                    let permissions: string[] = [];
                     for (let i = 0; i < data.length; i++) {
                         permissions.push(data[i].name);
                     }
                     this.setUserPermissions(permissions);
-                },
-                error: (error) => {
+                    return of(null); // Emit a value to complete the observable
+                }),
+                catchError((error) => {
                     console.error('Error refreshing permissions:', error);
-                }
-            });
+                    return of(null); // Emit a value to complete the observable
+                })
+            );
+        } else {
+            return of(null); // Emit a value to complete the observable
         }
     }
 
-    getPermissions(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/userRoles`, this.header);
+    getPermissions(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/userRoles`, this.header).pipe(
+            switchMap(response => {
+                if (response instanceof Array) {
+                    return of(response);
+                } else {
+                    return of([]);
+                }
+            })
+        );
     }
 
     setUserPermissions(permissions: string[]): void {
