@@ -59,7 +59,7 @@ $font-color: #01ABA8;
 .container-new-user {
     display: flex;
     width: 80%;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 15px;
 }
 
@@ -70,6 +70,7 @@ $font-color: #01ABA8;
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .button-form {
@@ -84,6 +85,15 @@ $font-color: #01ABA8;
     display: grid;
     width: 100%;
     gap: 5px;
+}
+
+.inputContainer-form-login-checkbox {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .popUp {
@@ -122,4 +132,54 @@ $font-color: #01ABA8;
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+label {
+    font-size: 20px;
+}
+
+.contentCheckbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.data-tab-userList {
+    cursor: pointer;
+}
+
+.modalUpdateUserContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 100;
+}
+
+.modalUpdateUser {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: #01ABA8 1px solid;
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 100;
+}
+
+.contentButtonUpdate {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-around;
 }

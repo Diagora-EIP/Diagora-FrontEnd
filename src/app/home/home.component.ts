@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   entreprise!: string;
   constructor(private router: Router, private managerService: ManagerService) { 
     // this.getPermissions();
-    if (this.admin = true) {
+    if (this.admin == true) {
       this.getManagerEntreprise();
     }
   }
@@ -24,9 +24,13 @@ export class HomeComponent implements OnInit {
   getManagerEntreprise() {
     this.managerService.getManagerEntreprise().subscribe(
         (res) => {
-            console.log(res);
-            this.entreprise = res.company.name;
+            console.log("entreprise", res.users);
+            this.entreprise = res.name;
             localStorage.setItem('entreprise', this.entreprise);
+            localStorage.setItem('entrepriseId', res.company_id);
+            localStorage.setItem('addressEntreprise', res.address);
+            const users = JSON.stringify(res.users);
+            localStorage.setItem('users', users);
         },
         (err) => {
             console.log(err);
