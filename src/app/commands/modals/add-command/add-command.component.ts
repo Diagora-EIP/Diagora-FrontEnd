@@ -11,7 +11,9 @@ import { tap } from 'rxjs/operators';
 export class AddCommandComponent {
     description: string = ''
     address: string = ''
-    date: string = ''
+    date: any;
+    hours:any;
+    dateFormated: string = '';
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddCommandComponent>, private commandService: CommandsService) { }
 
@@ -31,7 +33,7 @@ export class AddCommandComponent {
 
     addCommand = async () => {
         if (!this.dataCheck()) { return }
-        let dateFormated: string = this.date + "T00:00:00.000Z";
+        let dateFormated: string = this.combineDateAndTime(this.date, this.hours);
         this.commandService.createOrder(this.description, dateFormated, this.address)
             .pipe(
                 tap({
@@ -44,5 +46,13 @@ export class AddCommandComponent {
                     }
                 })
             ).subscribe();
+    }
+
+    combineDateAndTime(date: Date, time: string): string {
+        const combinedDateTime = new Date(date);
+        const timeParts = time.split(':');
+        combinedDateTime.setHours(Number(timeParts[0]));
+        combinedDateTime.setMinutes(Number(timeParts[1]));
+        return combinedDateTime.toISOString();
     }
 }

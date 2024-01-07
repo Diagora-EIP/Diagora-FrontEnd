@@ -56,15 +56,14 @@ export class VehiculeComponent {
 
         const dialogRef = this.dialog.open(modalComponent, {
             panelClass: 'custom',
-            data: {
-                id: info.id,
-                name: info.name,
-            }
+            data: info
         });
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
         });
+
+        this.getVehicules();
     }
 
     checkPermission(permission: string): boolean {

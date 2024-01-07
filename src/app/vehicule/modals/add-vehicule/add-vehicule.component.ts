@@ -10,8 +10,6 @@ import { tap } from 'rxjs/operators';
 })
 export class AddVehiculeComponent {
     name: string = ''
-    dimentions: string = ''
-    capacity: number = -1
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddVehiculeComponent>, private vehiculeService: VehiculesService) { }
 
@@ -20,18 +18,15 @@ export class AddVehiculeComponent {
     }
 
     dataCheck() {
-        if (this.name.length == 0)
-            return false
-        if (this.dimentions.length == 0)
-            return false
-        if (this.capacity == -1)
-            return false
-        return true
+        if (this.name === '') {
+            return false;
+        }
+        return true;
     }
 
     addVehicule = async () => {
         if (!this.dataCheck()) { return }
-        this.vehiculeService.createVehicule(this.name, this.dimentions, this.capacity)
+        this.vehiculeService.createVehicule(this.name)
             .pipe(
                 tap({
                     next: data => {

@@ -36,18 +36,18 @@ export class CommandsService {
         return this.http.get<any>(`${this.apiUrl}/schedule/get-between-date/${userId}?start_date=${begin}&end_date=${end}`, this.header);
     }
 
-    createOrder(description: string, order_date: string, delivery_address: string, company_id: number = 0, order_status: number = 0, schedule_id: number = 0): Observable<any> {
-        const requestBody = { description, order_date, delivery_address, company_id, order_status, schedule_id };
-        return this.http.post<any>(`${this.apiUrl}/orders/create`, requestBody, this.header);
+    createOrder(description: string, delivery_date: string, delivery_address: string): Observable<any> {
+        const requestBody = { description, delivery_date, delivery_address, estimated_time: 3600, actual_time:1800, order_date: delivery_date };
+        return this.http.post<any>(`${this.apiUrl}/schedule/create`, requestBody, this.header);
     }
 
-    updateOrder(id: number, description: string, order_date: string, delivery_address: string, company_id: number = 0, order_status: number = 0, schedule_id: number = 0): Observable<any> {
-        const requestBody = { description, order_date, delivery_address, company_id, order_status, schedule_id };
-        return this.http.patch<any>(`${this.apiUrl}/orders/${id}`, requestBody, this.header);
+    updateOrder(id: number, delivery_date: string): Observable<any> {
+        const requestBody = { delivery_date };
+        return this.http.patch<any>(`${this.apiUrl}/schedule/update/${id}`, requestBody, this.header);
     }
 
     deleteOrder(id: number): Observable<any> {
-        return this.http.delete<any>(`${this.apiUrl}/orders/${id}`, this.header);
+        return this.http.delete<any>(`${this.apiUrl}/schedule/delete/${id}`, this.header);
     }
 
     getCompanyInfo(): Observable<any> {

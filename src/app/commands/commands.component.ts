@@ -61,6 +61,7 @@ export class CommandsComponent {
                 tmp['delivery_date'] = formattedDate;
                 tmp['delivery_address'] = order.order.delivery_address;
                 tmp['description'] = order.order.description;
+                tmp['schedule_id'] = order.schedule_id;
                 this.formatedOrders.push(tmp);
             });
         });
@@ -78,15 +79,7 @@ export class CommandsComponent {
 
         const dialogRef = this.dialog.open(modalComponent, {
             panelClass: 'custom',
-            data: {
-                id: info.order_id,
-                description: info.description,
-                delivery_address: info.delivery_address,
-                order_date: info.order_date,
-                company_id: info.company_id,
-                order_status: info.order_status,
-                schedule_id: info.schedule_id,
-            }
+            data: info
         });
 
         dialogRef.afterClosed().subscribe((result) => {
