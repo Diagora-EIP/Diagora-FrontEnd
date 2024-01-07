@@ -7,10 +7,10 @@
         <div ngClass="container-input-userCreateModal">
             <mat-form-field ngClass="content-input-userCreateModal">
                 <mat-label ngClass="title-input-userCreateModal">Entreprise</mat-label>
-                <mat-select ngClass="container-selectInput-userCreateModal">
-                    <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let entreprise of entreprises"
-                        [value]="entreprise">
-                        {{entreprise.name}}
+                <mat-select ngClass="container-selectInput-userCreateModal" [(ngModel)]="selectedCompany">
+                    <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let company of companies"
+                        [value]="company">
+                        {{company.company_name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -22,7 +22,7 @@
                 <mat-select ngClass="container-selectInput-userCreateModal" placeholder="Sélectionnez" [(value)]="roles"
                     multiple [required]="true">
                     <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let role of rolesList"
-                        [value]="role">{{ role }}</mat-option>
+                        [value]="role">{{ role.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
