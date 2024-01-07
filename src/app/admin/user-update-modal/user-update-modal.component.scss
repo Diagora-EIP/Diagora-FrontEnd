@@ -1,7 +1,7 @@
 $font-color: #01ABA8;
 $test2: #888585;
 
-.container-companyCreateModal {
+.container-userUpdateModal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,11 +12,11 @@ $test2: #888585;
     overflow: hidden;
 }
 
-.container-title-companyCreateModal {
+.container-title-userUpdateModal {
     margin: 0 20px;
 }
 
-.title-companyCreateModal {
+.title-userUpdateModal {
     font-size: 2.5rem;
     font-weight: bold;
     margin: 30px;
@@ -25,38 +25,44 @@ $test2: #888585;
     text-transform: uppercase;
 }
 
-.content-companyCreateModal {
+.content-userUpdateModal {
     display: grid;
     width: 80%;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
     "input input"
     "input input"
     "button button";
     gap: 30px;
-    justify-items: center;
+    justify-content: space-around;
     margin-bottom: 30px;
 }
 
-.content-input-companyCreateModal {
+.content-input-userUpdateModal {
     width: 100%;
 }
 
-.title-input-companyCreateModal {
+.title-input-userUpdateModal {
     color: $font-color;
     font-weight: bold;
 }
 
-.container-inputs-companyCreateModal {
-    width: 50%;
-    position: relative;
+.container-selectInput-userUpdateModal {
+    grid-area: input;
 }
 
-.container-input-companyCreateModal {
-    position: relative;
+.option-selectInput-userUpdateModal {
+
 }
 
-.container-button-companyCreateModal {
+.container-input-userUpdateModal {
+    width: 100%;
+}
+
+.input-userUpdateModal {
+}
+
+.container-button-userUpdateModal {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
@@ -66,17 +72,7 @@ $test2: #888585;
     gap: 30px;
 }
 
-.error-message-input-companyCreateModal {
-    position: absolute;
-    margin: 0;
-    top: 60px;
-    left: 0;
-    color: red;
-    font-size: 12px;
-    font-style: italic;
-}
-
-.button-companyCreateModal {
+.button-userUpdateModal {
     height: 50px;
     border-radius: 8px;
     font-weight: bold;

@@ -2,14 +2,11 @@ import { Component, Type } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
+import { UserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
 import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from '../company-update-modal/company-update-modal.component';
 import { Subscription, tap, throwError } from 'rxjs';
-
-const modalComponentMapping: { [key: string]: Type<any> } = {
-    USERCREATE: UserCreateModalComponent,
-    COMPANYCREATE: CompanyCreateModalComponent,
-};
+import { Roles } from 'src/app/models/Roles.dto';
 
 @Component({
     selector: 'app-user-list',
@@ -18,19 +15,55 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class UserListComponent {
-
+    modalComponentMapping: { [key: string]: { component: Type<any>; constructor: () => any, action: (instance: any) => void } } = {
+        USERCREATE: {
+            component: UserCreateModalComponent,
+            constructor: () => {
+                return {
+                    companyList: this.companyList,
+                    roles: this.RolesList,
+                }
+            },
+            action: (instance: any) => this.addUser(instance)
+        },
+        USERUPDATE: {
+            component: UserUpdateModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                    companyList: this.companyList,
+                    roles: this.RolesList,
+                }
+            },
+            action: (instance: any) => this.updateUser(instance)
+        },
+        COMPANYCREATE: { component: CompanyCreateModalComponent, constructor: () => { }, action: (instance: any) => this.addCompany(instance) },
+        COMPANYUPDATE: {
+            component: CompanyUpdateModalComponent, constructor: () => {
+                return {
+                    company: this.selectedCompany,
+                }
+            },
+            action: (instance: any) => this.updateCompany(instance)
+        },
+    };
     displayedColumns = ['entreprise', 'utilisateur', 'email', 'roles'];
-
     dataSource: any = []
-    entrepriseList: any = []
-    private _entrepriseFilter: string = '';
-    getCompanySubscription: Subscription | undefined;
+    companyList: any = []
+    RolesList: any = []
+    selectedCompany: any = null
+    selectedUser: any = null
 
-    get entrepriseFilter(): string {
-        return this._entrepriseFilter;
+    private _companyFilter: string = '';
+    getUsersSubscription: Subscription | undefined;
+    getCompanySubscription: Subscription | undefined;
+    getRolesSubscription: Subscription | undefined;
+
+    get companyFilter(): string {
+        return this._companyFilter;
     }
-    set entrepriseFilter(value: string) {
-        this._entrepriseFilter = value;
+    set companyFilter(value: string) {
+        this._companyFilter = value;
 
         this.updateDataSource();
     }
@@ -47,121 +80,52 @@ export class UserListComponent {
 
     constructor(private adminService: AdminService, public dialog: MatDialog) {
         this.getUsers();
+        this.getCompany();
+        this.getRoles();
     }
 
     ngOnDestroy() {
+        this.getUsersSubscription?.unsubscribe();
         this.getCompanySubscription?.unsubscribe();
+        this.getRolesSubscription?.unsubscribe();
     }
 
     openModal(modalType: string): void {
-        const modalComponent: Type<any> = modalComponentMapping[modalType.toUpperCase()];
+        const { component, constructor, action } = this.modalComponentMapping[modalType.toUpperCase()];
 
-        if (!modalComponent) {
+        if (!component) {
             throw new Error(`Type de modal non pris en charge : ${modalType}`);
         }
 
-        const dialogRef = this.dialog.open(modalComponent, {
+        const dialogRef = this.dialog.open(component, {
             panelClass: 'custom',
+            data: constructor()
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('La modal', modalType, 'est fermée.', result);
-        });
-    }
-
-    openModalUpdateCompany(user: any): void {
-        const users_id = this.entrepriseList.filter((entreprise: any) => entreprise.company_id === user.company_id)[0].users_id
-        const dataToSend = {
-            company_id: user.company_id,
-            company_name: user.entreprise,
-            users_id: users_id
-        };
-
-        const dialogRef = this.dialog.open(CompanyUpdateModalComponent, {
-            panelClass: 'custom',
-            data: dataToSend
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            if (!result || !result.company_name)
+        dialogRef.afterClosed().subscribe((data) => {
+            if (!data)
                 return
-            const entrepriseToUpdate = this.entrepriseList.find((entreprise: any) => entreprise.company_id === user.company_id);
-            if (entrepriseToUpdate) {
-                entrepriseToUpdate.company_name = result.company_name;
-
-                this.userList.forEach((user: any) => {
-                    if (user.company_id === entrepriseToUpdate.company_id) {
-                        user.entreprise = result.company_name;
-                    }
-                });
-            }
+            action(data);
         });
     }
 
     updateDataSource() {
         let users = this.userList
 
-        if (this.entrepriseFilter && this.entrepriseFilter.length > 0) {
-            users = users.filter((user: any) => user.entreprise.toLowerCase().startsWith(this.entrepriseFilter.toLowerCase()))
+        if (this.companyFilter.trim() === '' || this.companyFilter === undefined) {
+            this.dataSource = users
+            return
         }
+
+        const filtered_company = this.companyList.filter((company: any) => company.company_name.trim().toLowerCase().startsWith(this.companyFilter.trim().toLowerCase()))
+
+        users = users.filter((user: any) => filtered_company.some((company: any) => company.company_id === user.company_id))
 
         this.dataSource = users
     }
 
     getUsers = async () => {
-        let data: any = await this.adminService.getUsers()
-            .then((response: any) => {
-                return response.users;
-            })
-            .catch((error: any) => {
-                console.error("error", error)
-            });
-
-        const users = data.map((user: any) => {
-            return {
-                id: user.user_id ? user.user_id : '',
-                entreprise: user.entreprise ? user.entreprise : '',
-                utilisateur: user.name ? user.name : '',
-                email: user.email ? user.email : '',
-                roles: user.roles ? user.roles : '',
-                company_id: user.company_id ? user.company_id : '',
-            }
-        })
-
-        // this.userList = [{
-        //     id: 1,
-        //     entreprise: "test",
-        //     utilisateur: "test",
-        //     email: "test",
-        //     roles: "test",
-        //     company_id: 1
-        // }]
-        this.userList = users;
-        this.getUserEntreprise();
-        this.getUserRoles();
-    }
-
-    getUserRoles = async () => {
-        this.userList.forEach(async (user: any) => {
-            const roles: any = await this.adminService.getRoles(user.id)
-                .then((response: any) => {
-                    let perm = []
-                    if (response.isAdmin === true)
-                        perm.push('Admin')
-                    if (response.isUser === true)
-                        perm.push('User')
-                    return perm;
-                })
-                .catch((error: any) => {
-                    console.error("error", error)
-                    return "Old Account without rôles";
-                });
-            user.roles = roles;
-        })
-    }
-
-    getUserEntreprise = async () => {
-        this.getCompanySubscription = this.adminService.getCompany()
+        this.getUsersSubscription = this.adminService.newgetUsers()
             .pipe(
                 tap({
                     error: (err) => {
@@ -174,23 +138,134 @@ export class UserListComponent {
             )
             .subscribe({
                 next: (data) => {
-                    this.entrepriseList = data.map((company: any) => {
+                    this.userList = data.map((user: any) => {
+                        return {
+                            id: user.user_id ? user.user_id : '',
+                            name: user.name ? user.name : '',
+                            email: user.email ? user.email : '',
+                            roles: user.roles ? this.getRolesId(user.roles) : '',
+                            company_id: user.company ? user.company.company_id : 0,
+                        }
+                    });
+                }
+            });
+
+        // this.userList = [{
+        //     id: 1,
+        //     company: "test",
+        //     name: "test",
+        //     email: "test",
+        //     roles: "test",
+        //     company_id: 1
+        // }]
+    }
+
+    getRolesId = (roles: Roles[]) => {
+        const roles_id = roles.map((role: any) => {
+            return role.role_id
+        })
+        return roles_id;
+    }
+
+    getRoles = async () => {
+        this.getRolesSubscription = this.adminService.getRoles()
+            .pipe(
+                tap({
+                    error: (err) => {
+                        if (err.status === 409) {
+                            return;
+                        }
+                        return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.RolesList = data
+                }
+            });
+    }
+
+    getUserRoles = (roles_id: number[]) => {
+        if (roles_id === null)
+            return "No Roles"
+
+        const roles = this.RolesList.filter((role: any) => roles_id.includes(role.role_id))
+
+        if (roles)
+            return roles.map((role: any) => role.name).join(', ')
+
+        return "No Roles"
+    }
+
+    getCompany = async () => {
+        this.getCompanySubscription = this.adminService.getAllCompany()
+            .pipe(
+                tap({
+                    error: (err) => {
+                        if (err.status === 409) {
+                            return;
+                        }
+                        return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.companyList = data.map((company: any) => {
                         return {
                             company_id: company.company_id,
                             company_name: company.name,
-                            users_id: []
+                            company_address: company.address,
                         }
                     })
-                    this.userList.forEach((user: any) => {
-                        this.entrepriseList.forEach((entreprise: any) => {
-                            if (user.company_id == entreprise.company_id) {
-                                user.entreprise = entreprise.company_name
-                                entreprise.users_id.push(user.id)
-                            }
-                        })
-                    })
-
                 }
             });
+    }
+
+    getUserCompany = (company_id: number) => {
+        if (company_id === null || company_id === 0)
+            return "No Company"
+
+        const company = this.companyList.find((company: any) => company.company_id === company_id)
+
+        if (company)
+            return company.company_name
+
+        return "No Company"
+    }
+
+    callUpdateCompany = (company_id: number) => {
+        this.selectedCompany = this.companyList.find((company: any) => company.company_id === company_id)
+        this.openModal('COMPANYUPDATE')
+    }
+
+    callUpdateUser = (user: any) => {
+        this.selectedUser = user;
+        this.openModal('USERUPDATE')
+    }
+
+    addCompany = (company: any) => {
+        this.companyList.push(company)
+    }
+
+    addUser = (user: any) => {
+        this.userList.push(user)
+        this.updateDataSource()
+    }
+
+    updateCompany = (companyUpdated: any) => {
+        const companyToUpdate = this.companyList.find((company: any) => company.company_id === companyUpdated.company_id);
+        if (companyToUpdate) {
+            companyToUpdate.company_name = companyUpdated.name;
+            companyToUpdate.company_address = companyUpdated.address;
+        }
+        this.updateDataSource();
+        this.selectedCompany = null
+    }
+
+    updateUser = (userUpdated: any) => {
+        this.updateDataSource();
+        this.selectedUser = null
     }
 }
