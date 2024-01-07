@@ -69,7 +69,7 @@ export class ScheduleComponent implements OnInit {
             console.log(dateInfo);
             const startDateString = dateInfo.start.marker;
             const formattedStartDate =
-                dayjs(startDateString).format('MMMM YYYY');
+			dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
@@ -82,6 +82,8 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngAfterViewInit() {
+		this.calendarOptions.events = [];
+		this.fullcalendar.getApi().refetchEvents();
         this.calendarApi = this.fullcalendar.getApi();
         this.currentStartDate = this.calendarApi.view.currentStart;
         this.currentEndDate = this.calendarApi.view.currentEnd;
@@ -238,7 +240,9 @@ export class ScheduleComponent implements OnInit {
 		const actualTime = extendedProps.actualTime;
 		const status = extendedProps.status;
 
-
+		console.log("User : ", this.userList.find(
+			(user) => user.name === this.managerControl.value
+		))
 		const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             width: '400px', // Set the desired width
             data: {
@@ -251,9 +255,19 @@ export class ScheduleComponent implements OnInit {
 				actualTime,
 				status,
 				manager: this.checkPermission('manager'),
-				user: this.userList.find(
-					(user) => user.name === this.managerControl.value
-				)
+				user:	this.userList.find(
+							(user) => user.name === this.managerControl.value
+						)
+			}
+        });
+
+		dialogRef.afterClosed().subscribe(result => {
+            // Handle the result if needed (e.g., check if the user submitted the form)
+            console.log('Modal closed with result:', result);
+			if (this.checkPermission('manager')) {
+				this.getScheduleByUser();
+			} else {
+				this.getSchedule();
 			}
         });
     }
@@ -325,6 +339,11 @@ export class ScheduleComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             // Handle the result if needed (e.g., check if the user submitted the form)
             console.log('Modal closed with result:', result);
+			if (this.checkPermission('manager')) {
+				this.getScheduleByUser();
+			} else {
+				this.getSchedule();
+			}
         });
 	}
 }
