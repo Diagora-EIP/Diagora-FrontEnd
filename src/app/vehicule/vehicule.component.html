@@ -7,72 +7,38 @@
             <h2>Confirmer</h2>
         </div>
     </div>
-    <div class="pageContent">
-        <mat-card class="card">
-            <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Vehicule: <strong>1</strong></mat-card-title>
-              </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
-            </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(1, 'Mercedes Bens', 'Camion')">
-                    <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
-                    <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
-                    <mat-icon>delete</mat-icon>
-                </a>
-            </mat-card-actions>
-          </mat-card>
-          <mat-card class="card">
-            <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Vehicule: <strong>2</strong></mat-card-title>
-              </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
-            </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(2, 'Mercedes Bens', 'Camion')">
-                    <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
-                    <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
-                    <mat-icon>delete</mat-icon>
-                </a>
-            </mat-card-actions>
-          </mat-card>
-          <mat-card class="card">
-            <mat-card-header>
-              <mat-card-title-group>
-                <mat-card-title>Vehicule: <strong>3</strong></mat-card-title>
-              </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content align="end">
-                <img class="cardImg" mat-card-lg-image src="./assets/truck.png" >
-            </mat-card-content>
-            <mat-card-actions align="end" >
-                <a mat-fab extended color="accent" (click)="openDialog(3, 'BMW', 'Camion')">
-                    <mat-icon>menu</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('EditVehicule')">
-                    <mat-icon>settings</mat-icon>
-                </a>
-                <a mat-fab extended color="accent" (click)="vehiculeAction('DeleteVehicule')">
-                    <mat-icon>delete</mat-icon>
-                </a>
-            </mat-card-actions>
-          </mat-card>
+    <div class="buttonADD"> 
+        <button mat-fab extended color="primary" (click)="openModal('ADD')">
+            Ajouter un véhicule
+            <mat-icon>playlist_add</mat-icon>
+        </button>
     </div>
-    <div class="editPage">
-        <button mat-flat-button color="primary" (click)="vehiculeAction('AddVehicule')">Nouvelle Commande</button>
+    <div class="pageContent">
+        <div ngclass="allCards" *ngFor="let vehicule of allVehicules" >
+            <mat-card class="card">
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>Nom du véhicule: <strong>{{ vehicule.vehicle_name }}</strong></mat-card-title>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content align="end">
+                    <img class="cardImg" mat-card-lg-image src="./assets/truck.png">
+                </mat-card-content>
+                <div class="cardButtons">
+                    <mat-card-actions>
+                        <button mat-fab color="primary"
+                            (click)="openModal('DETAILS', vehicule)">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <button mat-fab color="accent" (click)="openModal('EDIT', vehicule)">
+                            <mat-icon>settings</mat-icon>
+                        </button>
+                        <button mat-fab color="warn" (click)="openModal('DELETE', vehicule)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card>
+        </div>
     </div>
 </div>

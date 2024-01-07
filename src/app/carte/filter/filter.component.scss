@@ -1,0 +1,99 @@
+$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
+
+.date-selector {
+    position: relative;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+
+.label-text {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    font-weight: 800;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.fa-calendar-alt {
+    margin-left: -25px;
+    color: #555;
+}
+
+.filter-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+.filter-components {
+    background-color: #e8e9ea;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+.display-button-container {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    flex: 1;
+}
+
+
+.schedule-button {
+    background-color: #538480;
+    color: white;
+    border: none;
+    padding: 9px 17px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-self: flex-end; 
+}
+
+.schedule-button:hover {
+    background-color: #86A8A6;
+    color: #fff;
+}
+
+.schedule-button:focus {
+    outline: none;
+}
+
+.schedule-button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}

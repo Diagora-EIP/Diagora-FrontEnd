@@ -27,7 +27,6 @@ export class UserCreateModalComponent {
         this.rolesList = data.roles
     }
 
-
     close(): void {
         this.dialogRef.close();
         this.createUserSubscription?.unsubscribe();

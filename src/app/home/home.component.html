@@ -24,7 +24,7 @@
             <h2>Vehicule</h2>
             <img class="imgBox" src="../../assets/vehicule.jpg" alt="">
         </div>
-        <div class="box" *ngIf="admin" (click)="goto('manager/userList')">
+        <div class="box" *ngIf="hasPermission('admin')" (click)="goto('manager/userList')">
             <h2>Manager Panel</h2>
             <img class="imgBox" src="../../assets/panel.svg" alt="">
         </div>

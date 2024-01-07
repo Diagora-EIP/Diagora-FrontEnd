@@ -1,60 +1,54 @@
-import { CanActivateFn, Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { PermissionsService } from '../services/permissions.service';
+import { Observable, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
-export const userGuard: CanActivateFn = (route, state) => {
-    const router = new Router();
-    const token = localStorage.getItem('token');
-    if (token) {
-        if (getRoleUser(token))
-            return true;
-        else {
-            router.navigate(['/home']);
-            return false
-        }
-    } else {
-        router.navigate(['/login']);
-        return false
-    }
-};
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthGuard {
+    constructor(private router: Router, private permissionsService: PermissionsService, private locate: Location) { }
 
-export const adminGuard: CanActivateFn = (route, state) => {
-    const router = new Router();
-    const token = localStorage.getItem('token');
-    if (token) {
-        if (getRoleAdmin(token))
-            return true
-        else {
-            router.navigate(['/home']);
-            return false
-        }
-    } else {
-        router.navigate(['/login']);
-        return false;
-    }
-};
+    canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
 
-export function decodeJWT(token: string): any {
-    const payload = token.split('.')[1];
-    const decodedPayload = atob(payload);
-    return JSON.parse(decodedPayload);
-}
+        return this.permissionsService.refreshPermissions().pipe(
+            switchMap(() => {
+                if (localStorage.getItem('token')) {
 
-export function getRoleUser(token: string): boolean | null {
-    try {
-        const decoded = decodeJWT(token);
-        const userRole: boolean = decoded.isUser;
-        return userRole;
-    } catch (error) {
-        return null;
+                    if (route.data['permission'].some((permission: string) => this.permissionsService.hasPermission(permission)))
+                        return of(true);
+                    else {
+                        this.locate.back();
+                        return of(false);
+                    }
+
+                }
+                this.router.navigate(['/login']);
+                return of(false);
+            }),
+            catchError(() => {
+                this.router.navigate(['/login']);
+                return of(false);
+            })
+        );
     }
 }
 
-export function getRoleAdmin(token: string): boolean | null {
-    try {
-        const decoded = decodeJWT(token);
-        const userRole: boolean = decoded.isAdmin;
-        return userRole;
-    } catch (error) {
-        return null;
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthLeftGuard {
+    constructor(private router: Router, private permissionsService: PermissionsService) { }
+
+    canActivate(): boolean {
+        if (localStorage.getItem('token')) {
+            this.permissionsService.refreshPermissions();
+            this.router.navigate(['/home']);
+            return false;
+        }
+        return true;
     }
 }
 
