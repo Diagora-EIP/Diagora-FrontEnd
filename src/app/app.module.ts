@@ -47,7 +47,10 @@ import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/det
 import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
 import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CreateScheduleModalComponent } from './create-schedule-modal/create-schedule-modal.component';
+import { UpdateScheduleModalComponent } from './update-schedule-modal/update-schedule-modal.component';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
     declarations: [
         AppComponent,
@@ -76,6 +79,8 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         AddVehiculeComponent,
         DeleteVehiculeComponent,
         EditVehiculeComponent,
+        CreateScheduleModalComponent,
+        UpdateScheduleModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -90,7 +95,6 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         MatDialogModule,
         MatListModule,
         MatSelectModule,
-        MatDialogModule,
         MatButtonModule,
         MatSelectModule,
         MatFormFieldModule,
@@ -100,6 +104,8 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         MatTooltipModule,
         FullCalendarModule,
         MatDatepickerModule,
+        MatAutocompleteModule,
+        MatNativeDateModule,
     ],
     providers: [
     ],

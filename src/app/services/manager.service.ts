@@ -25,7 +25,7 @@ export class ManagerService {
       }
   }
 
-  getManagerEntreprise(): Observable<any> {
+    getManagerEntreprise(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user`, this.header);
   }
 

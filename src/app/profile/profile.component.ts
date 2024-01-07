@@ -46,11 +46,17 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.logout1 = true;
-    // this.permissionsService.setUserPermissions([]);
-    // localStorage.removeItem('permissions');
-    // localStorage.removeItem('token');
-    // this.router.navigate(['login']);
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('email');
+    localStorage.removeItem('remember');
+    localStorage.removeItem('name');
+    localStorage.removeItem('entreprise');
+    localStorage.removeItem('addressEntreprise');
+    localStorage.removeItem('users');
+    localStorage.removeItem('addressId');
+    this.permissionsService.deleteUserPermissions();
+    this.router.navigate(['/login']);
   }
 
   cancel() {
