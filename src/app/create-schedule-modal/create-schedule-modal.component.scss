@@ -1,0 +1,44 @@
+/* create-schedule-modal.component.scss */
+
+// Overall modal styles
+:host {
+    display: block;
+}
+
+mat-dialog-content {
+    margin-top: 15px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+// Form field styles
+mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+
+    // Input styles
+    input,
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+// Button styles
+mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+
+    button {
+        min-width: 100px;
+    }
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
