@@ -1,4 +1,3 @@
-$primary-color: #1A8C8A;
 $background-color: #f4f4f4;
 $hover-color: #95B1AF;
 $hover-border: #95B1AF;
@@ -69,8 +68,8 @@ input {
     flex: 1;
 }
 
-.schedule-button {
-    background-color: $button-main-color;
+.vehicule-button {
+    background-color: #538480;
     color: white;
     border: none;
     padding: 9px 17px;
@@ -85,16 +84,16 @@ input {
     align-self: flex-end; 
 }
 
-.schedule-button:hover {
+.vehicule-button:hover {
     background-color: #86A8A6;
     color: #fff;
 }
 
-.schedule-button:focus {
+.vehicule-button:focus {
     outline: none;
 }
 
-.schedule-button:active {
+.vehicule-button:active {
     transform: translateY(1px);
     box-shadow: none;
 }

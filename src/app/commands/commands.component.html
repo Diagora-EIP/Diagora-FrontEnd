@@ -1,45 +1,89 @@
-<div>
-    <div *ngIf="logout1" class="logout">
-        <div class="contentBox" (click)="cancel()">
-            <h2>Annuler</h2>
-        </div>
-        <div class="contentBox" (click)="confirm()">
-            <h2>Confirmer</h2>
+<!-- Commande page html -->
+
+<div class="page-container">
+    
+
+    <div class="filter-container">
+
+        <h2 class="filter-section-heading">Filtres</h2>
+        <div class="filter-components">
+            <div class="date-selector">
+                <label class="label-text">Livreur :</label>
+                <mat-form-field class="input-container">
+                    <mat-select [(value)]="selectedUser">
+                        <mat-option *ngFor="let user of users" [value]="user">
+                            {{user.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="display-button-container">
+                <button class="order-button" (click)="getOrders()"> Afficher </button>
+            </div>
         </div>
     </div>
-    <div class="buttonADD"> 
-        <button mat-fab extended color="primary" (click)="openModal('ADD')">
-            Ajouter une commande
-            <mat-icon>playlist_add</mat-icon>
-        </button>
-    </div>
-    <div class="pageContent">
-        <div ngclass="allCards" *ngFor="let order of allOrders" >
-            <mat-card class="card">
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>Commande pour: <strong>{{ order.description }}</strong></mat-card-title>
-                        <mat-card-subtitle>Livreur: <strong>Non attribué</strong> </mat-card-subtitle>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-content align="end">
-                    <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
-                </mat-card-content>
-                <div class="cardButtons">
-                    <mat-card-actions>
-                        <button mat-fab color="primary"
-                            (click)="openModal('DETAILS', order)">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                        <button mat-fab color="accent" (click)="openModal('EDIT', order)">
-                            <mat-icon>settings</mat-icon>
-                        </button>
-                        <button mat-fab color="warn" (click)="openModal('DELETE', order)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-actions>
+
+
+    <div class="mainContainer">
+        <h2 class="itinerary-section-heading" *ngIf="!selectedUserName">Livraisons</h2>
+        <h2 class="itinerary-section-heading" *ngIf="selectedUserName">Livraisons de {{ selectedUserName }} du {{ date
+            | date: 'dd/MM/yyyy' }}</h2>
+
+        <!-- Left Container -->
+        <div class="left-right-container">
+            <div class="left-container">
+                <div class="orderListContainer">
+                    <!-- Default message -->
+                    <div *ngIf="!selectedUserName" class="default-message">Veuillez sélectionner un livreur.</div>
+
+                    <div *ngIf="selectedUserName && !formatedOrders.length" class="default-message">Ce livreur n'a
+                        aucune livraison ajourd'hui.</div>
+
+                    <div *ngIf="selectedUserName && formatedOrders.length !== 0"
+                        ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+                        <table ngClass="tab-userList" mat-table [dataSource]="formatedOrders">
+                            <ng-container class="content-tab-userList" matColumnDef="date">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Date de livraison
+                                </th>
+                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.delivery_date}}
+                                </td>
+                            </ng-container>
+                            <ng-container class="content-tab-userList" matColumnDef="address">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse de
+                                    livraison </th>
+                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
+                                    {{data.delivery_address}} </td>
+                            </ng-container>
+                            <ng-container class="content-tab-userList" matColumnDef="description">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Description </th>
+                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.description}}
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="checkPermission('manager')" class="content-tab-userList" matColumnDef="action">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
+                                <td class="data-tab-userList" mat-cell *matCellDef="let data">
+                                    <div class="company-container">
+                                        <button class="button-data-tab-userList" (click)="openModal('EDIT', data)">
+                                            <mat-icon>settings</mat-icon>
+                                        </button>
+                                        <button class="button-data-tab-userList" (click)="openModal('DELETE', data)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
                 </div>
-            </mat-card>
+            </div>
+        </div>
+        <div *ngIf="checkPermission('manager')" class="buttonContainer">
+            <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
+                Ajouter une commande
+                <mat-icon>playlist_add</mat-icon>
+            </button>
         </div>
     </div>
 </div>

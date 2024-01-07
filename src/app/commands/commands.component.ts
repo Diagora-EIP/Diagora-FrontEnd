@@ -1,12 +1,14 @@
 import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { tap } from 'rxjs/operators';
 
-import { CommandsService } from 'src/app/services/commands.service';
+import { CommandsService } from '../services/commands.service';
 import { AddCommandComponent } from './modals/add-command/add-command.component';
 import { DetailsCommandComponent } from './modals/details-command/details-command.component';
 import { EditCommandComponent } from './modals/edit-command/edit-command.component';
 import { DeleteCommandComponent } from './modals/delete-command/delete-command.component';
+import { PermissionsService } from '../services/permissions.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsCommandComponent,
@@ -22,40 +24,51 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class CommandsComponent {
-    logout1!: boolean;
-    allOrders: any;
+    displayedColumns = ['date', 'address', 'description', 'action'];
+    allOrders: any[] = [];
+    formatedOrders: any = [];
+    users: any[] = [];
+    selectedUser: any;
+    selectedUserName: string = '';
+    date: string = new Date().toISOString().split('T')[0];
 
-    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService) { }
+    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService, private permissionsService: PermissionsService) { }
 
     ngOnInit(): void {
-        this.logout1 = false;
-        this.getOrders();
+        console.log('Date ', this.date);
+        this.commandsService.getCompanyInfo().subscribe((data) => {
+            this.users = data.users;
+        });
     }
 
-    getOrders = async () => {
-        const date = new Date();
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-        const dateFormated = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + day;
-        this.commandsService.getOrders(dateFormated).subscribe((data) => {
-            this.allOrders = data.data;
+    async getOrders() {
+        if (this.selectedUser === '') {
+            return;
+        }
+
+        this.selectedUserName = this.selectedUser.name;
+
+        this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) => {
+            this.allOrders = data;
+            if (this.allOrders.length === 0) {
+                this.formatedOrders = [];
+                return;
+            }
+            this.allOrders.forEach((order) => {
+                let tmp: any = {};
+                let tempDate = new Date(order.delivery_date);
+                const formattedDate = `${tempDate.toLocaleDateString('en-GB')} ${tempDate.toLocaleTimeString('en-GB', { hour12: false })}`;
+                tmp['delivery_date'] = formattedDate;
+                tmp['delivery_address'] = order.order.delivery_address;
+                tmp['description'] = order.order.description;
+                tmp['schedule_id'] = order.schedule_id;
+                this.formatedOrders.push(tmp);
+            });
         });
     }
 
     goto(params: string) {
         this.router.navigate([params]);
-    }
-
-    logout() {
-        this.logout1 = true;
-    }
-
-    cancel() {
-        this.logout1 = false;
-    }
-
-    confirm() {
-        localStorage.removeItem('token');
-        this.router.navigate(['login']);
     }
 
     openModal(type: string = 'DETAILS', info: any = {}): void {
@@ -66,20 +79,19 @@ export class CommandsComponent {
 
         const dialogRef = this.dialog.open(modalComponent, {
             panelClass: 'custom',
-            data: {
-                id: info.order_id,
-                description: info.description,
-                delivery_address: info.delivery_address,
-                order_date: info.order_date,
-                company_id: info.company_id,
-                order_status: info.order_status,
-                schedule_id: info.schedule_id,
-            }
+            data: info
         });
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
         });
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem('token') === null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
     }
 
 }

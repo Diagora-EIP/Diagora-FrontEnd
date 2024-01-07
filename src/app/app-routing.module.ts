@@ -33,15 +33,14 @@ const routes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
-            { path: 'vehicule', component: VehiculeComponent },
-            { path: 'statistic', component: StatisticComponent },
         ],
         data: {
-            permission: ['user']
+            permission: ['user', 'admin']
         }
     },
     {
         path : '', canActivate: [AuthGuard], children: [
+            { path: 'vehicule', component: VehiculeComponent },
             { path: 'manager/userList', component: ManagerUserListComponent },
         ],
         data: {
@@ -51,6 +50,7 @@ const routes: Routes = [
     {
         path: 'admin', canActivate: [AuthGuard], children: [
             { path: 'userList', component: UserListComponent, },
+            { path: 'statistic', component: StatisticComponent },
         ],
         data: {
             permission: ['admin']

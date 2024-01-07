@@ -11,9 +11,8 @@ import { CommandsService } from 'src/app/services/commands.service';
 export class EditCommandComponent {
     description: string = ''
     address: string = ''
-    date: string = ''
-    formatedDescription: string = ''
-    formatedAddress: string = ''
+    date: any;
+    hours: string = ''
     formatedDate: string = ''
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditCommandComponent>, private commandService: CommandsService) { }
@@ -22,27 +21,17 @@ export class EditCommandComponent {
         this.dialogRef.close();
     }
 
-    formatData() {
-        if (this.description === '') {
-            this.formatedDescription = this.data.description;
-        } else {
-            this.formatedDescription = this.description;
-        }
-        if (this.address === '') {
-            this.formatedAddress = this.data.delivery_address;
-        } else {
-            this.formatedAddress = this.address;
-        }
-        if (this.date === '') {
-            this.formatedDate = this.data.order_date;
-        } else {
-            this.formatedDate = this.date + "T00:00:00.000Z";
-        }
+    combineDateAndTime(date: Date, time: string): string {
+        const combinedDateTime = new Date(date);
+        const timeParts = time.split(':');
+        combinedDateTime.setHours(Number(timeParts[0]));
+        combinedDateTime.setMinutes(Number(timeParts[1]));
+        return combinedDateTime.toISOString();
     }
 
     editCommand = async () => {
-        this.formatData();
-        this.commandService.updateOrder(this.data.id, this.formatedDescription, this.formatedDate, this.formatedAddress, this.data.company_id, this.data.order_status, this.data.schedule_id)
+        this.formatedDate = this.combineDateAndTime(this.date, this.hours);
+        this.commandService.updateOrder(this.data.schedule_id, this.formatedDate)
             .pipe(
                 tap({
                     next: data => {

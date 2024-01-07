@@ -15,7 +15,7 @@
                 <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
                     <a>Commandes</a>
                 </li>
-                <li *ngIf="checkPermission('user')" routerLink="/vehicule" class="contentBox" routerLinkActive="active">
+                <li *ngIf="checkPermission('manager')" routerLink="/vehicule" class="contentBox" routerLinkActive="active">
                     <a>Vehicules</a>
                 </li>
                 <li *ngIf="checkPermission('user')" routerLink="/statistic" class="contentBox" routerLinkActive="active">

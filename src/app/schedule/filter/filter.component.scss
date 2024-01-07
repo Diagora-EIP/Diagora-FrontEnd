@@ -6,6 +6,25 @@ $button-color: #002b2c;
 
 @import '../../../variables.scss';
 
+.manager-selector {
+    font-size: 13px;
+}
+
+mat-form-field {
+    font-size: 13px;
+}
+
+.filter-container {
+    flex: 2;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
 .date-selector {
     position: relative;
 }
@@ -69,6 +88,7 @@ input {
     flex: 1;
 }
 
+
 .schedule-button {
     background-color: $button-main-color;
     color: white;
@@ -86,7 +106,7 @@ input {
 }
 
 .schedule-button:hover {
-    background-color: #86A8A6;
+    background-color: $button-main-color-hover;
     color: #fff;
 }
 

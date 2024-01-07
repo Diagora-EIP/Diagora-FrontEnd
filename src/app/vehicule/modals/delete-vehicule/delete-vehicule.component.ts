@@ -17,7 +17,7 @@ export class DeleteVehiculeComponent {
     }
 
     deleteVehicule = async () => {
-        this.vehiculeService.deleteVehicule(this.data.id)
+        this.vehiculeService.deleteVehicule(this.data.vehicle_id)
             .pipe(
                 tap({
                     next: data => {

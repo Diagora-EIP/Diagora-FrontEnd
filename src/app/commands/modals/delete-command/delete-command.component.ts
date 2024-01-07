@@ -17,7 +17,7 @@ export class DeleteCommandComponent {
     }
 
     deleteCommand = async () => {
-        this.commandService.deleteOrder(this.data.id)
+        this.commandService.deleteOrder(this.data.schedule_id)
             .pipe(
                 tap({
                     next: data => {
