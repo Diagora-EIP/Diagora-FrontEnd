@@ -42,4 +42,8 @@ export class VehiculesService {
         return this.http.delete<any>(`${this.apiUrl}/vehicle/${id}`, this.header);
     }
 
+    getCompanyInfo(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/company`, this.header);
+    }
+
 }

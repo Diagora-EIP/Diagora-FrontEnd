@@ -2,8 +2,12 @@
 
 <div class="page-container">
     <div *ngIf="checkPermission('manager')" class="buttonContainer">
-        <button class="buttonADD" (click)="openModal('ADD')">
+        <!-- <button class="buttonADD" (click)="openModal('ADD')">
             Ajouter un véhicule
+        </button> -->
+        <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
+            Ajouter un véhicule
+            <mat-icon>playlist_add</mat-icon>
         </button>
     </div>
 
@@ -13,10 +17,13 @@
         <div class="filter-components">
             <div class="date-selector">
                 <label class="label-text" for="deliveryDate">Date de Livraison :</label>
-                <div class="input-container">
-                    <input type="date" id="deliveryDate" [(ngModel)]="date">
-                    <i class="fas fa-calendar-alt"></i> <!-- FontAwesome calendar icon -->
-                </div>
+                <mat-form-field class="input-container">
+                    <mat-select [(value)]="selectedUser">
+                        <mat-option *ngFor="let user of users" [value]="user">
+                            {{user.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="display-button-container">
                 <button class="vehicule-button" (click)="getVehicules()"> Afficher </button>

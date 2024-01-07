@@ -1,36 +1,54 @@
-<div>
-    <div class="buttonContainer"> 
-        <button class="buttonADD" (click)="openModal('ADD')">
+<!-- Commande page html -->
+
+<div class="page-container">
+    <!-- <div *ngIf="checkPermission('manager')" class="buttonContainer">
+        <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
             Ajouter une commande
+            <mat-icon>playlist_add</mat-icon>
         </button>
+    </div> -->
+
+    <div class="filter-container">
+
+        <h2 class="filter-section-heading">Filtres</h2>
+        <div class="filter-components">
+            <div class="date-selector">
+                <label class="label-text">Livreur :</label>
+                <mat-form-field class="input-container">
+                    <mat-select [(value)]="selectedUser">
+                        <mat-option *ngFor="let user of users" [value]="user">
+                            {{user.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="display-button-container">
+                <button class="order-button" (click)="getOrders()"> Afficher </button>
+            </div>
+        </div>
     </div>
-    <div class="pageContent">
-        <div ngclass="allCards" *ngFor="let order of allOrders" >
-            <mat-card class="card">
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>Commande pour: <strong>{{ order.description }}</strong></mat-card-title>
-                        <mat-card-subtitle>Livreur: <strong>Non attribué</strong> </mat-card-subtitle>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-content align="end">
-                    <img class="cardImg" mat-card-lg-image src="./assets/cardboardBox.jpg">
-                </mat-card-content>
-                <div class="cardButtons">
-                    <mat-card-actions>
-                        <button mat-fab color="primary"
-                            (click)="openModal('DETAILS', order)">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                        <button mat-fab color="accent" (click)="openModal('EDIT', order)">
-                            <mat-icon>settings</mat-icon>
-                        </button>
-                        <button mat-fab color="warn" (click)="openModal('DELETE', order)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-actions>
+
+
+    <div class="mainContainer">
+        <h2 class="itinerary-section-heading" *ngIf="!selectedUserName">Livraisons</h2>
+        <h2 class="itinerary-section-heading" *ngIf="selectedUserName">Livraisons de {{ selectedUser.name }} du {{ date | date: 'dd/MM/yyyy' }}</h2>
+
+        <!-- Left Container -->
+        <div class="left-right-container">
+            <div class="left-container">
+                <div class="orderListContainer">
+                    <!-- Default message -->
+                    <div *ngIf="!selectedUserName" class="default-message">Veuillez sélectionner un livreur.</div>
+
+                    <div *ngIf="selectedUserName && !formatedOrders.length" class="default-message">Ce livreur n'a aucune livraison ajourd'hui.</div>
+                    <!-- Actual delivery steps -->
+                    <ul *ngIf="selectedUser && formatedOrders.length !== 0">
+                        <li *ngFor="let order of formatedOrders">
+                            {{ order.description }}
+                        </li>
+                    </ul>
                 </div>
-            </mat-card>
+            </div>
         </div>
     </div>
 </div>

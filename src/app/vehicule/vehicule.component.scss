@@ -5,6 +5,7 @@ $hover-border: #95B1AF;
 $button-color: #002b2c;
 
 @import 'styles/filter.scss';
+@import '../../variables.scss';
 
 body {
     margin: 0;
@@ -44,7 +45,7 @@ body {
 // }
 
 .buttonADD {
-    background-color: #538480;
+    background-color: $button-main-color !important;
     color: white;
     border: none;
     padding: 9px 17px;
@@ -55,11 +56,6 @@ body {
     border-radius: 20px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.buttonADD:hover {
-    background-color: #86A8A6;
-    color: #fff;
 }
 
 .buttonContainer {

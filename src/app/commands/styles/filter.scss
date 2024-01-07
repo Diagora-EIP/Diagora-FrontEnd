@@ -68,8 +68,8 @@ input {
     flex: 1;
 }
 
-.vehicule-button {
-    background-color: #538480;
+.order-button {
+    background-color: $button-main-color;
     color: white;
     border: none;
     padding: 9px 17px;
@@ -84,16 +84,16 @@ input {
     align-self: flex-end; 
 }
 
-.vehicule-button:hover {
+.order-button:hover {
     background-color: #86A8A6;
     color: #fff;
 }
 
-.vehicule-button:focus {
+.order-button:focus {
     outline: none;
 }
 
-.vehicule-button:active {
+.order-button:active {
     transform: translateY(1px);
     box-shadow: none;
 }

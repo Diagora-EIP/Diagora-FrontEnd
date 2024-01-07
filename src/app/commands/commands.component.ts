@@ -1,12 +1,14 @@
 import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { tap } from 'rxjs/operators';
 
-import { CommandsService } from 'src/app/services/commands.service';
+import { CommandsService } from '../services/commands.service';
 import { AddCommandComponent } from './modals/add-command/add-command.component';
 import { DetailsCommandComponent } from './modals/details-command/details-command.component';
 import { EditCommandComponent } from './modals/edit-command/edit-command.component';
 import { DeleteCommandComponent } from './modals/delete-command/delete-command.component';
+import { PermissionsService } from '../services/permissions.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsCommandComponent,
@@ -22,20 +24,38 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class CommandsComponent {
-    allOrders: any;
+    allOrders: any[] = [];
+    formatedOrders: any = [];
+    users: any[] = [];
+    selectedUser: any;
+    selectedUserName: string = '';
+    date: string = new Date().toISOString().split('T')[0];
 
-    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService) { }
+    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService, private permissionsService: PermissionsService) { }
 
     ngOnInit(): void {
-        this.getOrders();
+        console.log('Date ', this.date);
+        this.commandsService.getCompanyInfo().subscribe((data) => {
+            this.users = data.users;
+        });
     }
 
-    getOrders = async () => {
-        const date = new Date();
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-        const dateFormated = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + day;
-        this.commandsService.getOrders(dateFormated).subscribe((data) => {
-            this.allOrders = data.data;
+    async getOrders() {
+        if (this.selectedUser === '') {
+            return;
+        }
+
+        this.selectedUserName = this.selectedUser.name;
+
+        this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) => {
+            this.allOrders = data;
+            this.allOrders.forEach((order) => {
+                let tmp: any = {};
+                tmp['delivery_date'] = order.delivery_date;
+                tmp['delivery_address'] = order.order.delivery_address;
+                tmp['description'] = order.order.description;
+                this.formatedOrders.push(tmp);
+            });
         });
     }
 
@@ -65,6 +85,13 @@ export class CommandsComponent {
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
         });
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem('token') === null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
     }
 
 }

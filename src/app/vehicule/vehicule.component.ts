@@ -24,16 +24,21 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 export class VehiculeComponent {
     allVehicules: any;
+    users: any[] = [];
+    selectedUser: string = '';
     date: string = new Date().toISOString().split('T')[0];
 
-    constructor(private router: Router, public dialog: MatDialog, private vehiculesService: VehiculesService, private permissionsService: PermissionsService) { }
+    constructor(private router: Router, public dialog: MatDialog, private vehiculesService: VehiculesService, private permissionsService: PermissionsService) {
+    }
 
     ngOnInit(): void {
-        this.getVehicules();
+        this.vehiculesService.getCompanyInfo().subscribe((data) => {
+            this.users = data.users;
+        });
     }
 
     async getVehicules() {
-        console.log('Date ', this.date);
+        // console.log('Date ', this.date);
         // this.vehiculesService.getVehicules().subscribe((data) => {
         //     this.allVehicules = data;
         // });
