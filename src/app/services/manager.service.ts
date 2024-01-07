@@ -10,7 +10,6 @@ export class ManagerService {
   token = localStorage.getItem('token');
   user_id = localStorage.getItem('id');
 
-
   header: any = {};
 
   apiUrl = environment.apiUrl;
@@ -51,5 +50,14 @@ export class ManagerService {
   updateEntreprise(body: any): Observable<any> {
     const requestBody = body;
     return this.http.patch<any>(`${this.apiUrl}/company`, requestBody, this.header);
+  }
+
+  updateRoles(id: any, body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/manager/userRole/${id}`, requestBody, this.header);
+  }
+
+  deleteUser(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/manager/user/${id}`, this.header);
   }
 }

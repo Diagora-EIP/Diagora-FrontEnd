@@ -82,12 +82,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contentButtonUpdate">
-                        <button mat-raised-button type="submit" class="button-form">Mettre à jour les informations utilisateur</button>
-                        <button mat-raised-button class="button-form">Supprimé l'utilisateur</button>
-                    </div>
+                    <button mat-raised-button type="submit" class="button-form">Mettre à jour les informations utilisateur</button>
                 </form>
-                <button mat-raised-button (click)="modalUpdateUser = false">Fermer</button>
+                <div class="contentButtonUpdate">
+                    <button mat-raised-button class="button-form" (click)="deleteUser()">Supprimé l'utilisateur</button>
+                    <button mat-raised-button (click)="modalUpdateUser = false">Fermer</button>
+                </div>
             </div>
         </div>
     </div>

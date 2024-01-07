@@ -55,7 +55,7 @@
         getManagerEntreprise() {
             this.managerService.getManagerEntreprise().subscribe(
                 (res) => {
-                    console.log("entreprise", res.users);
+                    this.entreprise = res.name;
                     const users = JSON.stringify(res.users);
                     localStorage.setItem('users', users);
                     this.dataSource = res.users;
@@ -71,7 +71,6 @@
             for (let i = 0; i < this.dataSource.length; i++) {
                 this.managerService.getUserInformations(this.dataSource[i].user_id).subscribe(
                     (res) => {
-                        console.log(res);
                         let role = [];
                         for (let j = 0; j < res.length; j++) {
                             role.push(res[j].name);
@@ -83,6 +82,19 @@
                     }
                 );
             }
+        }
+
+        deleteUser() {
+            let id = this.updateUserForm.value.id
+            this.managerService.deleteUser(id).subscribe(
+                (res) => {
+                    console.log('res', res);
+                    window.location.reload();
+                },
+                (err) => {
+                    console.log("err", err);
+                }
+            );
         }
 
         openModalNewUser(): void {
@@ -106,11 +118,31 @@
             const body = {
                 name: this.updateUserForm.value.name,
             }
-            console.log(id, body)
             this.managerService.updateUserInformations(id, body).subscribe(
                 (res) => {
                     console.log(res);
                     this.modalUpdateUser = false;
+                    this.updateRoles(id);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+        }
+
+        updateRoles(id : any) {
+            let body = {
+                role: [] as string[]
+            }
+            for (let i = 0; i < this.updateUserRole.length; i++) {
+                if (this.updateUserRole[i].checked === true) {
+                    body.role.push(this.updateUserRole[i].name);
+                }
+            }
+            console.log(body);
+            this.managerService.updateRoles(id, body).subscribe(
+                (res) => {
+                    console.log(res);
                     window.location.reload();
                 },
                 (err) => {
