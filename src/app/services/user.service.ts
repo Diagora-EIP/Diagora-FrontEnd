@@ -2,39 +2,41 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import axios from 'axios';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UserService {
-    token = localStorage.getItem('token');
-    user_id = localStorage.getItem('id');
+  token = localStorage.getItem('token');
+  user_id = localStorage.getItem('id');
 
-    header: any = {};
 
-    apiUrl = environment.apiUrl;
+  header: any = {};
 
-    constructor(private http: HttpClient) {
-        if (this.token != null) {
-            this.header = {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: 'Bearer ' + this.token
-                }
-            }
-        }
-    }
+  apiUrl = environment.apiUrl;
 
-    getUserInfos(): Observable<any> {
-        console.log(this.apiUrl)
-        return this.http.get<any>(`${this.apiUrl}/user`,
-            this.header
-        );
-    }
+  constructor(private http: HttpClient) {
+      if (this.token != null) {
+          this.header = {
+              headers: {
+                  Authorization: 'Bearer ' + this.token
+              }
+          }
+      }
+  }
 
-    // async getUserInfos() {
-    //     const response = await axios.get(this.apiUrl + '/user/all', this.header);
-    //     return response.data;
-    // }
+  getUserInfos(): Observable<any> {
+    console.log(this.apiUrl)
+    return this.http.get<any>(`${this.apiUrl}/user`, this.header);
+}
+
+  updateUserInformations(body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/user/`, requestBody, this.header);
+  }
+
+  updatePassword(body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/resetPassword`, requestBody, this.header);
+  }
 }

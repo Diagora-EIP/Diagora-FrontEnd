@@ -37,6 +37,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
+import { UserUpdateModalComponent } from './admin/user-update-modal/user-update-modal.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
@@ -66,6 +67,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         VehiculeComponent,
         StatisticComponent,
         UserCreateModalComponent,
+        UserUpdateModalComponent,
         ManagerUserListComponent,
         ResetPasswordComponent,
         NavbarComponent,
