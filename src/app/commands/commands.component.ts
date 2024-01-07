@@ -24,6 +24,7 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class CommandsComponent {
+    displayedColumns = ['date', 'address', 'description', 'action'];
     allOrders: any[] = [];
     formatedOrders: any = [];
     users: any[] = [];
@@ -49,9 +50,15 @@ export class CommandsComponent {
 
         this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) => {
             this.allOrders = data;
+            if (this.allOrders.length === 0) {
+                this.formatedOrders = [];
+                return;
+            }
             this.allOrders.forEach((order) => {
                 let tmp: any = {};
-                tmp['delivery_date'] = order.delivery_date;
+                let tempDate = new Date(order.delivery_date);
+                const formattedDate = `${tempDate.toLocaleDateString('en-GB')} ${tempDate.toLocaleTimeString('en-GB', { hour12: false })}`;
+                tmp['delivery_date'] = formattedDate;
                 tmp['delivery_address'] = order.order.delivery_address;
                 tmp['description'] = order.order.description;
                 this.formatedOrders.push(tmp);
