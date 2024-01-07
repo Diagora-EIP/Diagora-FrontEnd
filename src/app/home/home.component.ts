@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environment';
 import { PermissionsService } from '../services/permissions.service';
-import { ManagerService } from 'src/app/services/manager.service';
+import { ManagerService } from '../services/manager.service';
 
 // import jwt from 'jsonwebtoken';
 
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   entreprise!: string;
   constructor(private router: Router, private managerService: ManagerService, public permissionsService: PermissionsService) { 
     // this.getPermissions();
-    if (this.permissionsService.hasPermission('admin') == true) {
+    if (this.permissionsService.hasPermission('manager') == true) {
       this.getManagerEntreprise();
     }
   }
@@ -24,9 +24,13 @@ export class HomeComponent implements OnInit {
   getManagerEntreprise() {
     this.managerService.getManagerEntreprise().subscribe(
         (res) => {
-            console.log(res);
-            this.entreprise = res.company.name;
+            console.log("entreprise", res);
+            this.entreprise = res.name;
             localStorage.setItem('entreprise', this.entreprise);
+            localStorage.setItem('entrepriseId', res.company_id);
+            localStorage.setItem('addressEntreprise', res.address);
+            const users = JSON.stringify(res.users);
+            localStorage.setItem('users', users);
         },
         (err) => {
             console.log(err);
