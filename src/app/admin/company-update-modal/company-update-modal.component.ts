@@ -72,7 +72,6 @@ export class CompanyUpdateModalComponent {
             )
             .subscribe({
                 next: (data) => {
-                    console.log("data : ", data)
                     this.dialogRef.close(data);
                 }
             });

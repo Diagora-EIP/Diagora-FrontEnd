@@ -38,6 +38,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
+import { UserUpdateModalComponent } from './admin/user-update-modal/user-update-modal.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { CompanyUpdateModalComponent } from './admin/company-update-modal/compan
         VehiculeComponent,
         StatisticComponent,
         UserCreateModalComponent,
+        UserUpdateModalComponent,
         ManagerUserListComponent,
         ResetPasswordComponent,
         NavbarComponent,

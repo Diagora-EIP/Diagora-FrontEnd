@@ -2,6 +2,7 @@ import { Component, Type } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
+import { UserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
 import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from '../company-update-modal/company-update-modal.component';
 import { Subscription, tap, throwError } from 'rxjs';
@@ -24,6 +25,17 @@ export class UserListComponent {
                 }
             },
             action: (instance: any) => this.addUser(instance)
+        },
+        USERUPDATE: {
+            component: UserUpdateModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                    companyList: this.companyList,
+                    roles: this.RolesList,
+                }
+            },
+            action: (instance: any) => this.updateUser(instance)
         },
         COMPANYCREATE: { component: CompanyCreateModalComponent, constructor: () => { }, action: (instance: any) => this.addCompany(instance) },
         COMPANYUPDATE: {
@@ -67,7 +79,6 @@ export class UserListComponent {
     }
 
     constructor(private adminService: AdminService, public dialog: MatDialog) {
-        this.openModal('USERCREATE')
         this.getUsers();
         this.getCompany();
         this.getRoles();
@@ -229,8 +240,8 @@ export class UserListComponent {
         this.openModal('COMPANYUPDATE')
     }
 
-    callUpdateUser = (user_id: number) => {
-        this.selectedUser = this.userList.find((user: any) => user.id === user_id)
+    callUpdateUser = (user: any) => {
+        this.selectedUser = user;
         this.openModal('USERUPDATE')
     }
 
@@ -253,8 +264,8 @@ export class UserListComponent {
         this.selectedCompany = null
     }
 
-    updateuser = (userUpdated: any) => {
-        // this.updateDataSource();
-        // this.selectedUser = null
+    updateUser = (userUpdated: any) => {
+        this.updateDataSource();
+        this.selectedUser = null
     }
 }

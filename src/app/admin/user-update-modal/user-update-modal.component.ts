@@ -4,57 +4,61 @@ import { Subscription, tap, throwError } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
-    selector: 'app-user-create-modal',
-    templateUrl: './user-create-modal.component.html',
-    styleUrls: ['./user-create-modal.component.scss'],
+    selector: 'app-user-update-modal',
+    templateUrl: './user-update-modal.component.html',
+    styleUrls: ['./user-update-modal.component.scss'],
 })
-export class UserCreateModalComponent {
+export class UserUpdateModalComponent {
     rolesList: any = []
-    roles: any = []
     companies: any = []
-    selectedCompany: any = null
-    name: string = ''
-    email: string = ''
-    createUserSubscription: Subscription | undefined;
+    baseName: string = ''
+    baseEmail: string = ''
+    user: any = null
+    baseUser: any = null
+    updateUserSubscription: Subscription | undefined;
 
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        public dialogRef: MatDialogRef<UserCreateModalComponent>,
+        public dialogRef: MatDialogRef<UserUpdateModalComponent>,
         private adminService: AdminService
     ) {
-        this.companies = data.companyList
-        this.rolesList = data.roles
+        this.user = data.user
+        this.baseUser = data.user
+        this.baseEmail = this.user.email
+        this.baseName = this.user.name
+        // this.rolesList = data.roles
+        // this.companies = data.companyList
     }
 
 
     close(): void {
         this.dialogRef.close();
-        this.createUserSubscription?.unsubscribe();
+        this.updateUserSubscription?.unsubscribe();
     }
 
     dataCheck() {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(this.email)) {
+        if (!emailRegex.test(this.user.email)) {
             return false
         }
-        if (this.name.length == 0) {
-            return false
-        }
-        if (this.roles.length == 0) {
+        if (this.user.name.length == 0) {
             return false
         }
         return true
     }
 
-    createUser = async () => {
+    updateUser = async () => {
         if (this.dataCheck() == false) {
             return
         }
-        const selectedRolesName = this.roles.map((role: any) => role.name);
-        const selectedRolesId = this.roles.map((role: any) => role.role_id);
 
-        this.createUserSubscription = this.adminService.createUser(this.email, this.name, selectedRolesName, this.selectedCompany.company_id)
+        if (this.baseEmail == this.user.email && this.baseName == this.user.name) {
+            this.dialogRef.close();
+            return
+        }
+
+        this.updateUserSubscription = this.adminService.updateUser(this.user.id, this.user.email, this.user.name)
             .pipe(
                 tap({
                     error: (err) => {
@@ -69,7 +73,7 @@ export class UserCreateModalComponent {
             )
             .subscribe({
                 next: (data) => {
-                    this.dialogRef.close({ id: 10000, email: this.email, name: this.name, roles: selectedRolesId, company_id: this.selectedCompany.company_id });
+                    this.dialogRef.close({ user: this.user });
                 },
             });
     }

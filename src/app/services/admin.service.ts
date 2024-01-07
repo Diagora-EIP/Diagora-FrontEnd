@@ -72,4 +72,9 @@ export class AdminService {
         const requestBody = { email, name, roles, company_id };
         return this.http.post<any>(`${this.apiUrl}/admin/user`, requestBody, this.header);
     }
+
+    updateUser(user_id: number, email: string, name: string): Observable<any> {
+        const requestBody = { email, name };
+        return this.http.patch<any>(`${this.apiUrl}/admin/user/${user_id}`, requestBody, this.header);
+    }
 }

@@ -46,7 +46,14 @@
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="roles">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{getUserRoles(user.roles)}} </td>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user">
+                    <div class="roles-container">
+                        <span class="roles-name">{{getUserRoles(user.roles)}}</span>
+                        <button class="user-edit-button button-data-tab-userList" (click)='callUpdateUser(user)'>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
