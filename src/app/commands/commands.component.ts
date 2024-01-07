@@ -22,13 +22,11 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
 })
 
 export class CommandsComponent {
-    logout1!: boolean;
     allOrders: any;
 
     constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService) { }
 
     ngOnInit(): void {
-        this.logout1 = false;
         this.getOrders();
     }
 
@@ -43,19 +41,6 @@ export class CommandsComponent {
 
     goto(params: string) {
         this.router.navigate([params]);
-    }
-
-    logout() {
-        this.logout1 = true;
-    }
-
-    cancel() {
-        this.logout1 = false;
-    }
-
-    confirm() {
-        localStorage.removeItem('token');
-        this.router.navigate(['login']);
     }
 
     openModal(type: string = 'DETAILS', info: any = {}): void {

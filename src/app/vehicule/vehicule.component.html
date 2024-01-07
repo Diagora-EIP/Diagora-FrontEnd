@@ -1,44 +1,31 @@
-<div>
-    <div *ngIf="logout1" class="logout">
-        <div class="contentBox" (click)="cancel()">
-            <h2>Annuler</h2>
-        </div>
-        <div class="contentBox" (click)="confirm()">
-            <h2>Confirmer</h2>
-        </div>
-    </div>
-    <div class="buttonADD"> 
-        <button mat-fab extended color="primary" (click)="openModal('ADD')">
+<!-- Vehicle page html -->
+
+<div class="page-container">
+    <div *ngIf="checkPermission('manager')" class="buttonContainer">
+        <button class="buttonADD" (click)="openModal('ADD')">
             Ajouter un véhicule
-            <mat-icon>playlist_add</mat-icon>
         </button>
     </div>
-    <div class="pageContent">
-        <div ngclass="allCards" *ngFor="let vehicule of allVehicules" >
-            <mat-card class="card">
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>Nom du véhicule: <strong>{{ vehicule.vehicle_name }}</strong></mat-card-title>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-content align="end">
-                    <img class="cardImg" mat-card-lg-image src="./assets/truck.png">
-                </mat-card-content>
-                <div class="cardButtons">
-                    <mat-card-actions>
-                        <button mat-fab color="primary"
-                            (click)="openModal('DETAILS', vehicule)">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                        <button mat-fab color="accent" (click)="openModal('EDIT', vehicule)">
-                            <mat-icon>settings</mat-icon>
-                        </button>
-                        <button mat-fab color="warn" (click)="openModal('DELETE', vehicule)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-actions>
+
+    <div class="filter-container">
+
+        <h2 class="filter-section-heading">Filtres</h2>
+        <div class="filter-components">
+            <div class="date-selector">
+                <label class="label-text" for="deliveryDate">Date de Livraison :</label>
+                <div class="input-container">
+                    <input type="date" id="deliveryDate" [(ngModel)]="date">
+                    <i class="fas fa-calendar-alt"></i> <!-- FontAwesome calendar icon -->
                 </div>
-            </mat-card>
+            </div>
+            <div class="display-button-container">
+                <button class="vehicule-button" (click)="getVehicules()"> Afficher </button>
+            </div>
         </div>
+    </div>
+
+
+    <div class="mainContainer">
+
     </div>
 </div>

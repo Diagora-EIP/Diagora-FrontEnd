@@ -67,7 +67,7 @@ input {
     flex: 1;
 }
 
-.schedule-button {
+.vehicule-button {
     background-color: #538480;
     color: white;
     border: none;
@@ -83,16 +83,16 @@ input {
     align-self: flex-end; 
 }
 
-.schedule-button:hover {
+.vehicule-button:hover {
     background-color: #86A8A6;
     color: #fff;
 }
 
-.schedule-button:focus {
+.vehicule-button:focus {
     outline: none;
 }
 
-.schedule-button:active {
+.vehicule-button:active {
     transform: translateY(1px);
     box-shadow: none;
 }

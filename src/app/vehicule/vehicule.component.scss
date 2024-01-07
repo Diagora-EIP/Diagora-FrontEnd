@@ -1,33 +1,71 @@
+$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
 
-.pageContent {
-    margin-top: 120px;
+@import 'styles/filter.scss';
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    height: 94vh;
+    overflow: hidden;
+}
+
+.filter-container {
+    flex: 2;
+    box-sizing: border-box;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    // justify-content: center;
-    // height: 100vh;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
 }
 
-.card {
-    width: 700px;
-    height: 300px;
-    align-items: right;
-    justify-content: right;
-    // background-color: #fff;
-    border-radius: 13px;
-    box-shadow: 0 0 10px #000000;
-    margin: 20px;
-}
+// .card {
+//     width: 700px;
+//     height: 300px;
+//     align-items: right;
+//     justify-content: right;
+//     // background-color: #fff;
+//     border-radius: 13px;
+//     box-shadow: 0 0 10px #000000;
+//     margin: 20px;
+// }
+
+// .cardButtons {
+//     align-self: end;
+// }
 
 .buttonADD {
-    z-index: 5;
-    position: fixed;
-    display: flex;
-    align-self: end;
-    bottom: 3%;
-    right: 1%;
+    background-color: #538480;
+    color: white;
+    border: none;
+    padding: 9px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cardButtons {
+.buttonADD:hover {
+    background-color: #86A8A6;
+    color: #fff;
+}
+
+.buttonContainer {
+    display: flex;
     align-self: end;
+    position: fixed;
+    bottom: 3%;
+    right: 1%;
 }

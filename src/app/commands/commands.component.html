@@ -1,16 +1,7 @@
 <div>
-    <div *ngIf="logout1" class="logout">
-        <div class="contentBox" (click)="cancel()">
-            <h2>Annuler</h2>
-        </div>
-        <div class="contentBox" (click)="confirm()">
-            <h2>Confirmer</h2>
-        </div>
-    </div>
-    <div class="buttonADD"> 
-        <button mat-fab extended color="primary" (click)="openModal('ADD')">
+    <div class="buttonContainer"> 
+        <button class="buttonADD" (click)="openModal('ADD')">
             Ajouter une commande
-            <mat-icon>playlist_add</mat-icon>
         </button>
     </div>
     <div class="pageContent">

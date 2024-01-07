@@ -33,11 +33,18 @@ const routes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
-            { path: 'vehicule', component: VehiculeComponent },
             { path: 'statistic', component: StatisticComponent },
         ],
         data: {
             permission: ['user']
+        }
+    },
+    {
+        path: '', canActivate: [AuthGuard], children: [
+            { path: 'vehicule', component: VehiculeComponent },
+        ],
+        data: {
+            permission: ['manager']
         }
     },
     {
