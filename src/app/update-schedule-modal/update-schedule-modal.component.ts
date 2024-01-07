@@ -116,6 +116,7 @@ export class UpdateScheduleModalComponent {
 				)
 			}
         }
+		this.closeDialog();
     }
 
     deleteSchedule() {
