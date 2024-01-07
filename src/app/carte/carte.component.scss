@@ -4,6 +4,7 @@ $hover-color: #95B1AF;
 $hover-border: #95B1AF;
 $button-color: #002b2c;
 
+@import '../../variables.scss';
 @import 'filter/filter.component.scss';
 @import 'delivery-steps/delivery-steps.component.scss';
 
@@ -44,7 +45,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $primary-color;
+  background-color: $main-color;
   color: white;
   list-style-type: none;
   font-weight: 300;
