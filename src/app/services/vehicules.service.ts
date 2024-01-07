@@ -25,7 +25,7 @@ export class VehiculesService {
     }
 
     getVehicules(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/vehicle/`, this.header);
+        return this.http.get<any>(`${this.apiUrl}/vehicles`, this.header);
     }
 
     createVehicule(name: string, dimentions: string, capacity: number): Observable<any> {

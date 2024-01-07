@@ -1,38 +1,49 @@
 <!-- Vehicle page html -->
 
 <div class="page-container">
-    <div *ngIf="checkPermission('manager')" class="buttonContainer">
-        <!-- <button class="buttonADD" (click)="openModal('ADD')">
-            Ajouter un véhicule
-        </button> -->
-        <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
-            Ajouter un véhicule
-            <mat-icon>playlist_add</mat-icon>
-        </button>
-    </div>
+    <div class="mainContainer">
+        <h2 class="itinerary-section-heading" >Véhicules de {{companyName}}</h2>
 
-    <div class="filter-container">
+        <!-- Left Container -->
+        <div class="left-right-container">
+            <div class="left-container">
+                <div class="vehicleListContainer">
+                    <!-- Default message -->
+                    <div *ngIf="!allVehicles.length" class="default-message">Aucun véhicule enregistré dans votre entreprise.</div>
 
-        <h2 class="filter-section-heading">Filtres</h2>
-        <div class="filter-components">
-            <div class="date-selector">
-                <label class="label-text" for="deliveryDate">Date de Livraison :</label>
-                <mat-form-field class="input-container">
-                    <mat-select [(value)]="selectedUser">
-                        <mat-option *ngFor="let user of users" [value]="user">
-                            {{user.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="display-button-container">
-                <button class="vehicule-button" (click)="getVehicules()"> Afficher </button>
+                    <div *ngIf="allVehicles.length !== 0"
+                        ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+                        <table ngClass="tab-userList" mat-table [dataSource]="allVehicles">
+                            <ng-container class="content-tab-userList" matColumnDef="name">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Nom du véhicule </th>
+                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}
+                                </td>
+                            </ng-container>
+                            <ng-container class="content-tab-userList" matColumnDef="action">
+                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
+                                <td class="data-tab-userList" mat-cell *matCellDef="let user">
+                                    <div class="company-container">
+                                        <button class="button-data-tab-userList" (click)="openModal('EDIT')">
+                                            <mat-icon>settings</mat-icon>
+                                        </button>
+                                        <button class="button-data-tab-userList" (click)="openModal('DELETE')">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="mainContainer">
-
+        <div class="buttonContainer">
+            <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
+                Ajouter une commande
+                <mat-icon>playlist_add</mat-icon>
+            </button>
+        </div>
     </div>
 </div>
