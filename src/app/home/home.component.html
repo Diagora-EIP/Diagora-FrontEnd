@@ -9,19 +9,15 @@
     </div>
     <div class="contentPage">
         <div class="box" (click)="goto('planning')">
-            <h2>Planning</h2>
+            <h2>Calendrier</h2>
             <img class="imgBox" src="../../assets/planning-mensuel.png" alt="">
         </div>
         <div class="box" (click)="goto('commands')">
             <h2>Commande</h2>
             <img class="imgBox" src="../../assets/commande.png" alt="">
         </div>
-        <div class="box" (click)="goto('statistic')">
-            <h2>Statistique</h2>
-            <img class="imgBox" src="../../assets/stat.png" alt="">
-        </div>
         <div class="box" (click)="goto('vehicule')">
-            <h2>Vehicule</h2>
+            <h2>Véhicule</h2>
             <img class="imgBox" src="../../assets/vehicule.jpg" alt="">
         </div>
         <div class="box" *ngIf="hasPermission('admin')" (click)="goto('manager/userList')">
