@@ -7,7 +7,7 @@
     </div>
     <div *ngIf="popUp" ngClass="PopUpContainer">
         <div class="popUp">
-            <h2>Nouvelle utilisateur</h2>
+            <h2>Nouvel utilisateur</h2>
             <form [formGroup]="newUserForm" (ngSubmit)="addUser()" class="container-form-newUser">
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <button mat-raised-button type="submit" class="button-form" [disabled]="newUserForm.invalid">Créer votre Nouvelle utilisateur</button>
+                <button mat-raised-button type="submit" class="button-form" [disabled]="newUserForm.invalid">Créer votre nouvel utilisateur</button>
             </form>
         </div>
     </div>
@@ -85,7 +85,7 @@
                     <button mat-raised-button type="submit" class="button-form">Mettre à jour les informations utilisateur</button>
                 </form>
                 <div class="contentButtonUpdate">
-                    <button mat-raised-button class="button-form" (click)="deleteUser()">Supprimé l'utilisateur</button>
+                    <button mat-raised-button class="button-form" (click)="deleteUser()">Supprimer l'utilisateur</button>
                     <button mat-raised-button (click)="modalUpdateUser = false">Fermer</button>
                 </div>
             </div>

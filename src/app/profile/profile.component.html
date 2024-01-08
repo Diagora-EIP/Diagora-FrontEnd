@@ -19,7 +19,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <button mat-raised-button type="submit" *ngIf="manager" class="button-form">Mettre a jour les informations</button>
+            <button mat-raised-button type="submit" *ngIf="manager" class="button-form">Mettre à jour les informations</button>
         </form>
         <form  [formGroup]="formPassword" (ngSubmit)="updateMDP()">
             <h2>Modifier votre mot-de-passe</h2>
@@ -65,7 +65,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <button mat-raised-button type="submit"  class="button-form">Mettre à jour les informations de l'entrepise</button>
+            <button mat-raised-button type="submit"  class="button-form">Mettre à jour les informations de l'entreprise</button>
         </form>
     </div>
     <div class="UserDiv" *ngIf="!manager; else other">
@@ -74,7 +74,7 @@
 
     <ng-template #other>
         <div class="managerDiv">
-            <h2>Employé de l'entreprise</h2>
+            <h2>Employés de l'entreprise</h2>
             <div class="userListContent">
                 <div class="titleItemList">
                     <p>Nom</p>
