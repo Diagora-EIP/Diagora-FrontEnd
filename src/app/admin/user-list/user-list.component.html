@@ -10,14 +10,14 @@
             </button>
             <button ngClass="new button-utils-userList" mat-raised-button color="primary"
                 (click)='openModal("USERCREATE")'>
-                + Nouvelle Utilisateur
+                + Nouvel Utilisateur
             </button>
         </div>
         <div ngClass="container-filter-userList">
             <mat-form-field class="content-filter-userList">
                 <mat-label ngClass="title-filter-userList">Entreprise</mat-label>
-                <input matInput ngClass="input-filter-userList" placeholder="Ex. Diagora" [(ngModel)]="entrepriseFilter"
-                    name="filterEntreprise">
+                <input matInput ngClass="input-filter-userList" placeholder="Ex. Diagora" [(ngModel)]="companyFilter"
+                    name="filterCompany">
             </mat-form-field>
         </div>
     </div>
@@ -25,11 +25,12 @@
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <ng-container class="content-tab-userList" matColumnDef="entreprise">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>
-                <td class="data-tab-userList" mat-cell *matCellDef="let element">
+                <td class="data-tab-userList" mat-cell *matCellDef="let user">
                     <div class="company-container">
-                        <span class="company-name">{{element.entreprise}}</span>
-                        <button *ngIf="element.entreprise" class="button-data-tab-userList"
-                            (click)='openModalUpdateCompany(element)'>
+                        <span class="company-name">{{getUserCompany(user.company_id)}}</span>
+                        <button
+                            *ngIf="user.company_id !== undefined && user.company_id !== 0 && user.company_id !== null"
+                            class="button-data-tab-userList" (click)='callUpdateCompany(user.company_id)'>
                             <mat-icon>edit</mat-icon>
                         </button>
                     </div>
@@ -37,15 +38,22 @@
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="utilisateur">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.name}} </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="email">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.email}} </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="roles">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user">
+                    <div class="roles-container">
+                        <span class="roles-name">{{getUserRoles(user.roles)}}</span>
+                        <button class="user-edit-button button-data-tab-userList" (click)='callUpdateUser(user)'>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

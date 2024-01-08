@@ -4,6 +4,8 @@ $hover-color: #95B1AF;
 $hover-border: #95B1AF;
 $button-color: #002b2c;
 
+@import '../../../variables.scss';
+
 .date-selector {
     position: relative;
 }
@@ -41,7 +43,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary-color;
+    background-color: $main-color;
     color: white;
     list-style-type: none;
     font-weight: 300;
@@ -67,9 +69,8 @@ input {
     flex: 1;
 }
 
-
 .schedule-button {
-    background-color: #538480;
+    background-color: $button-main-color;
     color: white;
     border: none;
     padding: 9px 17px;

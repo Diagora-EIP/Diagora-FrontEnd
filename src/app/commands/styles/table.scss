@@ -1,0 +1,51 @@
+@import '../../../variables.scss';
+
+.container-tab-userList {
+    // display: flex;
+    // width: 98%;
+    // justify-self: center;
+    margin: 1%;
+}
+
+.header-tab-userList {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.data-tab-userList {
+    font-size: 1rem;
+}
+
+.company-container, .roles-container {
+    // display: flex;
+    // align-items: center;
+    background-color: inherit;
+}
+
+.company-name {
+    // margin-right: 10px;
+    font-weight: 500;
+}
+
+.button-data-tab-userList {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+.button-data-tab-userList-title {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+.user-edit-button {
+    margin-left: auto
+}
+
+.button-data-tab-userList:hover, .button-data-tab-userList:active {
+    color: $main-color;
+}

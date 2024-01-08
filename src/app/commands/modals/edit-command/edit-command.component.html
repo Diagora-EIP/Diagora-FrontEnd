@@ -4,30 +4,44 @@
     </div>
 
     <div ngClass="content-editCommandModal">
-        <div ngClass="container-input-editCommandModal">
-            <mat-form-field ngClass="content-input-editCommandModal">
-                <mat-label ngClass="title-input-editCommandModal">Nom</mat-label>
-                <input matInput ngClass="input-editCommandModal" placeholder="Ex. Pierre" [(ngModel)]="description" name="description"
+
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Jour de livraison::</mat-label>
+                <input ngClass="input-addCommandModal" matInput [matDatepicker]="picker" [(ngModel)]="date" name="date"
+                    [required]="true">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- Time picker (custom implementation or third-party library) -->
+        <!-- For example, you can use a simple input for time -->
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Heure de livraison:</mat-label>
+                <input ngClass="input-addCommandModal" matInput type="time" [(ngModel)]="hours" name="hours"
                     [required]="true">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-editCommandModal">
-            <mat-form-field ngClass="content-input-editCommandModal">
-                <mat-label ngClass="title-input-editCommandModal">Adresse</mat-label>
-                <input matInput ngClass="input-editCommandModal" placeholder="Ex. 1 Rue de la fontaine, 34000 Montpellier"
-                    [(ngModel)]="address" name="address" [required]="true">
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Description:</mat-label>
+                <input matInput ngClass="input-addCommandModal" placeholder="Ex. Urgent pour netflix" [(ngModel)]="description"
+                    name="description" [required]="false">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-editCommandModal">
-            <mat-form-field ngClass="content-input-editCommandModal">
-                <mat-label ngClass="title-input-editCommandModal">Date</mat-label>
-                <input matInput ngClass="input-editCommandModal" placeholder="Ex. 2023-01-01" [(ngModel)]="date" name="date"
-                    [required]="true">
+        <div ngClass="container-input-addCommandModal">
+            <mat-form-field ngClass="content-input-addCommandModal">
+                <mat-label ngClass="title-input-addCommandModal">Adresse:</mat-label>
+                <input matInput ngClass="input-addCommandModal"
+                    placeholder="Ex. 1 Rue de la fontaine, 34000 Montpellier" [(ngModel)]="address" name="address"
+                    [required]="false">
             </mat-form-field>
         </div>
-    
+
         <div ngClass="container-button-editCommandModal">
             <button ngClass="cancel button-editCommandModal" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SecurityService } from '../services/security.service';
 import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
-import { Subscription, throwError } from 'rxjs';
+import { Subscription, throwError, lastValueFrom } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermissionsService } from '../services/permissions.service';
 
@@ -45,20 +45,6 @@ export class LoginComponent {
         }
     }
 
-    // savePermissions() {
-    //     let permissions: string[] = [];
-    //     this.permissionsService.getPermissions().subscribe({
-    //         next: (data) => {
-    //             for (let i = 0; i < data.length; i++) {
-    //                 permissions.push(data[i].name);
-    //             }
-    //             console.log("PERMISSIONS ", permissions);
-    //             this.permissionsService.setUserPermissions(permissions);
-    //             console.log("PERMISSIONS 2", this.permissionsService.userPermissions);
-    //         }
-    //     });
-    // }
-
     async login() {
         if (this.loginForm.invalid) {
             this.Erreur = 'Veuillez remplir tous les champs correctement.';
@@ -73,7 +59,8 @@ export class LoginComponent {
             this.popUp = true;
             return;
         }
-        
+        this.permissionsService.deleteUserPermissions();
+
         this.loginSubscription = this.securityService.login(email, password, remember)
             .pipe(
                 tap({
@@ -101,8 +88,6 @@ export class LoginComponent {
                     this.router.navigate(['home']);
                 }
             });
-        
-        // this.savePermissions();
-        
+
     }
 }

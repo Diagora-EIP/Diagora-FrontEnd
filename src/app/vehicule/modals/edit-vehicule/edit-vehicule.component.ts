@@ -10,11 +10,6 @@ import { VehiculesService } from 'src/app/services/vehicules.service';
 })
 export class EditVehiculeComponent {
     name: string = ''
-    dimentions: string = ''
-    capacity: number = -1
-    formatedName: string = ''
-    formatedDimentions: string = ''
-    formatedCapacity: number = -1
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditVehiculeComponent>, private vehiculeService: VehiculesService) { }
 
@@ -24,25 +19,16 @@ export class EditVehiculeComponent {
 
     formatData() {
         if (this.name === '') {
-            this.formatedName = this.data.name;
-        } else {
-            this.formatedName = this.name;
+            return false;
         }
-        if (this.dimentions === '') {
-            this.formatedDimentions = this.data.dimentions;
-        } else {
-            this.formatedDimentions = this.dimentions;
-        }
-        if (this.capacity === -1) {
-            this.formatedCapacity = this.data.capacity;
-        } else {
-            this.formatedCapacity = this.capacity;
-        }
+        return true;
     }
 
     editVehicule = async () => {
-        this.formatData();
-        this.vehiculeService.updateVehicule(this.data.id, this.formatedName, this.formatedDimentions, this.formatedCapacity)
+        if (this.formatData()) {
+            this.dialogRef.close();
+        }
+        this.vehiculeService.updateVehicule(this.data.vehicle_id, this.name)
             .pipe(
                 tap({
                     next: data => {

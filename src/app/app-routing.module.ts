@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-// import { notFoundComponent } from './not-found/not-found.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
@@ -13,8 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { VehiculeComponent } from './vehicule/vehicule.component';
 import { StatisticComponent } from './statistic/statistic.component';
-import { AuthGuard, AuthLeftGuard } from './guards/auth-guard.guard';
-import { userGuard, adminGuard } from './guards/role-guard.guard';
+import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
@@ -35,15 +33,28 @@ const routes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
+        ],
+        data: {
+            permission: ['user', 'admin']
+        }
+    },
+    {
+        path : '', canActivate: [AuthGuard], children: [
             { path: 'vehicule', component: VehiculeComponent },
-            { path: 'statistic', component: StatisticComponent },
             { path: 'manager/userList', component: ManagerUserListComponent },
-        ]
+        ],
+        data: {
+            permission: ['manager', 'admin']
+        }
     },
     {
         path: 'admin', canActivate: [AuthGuard], children: [
             { path: 'userList', component: UserListComponent, },
-        ]
+            { path: 'statistic', component: StatisticComponent },
+        ],
+        data: {
+            permission: ['admin']
+        }
     },
     { path: '**', redirectTo: 'home' }
 ];

@@ -37,6 +37,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
 import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
+import { UserUpdateModalComponent } from './admin/user-update-modal/user-update-modal.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
@@ -47,7 +48,10 @@ import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/det
 import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
 import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CreateScheduleModalComponent } from './create-schedule-modal/create-schedule-modal.component';
+import { UpdateScheduleModalComponent } from './update-schedule-modal/update-schedule-modal.component';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
     declarations: [
         AppComponent,
@@ -63,6 +67,7 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         VehiculeComponent,
         StatisticComponent,
         UserCreateModalComponent,
+        UserUpdateModalComponent,
         ManagerUserListComponent,
         ResetPasswordComponent,
         NavbarComponent,
@@ -76,6 +81,8 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         AddVehiculeComponent,
         DeleteVehiculeComponent,
         EditVehiculeComponent,
+        CreateScheduleModalComponent,
+        UpdateScheduleModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -90,7 +97,6 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         MatDialogModule,
         MatListModule,
         MatSelectModule,
-        MatDialogModule,
         MatButtonModule,
         MatSelectModule,
         MatFormFieldModule,
@@ -100,6 +106,8 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
         MatTooltipModule,
         FullCalendarModule,
         MatDatepickerModule,
+        MatAutocompleteModule,
+        MatNativeDateModule,
     ],
     providers: [
     ],

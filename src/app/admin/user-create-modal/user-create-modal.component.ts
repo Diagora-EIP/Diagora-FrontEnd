@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subscription, tap, throwError } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
@@ -8,31 +9,40 @@ import { AdminService } from 'src/app/services/admin.service';
     styleUrls: ['./user-create-modal.component.scss'],
 })
 export class UserCreateModalComponent {
-    rolesList: any = ["Utilisateur", "Administrateur"]
+    rolesList: any = []
     roles: any = []
-    entreprises: any = []
+    companies: any = []
+    selectedCompany: any = null
     name: string = ''
     email: string = ''
+    createUserSubscription: Subscription | undefined;
 
-    constructor(public dialogRef: MatDialogRef<UserCreateModalComponent>, private adminService: AdminService) {
-        this.entreprises = this.adminService.getEntreprises().then((response: any) => {
-            this.entreprises = response
-            this.entreprises.unshift({ id: null, name: 'Aucune' })
-        })
+
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        public dialogRef: MatDialogRef<UserCreateModalComponent>,
+        private adminService: AdminService
+    ) {
+        this.companies = data.companyList
+        this.rolesList = data.roles
     }
 
     close(): void {
         this.dialogRef.close();
+        this.createUserSubscription?.unsubscribe();
     }
 
     dataCheck() {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(this.email))
+        if (!emailRegex.test(this.email)) {
             return false
-        if (this.name.length == 0)
+        }
+        if (this.name.length == 0) {
             return false
-        if (this.roles.length == 0)
+        }
+        if (this.roles.length == 0) {
             return false
+        }
         return true
     }
 
@@ -40,22 +50,26 @@ export class UserCreateModalComponent {
         if (this.dataCheck() == false) {
             return
         }
-        let roles: any = {
-            "admin": false,
-            "user": false
-        }
-        if (this.roles.includes("Administrateur")) {
-            roles.admin = true
-        }
-        if (this.roles.includes("Utilisateur")) {
-            roles.user = true
-        }
-        let data: any = await this.adminService.createUser(this.email, this.name, roles)
-            .then((response: any) => {
-                this.dialogRef.close();
-            })
-            .catch((error: any) => {
-                console.log(error)
-            })
+        const selectedRolesName = this.roles.map((role: any) => role.name);
+        const selectedRolesId = this.roles.map((role: any) => role.role_id);
+
+        this.createUserSubscription = this.adminService.createUser(this.email, this.name, selectedRolesName, this.selectedCompany.company_id)
+            .pipe(
+                tap({
+                    error: (err) => {
+                        if (err.status === 409) {
+                            // this.emailErrorMessage = 'Cet utilisateur existe déjà';
+                            return;
+                        }
+                        // this.emailErrorMessage = 'Une erreur est survenue';
+                        return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.dialogRef.close({ id: 10000, email: this.email, name: this.name, roles: selectedRolesId, company_id: this.selectedCompany.company_id });
+                },
+            });
     }
 }

@@ -1,5 +1,39 @@
 <!-- full-calendar.component.html -->
-<div class="calendar-container">
-    <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+<div class="container">
+    <div *ngIf="checkPermission('manager')" class="filter-container">
+        <h2 class="filter-section-heading">Filtres</h2>
+        <div class="filter-components">
+            <div class="manager-selector">
+                <label class="label-text" for="manager">Livreur :</label>
+                <div class="input-container">
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="Sélectionner un employé"
+                            [matAutocomplete]="managerAuto"
+                            [formControl]="managerControl"
+                            (input)="onManagerInput($event)"
+                        />
+                        <mat-autocomplete #managerAuto="matAutocomplete" (optionSelected)="onManagerSelected($event)">
+                            <mat-option *ngFor="let manager of filteredUsers" [value]="manager.name">
+                                {{ manager.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="display-button-container">
+                <button class="schedule-button" (click)="getScheduleByUser()"> Afficher </button>
+            </div>
+        </div>
+    </div>
+    <div class="main-calendar-container">
+        <h2 class="itinerary-section-heading"></h2>
+        <!-- Left Container -->
+        <div class="left-right-container">
+            <div class="calendar-container">
+                <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+            </div>
+        </div>
+    </div>
 </div>
-  

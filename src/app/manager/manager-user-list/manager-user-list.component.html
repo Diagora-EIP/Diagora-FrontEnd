@@ -1,14 +1,13 @@
-<div ngClass="container-userList" *ngIf="dataLoad; else loading">
+<div ngClass="container-userList">
     <div ngClass="container-title-userList">
         <h1 ngClass="title-userList">Utilisateurs de <strong>{{ entreprise }}</strong></h1>
     </div>
     <div ngClass="container-new-user">
-        <button mat-raised-button class="button-new-user"routerLink="/home">Retour à la page home</button>
         <button mat-raised-button class="button-new-user" (click)="openModalNewUser()">Ajouter un utilisateur</button>
     </div>
     <div *ngIf="popUp" ngClass="PopUpContainer">
         <div class="popUp">
-            <h2>Nouvelle utilisateur</h2>
+            <h2>Nouvel utilisateur</h2>
             <form [formGroup]="newUserForm" (ngSubmit)="addUser()" class="container-form-newUser">
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
@@ -31,45 +30,65 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="inputContainer-form-login">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Mot de passe</mat-label>
-                        <input type="password" matInput formControlName="password" placeholder="Votre mot de passe">
-                        <mat-error *ngIf="newUserForm.get('password')?.hasError('required')">
-                            Password is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+                <div class="inputContainer-form-login-checkbox">
+                    <h2>Roles</h2>
+                    <div class="contentCheckbox">
+                        <div *ngFor="let role of allRoles">
+                            <label>{{role.name}}</label>
+                            <input type="checkbox" [checked]="role.checked" (change)="role.checked = !role.checked">
+                        </div>
+                    </div>
                 </div>
-                <button mat-raised-button type="submit" class="button-form" [disabled]="newUserForm.invalid">Créer votre Nouvelle utilisateur</button>
+                <button mat-raised-button type="submit" class="button-form" [disabled]="newUserForm.invalid">Créer votre nouvel utilisateur</button>
             </form>
         </div>
     </div>
     <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
-            <!-- <ng-container class="content-tab-userList" matColumnDef="entreprise">
-                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>
-                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
-            </ng-container> -->
-            <ng-container class="content-tab-userList" matColumnDef="utilisateur">
+            <ng-container class="content-tab-userList" matColumnDef="utilisateur" >
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>
-                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.utilisateur}} </td> -->
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element" (click)="openModalUpdateUser(element)"> {{element.name}} </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="email">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
-                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.email}} </td> -->
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element" (click)="openModalUpdateUser(element)"> {{element.email}} </td>
             </ng-container>
             <ng-container class="content-tab-userList" matColumnDef="roles">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>
-                <!-- <td ngClass="data-tab-userList" mat-cell *matCellDef="let element"> {{element.roles}} </td> -->
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let element" (click)="openModalUpdateUser(element)"> {{element.roles}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div *ngIf="modalUpdateUser" class="modalUpdateUserContent">
+            <div class="modalUpdateUser">
+                <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                    <h2>Modifier l'utilisateur</h2>
+                    <div class="inputContainer-form-login">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nom</mat-label>
+                            <input type="name" matInput formControlName="name" placeholder="Ex. william">
+                            <mat-error *ngIf="updateUserForm.get('name')?.hasError('required')">
+                                Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputContainer-form-login-checkbox">
+                        <h2>Roles</h2>
+                        <div class="contentCheckbox">
+                            <div *ngFor="let role of updateUserRole">
+                                <label>{{role.name}}</label>
+                                <input type="checkbox" [checked]="role.checked" (change)="role.checked = !role.checked">
+                            </div>
+                        </div>
+                    </div>
+                    <button mat-raised-button type="submit" class="button-form">Mettre à jour les informations utilisateur</button>
+                </form>
+                <div class="contentButtonUpdate">
+                    <button mat-raised-button class="button-form" (click)="deleteUser()">Supprimer l'utilisateur</button>
+                    <button mat-raised-button (click)="modalUpdateUser = false">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<ng-template #loading>
-    <div class="loading-container">
-        <div class="loading-spinner"></div>
-        <p>Chargement...</p>
-    </div>
-</ng-template>

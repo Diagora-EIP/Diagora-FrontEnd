@@ -10,7 +10,6 @@ export class ManagerService {
   token = localStorage.getItem('token');
   user_id = localStorage.getItem('id');
 
-
   header: any = {};
 
   apiUrl = environment.apiUrl;
@@ -26,7 +25,7 @@ export class ManagerService {
   }
 
   getManagerEntreprise(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/user`, this.header);
+    return this.http.get<any>(`${this.apiUrl}/company`, this.header);
   }
 
   getUserEntreprise(entreprise: string): Observable<any> {
@@ -35,6 +34,30 @@ export class ManagerService {
 
   newUserByManager(body: any): Observable<any> {
     const requestBody = body;
-    return this.http.post<any>(`${this.apiUrl}/user/newUserByManager`, requestBody, this.header);
+    console.log(requestBody);
+    return this.http.post<any>(`${this.apiUrl}/manager/user`, requestBody, this.header);
+  }
+
+  getUserInformations(id: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/userRoles/${id}`, this.header);
+  }
+
+  updateUserInformations(id: any, body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/user/${id}`, requestBody, this.header);
+  }
+
+  updateEntreprise(body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/company`, requestBody, this.header);
+  }
+
+  updateRoles(id: any, body: any): Observable<any> {
+    const requestBody = body;
+    return this.http.patch<any>(`${this.apiUrl}/manager/userRole/${id}`, requestBody, this.header);
+  }
+
+  deleteUser(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/manager/user/${id}`, this.header);
   }
 }
