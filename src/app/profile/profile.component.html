@@ -46,7 +46,7 @@
         <button mat-raised-button (click)="logout()" class="logoutButton">Déconnection</button>
     </div>
     <div class="EntrepriseInformation">
-        <form [formGroup]="entrepriseForm" (ngSubmit)="updateEntreprise()">
+        <form [formGroup]="entrepriseForm" (ngSubmit)="updateEntreprise()" *ngIf="manager">
             <div class="inputContainer-form-profil">
                 <mat-form-field class="example-full-width">
                     <mat-label>Nom de l'entreprise</mat-label>
@@ -65,11 +65,11 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <button mat-raised-button type="submit" *ngIf="manager" class="button-form">Mettre à jour les informations de l'entrepise</button>
+            <button mat-raised-button type="submit"  class="button-form">Mettre à jour les informations de l'entrepise</button>
         </form>
     </div>
-    <div class="managerDiv" *ngIf="!manager; else other">
-        userDiv
+    <div class="UserDiv" *ngIf="!manager; else other">
+        <div class="background-login"></div>
     </div>
 
     <ng-template #other>
