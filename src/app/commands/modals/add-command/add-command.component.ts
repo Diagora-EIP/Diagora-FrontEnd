@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CommandsService } from 'src/app/services/commands.service';
+import { CommandsService } from '../../../services/commands.service';
 import { tap } from 'rxjs/operators';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-add-command',
@@ -15,7 +16,11 @@ export class AddCommandComponent {
     hours:any;
     dateFormated: string = '';
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddCommandComponent>, private commandService: CommandsService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) 
+                public data: any, 
+                public dialogRef: MatDialogRef<AddCommandComponent>, 
+                private commandService: CommandsService,
+                private snackBarService: SnackbarService) { }
 
     close(): void {
         this.dialogRef.close();
@@ -38,10 +43,12 @@ export class AddCommandComponent {
             .pipe(
                 tap({
                     next: data => {
+                        this.snackBarService.successSnackBar('La commande a été créée avec succès !');
                         this.dialogRef.close();
                     },
                     error: error => {
                         console.log(error);
+                        this.snackBarService.warningSnackBar('Erreur lors de la création de la commande !');
                         this.dialogRef.close();
                     }
                 })

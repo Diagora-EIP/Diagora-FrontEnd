@@ -14,8 +14,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayjs from 'dayjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateScheduleModalComponent } from '../create-schedule-modal/create-schedule-modal.component';
-import { UpdateScheduleModalComponent } from '../update-schedule-modal/update-schedule-modal.component';
+import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
+import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
 
 @Component({
     selector: 'app-full-calendar',

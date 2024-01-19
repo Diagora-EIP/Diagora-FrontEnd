@@ -3,7 +3,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ScheduleService } from '../services/schedule.service';
+import { ScheduleService } from '../../../services/schedule.service';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { tap } from 'rxjs';
 
 @Component({
     selector: 'app-create-schedule-modal',
@@ -18,7 +20,8 @@ export class CreateScheduleModalComponent {
         public dialogRef: MatDialogRef<CreateScheduleModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
-        private scheduleService: ScheduleService
+        private scheduleService: ScheduleService,
+        private snackBarService: SnackbarService
     ) {
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(data.delivery_date), Validators.required],
@@ -46,23 +49,18 @@ export class CreateScheduleModalComponent {
                 description,
                 delivery_address,
             };
-
-            this.scheduleService.createSchedule(newSchedule).subscribe(
-                (res) => {
-                    console.log(res);
-                    // Check the HTTP status
-                    if (res.status && res.status !== 201) {
-                        this.errorMessage =
-                            'Failed to create schedule. Please try again.';
-					} else {
+            this.scheduleService.createSchedule(newSchedule).pipe(
+                tap({
+                    next: data => {
+                        this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                        this.closeDialog();
+                    },
+                    error: error => {
+                        console.log(error);
+                        this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
                         this.closeDialog();
                     }
-                },
-                (error) => {
-                    console.error(error);
-                    this.errorMessage = 'An error occurred. Please try again.';
-                }
-            );
+                })).subscribe();
         }
     }
 

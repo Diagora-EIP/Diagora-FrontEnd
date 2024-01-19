@@ -1,10 +1,10 @@
 import { Component, Type } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
-import { UserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
-import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
-import { CompanyUpdateModalComponent } from '../company-update-modal/company-update-modal.component';
+import { UserCreateModalComponent } from '../modals/user-create-modal/user-create-modal.component';
+import { UserUpdateModalComponent } from '../modals/user-update-modal/user-update-modal.component';
+import { CompanyCreateModalComponent } from '../modals/company-create-modal/company-create-modal.component';
+import { CompanyUpdateModalComponent } from '../modals/company-update-modal/company-update-modal.component';
 import { Subscription, tap, throwError } from 'rxjs';
 import { Roles } from 'src/app/models/Roles.dto';
 

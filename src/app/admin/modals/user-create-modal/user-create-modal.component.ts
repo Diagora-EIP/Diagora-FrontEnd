@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription, tap, throwError } from 'rxjs';
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from '../../../services/admin.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-user-create-modal',
@@ -21,7 +22,8 @@ export class UserCreateModalComponent {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<UserCreateModalComponent>,
-        private adminService: AdminService
+        private adminService: AdminService,
+        private snackBarService: SnackbarService
     ) {
         this.companies = data.companyList
         this.rolesList = data.roles
@@ -61,6 +63,7 @@ export class UserCreateModalComponent {
                             // this.emailErrorMessage = 'Cet utilisateur existe déjà';
                             return;
                         }
+                        this.snackBarService.warningSnackBar(err.error.message);
                         // this.emailErrorMessage = 'Une erreur est survenue';
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
@@ -68,6 +71,7 @@ export class UserCreateModalComponent {
             )
             .subscribe({
                 next: (data) => {
+                    this.snackBarService.successSnackBar('L\'utilisateur a été créé avec succès');
                     this.dialogRef.close({ id: 10000, email: this.email, name: this.name, roles: selectedRolesId, company_id: this.selectedCompany.company_id });
                 },
             });

@@ -9,6 +9,7 @@ import { EditVehiculeComponent } from './modals/edit-vehicule/edit-vehicule.comp
 import { DeleteVehiculeComponent } from './modals/delete-vehicule/delete-vehicule.component';
 
 import { PermissionsService } from '../services/permissions.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsVehiculeComponent,
@@ -28,7 +29,10 @@ export class VehiculeComponent {
     users: any[] = [];
     companyName: string = '';
 
-    constructor(private router: Router, public dialog: MatDialog, private vehiculesService: VehiculesService, private permissionsService: PermissionsService) {
+    constructor(private router: Router,
+                public dialog: MatDialog,
+                private vehiculesService: VehiculesService,
+                private permissionsService: PermissionsService) {
     }
 
     ngOnInit(): void {

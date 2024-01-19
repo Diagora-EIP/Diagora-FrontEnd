@@ -5,6 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,7 +15,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ResetPasswordComponent {
   resetPasswordForm: FormGroup;
 
-  constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+  constructor(private router: Router, 
+              private securityService: SecurityService, 
+              private utilsService: UtilsService, 
+              private fb: FormBuilder,
+              private snackBarService: SnackbarService) {
     this.resetPasswordForm = this.fb.group({
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -29,7 +34,7 @@ export class ResetPasswordComponent {
     const { password, confirmPassword } = this.resetPasswordForm.value;
 
     if (password !== confirmPassword) {
-      alert('Les mots de passe ne correspondent pas');
+      this.snackBarService.warningSnackBar('Les mots de passe ne correspondent pas');
       return;
     }
 
@@ -42,6 +47,7 @@ export class ResetPasswordComponent {
       .pipe(
         tap({
           next: data => {
+            this.snackBarService.successSnackBar('Votre mot de passe a été réinitialisé avec succès');
             this.router.navigate(['/login']);
           },
           error: error => {
