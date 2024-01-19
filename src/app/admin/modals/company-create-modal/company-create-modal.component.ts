@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subscription, throwError } from 'rxjs';
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from '../../../services/admin.service';
 import { tap } from 'rxjs/operators';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-company-create-modal',
@@ -18,7 +19,8 @@ export class CompanyCreateModalComponent {
 
     constructor(
         public dialogRef: MatDialogRef<CompanyCreateModalComponent>,
-        private adminService: AdminService
+        private adminService: AdminService,
+        private snackBarService: SnackbarService
     ) { }
 
 
@@ -55,12 +57,14 @@ export class CompanyCreateModalComponent {
                         }
                         this.nameErrorMessage = 'Une erreur est survenue';
                         this.addressErrorMessage = 'Une erreur est survenue';
+                        this.snackBarService.warningSnackBar('Une erreur est survenue');
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
             )
             .subscribe({
                 next: (data) => {
+                    this.snackBarService.successSnackBar('Entreprise créée');
                     this.nameErrorMessage = '';
                     this.addressErrorMessage = '';
                     this.dialogRef.close(data);

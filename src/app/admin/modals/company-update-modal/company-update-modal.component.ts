@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription, throwError } from 'rxjs';
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from '../../../services/admin.service';
 import { tap } from 'rxjs/operators';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-company-update-modal',
@@ -22,6 +23,7 @@ export class CompanyUpdateModalComponent {
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<CompanyUpdateModalComponent>,
         private adminService: AdminService,
+        private snackBarService: SnackbarService
     ) {
         this.original_company_name = data.company.company_name
         this.company_name = data.company.company_name
@@ -63,8 +65,10 @@ export class CompanyUpdateModalComponent {
 
                         if (err.status === 409) {
                             this.errorMessage = 'Cette entreprise existe déjà';
+                            this.snackBarService.warningSnackBar('Cette entreprise existe déjà');
                             return;
                         }
+                        this.snackBarService.warningSnackBar('Une erreur est survenue');
                         this.errorMessage = 'Une erreur est survenue';
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
@@ -72,6 +76,7 @@ export class CompanyUpdateModalComponent {
             )
             .subscribe({
                 next: (data) => {
+                    this.snackBarService.successSnackBar('Entreprise modifiée');
                     this.dialogRef.close(data);
                 }
             });

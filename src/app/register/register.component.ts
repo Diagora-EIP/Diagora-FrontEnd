@@ -5,7 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'environment';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
     selector: 'app-register',
@@ -18,7 +18,11 @@ export class RegisterComponent {
     Erreur!: string;
     registerSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder) { 
+    constructor(private router: Router, 
+                private securityService: SecurityService, 
+                private utilsService: UtilsService, 
+                private fb: FormBuilder,
+                private snackBarService: SnackbarService) { 
         this.registerGroup = this.fb.group({
             name: ['', [Validators.required]],
             address: ['', [Validators.required]],
@@ -32,23 +36,16 @@ export class RegisterComponent {
         this.registerSubscription?.unsubscribe();
     }
 
-    closePopUp() {
-        this.Erreur = "";
-        this.popUp = false;
-    }
-
     async register() {
         if (this.registerGroup.invalid) {
-            this.Erreur = 'Veuillez remplir tous les champs correctement.';
-            this.popUp = true;
+            this.snackBarService.warningSnackBar('Veuillez remplir tous les champs correctement.');
             return;
         }
         
         const { name, address, company, email, password, passwordConf } = this.registerGroup.value;
         
         if (password != passwordConf) {
-            this.Erreur = "Les mots de passe ne sont pas identique"
-            this.popUp = true;
+            this.snackBarService.warningSnackBar('Les mots de passe ne correspondent pas');
             return;
         }
 
@@ -65,18 +62,11 @@ export class RegisterComponent {
         .pipe(
             tap({
                 next: data => {
+                    this.snackBarService.successSnackBar('Votre compte a été créé avec succès');
                 },
                 error: (err) => {
-                    console.log("err", err);
-                    if (err.status == 409) {
-                        this.Erreur = "l'entreprise existe déjà";
-                        this.popUp = true;
-                        this.registerGroup.reset();
-                        return;
-                    }
-                    this.Erreur = err.error;
-                    this.popUp = true;
-                    this.registerGroup.reset();
+                    this.snackBarService.warningSnackBar(err.error.message);
+                    console.log(err);
                 }
             })
         )

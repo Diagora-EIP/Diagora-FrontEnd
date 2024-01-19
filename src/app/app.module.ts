@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { UserCreateModalComponent } from './admin/user-create-modal/user-create-modal.component';
+import { UserCreateModalComponent } from './admin/modals/user-create-modal/user-create-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,9 +35,9 @@ import { ManagerUserListComponent } from './manager/manager-user-list/manager-us
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CompanyCreateModalComponent } from './admin/company-create-modal/company-create-modal.component';
-import { CompanyUpdateModalComponent } from './admin/company-update-modal/company-update-modal.component';
-import { UserUpdateModalComponent } from './admin/user-update-modal/user-update-modal.component';
+import { CompanyCreateModalComponent } from './admin/modals/company-create-modal/company-create-modal.component';
+import { CompanyUpdateModalComponent } from './admin/modals/company-update-modal/company-update-modal.component';
+import { UserUpdateModalComponent } from './admin/modals/user-update-modal/user-update-modal.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
@@ -49,8 +49,9 @@ import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicul
 import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { CreateScheduleModalComponent } from './create-schedule-modal/create-schedule-modal.component';
-import { UpdateScheduleModalComponent } from './update-schedule-modal/update-schedule-modal.component';
+import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
+import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
     declarations: [
@@ -108,6 +109,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatDatepickerModule,
         MatAutocompleteModule,
         MatNativeDateModule,
+        MatSnackBarModule
     ],
     providers: [
     ],

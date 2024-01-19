@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription, tap, throwError } from 'rxjs';
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from '../../../services/admin.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-user-update-modal',
@@ -21,7 +22,8 @@ export class UserUpdateModalComponent {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<UserUpdateModalComponent>,
-        private adminService: AdminService
+        private adminService: AdminService,
+        private snackBarService: SnackbarService
     ) {
         this.user = data.user
         this.baseUser = data.user
@@ -67,12 +69,14 @@ export class UserUpdateModalComponent {
                             return;
                         }
                         // this.emailErrorMessage = 'Une erreur est survenue';
+                        this.snackBarService.warningSnackBar(err.error.message);
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),
             )
             .subscribe({
                 next: (data) => {
+                    this.snackBarService.successSnackBar('L\'utilisateur '+ this.user.name + ' mis à jour');
                     this.dialogRef.close({ user: this.user });
                 },
             });

@@ -3,9 +3,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ScheduleService } from '../services/schedule.service';
+import { ScheduleService } from '../../../services/schedule.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
     selector: 'app-update-schedule-modal',
@@ -31,7 +32,8 @@ export class UpdateScheduleModalComponent {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
         private scheduleService: ScheduleService,
-        private router: Router
+        private router: Router,
+        private snackBarService: SnackbarService 
     ) {
         // Initialize variables based on the data
         this.start = data.start;
@@ -116,6 +118,7 @@ export class UpdateScheduleModalComponent {
 				)
 			}
         }
+        this.snackBarService.successSnackBar('Le planning a été modifié avec succès !');
 		this.closeDialog();
     }
 
@@ -126,6 +129,7 @@ export class UpdateScheduleModalComponent {
                 console.log(res);
                 // Handle success or error accordingly
 		});
+        this.snackBarService.successSnackBar('Le planning a été supprimé avec succès !');
 		this.closeDialog();
     }
 
