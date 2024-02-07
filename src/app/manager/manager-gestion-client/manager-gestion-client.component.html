@@ -1,1 +1,52 @@
-<p>manager-gestion-client works!</p>
+<div class="mainContainer">
+    <h2 class="itinerary-section-heading">Gestion Client</h2>
+
+    <!-- Left Container -->
+    <div class="left-right-container">
+        <div class="left-container">
+            <div class="orderListContainer">
+                <div *ngIf="!allClients.length" class="default-message">Vous n'avez pas encore de client.</div>
+
+                <div *ngIf="allClients.length" ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+                    <table ngClass="tab-userList" mat-table [dataSource]="allClients">
+                        <ng-container class="content-tab-userList" matColumnDef="name">
+                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Nom
+                            </th>
+                            <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}
+                            </td>
+                        </ng-container>
+                        <ng-container class="content-tab-userList" matColumnDef="mail">
+                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse mail </th>
+                            <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
+                                {{data.mail}} </td>
+                        </ng-container>
+                        <ng-container *ngIf="checkPermission('manager')" class="content-tab-userList" matColumnDef="action">
+                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
+                            <td class="data-tab-userList" mat-cell *matCellDef="let data">
+                                <div class="company-container">
+                                    <button class="button-data-tab-userList" (click)="openModal('EDIT', data)">
+                                        <mat-icon>settings</mat-icon>
+                                    </button>
+                                    <button class="button-data-tab-userList" (click)="openModal('DELETE', data)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <button *ngIf="!checkIsUnique(data.name, data.mail)" class="button-data-tab-userList" title="Ce client existe en plus d'un exemplaire !">
+                                        <mat-icon>warning</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="checkPermission('manager')" class="buttonContainer">
+        <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
+            Ajouter une commande
+            <mat-icon>playlist_add</mat-icon>
+        </button>
+    </div>
+</div>
