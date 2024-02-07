@@ -28,13 +28,25 @@ export class VehiculesService {
         return this.http.get<any>(`${this.apiUrl}/vehicles`, this.header);
     }
 
-    createVehicule(name: string): Observable<any> {
-        const requestBody = { name };
+    createVehicule(name: string, brand: string, model: string, license: string, mileage: number): Observable<any> {
+        const requestBody = {
+            name,
+            brand,
+            model,
+            license,
+            mileage: mileage === 0 ? 1 : mileage
+        };
         return this.http.post<any>(`${this.apiUrl}/vehicle`, requestBody, this.header);
     }
 
-    updateVehicule(id: number, name: string): Observable<any> {
-        const requestBody = { name };
+    updateVehicule(id: number, name: string, brand: string, model: string, license: string, mileage: number): Observable<any> {
+        const requestBody = {
+            name,
+            brand,
+            model,
+            license,
+            mileage: mileage === 0 ? 1 : mileage
+        };
         return this.http.patch<any>(`${this.apiUrl}/vehicle/${id}`, requestBody, this.header);
     }
 

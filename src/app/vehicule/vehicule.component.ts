@@ -8,7 +8,6 @@ import { DetailsVehiculeComponent } from './modals/details-vehicule/details-vehi
 import { EditVehiculeComponent } from './modals/edit-vehicule/edit-vehicule.component';
 import { DeleteVehiculeComponent } from './modals/delete-vehicule/delete-vehicule.component';
 
-import { PermissionsService } from '../services/permissions.service';
 import { SnackbarService } from '../services/snackbar.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
@@ -24,32 +23,32 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
     styleUrls: ['./vehicule.component.scss']
 })
 export class VehiculeComponent {
-    displayedColumns = ['name', 'action'];
+    displayedColumns = ['name', 'brand', 'model', 'license', 'mileage', 'action'];
     allVehicles: any[] = [];
     users: any[] = [];
     companyName: string = '';
 
     constructor(private router: Router,
-                public dialog: MatDialog,
-                private vehiculesService: VehiculesService,
-                private permissionsService: PermissionsService) {
+        public dialog: MatDialog,
+        private vehiculesService: VehiculesService,
+    ) {
     }
 
     ngOnInit(): void {
+        this.getCompany();
         this.getVehicules();
     }
 
-    async getVehicules() {
+    async getCompany() {
         this.vehiculesService.getCompanyInfo().subscribe((data) => {
             this.companyName = data.name;
         });
+    }
+
+    async getVehicules() {
         this.vehiculesService.getVehicules().subscribe((data) => {
             this.allVehicles = data;
         });
-    }
-
-    goto(params: string) {
-        this.router.navigate([params]);
     }
 
     openModal(type: string = 'DETAILS', info: any = {}): void {
@@ -65,15 +64,8 @@ export class VehiculeComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
+            this.getVehicules();
         });
 
-        this.getVehicules();
-    }
-
-    checkPermission(permission: string): boolean {
-        if (localStorage.getItem('token') === null) {
-            return false;
-        }
-        return this.permissionsService.hasPermission(permission);
     }
 }

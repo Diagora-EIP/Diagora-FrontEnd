@@ -20,7 +20,7 @@ export class AuthGuard {
                     if (route.data['permission'].some((permission: string) => this.permissionsService.hasPermission(permission)))
                         return of(true);
                     else {
-                        this.locate.back();
+                        // this.locate.back();
                         return of(false);
                     }
 
