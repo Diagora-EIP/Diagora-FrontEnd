@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleService } from '../services/schedule.service';
+import { ClientService } from '../services/client.service';
 
 @Component({
     selector: 'app-create-schedule-modal',
@@ -13,19 +14,37 @@ import { ScheduleService } from '../services/schedule.service';
 export class CreateScheduleModalComponent {
     scheduleForm: FormGroup;
     errorMessage: string = '';
+    clientsList: any = [];
 
     constructor(
         public dialogRef: MatDialogRef<CreateScheduleModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
-        private scheduleService: ScheduleService
+        private scheduleService: ScheduleService,
+        private clientService: ClientService,
     ) {
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(data.delivery_date), Validators.required],
             description: [data.description, Validators.required],
             deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
             deliveryAddress: [data.delivery_address, Validators.required],
+            client: [data.client, Validators.required],
         });
+
+        this.getClients();
+    }
+
+    getClients() {
+        this.clientService.getAllClientsByCompany().subscribe(
+            (res) => {
+                console.log(res);
+                this.clientsList = res;
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+
     }
 
     submitForm() {
@@ -37,6 +56,7 @@ export class CreateScheduleModalComponent {
             const order_date = formData.deliveryDate;
             const description = formData.description;
             const delivery_address = formData.deliveryAddress;
+            const client = formData.client;
 
             const newSchedule = {
                 delivery_date: deliveryDateTime,
@@ -45,8 +65,8 @@ export class CreateScheduleModalComponent {
                 order_date,
                 description,
                 delivery_address,
+                client_id: client.client_id,
             };
-
             this.scheduleService.createSchedule(newSchedule).subscribe(
                 (res) => {
                     console.log(res);

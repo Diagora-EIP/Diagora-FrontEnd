@@ -28,6 +28,12 @@
             <mat-label>Adresse de livraison :</mat-label>
             <textarea matInput formControlName="deliveryAddress" required></textarea>
         </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Clients</mat-label>
+            <mat-select formControlName="client">
+              <mat-option *ngFor="let client of clientsList" [value]="client"> {{client.email}} </mat-option>
+            </mat-select>
+          </mat-form-field>
     </form>
 
     <!-- Display error message -->
