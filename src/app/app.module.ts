@@ -52,6 +52,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './update-schedule-modal/update-schedule-modal.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ClientComponent } from './client/client.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -83,6 +84,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,
+        ClientComponent,
     ],
     imports: [
         BrowserModule,

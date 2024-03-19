@@ -1,0 +1,30 @@
+<div class="all-container">
+    <div class="container-delivery">
+        <div class="search-bar">
+            <input type="text" [(ngModel)]="search" (input)="onInputChange()">
+            <button>Rechercher</button>
+        </div>
+        <div class="delivery-container">
+            <div class="list-delivery">
+                <div class="delivery" *ngFor="let item of deliverytmp">
+                    <div class="delivery-info">
+                        <h4>Command Number: {{item.deliveryNumber}}</h4>
+                        <p>{{item.deliveryDate}}</p>
+                    </div>
+                    <div class="delivery-action">
+                        <button (click)="showDelivery(item.deliveryNumber)">Voir</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="displayInfo" class="info-delivery">
+                <h3>Command Number: {{deliveryDislayed.deliveryNumber}}</h3>
+                <p>Status: {{deliveryDislayed.deliveryStatus}} </p>
+                <div class="dateInformation">
+                    <p>Date: </p>
+                    <p> {{deliveryDislayed.deliveryDate}} {{deliveryDislayed.deliveryHour}} </p>
+                </div>
+                <button (click)="displayInfo = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,7 @@ import { StatisticComponent } from './statistic/statistic.component';
 import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ClientComponent } from './client/client.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
             { path: 'register', component: RegisterComponent },
             { path: 'forgot-password', component: ForgotPasswordComponent },
             { path: 'reset-password/:id', component: ResetPasswordComponent },
+            { path: 'client/:token', component: ClientComponent}
         ]
     },
     {
