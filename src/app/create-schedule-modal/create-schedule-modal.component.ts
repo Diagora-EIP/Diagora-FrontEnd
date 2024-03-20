@@ -67,6 +67,7 @@ export class CreateScheduleModalComponent {
                 delivery_address,
                 client_id: client.client_id,
             };
+            console.log(newSchedule)
             this.scheduleService.createSchedule(newSchedule).subscribe(
                 (res) => {
                     console.log(res);
