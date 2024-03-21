@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ClientComponent } from './client/client.component';
 
 const routes: Routes = [
+    { path: 'client/:token', component: ClientComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: '', canActivate: [AuthLeftGuard], children: [
@@ -25,7 +26,6 @@ const routes: Routes = [
             { path: 'register', component: RegisterComponent },
             { path: 'forgot-password', component: ForgotPasswordComponent },
             { path: 'reset-password/:id', component: ResetPasswordComponent },
-            { path: 'client/:token', component: ClientComponent}
         ]
     },
     {

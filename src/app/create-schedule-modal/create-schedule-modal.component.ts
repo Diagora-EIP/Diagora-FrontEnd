@@ -13,8 +13,11 @@ import { ClientService } from '../services/client.service';
 })
 export class CreateScheduleModalComponent {
     scheduleForm: FormGroup;
+    newClientForm: FormGroup;
     errorMessage: string = '';
     clientsList: any = [];
+    displayNewClient: boolean = false;
+    displayClientAlreadyExists: boolean = false;
 
     constructor(
         public dialogRef: MatDialogRef<CreateScheduleModalComponent>,
@@ -31,7 +34,21 @@ export class CreateScheduleModalComponent {
             client: [data.client, Validators.required],
         });
 
+        this.newClientForm = this.fb.group({
+            name: [data.name, Validators.required],
+            surname: [data.surname, Validators.required],
+            email: [data.email, Validators.required],
+            address: [data.address, Validators.required],
+        });
+
         this.getClients();
+    }
+    
+    updateAdress(client: any){
+        console.log("updateAdress", client)
+        this.scheduleForm.patchValue({
+            deliveryAddress: client.address
+        });
     }
 
     getClients() {
@@ -45,6 +62,48 @@ export class CreateScheduleModalComponent {
             }
         );
 
+    }
+
+    addNewClient() {
+        if (this.newClientForm.valid) {
+            const formData = this.newClientForm.value;
+            const newClient = {
+                name: formData.name,
+                surname: formData.surname,
+                email: formData.email,
+                address: formData.address,
+            };
+            const already = this.clientsList.find((client: { email: string; }) => client.email === newClient.email);
+            if (already) {
+                this.displayClientAlreadyExists = true
+            } else {
+                this.createClient();
+            }
+        }
+    }
+    
+    createClient() {
+        const formData = this.newClientForm.value;
+        const newClient = {
+            name: formData.name,
+            surname: formData.surname,
+            email: formData.email,
+            address: formData.address,
+        };
+        this.clientService.createClient(newClient).subscribe(
+            (res) => {
+                console.log(res);
+                // Check the HTTP status
+                if (res.status && res.status !== 201) {
+                    this.errorMessage =
+                        'Failed to create client. Please try again.';
+                }
+            }
+        );
+        this.displayClientAlreadyExists = false;
+        this.displayNewClient = false;
+        this.newClientForm.reset();
+        this.clientsList.push(newClient);
     }
 
     submitForm() {

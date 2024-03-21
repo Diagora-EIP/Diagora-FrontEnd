@@ -19,9 +19,17 @@ export class ClientService {
                 }
             }
         }
-   }
+    }
 
-   getAllClientsByCompany(): Observable<any> {
-       return this.http.get<any>(`${this.apiUrl}/clients/getAll`, this.header);
-   }
+    createClient(client: any): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/client`, client, this.header);
+    }
+
+    getAllClientsByCompany(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/clients/getAll`, this.header);
+    }
+    
+    getOrderByClient(header: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/order/get-order-by-client`, header);
+    }
 }

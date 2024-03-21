@@ -2,28 +2,39 @@
     <div class="container-delivery">
         <div class="search-bar">
             <input type="text" [(ngModel)]="search" (input)="onInputChange()">
-            <button>Rechercher</button>
+            <button (click)="displayFilter = !displayFilter">Filtrer</button>
+        </div>
+        <div class="dateFilter" *ngIf="displayFilter">
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" (dateChange)="filterDate('change', $event)">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button (click)="deleteFilter()">Supprimer</button>
         </div>
         <div class="delivery-container">
             <div class="list-delivery">
                 <div class="delivery" *ngFor="let item of deliverytmp">
                     <div class="delivery-info">
-                        <h4>Command Number: {{item.deliveryNumber}}</h4>
-                        <p>{{item.deliveryDate}}</p>
+                        <h4>{{item.schedule_number}}</h4>
+                        <p>{{item.order_date}}</p>
                     </div>
                     <div class="delivery-action">
-                        <button (click)="showDelivery(item.deliveryNumber)">Voir</button>
+                        <button (click)="showDelivery(item.schedule_number)">Voir</button>
                     </div>
                 </div>
             </div>
             <div *ngIf="displayInfo" class="info-delivery">
-                <h3>Command Number: {{deliveryDislayed.deliveryNumber}}</h3>
-                <p>Status: {{deliveryDislayed.deliveryStatus}} </p>
+                <h3>{{deliveryDislayed.schedule_number}}</h3>
                 <div class="dateInformation">
                     <p>Date: </p>
-                    <p> {{deliveryDislayed.deliveryDate}}</p>
+                    <p>{{deliveryDislayed.order_date}} {{deliveryDislayed.order_hour}} </p>
                 </div>
+                <p>Commande delivré par {{ deliveryDislayed.companyName }} </p>
                 <button (click)="displayInfo = false">Close</button>
+                <div class="map">
+                </div>
             </div>
         </div>
     </div>
