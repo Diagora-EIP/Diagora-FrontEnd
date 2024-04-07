@@ -17,6 +17,13 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+            <div class="date-selector">
+                <label class="label-text" for="deliveryDate">Jour de Livraison :</label>
+                <div class="input-container">
+                  <input type="date" id="deliveryDate" [(ngModel)]="date">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+              </div>
             <div class="display-button-container">
                 <button class="order-button" (click)="getOrders()"> Afficher </button>
             </div>
@@ -25,7 +32,7 @@
 
 
     <div class="mainContainer">
-        <h2 class="itinerary-section-heading" *ngIf="!selectedUserName">Livraisons</h2>
+        <!-- <h2 class="itinerary-section-heading" *ngIf="!selectedUserName">Livraisons</h2> -->
         <h2 class="itinerary-section-heading" *ngIf="selectedUserName">Livraisons de {{ selectedUserName }} du {{ date
             | date: 'dd/MM/yyyy' }}</h2>
 

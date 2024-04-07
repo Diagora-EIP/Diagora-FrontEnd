@@ -15,6 +15,9 @@ import { StatisticComponent } from './statistic/statistic.component';
 import { AuthGuard, AuthLeftGuard } from './guards/role-guard.guard';
 import { ManagerUserListComponent } from './manager/manager-user-list/manager-user-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ManagerComponent } from './manager/manager.component';
+import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
+import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -41,7 +44,10 @@ const routes: Routes = [
     {
         path : '', canActivate: [AuthGuard], children: [
             { path: 'vehicule', component: VehiculeComponent },
+            { path: 'manager', component: ManagerComponent },
+            { path: 'manager/gestion-client', component: ManagerGestionClientComponent },
             { path: 'manager/userList', component: ManagerUserListComponent },
+            { path: 'manager/tools', component: ManagerToolsComponent },
         ],
         data: {
             permission: ['manager', 'admin']

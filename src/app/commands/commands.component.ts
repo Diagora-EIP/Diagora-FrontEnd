@@ -27,6 +27,7 @@ export class CommandsComponent {
     displayedColumns = ['date', 'address', 'description', 'action'];
     allOrders: any[] = [];
     formatedOrders: any = [];
+    user_id = localStorage.getItem('id');
     users: any[] = [];
     selectedUser: any;
     selectedUserName: string = '';
@@ -35,9 +36,14 @@ export class CommandsComponent {
     constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService, private permissionsService: PermissionsService) { }
 
     ngOnInit(): void {
-        console.log('Date ', this.date);
         this.commandsService.getCompanyInfo().subscribe((data) => {
             this.users = data.users;
+            this.users.forEach((user) => {
+                if (user.user_id == this.user_id) {
+                    this.selectedUser = user;
+                }
+            });
+            this.selectedUserName = this.selectedUser.name;
         });
     }
 
