@@ -53,6 +53,12 @@ import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ManagerComponent } from './manager/manager.component';
+import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
+import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
+import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
+import { DeleteClientComponent } from './manager/manager-gestion-client/modals/delete-client/delete-client.component';
+import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -84,6 +90,12 @@ import { MatNativeDateModule } from '@angular/material/core';
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,
+        ManagerComponent,
+        ManagerGestionClientComponent,
+        ManagerToolsComponent,
+        AddClientComponent,
+        DeleteClientComponent,
+        EditClientComponent,
     ],
     imports: [
         BrowserModule,
