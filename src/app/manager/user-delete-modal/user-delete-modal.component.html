@@ -1,0 +1,14 @@
+<div ngClass="container-userUpdateModal">
+    <div ngClass="container-title-userUpdateModal">
+        <h1 ngClass="title-userUpdateModal">Suppression de {{ user.email }}</h1>
+    </div>
+
+    <div ngClass="content-userUpdateModal">
+        <div ngClass="container-button-userUpdateModal">
+            <button ngClass="cancel button-userUpdateModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-userUpdateModal" mat-raised-button color="primary"
+                (click)="deleteUser()">Valider</button>
+        </div>
+    </div>
+</div>
