@@ -111,7 +111,5 @@ export class ManagerUserUpdateModalComponent {
                     this.updateUserInfos()
                 },
             });
-
-
     }
 }

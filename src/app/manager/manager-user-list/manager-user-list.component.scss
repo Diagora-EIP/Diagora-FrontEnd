@@ -60,10 +60,14 @@ $font-color: #01ABA8;
     font-size: 1rem;
 }
 
-.company-container, .roles-container {
+.company-container, .roles-container, .settings-container {
     display: flex;
     align-items: center;
     background-color: inherit;
+}
+
+.settings-container {
+    justify-content: end;
 }
 
 .company-name {
@@ -81,10 +85,6 @@ $font-color: #01ABA8;
     justify-content: center;
     align-items: center;
     color: black;
-}
-
-.user-edit-button {
-    margin-left: auto
 }
 
 .button-data-tab-userList:hover, .button-data-tab-userList:active {

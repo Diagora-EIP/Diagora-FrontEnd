@@ -62,6 +62,7 @@ import { EditClientComponent } from './manager/manager-gestion-client/modals/edi
 import { ManagerUserUpdateModalComponent } from './manager/user-update-modal/user-update-modal.component';
 import { ManagerUserCreateModalComponent } from './manager/user-create-modal/user-create-modal.component';
 import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/user-delete-modal.component';
+import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-update-modal/user-vehicle-update-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -102,6 +103,7 @@ import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/use
         ManagerUserUpdateModalComponent,
         ManagerUserCreateModalComponent,
         ManagerUserDeleteModalComponent,
+        ManagerUserVehicleUpdateModalComponent,
     ],
     imports: [
         BrowserModule,

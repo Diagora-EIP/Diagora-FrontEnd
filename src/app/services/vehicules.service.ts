@@ -58,4 +58,11 @@ export class VehiculesService {
         return this.http.get<any>(`${this.apiUrl}/company`, this.header);
     }
 
+    updateUserVehicle(user_id: any, vehicle_id: any): Observable<any> {
+        return this.http.patch<any>(`${this.apiUrl}/vehicles/${user_id}/vehicles/${vehicle_id}`, null, this.header);
+    }
+
+    getUserVehicle(user_id: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/user/${user_id}/vehicles`, this.header);
+    }
 }

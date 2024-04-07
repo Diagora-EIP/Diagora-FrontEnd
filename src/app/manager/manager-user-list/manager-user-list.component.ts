@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { ManagerUserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
 import { ManagerUserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
 import { ManagerUserDeleteModalComponent } from '../user-delete-modal/user-delete-modal.component';
+import { ManagerUserVehicleUpdateModalComponent } from '../user-vehicle-update-modal/user-vehicle-update-modal.component';
 
 
 @Component({
@@ -44,8 +45,17 @@ export class ManagerUserListComponent {
             },
             action: (instance: any) => this.deleteUser(instance)
         },
+        USERVEHICLEUPDATE: {
+            component: ManagerUserVehicleUpdateModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                }
+            },
+            action: (instance: any) => this.updateUserBis(instance)
+        },
     };
-    displayedColumns = ['utilisateur', 'email', 'roles'];
+    displayedColumns = ['utilisateur', 'email', 'roles', 'settings'];
     userList: any = [];
     newUserForm: FormGroup;
     updateUserForm: FormGroup;
@@ -54,6 +64,7 @@ export class ManagerUserListComponent {
     rolesList: any = [];
     updateUserRole: any = [];
     selectedUser: any = null;
+    vehicleList: any = [];
 
     constructor(private managerService: ManagerService, private userService: UserService, public dialog: MatDialog, private fb: FormBuilder) {
         this.newUserForm = this.fb.group({
@@ -96,6 +107,11 @@ export class ManagerUserListComponent {
     callDeleteUser = (user: any) => {
         this.selectedUser = user;
         this.openModal('USERDELETE')
+    }
+
+    callUpdateUserVehicle = (user: any) => {
+        this.selectedUser = user;
+        this.openModal('USERVEHICLEUPDATE')
     }
 
     getRolesList() {
