@@ -9,8 +9,11 @@
             <div class="left-container">
                 <div class="vehicleListContainer">
                     <!-- Default message -->
-                    <div *ngIf="!allVehicles.length" class="default-message">Aucun véhicule enregistré dans votre
+                    <div *ngIf="!allVehicles.length && isManager" class="default-message">Aucun véhicule enregistré dans
+                        votre
                         entreprise.</div>
+                    <div *ngIf="!allVehicles.length && !isManager" class="default-message">Aucun véhicule ne vous est
+                        assigné.</div>
 
                     <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList mat-elevation-z8"
                         tabindex="0">
@@ -43,12 +46,17 @@
                             </ng-container>
                             <ng-container class="content-tab-userList" matColumnDef="action">
                                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
-                                <td class="data-tab-userList" mat-cell *matCellDef="let data">
+                                <td class="data-tab-userList" mat-cell *matCellDef="let vehicle">
                                     <div class="company-container">
-                                        <button class="button-data-tab-userList" (click)="openModal('EDIT', data)">
+                                        <button class="button-data-tab-userList" (click)="addExpense(vehicle)">
+                                            <mat-icon>attach_money</mat-icon>
+                                        </button>
+                                        <button class="button-data-tab-userList" (click)="editVehicle(vehicle)"
+                                            *ngIf="isManager">
                                             <mat-icon>settings</mat-icon>
                                         </button>
-                                        <button class="button-data-tab-userList" (click)="openModal('DELETE', data)">
+                                        <button class="button-data-tab-userList" (click)="deleteVehicle(vehicle)"
+                                            *ngIf="isManager">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </div>
@@ -61,8 +69,8 @@
                 </div>
             </div>
         </div>
-        <div class="buttonContainer">
-            <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
+        <div class="buttonContainer" *ngIf="isManager">
+            <button class="buttonADD" mat-fab extended (click)="addVehicle()">
                 Ajouter un véhicule
                 <mat-icon>playlist_add</mat-icon>
             </button>

@@ -57,8 +57,6 @@ export class ManagerUserListComponent {
     };
     displayedColumns = ['utilisateur', 'email', 'roles', 'settings'];
     userList: any = [];
-    newUserForm: FormGroup;
-    updateUserForm: FormGroup;
     entreprise: string = ""
     modalUpdateUser: boolean = false;
     rolesList: any = [];
@@ -67,14 +65,6 @@ export class ManagerUserListComponent {
     vehicleList: any = [];
 
     constructor(private managerService: ManagerService, private userService: UserService, public dialog: MatDialog, private fb: FormBuilder) {
-        this.newUserForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            name: ['', [Validators.required]],
-        });
-        this.updateUserForm = this.fb.group({
-            name: ['', [Validators.required]],
-            id: ['', [Validators.required]],
-        });
         this.entreprise = localStorage.getItem('entreprise') || '';
         this.getRolesList();
         this.getManagerEntreprise();
@@ -159,17 +149,6 @@ export class ManagerUserListComponent {
                     console.log(err);
                 }
             );
-        }
-    }
-
-    openModalUpdateUser(user: any): void {
-        this.modalUpdateUser = !this.modalUpdateUser;
-        this.updateUserForm.controls['name'].setValue(user.name);
-        this.updateUserForm.controls['id'].setValue(user.user_id);
-        for (let i = .0; i < this.updateUserRole.length; i++) {
-            if (user.roles.includes(this.updateUserRole[i].name)) {
-                this.updateUserRole[i].checked = true;
-            }
         }
     }
 

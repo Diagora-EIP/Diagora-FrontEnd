@@ -63,6 +63,7 @@ import { ManagerUserUpdateModalComponent } from './manager/user-update-modal/use
 import { ManagerUserCreateModalComponent } from './manager/user-create-modal/user-create-modal.component';
 import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/user-delete-modal.component';
 import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-update-modal/user-vehicle-update-modal.component';
+import { VehicleExpenseCreateModalComponent } from './vehicule/modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -104,6 +105,7 @@ import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-u
         ManagerUserCreateModalComponent,
         ManagerUserDeleteModalComponent,
         ManagerUserVehicleUpdateModalComponent,
+        VehicleExpenseCreateModalComponent,
     ],
     imports: [
         BrowserModule,

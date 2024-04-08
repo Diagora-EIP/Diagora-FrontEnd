@@ -1,7 +1,7 @@
 $font-color: #01ABA8;
 $test2: #888585;
 
-.container-vehicleUpdateModal {
+.container-expenseCreateModal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,24 +12,28 @@ $test2: #888585;
     overflow: hidden;
 }
 
-.container-title-vehicleUpdateModal {
+.container-title-expenseCreateModal {
     margin: 0 20px;
 }
 
-.title-vehicleUpdateModal {
+.title-expenseCreateModal {
     font-size: 2.5rem;
     font-weight: bold;
     margin: 30px;
     margin-bottom: 50px;
     color: $font-color;
     text-transform: uppercase;
+    word-wrap: break-word;
+    max-width: 30ch;
+    text-align: center;
 }
 
-.content-vehicleUpdateModal {
+.content-expenseCreateModal {
     display: grid;
     width: 80%;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
+    "input input"
     "input input"
     "input input"
     "button button";
@@ -38,31 +42,24 @@ $test2: #888585;
     margin-bottom: 30px;
 }
 
-.content-input-vehicleUpdateModal {
+.content-input-expenseCreateModal {
     width: 100%;
 }
 
-.title-input-vehicleUpdateModal {
+.title-input-expenseCreateModal {
     color: $font-color;
     font-weight: bold;
 }
 
-.container-selectInput-vehicleUpdateModal {
+.container-selectInput-expenseCreateModal {
     grid-area: input;
 }
 
-.option-selectInput-vehicleUpdateModal {
-
-}
-
-.container-input-vehicleUpdateModal {
+.container-input-expenseCreateModal {
     width: 100%;
 }
 
-.input-vehicleUpdateModal {
-}
-
-.container-button-vehicleUpdateModal {
+.container-button-expenseCreateModal {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
@@ -72,7 +69,7 @@ $test2: #888585;
     gap: 30px;
 }
 
-.button-vehicleUpdateModal {
+.button-expenseCreateModal {
     height: 50px;
     border-radius: 8px;
     font-weight: bold;

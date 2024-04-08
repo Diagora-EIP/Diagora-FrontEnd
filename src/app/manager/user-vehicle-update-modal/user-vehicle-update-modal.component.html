@@ -1,25 +1,25 @@
-<div ngClass="container-userUpdateModal">
-    <div ngClass="container-title-userUpdateModal">
-        <h1 ngClass="title-userUpdateModal">Modification de {{ user.email }}</h1>
+<div ngClass="container-vehicleUpdateModal">
+    <div ngClass="container-title-vehicleUpdateModal">
+        <h1 ngClass="title-vehicleUpdateModal">Modification de {{ user.email }}</h1>
     </div>
 
-    <div ngClass="content-userUpdateModal">
-        <div ngClass="container-input-userUpdateModal">
-            <mat-form-field ngClass="content-input-userUpdateModal">
-                <mat-label ngClass="title-input-userUpdateModal">Véhicules</mat-label>
-                <mat-select ngClass="container-selectInput-userUpdateModal" placeholder="Sélectionnez"
+    <div ngClass="content-vehicleUpdateModal">
+        <div ngClass="container-input-vehicleUpdateModal">
+            <mat-form-field ngClass="content-input-vehicleUpdateModal">
+                <mat-label ngClass="title-input-vehicleUpdateModal">Véhicules</mat-label>
+                <mat-select ngClass="container-selectInput-vehicleUpdateModal" placeholder="Sélectionnez"
                     [(value)]="selectedVehicles" multiple [required]="true" [compareWith]="compareVehicles">
-                    <mat-option ngClass="option-selectInput-userUpdateModal" *ngFor="let vehicle of vehiclesList"
+                    <mat-option ngClass="option-selectInput-vehicleUpdateModal" *ngFor="let vehicle of vehiclesList"
                         [value]="vehicle">{{ getVehicleInfos(vehicle) }}</mat-option>
                 </mat-select>
 
             </mat-form-field>
         </div>
 
-        <div ngClass="container-button-userUpdateModal">
-            <button ngClass="cancel button-userUpdateModal" mat-raised-button color="warn"
+        <div ngClass="container-button-vehicleUpdateModal">
+            <button ngClass="cancel button-vehicleUpdateModal" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>
-            <button ngClass="validate button-userUpdateModal" mat-raised-button color="primary"
+            <button ngClass="validate button-vehicleUpdateModal" mat-raised-button color="primary"
                 (click)="updateUserVehicle()">Valider</button>
         </div>
     </div>

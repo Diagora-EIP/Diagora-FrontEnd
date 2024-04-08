@@ -65,4 +65,16 @@ export class VehiculesService {
     getUserVehicle(user_id: any): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/user/${user_id}/vehicles`, this.header);
     }
+
+    createExpense(vehicle_id: number, name: string, description: string, price: number, picture: any, user_id?: number): Observable<any> {
+        const requestBody = {
+            title: name,
+            description: description,
+            amount: price,
+            vehicle_id: vehicle_id,
+            picture: picture
+        };
+        const url = `${this.apiUrl}/vehicleExpense` + (user_id ? `/${user_id}` : '');
+        return this.http.post<any>(url, requestBody, this.header);
+    }
 }
