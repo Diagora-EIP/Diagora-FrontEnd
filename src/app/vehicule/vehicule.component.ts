@@ -1,6 +1,8 @@
 import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import { VehiculesService } from '../services/vehicules.service';
 import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
@@ -29,9 +31,10 @@ export class VehiculeComponent {
     companyName: string = '';
 
     constructor(private router: Router,
-        public dialog: MatDialog,
-        private vehiculesService: VehiculesService,
-    ) {
+                public dialog: MatDialog,
+                private vehiculesService: VehiculesService,
+                private permissionsService: PermissionsService,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -67,5 +70,10 @@ export class VehiculeComponent {
             this.getVehicules();
         });
 
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem('token') === null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
     }
 }
