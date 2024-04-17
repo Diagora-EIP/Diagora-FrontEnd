@@ -55,7 +55,8 @@ export class PermissionsService {
                 }),
                 catchError((error) => {
                     console.error('Error refreshing permissions:', error);
-                    return of(null); // Emit a value to complete the observable
+                    throw new Error('Error refreshing permissions'); 
+                     // Emit a value to complete the observable
                 })
             );
         } else {
