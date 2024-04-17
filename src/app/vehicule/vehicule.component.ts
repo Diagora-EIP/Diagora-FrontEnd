@@ -1,6 +1,8 @@
 import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import { VehiculesService } from '../services/vehicules.service';
 import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
@@ -32,7 +34,8 @@ export class VehiculeComponent {
     constructor(private router: Router,
                 public dialog: MatDialog,
                 private vehiculesService: VehiculesService,
-                private permissionsService: PermissionsService) {
+                private permissionsService: PermissionsService,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -65,9 +68,9 @@ export class VehiculeComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
+            this.getVehicules();
         });
 
-        this.getVehicules();
     }
 
     checkPermission(permission: string): boolean {
