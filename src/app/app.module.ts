@@ -58,6 +58,11 @@ import { ManagerGestionClientComponent } from './manager/manager-gestion-client/
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
+import { ManagerUserUpdateModalComponent } from './manager/user-update-modal/user-update-modal.component';
+import { ManagerUserCreateModalComponent } from './manager/user-create-modal/user-create-modal.component';
+import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/user-delete-modal.component';
+import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-update-modal/user-vehicle-update-modal.component';
+import { VehicleExpenseCreateModalComponent } from './vehicule/modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
@@ -97,6 +102,11 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         ManagerToolsComponent,
         AddClientComponent,
         EditClientComponent,
+        ManagerUserUpdateModalComponent,
+        ManagerUserCreateModalComponent,
+        ManagerUserDeleteModalComponent,
+        ManagerUserVehicleUpdateModalComponent,
+        VehicleExpenseCreateModalComponent,
         LoadingSpinnerComponent,
         ConfirmModalComponent,
     ],

@@ -11,27 +11,33 @@ import { SnackbarService } from '../../../services/snackbar.service';
 })
 export class AddVehiculeComponent {
     name: string = ''
+    brand: string = ''
+    model: string = ''
+    license: string = ''
+    mileage: number = 0
 
-    constructor(@Inject(MAT_DIALOG_DATA) 
-                public data: any, 
-                public dialogRef: MatDialogRef<AddVehiculeComponent>, 
-                private vehiculeService: VehiculesService,
-                private snackBarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA)
+    public data: any,
+        public dialogRef: MatDialogRef<AddVehiculeComponent>,
+        private vehiculeService: VehiculesService,
+        private snackBarService: SnackbarService) { }
 
     close(): void {
         this.dialogRef.close();
     }
 
     dataCheck() {
-        if (this.name === '') {
+        if (this.name === '')
             return false;
-        }
+        if (this.mileage < 0)
+            return false;
         return true;
     }
 
     addVehicule = async () => {
-        if (!this.dataCheck()) { return }
-        this.vehiculeService.createVehicule(this.name)
+        if (!this.dataCheck())
+            return
+        this.vehiculeService.createVehicule(this.name, this.brand, this.model, this.license, this.mileage)
             .pipe(
                 tap({
                     next: data => {

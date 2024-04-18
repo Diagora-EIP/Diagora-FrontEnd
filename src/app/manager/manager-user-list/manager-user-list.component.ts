@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { ManagerService } from '../../services/manager.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { ManagerUserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
+import { ManagerUserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
+import { ManagerUserDeleteModalComponent } from '../user-delete-modal/user-delete-modal.component';
+import { ManagerUserVehicleUpdateModalComponent } from '../user-vehicle-update-modal/user-vehicle-update-modal.component';
 
 
 @Component({
@@ -11,54 +16,121 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class ManagerUserListComponent {
-    displayedColumns = ['utilisateur', 'email', 'roles'];
-    dataSource: any = [];
-    popUp: boolean = false;
-    newUserForm: FormGroup;
-    updateUserForm: FormGroup;
-    updateUserRole: any = [{
-        name:"manager",
-        checked: false
-    }, {
-        name:"user",
-        checked: false
-    }, {
-        name:"admin",
-        checked: false
-    }];
+    modalComponentMapping: { [key: string]: { component: Type<any>; constructor: () => any, action: (instance: any) => void } } = {
+        USERCREATE: {
+            component: ManagerUserCreateModalComponent,
+            constructor: () => {
+                return {
+                    roles: this.rolesList,
+                }
+            },
+            action: (instance: any) => this.addUser(instance)
+        },
+        USERUPDATE: {
+            component: ManagerUserUpdateModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                    rolesList: this.rolesList,
+                }
+            },
+            action: (instance: any) => this.updateUserBis(instance)
+        },
+        USERDELETE: {
+            component: ManagerUserDeleteModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                }
+            },
+            action: (instance: any) => this.deleteUser(instance)
+        },
+        USERVEHICLEUPDATE: {
+            component: ManagerUserVehicleUpdateModalComponent,
+            constructor: () => {
+                return {
+                    user: this.selectedUser,
+                }
+            },
+            action: (instance: any) => this.updateUserBis(instance)
+        },
+    };
+    displayedColumns = ['utilisateur', 'email', 'roles', 'settings'];
+    userList: any = [];
     entreprise: string = ""
     modalUpdateUser: boolean = false;
-    allRoles: any = [{
-        name:"manager",
-        checked: false
-    }, {
-        name:"user",
-        checked: false
-    }, {
-        name:"admin",
-        checked: false
-    }];
+    rolesList: any = [];
+    updateUserRole: any = [];
+    selectedUser: any = null;
+    vehicleList: any = [];
 
-    constructor(private managerService: ManagerService, public dialog: MatDialog,  private fb: FormBuilder, ) {
-        this.newUserForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            name: ['', [Validators.required]],
-        });
-        this.updateUserForm = this.fb.group({
-            name: ['', [Validators.required]],
-            id: ['', [Validators.required]],
-        });
+    constructor(private managerService: ManagerService, private userService: UserService, public dialog: MatDialog, private fb: FormBuilder) {
         this.entreprise = localStorage.getItem('entreprise') || '';
+        this.getRolesList();
         this.getManagerEntreprise();
     }
-    
+
+    openModal(modalType: string): void {
+        const { component, constructor, action } = this.modalComponentMapping[modalType.toUpperCase()];
+
+        if (!component) {
+            throw new Error(`Type de modal non pris en charge : ${modalType}`);
+        }
+
+        const dialogRef = this.dialog.open(component, {
+            panelClass: 'custom',
+            data: constructor()
+        });
+
+        dialogRef.afterClosed().subscribe((data) => {
+            if (!data)
+                return
+            action(data);
+        });
+    }
+
+    callUpdateUser = (user: any) => {
+        this.selectedUser = user;
+        this.openModal('USERUPDATE')
+    }
+
+    callDeleteUser = (user: any) => {
+        this.selectedUser = user;
+        this.openModal('USERDELETE')
+    }
+
+    callUpdateUserVehicle = (user: any) => {
+        this.selectedUser = user;
+        this.openModal('USERVEHICLEUPDATE')
+    }
+
+    getRolesList() {
+        this.userService.getRolesList()
+            .subscribe({
+                next: (data) => {
+                    this.rolesList = data;
+                    this.updateUserRole = data;
+                    // this.updateUserRole.forEach((role: any) => {
+                    //     role.checked = false;
+                    // })
+                },
+            });
+    }
+
+    getUserRoles = (roles: any) => {
+        if (roles)
+            return roles.map((role: any) => role.name).join(', ')
+
+        return "No Roles"
+    }
+
     getManagerEntreprise() {
         this.managerService.getManagerEntreprise().subscribe(
             (res) => {
                 this.entreprise = res.name;
                 const users = JSON.stringify(res.users);
                 localStorage.setItem('users', users);
-                this.dataSource = res.users;
+                this.userList = res.users;
                 this.updateCheckedRoles();
             },
             (err) => {
@@ -66,16 +138,12 @@ export class ManagerUserListComponent {
             }
         );
     }
-    
+
     updateCheckedRoles() {
-        for (let i = 0; i < this.dataSource.length; i++) {
-            this.managerService.getUserInformations(this.dataSource[i].user_id).subscribe(
+        for (let i = 0; i < this.userList.length; i++) {
+            this.managerService.getUserInformations(this.userList[i].user_id).subscribe(
                 (res) => {
-                    let role = [];
-                    for (let j = 0; j < res.length; j++) {
-                        role.push(res[j].name);
-                    }
-                    this.dataSource[i].roles = role;
+                    this.userList[i].roles = res;
                 },
                 (err) => {
                     console.log(err);
@@ -84,90 +152,22 @@ export class ManagerUserListComponent {
         }
     }
 
-    deleteUser() {
-        let id = this.updateUserForm.value.id
-        this.managerService.deleteUser(id).subscribe(
-            (res) => {
-                console.log('res', res);
-                window.location.reload();
-            },
-            (err) => {
-                console.log("err", err);
-            }
-        );
+    updateUserBis(result: any) {
     }
 
-    openModalNewUser(): void {
-        this.popUp = !this.popUp;
+    addUser = (user: any) => {
+        const userFormat = {
+            user_id: user.id,
+            name: user.name,
+            email: user.email,
+            roles: user.roles.map((role_id: number) => this.rolesList.find((role: any) => role.role_id === role_id)),
+        }
+        this.userList = [...this.userList, userFormat];
     }
 
-    openModalUpdateUser(user: any): void {
-        console.log(user);
-        this.modalUpdateUser = !this.modalUpdateUser;
-        this.updateUserForm.controls['name'].setValue(user.name);
-        this.updateUserForm.controls['id'].setValue(user.user_id);
-        for (let i = .0; i < this.updateUserRole.length; i++) {
-            if (user.roles.includes(this.updateUserRole[i].name)) {
-                this.updateUserRole[i].checked = true;
-            }
-        }
-    }
-
-    updateUser() {
-        const id = this.updateUserForm.value.id;
-        const body = {
-            name: this.updateUserForm.value.name,
-        }
-        this.managerService.updateUserInformations(id, body).subscribe(
-            (res) => {
-                console.log(res);
-                this.modalUpdateUser = false;
-                this.updateRoles(id);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-    }
-
-    updateRoles(id : any) {
-        let body = {
-            role: [] as string[]
-        }
-        for (let i = 0; i < this.updateUserRole.length; i++) {
-            if (this.updateUserRole[i].checked === true) {
-                body.role.push(this.updateUserRole[i].name);
-            }
-        }
-        console.log(body);
-        this.managerService.updateRoles(id, body).subscribe(
-            (res) => {
-                console.log(res);
-                window.location.reload();
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-    }
-
-    async addUser() {
-        const roles = this.allRoles.filter((role: any) => role.checked === true).map((role: any) => role.name);
-        const body = {
-            email: this.newUserForm.value.email,
-            name: this.newUserForm.value.name,
-            roles: roles
-        }
-        this.managerService.newUserByManager(body).subscribe(
-            (res) => {
-                console.log(res);
-                this.popUp = false;
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-        window.location.reload();
+    deleteUser = (isDeleted: any) => {
+        if (isDeleted)
+            this.userList = [...this.userList.filter((user: any) => user.user_id !== this.selectedUser.user_id)]
     }
 
 }

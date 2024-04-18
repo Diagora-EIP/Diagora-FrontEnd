@@ -42,8 +42,15 @@ const routes: Routes = [
         }
     },
     {
-        path : '', canActivate: [AuthGuard], children: [
+        path: '', canActivate: [AuthGuard], children: [
             { path: 'vehicule', component: VehiculeComponent },
+        ],
+        data: {
+            permission: ['manager', 'livreur']
+        }
+    },
+    {
+        path: '', canActivate: [AuthGuard], children: [
             { path: 'manager', component: ManagerComponent },
             { path: 'manager/gestion-client', component: ManagerGestionClientComponent },
             { path: 'manager/userList', component: ManagerUserListComponent },
