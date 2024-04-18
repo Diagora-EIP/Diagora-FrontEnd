@@ -21,11 +21,11 @@ export class EditVehiculeComponent {
         public dialogRef: MatDialogRef<EditVehiculeComponent>,
         private vehiculeService: VehiculesService,
         private snackBarService: SnackbarService) {
-        this.name = this.data.name;
-        this.brand = this.data.brand;
-        this.model = this.data.model;
-        this.license = this.data.license;
-        this.mileage = this.data.mileage;
+        this.name = this.data.data.name;
+        this.brand = this.data.data.brand;
+        this.model = this.data.data.model;
+        this.license = this.data.data.license;
+        this.mileage = this.data.data.mileage;
     }
 
     close(): void {
