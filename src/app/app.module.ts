@@ -58,7 +58,9 @@ import { ManagerGestionClientComponent } from './manager/manager-gestion-client/
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -95,6 +97,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         ManagerToolsComponent,
         AddClientComponent,
         EditClientComponent,
+        LoadingSpinnerComponent,
         ConfirmModalComponent,
     ],
     imports: [

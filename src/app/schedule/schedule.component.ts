@@ -16,6 +16,12 @@ import dayjs from 'dayjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+
+interface User {
+    name: string;
+    user_id: number;
+}
 
 @Component({
     selector: 'app-full-calendar',
@@ -34,6 +40,7 @@ export class ScheduleComponent implements OnInit {
     filteredDates: Date[] = [];
     users: any[] = [];
     customHeaderText: string = localStorage.getItem('name') || '';
+    currUser: User = { name: '', user_id: 0};
 
     constructor(
         private scheduleService: ScheduleService,
@@ -42,7 +49,8 @@ export class ScheduleComponent implements OnInit {
         private router: Router,
 		private dialog: MatDialog
 
-    ) {}
+    ) {
+    }
 
     calendarOptions: CalendarOptions = {
         initialView: 'dayGridMonth',
@@ -66,7 +74,6 @@ export class ScheduleComponent implements OnInit {
             day: 'Jour',
         },
         titleFormat: (dateInfo) => {
-            console.log(dateInfo);
             const startDateString = dateInfo.start.marker;
             const formattedStartDate =
 			dayjs(startDateString).format('MMMM YYYY');
@@ -95,36 +102,31 @@ export class ScheduleComponent implements OnInit {
         // This method should be defined in your component
     }
 
+    loading: boolean = false;
+
     getSchedule() {
-        console.log(this.currentStartDate);
-        const startDateFormatted =
-            (this.currentStartDate?.setHours(0, 0, 0, 0) &&
-                this.currentStartDate.toISOString()) ||
-            new Date().toISOString();
-        const endDateFormatted =
-            (this.currentEndDate?.setHours(23, 59, 59, 999) &&
-                this.currentEndDate.toISOString()) ||
-            new Date().toISOString();
+        this.loading = true;
+        const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) || new Date().toISOString();
+        const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) || new Date().toISOString();
 
         this.scheduleService
             .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
             .pipe(
                 tap({
                     next: (data: any) => {
-                        // Clear events if no data
+                        this.loading = false;
                         if (!data || data.length === 0) {
                             this.calendarOptions.events = [];
                             return;
                         }
 
-                        // Update events in calendarOptions
                         this.calendarOptions.events = data.map((event: any) =>
                             this.mapScheduleToEvent(event)
                         );
                         this.fullcalendar.getApi().refetchEvents();
                     },
                     error: (err) => {
-                        console.error('Error fetching schedule:', err);
+                        this.loading = false; // Set loading to false on error too
                     },
                 })
             )
@@ -144,8 +146,6 @@ export class ScheduleComponent implements OnInit {
         const user_id = this.userList.find(
             (user) => user.name === this.managerControl.value
         )?.user_id;
-
-        console.log('user', user_id);
 
         if (user_id === undefined) {
             return;
@@ -189,7 +189,6 @@ export class ScheduleComponent implements OnInit {
 
     // Helper function to map schedule data to CalendarEvent
 	private mapScheduleToEvent(schedule: any): EventInput {
-		console.log('Mapping schedule to event:', schedule);
 	
 		return {
 			title: schedule.order?.description,
@@ -218,9 +217,7 @@ export class ScheduleComponent implements OnInit {
 
     handleEventClick(info: any) {
         // 'info' contains information about the clicked event
-        console.log('Event clicked:', info);
 		const extendedProps = info.event.extendedProps;
-		console.log('Extended props:', extendedProps);
 		const start = info.event.start.toISOString();
 		const description = info.event.title
 		const scheduleId = extendedProps.scheduleId.toString();
@@ -240,9 +237,6 @@ export class ScheduleComponent implements OnInit {
 		const actualTime = extendedProps.actualTime;
 		const status = extendedProps.status;
 
-		console.log("User : ", this.userList.find(
-			(user) => user.name === this.managerControl.value
-		))
 		const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             width: '400px', // Set the desired width
             data: {
@@ -263,7 +257,6 @@ export class ScheduleComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe(result => {
             // Handle the result if needed (e.g., check if the user submitted the form)
-            console.log('Modal closed with result:', result);
 			if (this.checkPermission('manager')) {
 				this.getScheduleByUser();
 			} else {
@@ -279,6 +272,12 @@ export class ScheduleComponent implements OnInit {
                 this.filteredUsers = response.users;
                 this.userList = response.users;
                 this.users = response.users;
+                this.currUser = this.userList.find((user: User) => {
+                    const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
+                    const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
+                    return nameCondition && idCondition;
+                });
+                this.managerControl.setValue(this.currUser.name);
             });
     }
 
@@ -331,19 +330,20 @@ export class ScheduleComponent implements OnInit {
 	openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
-            width: '400px', // Set the desired width
-            data: { start, end } // Pass the selected start and end dates to the modal
+            width: '400px',
+            data: { start, end }
         });
 
-        // Subscribe to the modal's afterClosed event to handle the result (if needed)
         dialogRef.afterClosed().subscribe(result => {
-            // Handle the result if needed (e.g., check if the user submitted the form)
-            console.log('Modal closed with result:', result);
-			if (this.checkPermission('manager')) {
-				this.getScheduleByUser();
-			} else {
-				this.getSchedule();
-			}
+            if (this.checkPermission('manager')) {
+                setTimeout(() => {
+                    this.getScheduleByUser();
+                }, 1000); // Delay for 1 second
+            } else {
+                setTimeout(() => {
+                    this.getSchedule();
+                }, 1000); // Delay for 1 second
+            }
         });
 	}
 }
