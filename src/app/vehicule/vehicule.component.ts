@@ -11,6 +11,9 @@ import { EditVehiculeComponent } from './modals/edit-vehicule/edit-vehicule.comp
 import { DeleteVehiculeComponent } from './modals/delete-vehicule/delete-vehicule.component';
 
 import { SnackbarService } from '../services/snackbar.service';
+import { SecurityService } from '../services/security.service';
+import { PermissionsService } from '../services/permissions.service';
+import { VehicleExpenseCreateModalComponent } from './modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsVehiculeComponent,
@@ -25,55 +28,129 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
     styleUrls: ['./vehicule.component.scss']
 })
 export class VehiculeComponent {
-    displayedColumns = ['name', 'brand', 'model', 'license', 'mileage', 'action'];
+    modalComponentMapping: { [key: string]: { component: Type<any>; constructor: () => any, action: (instance: any) => void } } = {
+        CREATEEXPENSE: {
+            component: VehicleExpenseCreateModalComponent,
+            constructor: () => {
+                return {
+                    vehicle: this.selectedVehicle,
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) => { }
+        },
+        DETAILS: {
+            component: DetailsVehiculeComponent,
+            constructor: () => {
+                return {
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) => this.getVehicules()
+        },
+        ADD: {
+            component: AddVehiculeComponent,
+            constructor: () => {
+                return {
+                }
+            },
+            action: (instance: any) => this.getVehicules()
+        },
+        EDIT: {
+            component: EditVehiculeComponent,
+            constructor: () => {
+                return {
+                    data: this.selectedVehicle,
+                }
+            },
+            action: (instance: any) => this.getVehicules()
+        },
+        DELETE: {
+            component: DeleteVehiculeComponent,
+            constructor: () => {
+                return {
+                    data: this.selectedVehicle,
+                }
+            },
+            action: (instance: any) => this.getVehicules()
+        },
+    };
+    displayedColumns = ['name', 'brand', 'model', 'license', 'mileage'];
     allVehicles: any[] = [];
     users: any[] = [];
     companyName: string = '';
+    isManager: boolean = false;
+    selectedVehicle: any = null;
 
     constructor(private router: Router,
-                public dialog: MatDialog,
-                private vehiculesService: VehiculesService,
-                private permissionsService: PermissionsService,
-                private cdr: ChangeDetectorRef) {
+        public dialog: MatDialog,
+        private vehiculesService: VehiculesService,
+        private permissionsService: PermissionsService,
+        private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
+        this.isManager = this.permissionsService.hasPermission('manager')
+        this.displayedColumns.push('action');
         this.getCompany();
         this.getVehicules();
     }
 
-    async getCompany() {
-        this.vehiculesService.getCompanyInfo().subscribe((data) => {
-            this.companyName = data.name;
-        });
+    getCompany() {
+        this.vehiculesService.getCompanyInfo()
+            .subscribe((data) => {
+                this.companyName = data.name;
+            });
     }
 
-    async getVehicules() {
-        this.vehiculesService.getVehicules().subscribe((data) => {
-            this.allVehicles = data;
-        });
+    getVehicules() {
+        this.vehiculesService.getVehicules()
+            .subscribe((data) => {
+                this.allVehicles = data;
+            });
     }
 
-    openModal(type: string = 'DETAILS', info: any = {}): void {
-        const modalComponent: Type<any> = modalComponentMapping[type];
-        if (!modalComponent) {
-            throw new Error(`Type de modal non pris en charge : ${type}`);
+    openModal(modalType: string): void {
+        const { component, constructor, action } = this.modalComponentMapping[modalType.toUpperCase()];
+
+        if (!component) {
+            throw new Error(`Type de modal non pris en charge : ${modalType}`);
         }
 
-        const dialogRef = this.dialog.open(modalComponent, {
+        const dialogRef = this.dialog.open(component, {
             panelClass: 'custom',
-            data: info
+            data: constructor()
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('La modal', type, 'est fermée.', result);
-            this.getVehicules();
+        dialogRef.afterClosed().subscribe((data) => {
+            if (!data)
+                return
+            action(data);
         });
+    }
 
-    checkPermission(permission: string): boolean {
-        if (localStorage.getItem('token') === null) {
-            return false;
-        }
-        return this.permissionsService.hasPermission(permission);
+    addVehicle() {
+        if (!this.isManager)
+            return
+        this.openModal('ADD')
+    }
+
+    addExpense(vehicle: any) {
+        this.selectedVehicle = vehicle
+        this.openModal('CREATEEXPENSE')
+    }
+
+    editVehicle(vehicle: any) {
+        this.selectedVehicle = vehicle
+        if (!this.isManager)
+            return
+        this.openModal('EDIT')
+    }
+
+    deleteVehicle(vehicle: any) {
+        this.selectedVehicle = vehicle
+        if (!this.isManager)
+            return
+        this.openModal('DELETE')
     }
 }

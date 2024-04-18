@@ -1,6 +1,6 @@
 // create-schedule-modal.component.ts
 
-import { Component, Inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleService } from '../../../services/schedule.service';
@@ -12,7 +12,9 @@ import { tap } from 'rxjs';
     templateUrl: './create-schedule-modal.component.html',
     styleUrls: ['./create-schedule-modal.component.scss'],
 })
-export class CreateScheduleModalComponent {
+export class CreateScheduleModalComponent implements AfterViewInit {
+    @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>; // ViewChild for the description input
+
     scheduleForm: FormGroup;
     errorMessage: string = '';
 
@@ -24,11 +26,17 @@ export class CreateScheduleModalComponent {
         private snackBarService: SnackbarService
     ) {
         this.scheduleForm = this.fb.group({
-            deliveryDate: [new Date(data.delivery_date), Validators.required],
-            description: [data.description, Validators.required],
+            deliveryDate: [new Date(this.data.start), Validators.required],
+            description: [this.data.description, Validators.required],
             deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
-            deliveryAddress: [data.delivery_address, Validators.required],
+            deliveryAddress: [this.data.delivery_address, Validators.required],
         });
+    }
+
+    ngAfterViewInit(): void {
+        // Focus the description input field when the modal opens
+        this.descriptionInput.nativeElement.focus();
+        
     }
 
     submitForm() {

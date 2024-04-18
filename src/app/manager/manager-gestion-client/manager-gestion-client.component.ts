@@ -5,13 +5,14 @@ import { tap } from 'rxjs/operators';
 
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { EditClientComponent } from './modals/edit-client/edit-client.component';
-import { DeleteClientComponent } from './modals/delete-client/delete-client.component';
 import { PermissionsService } from '../../services/permissions.service';
+import { ConfirmModalService } from '../../confirm-modal/confirm-modal.service';
+import { SnackbarService } from '../../services/snackbar.service';
+
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     ADD: AddClientComponent,
     EDIT: EditClientComponent,
-    DELETE: DeleteClientComponent,
 };
 @Component({
     selector: 'app-manager-gestion-client',
@@ -29,7 +30,11 @@ export class ManagerGestionClientComponent {
     // formatedOrders: any = [];
     clients: any[] = [];
 
-    constructor(private router: Router, public dialog: MatDialog, private permissionsService: PermissionsService) { }
+    constructor(private router: Router, 
+                public dialog: MatDialog, 
+                private permissionsService: PermissionsService,
+                private confirmModalService: ConfirmModalService,
+                private snackbarService: SnackbarService) { }
 
     refresh() {
         this.allClients = this.allClients;
@@ -96,18 +101,22 @@ export class ManagerGestionClientComponent {
                     }
                 });
             }
-            // TEMP PART BEFORE LINK WITH BACKEND
-            if (type === 'DELETE' && result === true) {
+            console.log('La modal', type, 'est fermée.', result);
+        });
+        console.log('allClients', this.allClients);
+    }
+
+    deleteClient(info: any): void {
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce client ?').then((result) => {
+            if (result) {
                 this.allClients.forEach((client, index) => {
                     if (client.name === info.name && client.mail === info.mail) {
                         this.allClients.splice(index, 1);
                     }
                 });
+                this.snackbarService.successSnackBar("Le client a bien été supprimé.");
             }
-
-            console.log('La modal', type, 'est fermée.', result);
         });
-        console.log('allClients', this.allClients);
     }
 
     checkIsUnique(name: string, mail: string): boolean {

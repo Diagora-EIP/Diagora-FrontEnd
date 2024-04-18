@@ -1,0 +1,80 @@
+$font-color: #01ABA8;
+$test2: #888585;
+
+.container-userCreateModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 80vw;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container-title-userCreateModal {
+    margin: 0 20px;
+}
+
+.title-userCreateModal {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 30px;
+    margin-bottom: 50px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.content-userCreateModal {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "input input"
+    "input input"
+    "button button";
+    gap: 30px;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.content-input-userCreateModal {
+    width: 100%;
+}
+
+.title-input-userCreateModal {
+    color: $font-color;
+    font-weight: bold;
+}
+
+.container-selectInput-userCreateModal {
+    grid-area: input;
+}
+
+.option-selectInput-userCreateModal {
+
+}
+
+.container-input-userCreateModal {
+    width: 100%;
+}
+
+.input-userCreateModal {
+}
+
+.container-button-userCreateModal {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    grid-area: button;
+    gap: 30px;
+}
+
+.button-userCreateModal {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

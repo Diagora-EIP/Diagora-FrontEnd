@@ -1,0 +1,33 @@
+<div ngClass="container-userUpdateModal">
+    <div ngClass="container-title-userUpdateModal">
+        <h1 ngClass="title-userUpdateModal">Modification de {{ user.email }}</h1>
+    </div>
+
+    <div ngClass="content-userUpdateModal">
+        <div ngClass="container-input-userUpdateModal">
+            <mat-form-field ngClass="content-input-userUpdateModal">
+                <mat-label ngClass="title-input-userUpdateModal">Rôles</mat-label>
+                <mat-select ngClass="container-selectInput-userUpdateModal" placeholder="Sélectionnez"
+                    [(value)]="selectedRoles" multiple [required]="true">
+                    <mat-option ngClass="option-selectInput-userUpdateModal" *ngFor="let role of getRolesListName()"
+                        [value]="role">{{ role }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-userUpdateModal">
+            <mat-form-field ngClass="content-input-userUpdateModal">
+                <mat-label ngClass="title-input-userUpdateModal">Nom</mat-label>
+                <input matInput ngClass="input-userUpdateModal" placeholder="Ex. Pierre" [(ngModel)]="user.name"
+                    name="name" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-button-userUpdateModal">
+            <button ngClass="cancel button-userUpdateModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-userUpdateModal" mat-raised-button color="primary"
+                (click)="updateUser()">Valider</button>
+        </div>
+    </div>
+</div>
