@@ -129,13 +129,6 @@ export class VehiculeComponent {
         });
     }
 
-    // openModal(type: string = 'DETAILS', info: any = {}): void {
-    //     const dialogRef = this.dialog.open(modalComponent, {
-    //         panelClass: 'custom',
-    //         data: info
-    //     });
-
-
     addVehicle() {
         if (!this.isManager)
             return
