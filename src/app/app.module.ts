@@ -41,12 +41,10 @@ import { UserUpdateModalComponent } from './admin/modals/user-update-modal/user-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
-import { DeleteCommandComponent } from './commands/modals/delete-command/delete-command.component';
 import { EditCommandComponent } from './commands/modals/edit-command/edit-command.component';
 import { DetailsCommandComponent } from './commands/modals/details-command/details-command.component';
 import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/details-vehicule.component';
 import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
-import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
@@ -88,12 +86,10 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         CompanyCreateModalComponent,
         CompanyUpdateModalComponent,
         AddCommandComponent,
-        DeleteCommandComponent,
         EditCommandComponent,
         DetailsCommandComponent,
         DetailsVehiculeComponent,
         AddVehiculeComponent,
-        DeleteVehiculeComponent,
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,

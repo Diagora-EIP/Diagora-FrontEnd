@@ -7,14 +7,14 @@ import { CommandsService } from '../services/commands.service';
 import { AddCommandComponent } from './modals/add-command/add-command.component';
 import { DetailsCommandComponent } from './modals/details-command/details-command.component';
 import { EditCommandComponent } from './modals/edit-command/edit-command.component';
-import { DeleteCommandComponent } from './modals/delete-command/delete-command.component';
 import { PermissionsService } from '../services/permissions.service';
+import { SnackbarService } from '../services/snackbar.service';
+import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsCommandComponent,
     ADD: AddCommandComponent,
     EDIT: EditCommandComponent,
-    DELETE: DeleteCommandComponent,
 };
 
 @Component({
@@ -33,7 +33,12 @@ export class CommandsComponent {
     selectedUserName: string = '';
     date: string = new Date().toISOString().split('T')[0];
 
-    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService, private permissionsService: PermissionsService) { }
+    constructor(private router: Router, 
+                public dialog: MatDialog, 
+                private commandsService: CommandsService,
+                private permissionsService: PermissionsService,
+                private snackbarService: SnackbarService,
+                private confirmModalService: ConfirmModalService ) { }
 
     ngOnInit(): void {
         this.commandsService.getCompanyInfo().subscribe((data) => {
@@ -91,6 +96,18 @@ export class CommandsComponent {
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
             this.getOrders();
+        });
+    }
+
+    deleteOrder(info: any) {
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer cette commande ?').then((result) => {
+            if (result) {
+                this.commandsService.deleteOrder(info.schedule_id).pipe(
+                    tap(() => this.snackbarService.successSnackBar('Commande supprimée avec succès'))
+                ).subscribe(() => {
+                    this.getOrders();
+                });
+            }
         });
     }
 

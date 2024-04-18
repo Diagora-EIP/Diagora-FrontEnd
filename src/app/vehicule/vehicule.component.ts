@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { Component, Type, ViewRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
@@ -8,18 +8,17 @@ import { VehiculesService } from '../services/vehicules.service';
 import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
 import { DetailsVehiculeComponent } from './modals/details-vehicule/details-vehicule.component';
 import { EditVehiculeComponent } from './modals/edit-vehicule/edit-vehicule.component';
-import { DeleteVehiculeComponent } from './modals/delete-vehicule/delete-vehicule.component';
 
 import { SnackbarService } from '../services/snackbar.service';
 import { SecurityService } from '../services/security.service';
 import { PermissionsService } from '../services/permissions.service';
 import { VehicleExpenseCreateModalComponent } from './modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
+import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsVehiculeComponent,
     ADD: AddVehiculeComponent,
     EDIT: EditVehiculeComponent,
-    DELETE: DeleteVehiculeComponent,
 };
 
 @Component({
@@ -54,7 +53,10 @@ export class VehiculeComponent {
                 return {
                 }
             },
-            action: (instance: any) => this.getVehicules()
+            action: (instance: any) => {
+                this.getVehicules()
+                this.snackbarService.successSnackBar("Le véhicule a bien été ajouté.");
+            }
         },
         EDIT: {
             component: EditVehiculeComponent,
@@ -63,16 +65,10 @@ export class VehiculeComponent {
                     data: this.selectedVehicle,
                 }
             },
-            action: (instance: any) => this.getVehicules()
-        },
-        DELETE: {
-            component: DeleteVehiculeComponent,
-            constructor: () => {
-                return {
-                    data: this.selectedVehicle,
-                }
-            },
-            action: (instance: any) => this.getVehicules()
+            action: (instance: any) => {
+                this.getVehicules()
+                this.snackbarService.successSnackBar("Le véhicule a bien été modifié.");
+            }
         },
     };
     displayedColumns = ['name', 'brand', 'model', 'license', 'mileage'];
@@ -86,7 +82,9 @@ export class VehiculeComponent {
         public dialog: MatDialog,
         private vehiculesService: VehiculesService,
         private permissionsService: PermissionsService,
-        private cdr: ChangeDetectorRef) {
+        private cdr: ChangeDetectorRef,
+        private snackbarService: SnackbarService,
+        private confirmModalService: ConfirmModalService,) {
     }
 
     ngOnInit(): void {
@@ -149,8 +147,17 @@ export class VehiculeComponent {
 
     deleteVehicle(vehicle: any) {
         this.selectedVehicle = vehicle
+
         if (!this.isManager)
             return
-        this.openModal('DELETE')
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce véhicule ?').then((result) => {
+            console.log('result', result, vehicle);
+            if (result) {
+                this.vehiculesService.deleteVehicule(vehicle.vehicle_id).pipe().subscribe(() => {
+                    this.getVehicules()
+                    this.snackbarService.successSnackBar("Le véhicule a bien été supprimé.");
+                });
+            }
+        });
     }
 }
