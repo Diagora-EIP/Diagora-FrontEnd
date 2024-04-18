@@ -57,8 +57,8 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
-import { DeleteClientComponent } from './manager/manager-gestion-client/modals/delete-client/delete-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -94,8 +94,8 @@ import { EditClientComponent } from './manager/manager-gestion-client/modals/edi
         ManagerGestionClientComponent,
         ManagerToolsComponent,
         AddClientComponent,
-        DeleteClientComponent,
         EditClientComponent,
+        ConfirmModalComponent,
     ],
     imports: [
         BrowserModule,

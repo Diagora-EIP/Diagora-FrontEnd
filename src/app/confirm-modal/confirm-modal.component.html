@@ -1,0 +1,17 @@
+<div ngClass="container">
+    <div ngClass="container-title">
+        <h1 ngClass="title">{{title}}</h1>
+    </div>
+
+    <div ngClass="content">
+        <div ngClass="container-button">
+            <button ngClass="cancel button" mat-raised-button color="warn" (click)="close()">
+                Annuler
+            </button>
+            <button ngClass="validate button" mat-raised-button color="primary"
+                (click)="confirm()">
+                Valider
+            </button>
+        </div>
+    </div>
+</div>
