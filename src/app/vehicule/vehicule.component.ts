@@ -1,6 +1,8 @@
 import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import { VehiculesService } from '../services/vehicules.service';
 import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
@@ -84,7 +86,7 @@ export class VehiculeComponent {
         public dialog: MatDialog,
         private vehiculesService: VehiculesService,
         private permissionsService: PermissionsService,
-    ) {
+        private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {

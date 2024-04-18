@@ -90,6 +90,7 @@ export class CommandsComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
+            this.getOrders();
         });
     }
 

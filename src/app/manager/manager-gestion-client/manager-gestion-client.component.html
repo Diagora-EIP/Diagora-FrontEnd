@@ -27,7 +27,7 @@
                                     <button class="button-data-tab-userList" (click)="openModal('EDIT', data)">
                                         <mat-icon>settings</mat-icon>
                                     </button>
-                                    <button class="button-data-tab-userList" (click)="openModal('DELETE', data)">
+                                    <button class="button-data-tab-userList" (click)="deleteClient(data)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                     <button *ngIf="!checkIsUnique(data.name, data.mail)" class="button-data-tab-userList" title="Ce client existe en plus d'un exemplaire !">

@@ -32,7 +32,9 @@
         <!-- Left Container -->
         <div class="left-right-container">
             <div class="calendar-container">
-                <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+                <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+                <full-calendar *ngIf="!loading" #fullcalendar [options]="calendarOptions">
+                </full-calendar>
             </div>
         </div>
     </div>
