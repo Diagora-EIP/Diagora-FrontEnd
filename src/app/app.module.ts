@@ -59,6 +59,7 @@ import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.com
 import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
 import { DeleteClientComponent } from './manager/manager-gestion-client/modals/delete-client/delete-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -96,6 +97,7 @@ import { EditClientComponent } from './manager/manager-gestion-client/modals/edi
         AddClientComponent,
         DeleteClientComponent,
         EditClientComponent,
+        LoadingSpinnerComponent,
     ],
     imports: [
         BrowserModule,
