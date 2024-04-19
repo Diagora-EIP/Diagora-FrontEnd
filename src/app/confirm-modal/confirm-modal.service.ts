@@ -10,7 +10,7 @@ export class ConfirmModalService {
   constructor(public dialog: MatDialog) { }
 
   openConfirmModal(title: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
         data: { title }
       });
