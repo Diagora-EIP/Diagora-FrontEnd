@@ -68,8 +68,9 @@ export class ManagerUserCreateModalComponent {
             )
             .subscribe({
                 next: (data) => {
+                    console.log(data);
                     this.snackBarService.successSnackBar('L\'utilisateur a été créé avec succès');
-                    this.dialogRef.close({ id: 10000, email: this.email, name: this.name, roles: selectedRolesId });
+                    this.dialogRef.close({ id: data.user_id, email: this.email, name: this.name, roles: selectedRolesId });
                 },
             });
     }
