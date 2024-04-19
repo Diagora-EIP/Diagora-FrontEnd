@@ -6,8 +6,9 @@ import { tap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { ManagerUserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
 import { ManagerUserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
-import { ManagerUserDeleteModalComponent } from '../user-delete-modal/user-delete-modal.component';
 import { ManagerUserVehicleUpdateModalComponent } from '../user-vehicle-update-modal/user-vehicle-update-modal.component';
+import { ConfirmModalService } from '../../confirm-modal/confirm-modal.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 
 @Component({
@@ -37,15 +38,6 @@ export class ManagerUserListComponent {
             },
             action: (instance: any) => this.updateUserBis(instance)
         },
-        USERDELETE: {
-            component: ManagerUserDeleteModalComponent,
-            constructor: () => {
-                return {
-                    user: this.selectedUser,
-                }
-            },
-            action: (instance: any) => this.deleteUser(instance)
-        },
         USERVEHICLEUPDATE: {
             component: ManagerUserVehicleUpdateModalComponent,
             constructor: () => {
@@ -66,7 +58,12 @@ export class ManagerUserListComponent {
     selectedUser: any = null;
     vehicleList: any = [];
 
-    constructor(private managerService: ManagerService, private userService: UserService, public dialog: MatDialog, private fb: FormBuilder) {
+    constructor(private managerService: ManagerService, 
+                private userService: UserService, 
+                public dialog: MatDialog, 
+                private fb: FormBuilder,
+                private confirmModalService: ConfirmModalService,
+                private snackbarService: SnackbarService) {
         this.entreprise = localStorage.getItem('entreprise') || '';
         this.getRolesList();
         this.getManagerEntreprise();
@@ -98,7 +95,17 @@ export class ManagerUserListComponent {
 
     callDeleteUser = (user: any) => {
         this.selectedUser = user;
-        this.openModal('USERDELETE')
+        console.log(user);
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce client ?').then((result) => {
+            if (result) {
+                this.managerService.deleteUser(user.user_id).subscribe({
+                    next: () => {
+                        this.deleteUser(true);
+                        this.snackbarService.successSnackBar("Le client a bien été supprimé.");
+                    }
+                });
+            }
+        });
     }
 
     callUpdateUserVehicle = (user: any) => {
@@ -166,13 +173,14 @@ export class ManagerUserListComponent {
     }
 
     addUser = (user: any) => {
+        console.log(user);
         const userFormat = {
             user_id: user.id,
             name: user.name,
             email: user.email,
             roles: user.roles.map((role_id: number) => this.rolesList.find((role: any) => role.role_id === role_id)),
         }
-        this.userList = [...this.userList, userFormat];
+        this.userList = [...this.userList, userFormat]; 
     }
 
     deleteUser = (isDeleted: any) => {
