@@ -9,7 +9,7 @@
             <div class="left-container">
                 <div class="vehicleListContainer">
                     <!-- Default message -->
-                    <div class="user-list-loading-spinner" *ngIf="loading">
+                    <div class="vehicle-loading-spinner" *ngIf="loading">
                         <app-loading-spinner></app-loading-spinner>
                     </div>
                     <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule enregistré dans
