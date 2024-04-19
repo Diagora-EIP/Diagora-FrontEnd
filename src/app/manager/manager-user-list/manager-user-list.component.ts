@@ -95,7 +95,6 @@ export class ManagerUserListComponent {
 
     callDeleteUser = (user: any) => {
         this.selectedUser = user;
-        console.log(user);
         this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce client ?').then((result) => {
             if (result) {
                 this.managerService.deleteUser(user.user_id).subscribe({
@@ -173,7 +172,6 @@ export class ManagerUserListComponent {
     }
 
     addUser = (user: any) => {
-        console.log(user);
         const userFormat = {
             user_id: user.id,
             name: user.name,
