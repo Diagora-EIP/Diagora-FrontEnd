@@ -44,6 +44,9 @@
         </div>
     </div>
     <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <div class="user-list-loading-spinner" *ngIf="loading">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <ng-container class="content-tab-userList" matColumnDef="utilisateur" >
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>

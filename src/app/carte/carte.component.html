@@ -26,8 +26,8 @@
       <div class="left-container">
         <div class="delivery-steps-container">
           <!-- Default message -->
-          <div *ngIf="!routeSteps.length" class="default-message">Aucune étape de livraison n'est disponible.</div>
-
+          <div *ngIf="!routeSteps?.length && !loading" class="default-message">Aucune étape de livraison n'est disponible.</div>
+          <app-loading-spinner *ngIf="loading"></app-loading-spinner>
           <!-- Actual delivery steps -->
           <ul *ngIf="routeSteps.length">
             <li *ngFor="let step of routeSteps; let i = index" (click)="selectStep(i)">

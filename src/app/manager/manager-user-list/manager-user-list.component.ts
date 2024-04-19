@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ManagerService } from '../../services/manager.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class ManagerUserListComponent {
     displayedColumns = ['utilisateur', 'email', 'roles'];
     dataSource: any = [];
     popUp: boolean = false;
+    loading: boolean = false;
     newUserForm: FormGroup;
     updateUserForm: FormGroup;
     updateUserRole: any = [{
@@ -53,18 +55,26 @@ export class ManagerUserListComponent {
     }
     
     getManagerEntreprise() {
-        this.managerService.getManagerEntreprise().subscribe(
-            (res) => {
-                this.entreprise = res.name;
-                const users = JSON.stringify(res.users);
-                localStorage.setItem('users', users);
-                this.dataSource = res.users;
-                this.updateCheckedRoles();
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
+        this.loading = true;
+        this.managerService
+            .getManagerEntreprise()
+            .pipe(
+                tap({
+                    next: (data: any) => {
+                        this.loading = false;
+                        this.entreprise = data.name;
+                        const users = JSON.stringify(data.users);
+                        localStorage.setItem('users', users);
+                        this.dataSource = data.users;
+                        this.updateCheckedRoles();
+                    },
+                    error: (err) => {
+                        this.loading = false;
+                        console.error('Error fetching manager entreprise:', err);
+                    },
+                })
+            )
+            .subscribe();
     }
     
     updateCheckedRoles() {

@@ -60,6 +60,7 @@ import { AddClientComponent } from './manager/manager-gestion-client/modals/add-
 import { DeleteClientComponent } from './manager/manager-gestion-client/modals/delete-client/delete-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
     declarations: [
         AppComponent,
@@ -123,7 +124,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
         MatDatepickerModule,
         MatAutocompleteModule,
         MatNativeDateModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatMenuModule
     ],
     providers: [
     ],
