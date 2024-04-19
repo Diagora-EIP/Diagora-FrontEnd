@@ -3,26 +3,31 @@ import { PermissionsService } from '../services/permissions.service';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NavbarComponent implements OnInit {
+  isMenuOpen: boolean = false;
 
-    constructor(public permissionsService: PermissionsService, private cdr: ChangeDetectorRef) {
-        changeDetection: ChangeDetectionStrategy.Default
-    }
+  constructor(public permissionsService: PermissionsService, private cdr: ChangeDetectorRef) {
+  }
 
-    ngOnInit() {
-        this.permissionsService.userPermissions.subscribe((permissions) => {
-            this.cdr.detectChanges();
-        });
-    }
+  ngOnInit() {
+    this.permissionsService.userPermissions.subscribe(() => {
+      this.cdr.detectChanges();
+    });
+  }
 
-    checkPermission(permission: string): boolean {
-        if (localStorage.getItem('token') === null) {
-            return false;
-        }
-        return this.permissionsService.hasPermission(permission);
+  checkPermission(permission: string): boolean {
+    if (localStorage.getItem('token') === null) {
+      return false;
     }
+    return this.permissionsService.hasPermission(permission);
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }

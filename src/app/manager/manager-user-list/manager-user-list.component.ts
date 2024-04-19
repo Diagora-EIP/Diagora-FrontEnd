@@ -2,6 +2,7 @@ import { Component, Type } from '@angular/core';
 import { ManagerService } from '../../services/manager.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { ManagerUserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
 import { ManagerUserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
@@ -59,6 +60,7 @@ export class ManagerUserListComponent {
     userList: any = [];
     entreprise: string = ""
     modalUpdateUser: boolean = false;
+    loading: boolean = false;
     rolesList: any = [];
     updateUserRole: any = [];
     selectedUser: any = null;
@@ -125,18 +127,26 @@ export class ManagerUserListComponent {
     }
 
     getManagerEntreprise() {
-        this.managerService.getManagerEntreprise().subscribe(
-            (res) => {
-                this.entreprise = res.name;
-                const users = JSON.stringify(res.users);
-                localStorage.setItem('users', users);
-                this.userList = res.users;
-                this.updateCheckedRoles();
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
+        this.loading = true;
+        this.managerService
+            .getManagerEntreprise()
+            .pipe(
+                tap({
+                    next: (data: any) => {
+                        this.loading = false;
+                        this.entreprise = data.name;
+                        const users = JSON.stringify(data.users);
+                        localStorage.setItem('users', users);
+                        this.userList = data.users;
+                        this.updateCheckedRoles();
+                    },
+                    error: (err) => {
+                        this.loading = false;
+                        console.error('Error fetching manager entreprise:', err);
+                    },
+                })
+            )
+            .subscribe();
     }
 
     updateCheckedRoles() {

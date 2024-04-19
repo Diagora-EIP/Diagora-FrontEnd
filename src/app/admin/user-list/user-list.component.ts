@@ -53,6 +53,7 @@ export class UserListComponent {
     RolesList: any = []
     selectedCompany: any = null
     selectedUser: any = null
+    loading: boolean = false;
 
     private _companyFilter: string = '';
     getUsersSubscription: Subscription | undefined;
@@ -125,6 +126,7 @@ export class UserListComponent {
     }
 
     getUsers = async () => {
+        this.loading = true;
         this.getUsersSubscription = this.adminService.newgetUsers()
             .pipe(
                 tap({
@@ -139,6 +141,7 @@ export class UserListComponent {
             .subscribe({
                 next: (data) => {
                     this.userList = data.map((user: any) => {
+                        this.loading = false;
                         return {
                             id: user.user_id ? user.user_id : '',
                             name: user.name ? user.name : '',

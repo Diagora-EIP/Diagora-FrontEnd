@@ -9,10 +9,13 @@
             <div class="left-container">
                 <div class="vehicleListContainer">
                     <!-- Default message -->
-                    <div *ngIf="!allVehicles.length && isManager" class="default-message">Aucun véhicule enregistré dans
+                    <div class="vehicle-loading-spinner" *ngIf="loading">
+                        <app-loading-spinner></app-loading-spinner>
+                    </div>
+                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule enregistré dans
                         votre
                         entreprise.</div>
-                    <div *ngIf="!allVehicles.length && !isManager" class="default-message">Aucun véhicule ne vous est
+                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne vous est
                         assigné.</div>
 
                     <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList mat-elevation-z8"

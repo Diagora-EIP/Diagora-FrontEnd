@@ -62,6 +62,7 @@ import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/use
 import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-update-modal/user-vehicle-update-modal.component';
 import { VehicleExpenseCreateModalComponent } from './vehicule/modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
@@ -130,7 +131,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         MatDatepickerModule,
         MatAutocompleteModule,
         MatNativeDateModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatMenuModule
     ],
     providers: [
     ],

@@ -77,6 +77,7 @@ export class VehiculeComponent {
     companyName: string = '';
     isManager: boolean = false;
     selectedVehicle: any = null;
+    loading: boolean = false;
 
     constructor(private router: Router,
         public dialog: MatDialog,
@@ -102,8 +103,10 @@ export class VehiculeComponent {
     }
 
     getVehicules() {
+        this.loading = true;
         this.vehiculesService.getVehicules()
             .subscribe((data) => {
+                this.loading = false;
                 this.allVehicles = data;
             });
     }
