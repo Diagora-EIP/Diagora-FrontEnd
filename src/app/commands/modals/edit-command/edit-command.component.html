@@ -1,14 +1,14 @@
-<div ngClass="container-editCommandModal">
-    <div ngClass="container-title-editCommandModal">
-        <h1 ngClass="title-editCommandModal">Modifier une commande</h1>
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modifier une commande</h1>
     </div>
 
-    <div ngClass="content-editCommandModal">
+    <div ngClass="content-modals">
 
-        <div ngClass="container-input-addCommandModal">
-            <mat-form-field ngClass="content-input-addCommandModal">
-                <mat-label ngClass="title-input-addCommandModal">Jour de livraison::</mat-label>
-                <input ngClass="input-addCommandModal" matInput [matDatepicker]="picker" [(ngModel)]="date" name="date"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Jour de livraison::</mat-label>
+                <input ngClass="input-modals" matInput [matDatepicker]="picker" [(ngModel)]="date" name="date"
                     [required]="true">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -17,35 +17,35 @@
 
         <!-- Time picker (custom implementation or third-party library) -->
         <!-- For example, you can use a simple input for time -->
-        <div ngClass="container-input-addCommandModal">
-            <mat-form-field ngClass="content-input-addCommandModal">
-                <mat-label ngClass="title-input-addCommandModal">Heure de livraison:</mat-label>
-                <input ngClass="input-addCommandModal" matInput type="time" [(ngModel)]="hours" name="hours"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Heure de livraison:</mat-label>
+                <input ngClass="input-modals" matInput type="time" [(ngModel)]="hours" name="hours"
                     [required]="true">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-addCommandModal">
-            <mat-form-field ngClass="content-input-addCommandModal">
-                <mat-label ngClass="title-input-addCommandModal">Description:</mat-label>
-                <input matInput ngClass="input-addCommandModal" placeholder="Ex. Urgent pour netflix" [(ngModel)]="description"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Description:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Urgent pour netflix" [(ngModel)]="description"
                     name="description" [required]="false">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-addCommandModal">
-            <mat-form-field ngClass="content-input-addCommandModal">
-                <mat-label ngClass="title-input-addCommandModal">Adresse:</mat-label>
-                <input matInput ngClass="input-addCommandModal"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Adresse:</mat-label>
+                <input matInput ngClass="input-modals"
                     placeholder="Ex. 1 Rue de la fontaine, 34000 Montpellier" [(ngModel)]="address" name="address"
                     [required]="false">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-button-editCommandModal">
-            <button ngClass="cancel button-editCommandModal" mat-raised-button color="warn"
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>
-            <button ngClass="validate button-editCommandModal" mat-raised-button color="primary"
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
                 (click)="editCommand()">Valider</button>
         </div>
     </div>
