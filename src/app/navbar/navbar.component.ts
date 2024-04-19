@@ -30,14 +30,4 @@ export class NavbarComponent implements OnInit {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
-  onMouseEnter() {
-    console.log('Mouse entered');
-    this.toggleMenu();
-  }
-  
-  onMouseLeave() {
-    console.log('Mouse left');
-    this.toggleMenu();
-  }
 }

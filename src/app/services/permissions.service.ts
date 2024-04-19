@@ -84,4 +84,12 @@ export class PermissionsService {
         const permissions = this.userPermissionsSubject.getValue();
         return permissions.includes(permission);
     }
+
+    getUserId(): number {
+        if (!this.token)
+            return 0;
+        let token = this.token.split('.')[1];
+        let user = JSON.parse(atob(token));
+        return user.id;
+    }
 }

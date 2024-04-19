@@ -7,11 +7,31 @@
         <div ngClass="container-input-editVehiculeModal">
             <mat-form-field ngClass="content-input-editVehiculeModal">
                 <mat-label ngClass="title-input-editVehiculeModal">Nom du véhicule:</mat-label>
-                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. BMW"
-                    [(ngModel)]="name" name="name" [required]="true">
+                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="name" name="name"
+                    [required]="true">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-editVehiculeModal">
+                <mat-label ngClass="title-input-editVehiculeModal">Marque du véhicule:</mat-label>
+                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="brand" name="brand"
+                    [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-editVehiculeModal">
+                <mat-label ngClass="title-input-editVehiculeModal">Model du véhicule:</mat-label>
+                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. X3" [(ngModel)]="model" name="model"
+                    [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-editVehiculeModal">
+                <mat-label ngClass="title-input-editVehiculeModal">Plaque d'immatriculation du véhicule:</mat-label>
+                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. AA229AA" [(ngModel)]="license"
+                    name="license" [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-editVehiculeModal">
+                <mat-label ngClass="title-input-editVehiculeModal">Kilométrage du véhicule:</mat-label>
+                <input matInput ngClass="input-editVehiculeModal" placeholder="Ex. 12740" [(ngModel)]="mileage"
+                    name="mileage" [required]="false" type="number">
             </mat-form-field>
         </div>
-    
+
         <div ngClass="container-button-editVehiculeModal">
             <button ngClass="cancel button-editVehiculeModal" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>

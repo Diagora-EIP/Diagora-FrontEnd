@@ -41,12 +41,10 @@ import { UserUpdateModalComponent } from './admin/modals/user-update-modal/user-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddCommandComponent } from './commands/modals/add-command/add-command.component';
-import { DeleteCommandComponent } from './commands/modals/delete-command/delete-command.component';
 import { EditCommandComponent } from './commands/modals/edit-command/edit-command.component';
 import { DetailsCommandComponent } from './commands/modals/details-command/details-command.component';
 import { DetailsVehiculeComponent } from './vehicule/modals/details-vehicule/details-vehicule.component';
 import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicule.component';
-import { DeleteVehiculeComponent } from './vehicule/modals/delete-vehicule/delete-vehicule.component';
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
@@ -57,10 +55,16 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { AddClientComponent } from './manager/manager-gestion-client/modals/add-client/add-client.component';
-import { DeleteClientComponent } from './manager/manager-gestion-client/modals/delete-client/delete-client.component';
 import { EditClientComponent } from './manager/manager-gestion-client/modals/edit-client/edit-client.component';
+import { ManagerUserUpdateModalComponent } from './manager/user-update-modal/user-update-modal.component';
+import { ManagerUserCreateModalComponent } from './manager/user-create-modal/user-create-modal.component';
+import { ManagerUserDeleteModalComponent } from './manager/user-delete-modal/user-delete-modal.component';
+import { ManagerUserVehicleUpdateModalComponent } from './manager/user-vehicle-update-modal/user-vehicle-update-modal.component';
+import { VehicleExpenseCreateModalComponent } from './vehicule/modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -83,12 +87,10 @@ import { MatMenuModule } from '@angular/material/menu';
         CompanyCreateModalComponent,
         CompanyUpdateModalComponent,
         AddCommandComponent,
-        DeleteCommandComponent,
         EditCommandComponent,
         DetailsCommandComponent,
         DetailsVehiculeComponent,
         AddVehiculeComponent,
-        DeleteVehiculeComponent,
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,
@@ -96,9 +98,14 @@ import { MatMenuModule } from '@angular/material/menu';
         ManagerGestionClientComponent,
         ManagerToolsComponent,
         AddClientComponent,
-        DeleteClientComponent,
         EditClientComponent,
+        ManagerUserUpdateModalComponent,
+        ManagerUserCreateModalComponent,
+        ManagerUserDeleteModalComponent,
+        ManagerUserVehicleUpdateModalComponent,
+        VehicleExpenseCreateModalComponent,
         LoadingSpinnerComponent,
+        ConfirmModalComponent,
     ],
     imports: [
         BrowserModule,

@@ -10,8 +10,28 @@
                 <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="name" name="name"
                     [required]="true">
             </mat-form-field>
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Marque du véhicule:</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="brand" name="brand"
+                    [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Model du véhicule:</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. X3" [(ngModel)]="model" name="model"
+                    [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Plaque d'immatriculation du véhicule:</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. AA229AA" [(ngModel)]="license"
+                    name="license" [required]="false">
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-addVehiculeModal">
+                <mat-label ngClass="title-input-addVehiculeModal">Kilométrage du véhicule:</mat-label>
+                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. 12740" [(ngModel)]="mileage"
+                    name="mileage" [required]="false" type="number">
+            </mat-form-field>
         </div>
-    
+
         <div ngClass="container-button-addVehiculeModal">
             <button ngClass="cancel button-addVehiculeModal" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>

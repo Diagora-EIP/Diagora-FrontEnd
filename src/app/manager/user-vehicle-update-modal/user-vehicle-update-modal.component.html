@@ -1,0 +1,26 @@
+<div ngClass="container-vehicleUpdateModal">
+    <div ngClass="container-title-vehicleUpdateModal">
+        <h1 ngClass="title-vehicleUpdateModal">Modification de {{ user.email }}</h1>
+    </div>
+
+    <div ngClass="content-vehicleUpdateModal">
+        <div ngClass="container-input-vehicleUpdateModal">
+            <mat-form-field ngClass="content-input-vehicleUpdateModal">
+                <mat-label ngClass="title-input-vehicleUpdateModal">Véhicules</mat-label>
+                <mat-select ngClass="container-selectInput-vehicleUpdateModal" placeholder="Sélectionnez"
+                    [(value)]="selectedVehicles" multiple [required]="true" [compareWith]="compareVehicles">
+                    <mat-option ngClass="option-selectInput-vehicleUpdateModal" *ngFor="let vehicle of vehiclesList"
+                        [value]="vehicle">{{ getVehicleInfos(vehicle) }}</mat-option>
+                </mat-select>
+
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-button-vehicleUpdateModal">
+            <button ngClass="cancel button-vehicleUpdateModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-vehicleUpdateModal" mat-raised-button color="primary"
+                (click)="updateUserVehicle()">Valider</button>
+        </div>
+    </div>
+</div>
