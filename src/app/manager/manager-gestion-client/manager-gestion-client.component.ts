@@ -95,6 +95,9 @@ export class ManagerGestionClientComponent {
             }
             // TEMP PART BEFORE LINK WITH BACKEND
             if (type === 'EDIT') {
+                if (!result) {
+                    return;
+                }
                 this.allClients.forEach((client, index) => {
                     if (client.name === info.name && client.mail === info.mail) {
                         this.allClients[index] = result;
@@ -121,7 +124,8 @@ export class ManagerGestionClientComponent {
 
     checkIsUnique(name: string, mail: string): boolean {
         let count = 0;
-        this.allClients.forEach((client) => {
+        let allClients = this.allClients;
+        allClients.forEach((client) => {
             if (client.name === name && client.mail === mail) {
                 count += 1;
             }

@@ -51,6 +51,20 @@ $test2: #888585;
     margin-bottom: 30px;
 }
 
+.content-big-grid-modals {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "input input"
+    "input input"
+    "input input"
+    "button button";
+    gap: 30px;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
 .content-input-modals {
     width: 100%;
 }

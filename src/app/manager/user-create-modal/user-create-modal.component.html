@@ -1,32 +1,32 @@
-<div ngClass="container-userCreateModal">
-    <div ngClass="container-title-userCreateModal">
-        <h1 ngClass="title-userCreateModal">Création d'un nouvel utilisateur</h1>
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Création d'un nouvel utilisateur</h1>
     </div>
 
-    <div ngClass="content-userCreateModal">
-        <div ngClass="container-input-userCreateModal">
-            <mat-form-field ngClass="content-input-userCreateModal">
-                <mat-label ngClass="title-input-userCreateModal">Rôles</mat-label>
-                <mat-select ngClass="container-selectInput-userCreateModal" placeholder="Sélectionnez" [(value)]="roles"
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Rôles</mat-label>
+                <mat-select ngClass="container-selectInput-modals" placeholder="Sélectionnez" [(value)]="roles"
                     multiple [required]="true">
-                    <mat-option ngClass="option-selectInput-userCreateModal" *ngFor="let role of rolesList"
+                    <mat-option ngClass="option-selectInput-modals" *ngFor="let role of rolesList"
                         [value]="role">{{ role.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-userCreateModal">
-            <mat-form-field ngClass="content-input-userCreateModal">
-                <mat-label ngClass="title-input-userCreateModal">Nom</mat-label>
-                <input matInput ngClass="input-userCreateModal" placeholder="Ex. Pierre" [(ngModel)]="name" name="name"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre" [(ngModel)]="name" name="name"
                     [required]="true">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-userCreateModal">
-            <mat-form-field ngClass="content-input-userCreateModal">
-                <mat-label ngClass="title-input-userCreateModal">Email</mat-label>
-                <input matInput ngClass="input-userCreateModal" placeholder="Ex. Pierre@mail.com" [(ngModel)]="email"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Email</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre@mail.com" [(ngModel)]="email"
                     name="email" #emailField="ngModel" [required]="true">
             </mat-form-field>
             <!-- <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
@@ -35,10 +35,10 @@
             </div> -->
         </div>
 
-        <div ngClass="container-button-userCreateModal">
-            <button ngClass="cancel button-userCreateModal" mat-raised-button color="warn"
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>
-            <button ngClass="validate button-userCreateModal" mat-raised-button color="primary"
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
                 (click)="createUser()">Valider</button>
         </div>
     </div>

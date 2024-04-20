@@ -17,7 +17,7 @@ export class EditClientComponent {
     }
 
     close(): void {
-        this.dialogRef.close();
+        this.dialogRef.close(false);
     }
 
     checkData() {
