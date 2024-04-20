@@ -1,30 +1,29 @@
-<div ngClass="container-addClientModal">
-    <div ngClass="container-title-addClientModal">
-        <h1 ngClass="title-addClientModal">Ajouter un client</h1>
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Création d'un Client</h1>
     </div>
 
-    <div ngClass="content-addClientModal">
-        <div ngClass="container-input-addClientModal">
-            <mat-form-field ngClass="content-input-addClientModal">
-                <mat-label ngClass="title-input-addClientModal">Nom:</mat-label>
-                <input matInput ngClass="input-addClientModal" placeholder="Ex. Smith ou Netflix" [(ngModel)]="name"
-                    name="name" [required]="true">
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. John"
+                    [(ngModel)]="name" name="name" [required]="true">
             </mat-form-field>
         </div>
 
-        <div ngClass="container-input-addClientModal">
-            <mat-form-field ngClass="content-input-addClientModal">
-                <mat-label ngClass="title-input-addClientModal">Adresse mail:</mat-label>
-                <input matInput ngClass="input-addClientModal"
-                    placeholder="Ex. example@gmail.com" [(ngModel)]="mail" name="mail"
-                    [required]="true">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Adresse mail:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. smith@gmail.com"
+                    [(ngModel)]="mail" name="mail" [required]="true">
             </mat-form-field>
         </div>
-
-        <div ngClass="container-button-addClientModal">
-            <button ngClass="cancel button-addClientModal" mat-raised-button color="warn"
+    
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>
-            <button ngClass="validate button-addClientModal" mat-raised-button color="primary"
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
                 (click)="addClient()">Valider</button>
         </div>
     </div>

@@ -1,34 +1,34 @@
-<div ngClass="container-companyUpdateModal">
-    <div ngClass="container-title-companyUpdateModal">
-        <h1 ngClass="title-companyUpdateModal">Mise à jour de l'entreprise</h1>
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Mise à jour de l'entreprise</h1>
     </div>
 
-    <div ngClass="content-companyUpdateModal">
-        <div ngClass="container-inputs-companyUpdateModal">
-            <div ngClass="container-input-companyUpdateModal">
-                <mat-form-field ngClass="content-input-companyUpdateModal">
-                    <mat-label ngClass="title-input-companyUpdateModal">Nom de l'entreprise</mat-label>
-                    <input matInput ngClass="input-companyUpdateModal" placeholder="Ex. Diagora"
+    <div ngClass="content-modals">
+        <div ngClass="container-inputs-modals">
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Nom de l'entreprise</mat-label>
+                    <input matInput ngClass="input-modals" placeholder="Ex. Diagora"
                         [(ngModel)]="company_name" name="name" [required]="true">
                 </mat-form-field>
-                <p ngClass="error-message-input-companyUpdateModal" *ngIf="errorMessage !== ''">*{{errorMessage}}</p>
+                <p ngClass="error-message-input-modals" *ngIf="errorMessage !== ''">*{{errorMessage}}</p>
             </div>
-            <div ngClass="container-input-companyUpdateModal">
-                <mat-form-field ngClass="content-input-companyUpdateModal">
-                    <mat-label ngClass="title-input-companyUpdateModal">Adresse de l'entreprise</mat-label>
-                    <input matInput ngClass="input-companyUpdateModal"
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Adresse de l'entreprise</mat-label>
+                    <input matInput ngClass="input-modals"
                         placeholder="Ex. 3 Rue Pierre, Montpellier, 34000, France" [(ngModel)]="company_address"
                         name="address" [required]="true">
                 </mat-form-field>
-                <p ngClass="error-message-input-companyUpdateModal" *ngIf="errorMessage !== ''">*{{errorMessage}}</p>
+                <p ngClass="error-message-input-modals" *ngIf="errorMessage !== ''">*{{errorMessage}}</p>
             </div>
         </div>
 
-        <div ngClass="container-button-companyUpdateModal">
-            <button ngClass="cancel button-companyUpdateModal" mat-raised-button color="warn" (click)="close()">
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn" (click)="close()">
                 Annuler
             </button>
-            <button ngClass="validate button-companyUpdateModal" mat-raised-button color="primary"
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
                 (click)="updateCompany()">
                 Valider
             </button>
