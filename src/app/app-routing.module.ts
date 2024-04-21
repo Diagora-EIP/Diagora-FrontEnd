@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { CarteComponent } from './carte/carte.component';
@@ -20,7 +19,7 @@ import { ManagerGestionClientComponent } from './manager/manager-gestion-client/
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'schedule', pathMatch: 'full' },
     {
         path: '', canActivate: [AuthLeftGuard], children: [
             { path: 'login', component: LoginComponent },
@@ -33,7 +32,6 @@ const routes: Routes = [
         path: '', canActivate: [AuthGuard], children: [
             { path: 'carte', component: CarteComponent },
             { path: 'profile', component: ProfileComponent },
-            { path: 'home', component: HomeComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
         ],
@@ -69,7 +67,7 @@ const routes: Routes = [
             permission: ['admin']
         }
     },
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'schedule' }
 ];
 
 @NgModule({
