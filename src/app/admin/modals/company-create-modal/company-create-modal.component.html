@@ -1,0 +1,42 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Création d'une nouvelle entreprise</h1>
+    </div>
+
+    <div ngClass="content-modals">
+        <div ngClass="container-inputs-modals">
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Nom de l'entreprise</mat-label>
+                    <input matInput ngClass="input-modals" placeholder="Ex. Diagora" [(ngModel)]="name"
+                        name="name" [required]="true">
+                </mat-form-field>
+                <p ngClass="error-message-input-modals" *ngIf="nameErrorMessage !== ''">
+                    *{{nameErrorMessage}}
+                </p>
+            </div>
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Adresse de l'entreprise</mat-label>
+                    <input matInput ngClass="input-modals"
+                        placeholder="Ex. 3 Rue Pierre, Montpellier, 34000, France" [(ngModel)]="address" name="address"
+                        [required]="true">
+                </mat-form-field>
+                <p ngClass="error-message-input-modals" *ngIf="addressErrorMessage !== ''">
+                    *{{addressErrorMessage}}
+                </p>
+            </div>
+
+        </div>
+
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn" (click)="close()">
+                Annuler
+            </button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="createCompany()">
+                Valider
+            </button>
+        </div>
+    </div>
+</div>

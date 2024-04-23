@@ -20,7 +20,7 @@ export class AuthGuard {
                     if (route.data['permission'].some((permission: string) => this.permissionsService.hasPermission(permission)))
                         return of(true);
                     else {
-                        this.locate.back();
+                        this.router.navigate(['/login']);
                         return of(false);
                     }
 
@@ -30,7 +30,7 @@ export class AuthGuard {
             }),
             catchError(() => {
                 this.router.navigate(['/login']);
-                return of(false);
+                return of(true);
             })
         );
     }
@@ -44,9 +44,15 @@ export class AuthLeftGuard {
 
     canActivate(): boolean {
         if (localStorage.getItem('token')) {
-            this.permissionsService.refreshPermissions();
-            this.router.navigate(['/home']);
-            return false;
+            this.permissionsService.refreshPermissions().pipe(
+                switchMap(() => {
+                    this.router.navigate(['/home']);
+                    return of(false);
+                }),
+                catchError(() => {
+                    return of(true);
+                })
+            );
         }
         return true;
     }

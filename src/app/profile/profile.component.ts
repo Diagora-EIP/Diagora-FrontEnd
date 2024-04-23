@@ -5,6 +5,7 @@ import { SecurityService } from '../services/security.service';
 import { UserService } from '../services/user.service';
 import { ManagerService } from '../services/manager.service';
 import { PermissionsService } from '../services/permissions.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
     selector: 'app-profile',
@@ -24,7 +25,8 @@ export class ProfileComponent {
         private securityService: SecurityService,
         private userService: UserService,
         private managerService: ManagerService,
-        public permissionsService: PermissionsService
+        public permissionsService: PermissionsService,
+        private snackBarService: SnackbarService
     ) {
         this.userInformationFrom = this.fb.group({
             email: [
@@ -63,6 +65,7 @@ export class ProfileComponent {
                 console.log(res);
                 localStorage.setItem('email', res.email);
                 localStorage.setItem('name', res.name);
+                this.snackBarService.successSnackBar('Vos informations ont été mises à jour avec succès');
             },
             (err) => {
                 console.log(err);
@@ -84,6 +87,7 @@ export class ProfileComponent {
         this.userService.updatePassword(body).subscribe(
             (res) => {
                 console.log(res);
+                this.snackBarService.successSnackBar('Votre mot de passe a été mis à jour avec succès');
                 this.formPassword.reset();
             },
             (err) => {
@@ -121,5 +125,6 @@ export class ProfileComponent {
         localStorage.removeItem('entrepriseId');
         this.permissionsService.deleteUserPermissions();
         this.router.navigate(['/login']);
+        this.snackBarService.successSnackBar('Vous avez été déconnecté avec succès');
     }
 }

@@ -1,0 +1,33 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modification de {{ user.email }}</h1>
+    </div>
+
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Rôles</mat-label>
+                <mat-select ngClass="container-selectInput-modals" placeholder="Sélectionnez"
+                    [(value)]="selectedRoles" multiple [required]="true">
+                    <mat-option ngClass="option-selectInput-modals" *ngFor="let role of getRolesListName()"
+                        [value]="role">{{ role }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre" [(ngModel)]="user.name"
+                    name="name" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="updateUser()">Valider</button>
+        </div>
+    </div>
+</div>

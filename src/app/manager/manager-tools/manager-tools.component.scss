@@ -1,0 +1,13 @@
+.coming-soon {
+    font-style: italic;
+    color: rgba(128, 128, 128, 0.7);
+    /* light gray with 70% opacity */
+    font-size: 32px;
+    /* adjust size as needed */
+    text-align: center;
+    /* center the text horizontally */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

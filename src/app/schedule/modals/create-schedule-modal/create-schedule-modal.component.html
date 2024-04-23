@@ -1,0 +1,82 @@
+<!-- create-schedule-modal.component.html -->
+
+<h2 mat-dialog-title>Ajouter une commande</h2>
+
+<div mat-dialog-content>
+    <form [formGroup]="scheduleForm">
+        <!-- Date picker -->
+        <mat-form-field class="full-width">
+            <mat-label>Jour de livraison :</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="deliveryDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Time picker (custom implementation or third-party library) -->
+        <!-- For example, you can use a simple input for time -->
+        <mat-form-field class="full-width">
+            <mat-label>Heure de livraison :</mat-label>
+            <input matInput type="time" formControlName="deliveryTime" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Description :</mat-label>
+            <input matInput placeholder="Description" formControlName="description" required #descriptionInput autofocus>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Clients</mat-label>
+            <mat-select formControlName="client">
+                <mat-option *ngFor="let client of clientsList" [value]="client" (click)="updateAdress(client)"> 
+                    <div class="clientSelct">
+                        <h3>{{client.email}}</h3>
+                        <p>{{client.address}}</p>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Adresse de livraison :</mat-label>
+            <textarea matInput formControlName="deliveryAddress" required></textarea>
+        </mat-form-field>
+    </form>
+    <button (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
+    <form [formGroup]="newClientForm" *ngIf="displayNewClient">
+        <mat-form-field class="full-width">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Entreprise</mat-label>
+            <input matInput formControlName="surname" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>email</mat-label>
+            <input matInput formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>address</mat-label>
+            <input matInput formControlName="address" required>
+        </mat-form-field>
+        <div *ngIf="displayClientAlreadyExists">
+            <p>Client déjà existant</p>
+            <p>Voulez-vous tout de meme l'ajouter ?</p>
+            <div>
+                <button (click)="createClient()" class="addOrDelete">Oui</button>
+                <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists" class="addOrDelete">Non</button>
+            </div>
+        </div>
+        <button (click)="addNewClient()" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Ajouter</button>
+        <button (click)="displayNewClient = !displayNewClient" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Annuler</button>
+    </form>
+
+    <!-- Display error message -->
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="submitForm()">Ajouter</button>
+    <button mat-button (click)="closeDialog()">Fermer</button>
+</div>

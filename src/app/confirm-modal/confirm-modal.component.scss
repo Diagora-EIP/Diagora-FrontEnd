@@ -1,0 +1,55 @@
+$font-color: #01ABA8;
+$test2: #888585;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 35vw;
+    overflow: hidden;
+}
+
+.container-title {
+    width: 80%;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 30px;
+    margin-bottom: 20px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.content {
+    display: grid;
+    width: 80%;
+    justify-items: center;
+    margin-bottom: 30px;
+}
+
+
+.title-input {
+    color: $font-color;
+    font-weight: bold;
+}
+
+.container-button {
+    display: flex;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.button {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

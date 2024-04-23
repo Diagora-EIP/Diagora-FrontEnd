@@ -1,43 +1,51 @@
-
 <div class="navbar-wrapper">
     <nav class="navbar">
+        <a routerLink="/" routerLinkActive="active">
+            <div class="logo-container">
+                <img class="logo" src="../../assets/logo.png" alt="Home">
+            </div>
+        </a>
 
-            <a routerLink="/" routerLinkActive="active">
-                <div class="logo-container">
-                    <img class="logo" src="../../assets/logo.png" alt="Home">
-                </div>
-            </a>
+        <ul class="left-nav-links">
+            <li *ngIf="checkPermission('user')" routerLink="/schedule" class="contentBox" routerLinkActive="active">
+                <a>Calendrier</a>
+            </li>
+            <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
+                <a>Commandes</a>
+            </li>
+            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/vehicule" class="contentBox" routerLinkActive="active">
+                <a>Vehicules</a>
+            </li>
+            <li *ngIf="checkPermission('admin')" routerLink="/statistic" class="contentBox" routerLinkActive="active">
+                <a>Statistiques</a>
+            </li>
+            <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
+                <a>Carte</a>
+            </li>
 
-            <ul class="left-nav-links">
-                <li *ngIf="checkPermission('user')" routerLink="/schedule" class="contentBox" routerLinkActive="active">
-                    <a>Calendrier</a>
-                </li>
-                <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
-                    <a>Commandes</a>
-                </li>
-                <li *ngIf="checkPermission('manager')" routerLink="/vehicule" class="contentBox" routerLinkActive="active">
-                    <a>Vehicules</a>
-                </li>
-                <li *ngIf="checkPermission('admin')" routerLink="/statistic" class="contentBox" routerLinkActive="active">
-                    <a>Statistiques</a>
-                </li>
-                <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
-                    <a>Carte</a>
-                </li>
-                <li *ngIf="checkPermission('manager')" routerLink="/manager/userList" class="contentBox" routerLinkActive="active">
-                    <a>Manager Panel</a>
-                </li>
-                <li *ngIf="checkPermission('admin')" routerLink="/admin/userList" class="contentBox" routerLinkActive="active">
-                    <a>Admin Panel</a>
-                </li>
-                
-            </ul>
-            <ul class="right-nav-links">
-                <li routerLink="/profile" class="profile-button" routerLinkActive="active">
-                    <a matTooltip="Profile">
-                        <mat-icon>account_circle</mat-icon>
-                    </a>
-                </li>
-            </ul>
+            <li *ngIf="checkPermission('manager')" class="contentBox">
+                <mat-menu #managerMenu="matMenu" [overlapTrigger]="false" (closed)="toggleMenu()">
+                    <button mat-menu-item routerLink="manager/userList">Gestion Livreurs</button>
+                    <button mat-menu-item routerLink="manager/gestion-client">Gestion clients</button>
+                    <button mat-menu-item routerLink="/manager/tools">Outils</button>
+                </mat-menu>
+                <button mat-button
+                [matMenuTriggerFor]="managerMenu"
+                [class.menu-open]="isMenuOpen"
+                class="dropdown">
+                    MANAGER PANEL <mat-icon class="arrow-icon">keyboard_arrow_down</mat-icon>
+                </button>
+            </li>
+            <li *ngIf="checkPermission('admin')" routerLink="/admin/userList" class="contentBox" routerLinkActive="active">
+                <a>Admin Panel</a>
+            </li>
+        </ul>
+        <ul class="right-nav-links">
+            <li routerLink="/profile" class="profile-button" routerLinkActive="active">
+                <a matTooltip="Profile">
+                    <mat-icon>account_circle</mat-icon>
+                </a>
+            </li>
+        </ul>
     </nav>
 </div>
