@@ -50,6 +50,7 @@ import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ClientComponent } from './client/client.component';
 import { ManagerComponent } from './manager/manager.component';
 import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
@@ -91,6 +92,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,
+        ClientComponent,
         ManagerComponent,
         ManagerGestionClientComponent,
         ManagerToolsComponent,

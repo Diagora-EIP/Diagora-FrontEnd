@@ -17,9 +17,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ManagerComponent } from './manager/manager.component';
 import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
+import { ClientComponent } from './client/client.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'schedule', pathMatch: 'full' },
+    { path: 'client/:token', component: ClientComponent},
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: '', canActivate: [AuthLeftGuard], children: [
             { path: 'login', component: LoginComponent },

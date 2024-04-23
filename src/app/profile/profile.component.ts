@@ -122,6 +122,7 @@ export class ProfileComponent {
         localStorage.removeItem('addressEntreprise');
         localStorage.removeItem('users');
         localStorage.removeItem('addressId');
+        localStorage.removeItem('entrepriseId');
         this.permissionsService.deleteUserPermissions();
         this.router.navigate(['/login']);
         this.snackBarService.successSnackBar('Vous avez été déconnecté avec succès');
