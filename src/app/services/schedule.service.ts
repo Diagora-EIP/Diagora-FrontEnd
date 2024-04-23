@@ -70,6 +70,14 @@ export class ScheduleService {
         );
     }
 
+    createScheduleByUser(user_id: number, scheduleData: any): Observable<any> {
+        return this.http.post<any>(
+            `${this.apiUrl}/schedule/create/with-user-id/${user_id}`,
+            scheduleData,
+            this.header
+        );
+    }
+
     deleteSchedule(scheduleId: number): Observable<any> {
         return this.http.delete<any>(
             `${this.apiUrl}/schedule/delete/${scheduleId}`,

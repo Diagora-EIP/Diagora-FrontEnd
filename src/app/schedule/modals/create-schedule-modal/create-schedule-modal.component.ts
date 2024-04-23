@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleService } from '../../../services/schedule.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { tap } from 'rxjs';
+import { PermissionsService } from '../../../services/permissions.service';
 
 @Component({
     selector: 'app-create-schedule-modal',
@@ -17,13 +18,15 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
     scheduleForm: FormGroup;
     errorMessage: string = '';
+    userName: string = '';
 
     constructor(
         public dialogRef: MatDialogRef<CreateScheduleModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
         private scheduleService: ScheduleService,
-        private snackBarService: SnackbarService
+        private snackBarService: SnackbarService,
+        private permissionsService: PermissionsService
     ) {
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(this.data.start), Validators.required],
@@ -31,6 +34,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
+        this.userName = this.data.currUser.name;
     }
 
     ngAfterViewInit(): void {
@@ -57,18 +61,35 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 description,
                 delivery_address,
             };
-            this.scheduleService.createSchedule(newSchedule).pipe(
-                tap({
-                    next: data => {
-                        this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
-                        this.closeDialog();
-                    },
-                    error: error => {
-                        console.log(error);
-                        this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
-                        this.closeDialog();
-                    }
-                })).subscribe();
+            if (!this.checkPermission('manager')) {
+                console.log("i am not manager so I use this route")
+                this.scheduleService.createSchedule(newSchedule).pipe(
+                    tap({
+                        next: data => {
+                            this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                            this.closeDialog();
+                        },
+                        error: error => {
+                            console.log(error);
+                            this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
+                            this.closeDialog();
+                        }
+                    })).subscribe();
+            } else {
+                console.log("here asking for another user other then me")
+                this.scheduleService.createScheduleByUser(this.data.currUser.user_id, newSchedule).pipe(
+                    tap({
+                        next: data => {
+                            this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                            this.closeDialog();
+                        },
+                        error: error => {
+                            console.log(error);
+                            this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
+                            this.closeDialog();
+                        }
+                    })).subscribe();
+            }
         }
     }
 
@@ -82,5 +103,12 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
     closeDialog(): void {
         this.dialogRef.close();
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem('token') === null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
     }
 }

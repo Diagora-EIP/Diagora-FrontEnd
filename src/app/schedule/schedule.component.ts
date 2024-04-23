@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface User {
     name: string;
@@ -41,15 +42,20 @@ export class ScheduleComponent implements OnInit {
     users: any[] = [];
     customHeaderText: string = localStorage.getItem('name') || '';
     currUser: User = { name: '', user_id: 0};
+    loading: boolean = false;
+    updatingEvents: boolean = false;
+
 
     constructor(
         private scheduleService: ScheduleService,
         private managerService: ManagerService,
         private permissionsService: PermissionsService,
         private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+        private cdref: ChangeDetectorRef
 
     ) {
+        
     }
 
     calendarOptions: CalendarOptions = {
@@ -89,12 +95,13 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-		this.calendarOptions.events = [];
-		this.fullcalendar.getApi().refetchEvents();
+        this.cdref.detectChanges();
+        this.calendarOptions.events = [];
+        this.fullcalendar.getApi().refetchEvents();
         this.calendarApi = this.fullcalendar.getApi();
         this.currentStartDate = this.calendarApi.view.currentStart;
         this.currentEndDate = this.calendarApi.view.currentEnd;
-        this.getSchedule();
+        // this.getSchedule();
     }
 
     onDateSelected(event: any): void {
@@ -102,35 +109,43 @@ export class ScheduleComponent implements OnInit {
         // This method should be defined in your component
     }
 
-    loading: boolean = false;
-
     getSchedule() {
+        console.trace('getSchedule() was called by:');
         this.loading = true;
         const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) || new Date().toISOString();
         const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) || new Date().toISOString();
+        if (this.updatingEvents === false) {
+            this.updatingEvents = true;
+            this.scheduleService
+                .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
+                .pipe(
+                    tap({
+                        next: (data: any) => {
+                            this.loading = false;
+                            this.updatingEvents = true;
 
-        this.scheduleService
-            .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
-            .pipe(
-                tap({
-                    next: (data: any) => {
-                        this.loading = false;
-                        if (!data || data.length === 0) {
-                            this.calendarOptions.events = [];
-                            return;
+                            if (!data || data.length === 0) {
+                                this.calendarOptions.events = [];
+                                return;
+                            }
+
+                            this.calendarOptions.events = data.map((event: any) =>
+                                this.mapScheduleToEvent(event)
+                            );
+                            
+                        },
+                        error: (err) => {
+                            this.loading = false; // Set loading to false on error too
+                            this.updatingEvents = false;
+                        },
+                        complete: () => {
+                            this.loading = false; // Set loading to false on completion too
+                            this.updatingEvents = false;
                         }
-
-                        this.calendarOptions.events = data.map((event: any) =>
-                            this.mapScheduleToEvent(event)
-                        );
-                        this.fullcalendar.getApi().refetchEvents();
-                    },
-                    error: (err) => {
-                        this.loading = false; // Set loading to false on error too
-                    },
-                })
-            )
-            .subscribe();
+                    })
+                )
+                .subscribe();
+        }
     }
 
     getScheduleByUser() {
@@ -144,14 +159,14 @@ export class ScheduleComponent implements OnInit {
             new Date().toISOString();
 
         const user_id = this.userList.find(
-            (user) => user.name === this.managerControl.value
+            (user) => user.name === this.managerControl.value.name && user.user_id === this.managerControl.value.user_id
         )?.user_id;
 
         if (user_id === undefined) {
             return;
         }
 
-        this.customHeaderText = this.managerControl.value;
+        this.customHeaderText = this.managerControl.value.name;
 
         this.scheduleService
             .getScheduleBetweenDatesByUser(
@@ -250,16 +265,19 @@ export class ScheduleComponent implements OnInit {
 				status,
 				manager: this.checkPermission('manager'),
 				user:	this.userList.find(
-							(user) => user.name === this.managerControl.value
+							(user) => user.name === this.managerControl.value.name
 						)
 			}
         });
+
+
 
 		dialogRef.afterClosed().subscribe(result => {
             // Handle the result if needed (e.g., check if the user submitted the form)
 			if (this.checkPermission('manager')) {
 				this.getScheduleByUser();
 			} else {
+                console.log("here eventlcick")
 				this.getSchedule();
 			}
         });
@@ -277,8 +295,8 @@ export class ScheduleComponent implements OnInit {
                     const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
                     return nameCondition && idCondition;
                 });
-                this.managerControl.setValue(this.currUser.name);
-            });
+                this.managerControl.setValue(this.currUser);
+            })
     }
 
     // Function to filter managers based on user input
@@ -294,9 +312,14 @@ export class ScheduleComponent implements OnInit {
         );
     }
 
-    // Event handler for manager selection
+    displayManager(manager: any): string {
+        return manager ? manager.name : '';
+    }
+
     onManagerSelected(event: any): void {
         const selectedManager = event.option.value;
+        console.log('Selected manager:', selectedManager);
+        this.currUser = {name: selectedManager.name, user_id: selectedManager.user_id};
     }
 
     checkPermission(permission: string): boolean {
@@ -312,6 +335,7 @@ export class ScheduleComponent implements OnInit {
 
         this.currentStartDate = visibleStart;
         this.currentEndDate = visibleEnd;
+        console.log("loopping ????", this.updatingEvents)
 
         if (this.checkPermission('manager')) {
             this.getScheduleByUser();
@@ -331,7 +355,7 @@ export class ScheduleComponent implements OnInit {
         // Open the modal for event creation
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
             width: '400px',
-            data: { start, end }
+            data: { start, end, currUser: this.currUser }
         });
 
         dialogRef.afterClosed().subscribe(result => {
