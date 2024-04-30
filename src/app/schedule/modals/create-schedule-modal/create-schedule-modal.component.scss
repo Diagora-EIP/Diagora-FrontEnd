@@ -1,61 +1,36 @@
 /* create-schedule-modal.component.scss */
+@import "../../../../modals.scss";
 
-// Overall modal styles
-:host {
-    display: block;
-}
+.content-space-around-modals-custom {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "div div"
+    "button button";
+    gap: 30px;
+    justify-content: space-around;
+    margin-bottom: 30px;
 
-mat-dialog-content {
-    margin-top: 15px;
-}
-
-.full-width {
-    width: 100%;
-}
-
-// Form field styles
-mat-form-field {
-    width: 100%;
-    margin-bottom: 15px;
-
-    // Input styles
-    input,
-    textarea {
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
-// Button styles
-mat-dialog-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-
-    button {
-        min-width: 100px;
-    }
-}
-
-.error-message {
-    color: red;
-    margin-top: 10px;
 }
 
 .AddClientButton {
     margin-bottom: 10px;
     width: 100%;
-    background-color: white;
     padding: 5px;
     border: none;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
-    &:hover {
-        background-color: #f5f5f5;
-    }
+    background-color: #f5f5f5;
+    transition: background-color 0.3s, font-size 0.3s; /* Add transition for smooth effect */
 }
+
+.AddClientButton:hover {
+    background-color: #e0e0e0; /* Darker background color on hover */
+    font-size: 16px; /* Increase font size on hover */
+}
+
 
 .addOrDelete {
     margin-bottom: 10px;
