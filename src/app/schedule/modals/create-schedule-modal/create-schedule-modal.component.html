@@ -1,6 +1,6 @@
 <!-- create-schedule-modal.component.html -->
 
-<h2 mat-dialog-title>Ajouter une commande</h2>
+<h2 mat-dialog-title>Ajouter une commande pour {{ userName }}</h2>
 
 <div mat-dialog-content>
     <form [formGroup]="scheduleForm">
@@ -12,8 +12,6 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <!-- Time picker (custom implementation or third-party library) -->
-        <!-- For example, you can use a simple input for time -->
         <mat-form-field class="full-width">
             <mat-label>Heure de livraison :</mat-label>
             <input matInput type="time" formControlName="deliveryTime" required>
@@ -78,5 +76,5 @@
 
 <div mat-dialog-actions>
     <button mat-button (click)="submitForm()">Ajouter</button>
-    <button mat-button (click)="closeDialog()">Fermer</button>
+    <button mat-button (click)="closeDialog(null)">Fermer</button>
 </div>
