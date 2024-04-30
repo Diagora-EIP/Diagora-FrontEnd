@@ -5,7 +5,7 @@
     </div>
     
     <div ngClass="content-space-around-modals-custom">
-        <form [formGroup]="scheduleForm">
+        <form [formGroup]="scheduleForm" [ngClass]="{'expanded-form': !displayNewClient, 'collapsed-form': displayNewClient}">
             <!-- Date picker -->
             <div ngClass="container-input-modals"> 
                 <mat-form-field ngClass="content-input-modals">
@@ -47,43 +47,46 @@
                     <textarea matInput formControlName="deliveryAddress" required></textarea>
                 </mat-form-field>
             </div>
+            <button  (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
         </form>
-        <button *ngIf="!displayNewClient" (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
         <form [formGroup]="newClientForm" *ngIf="displayNewClient">
-            <div ngClass="container-input-modals">
-                <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">Nom</mat-label>
-                    <input matInput formControlName="name" required>
-                </mat-form-field>
-            </div>
-            <div ngClass="container-input-modals">
-                <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">Entreprise</mat-label>
-                    <input matInput formControlName="surname" required>
-                </mat-form-field>
-            </div>
-            <div ngClass="container-input-modals">
-                <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">email</mat-label>
-                    <input matInput formControlName="email" required>
-                </mat-form-field>
-            </div>
-            <div ngClass="container-input-modals">
-                <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">address</mat-label>
-                    <input matInput formControlName="address" required>
-                </mat-form-field>
-            </div>
-            <div *ngIf="displayClientAlreadyExists">
-                <p>Client déjà existant</p>
-                <p>Voulez-vous tout de meme l'ajouter ?</p>
-                <div>
-                    <button (click)="createClient()" class="addOrDelete">Oui</button>
-                    <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists" class="addOrDelete">Non</button>
+            <fieldset>
+                <legend>Ajouter un client</legend>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">Nom</mat-label>
+                        <input matInput formControlName="name" required>
+                    </mat-form-field>
                 </div>
-            </div>
-            <button (click)="addNewClient()" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Ajouter</button>
-            <button (click)="displayNewClient = !displayNewClient" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Annuler</button>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">Entreprise</mat-label>
+                        <input matInput formControlName="surname" required>
+                    </mat-form-field>
+                </div>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">email</mat-label>
+                        <input matInput formControlName="email" required>
+                    </mat-form-field>
+                </div>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">address</mat-label>
+                        <input matInput formControlName="address" required>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="displayClientAlreadyExists">
+                    <p>Client déjà existant</p>
+                    <p>Voulez-vous tout de meme l'ajouter ?</p>
+                    <div>
+                        <button (click)="createClient()" class="addOrDelete">Oui</button>
+                        <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists" class="addOrDelete">Non</button>
+                    </div>
+                </div>
+                <button mat-button color="primary" (click)="addNewClient()" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Ajouter</button>
+                <button mat-button color="warn" (click)="displayNewClient = !displayNewClient" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Annuler</button>
+            </fieldset>
         </form>
         <!-- Display error message -->
         <div *ngIf="errorMessage" class="error-message">
