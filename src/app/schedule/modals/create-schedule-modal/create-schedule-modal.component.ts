@@ -42,7 +42,6 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
         this.userName = this.data.currUser.name;
-
         this.newClientForm = this.fb.group({
             name: [data.name, Validators.required],
             surname: [data.surname, Validators.required],
@@ -52,25 +51,27 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
         this.getClients();
     }
-    
+
     updateAdress(client: any){
-        console.log("updateAdress", client)
         this.scheduleForm.patchValue({
             deliveryAddress: client.address
         });
     }
 
     getClients() {
-        this.clientService.getAllClientsByCompany().subscribe(
-            (res) => {
-                console.log(res);
-                this.clientsList = res;
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
 
+        this.clientService
+            .getAllClientsByCompany()
+            .pipe(
+                tap({
+                    next: data => {
+                        this.clientsList = data;
+                    },
+                    error: error => {
+                        console.log(error);
+                    }
+                })
+        ).subscribe();
     }
 
     addNewClient() {
@@ -99,8 +100,9 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             email: formData.email,
             address: formData.address,
         };
-        this.clientService.createClient(newClient).subscribe(
-            (res) => {
+        this.clientService.
+            createClient(newClient).subscribe(
+                (res) => {
                 console.log(res);
                 // Check the HTTP status
                 if (res.status && res.status !== 201) {
@@ -117,7 +119,6 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         // Focus the description input field when the modal opens
-        this.descriptionInput.nativeElement.focus();
         
     }
 
@@ -142,31 +143,29 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 client_id: client.client_id,
             };
             if (!this.checkPermission('manager')) {
-                console.log("i am not manager so I use this route")
                 this.scheduleService.createSchedule(newSchedule).pipe(
                     tap({
                         next: data => {
                             this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
-                            this.closeDialog();
+                            this.closeDialog(data);
                         },
                         error: error => {
                             console.log(error);
                             this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
-                            this.closeDialog();
+                            this.closeDialog(error);
                         }
                     })).subscribe();
             } else {
-                console.log("here asking for another user other then me")
                 this.scheduleService.createScheduleByUser(this.data.currUser.user_id, newSchedule).pipe(
                     tap({
                         next: data => {
                             this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
-                            this.closeDialog();
+                            this.closeDialog(data);
                         },
                         error: error => {
                             console.log(error);
                             this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
-                            this.closeDialog();
+                            this.closeDialog(error);
                         }
                     })).subscribe();
             }
@@ -181,8 +180,8 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         return combinedDateTime.toISOString();
     }
 
-    closeDialog(): void {
-        this.dialogRef.close();
+    closeDialog(dataToSend: any): void {
+        this.dialogRef.close(dataToSend);
     }
 
     checkPermission(permission: string): boolean {

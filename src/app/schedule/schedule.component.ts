@@ -1,4 +1,3 @@
-// full-calendar.component.ts
 import { ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Component } from '@angular/core';
@@ -18,6 +17,9 @@ import { CreateScheduleModalComponent } from './modals/create-schedule-modal/cre
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { NgZone } from '@angular/core';
+
 
 interface User {
     name: string;
@@ -28,6 +30,7 @@ interface User {
     selector: 'app-full-calendar',
     templateUrl: 'schedule.component.html',
     styleUrls: ['schedule.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScheduleComponent implements OnInit {
     @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
@@ -44,34 +47,53 @@ export class ScheduleComponent implements OnInit {
     currUser: User = { name: '', user_id: 0};
     loading: boolean = false;
     updatingEvents: boolean = false;
-
+    events = [];
 
     constructor(
         private scheduleService: ScheduleService,
         private managerService: ManagerService,
         private permissionsService: PermissionsService,
-        private router: Router,
 		private dialog: MatDialog,
-        private cdref: ChangeDetectorRef
+        private cdref: ChangeDetectorRef,
+        private ngZone: NgZone
 
     ) {
-        
     }
 
     calendarOptions: CalendarOptions = {
         initialView: 'dayGridMonth',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
-        events: [],
         editable: true,
         selectable: true,
         select: this.handleDateSelection.bind(this),
+        events: (info, successCallback, failureCallback) => {
+            this.currentStartDate = new Date(info.start.valueOf());
+            this.currentEndDate = new Date(info.end.valueOf());
+
+            let fetchEventsPromise: Promise<any>;
+
+            if (this.checkPermission('manager'))
+                fetchEventsPromise = this.getScheduleByUser();
+            else
+                fetchEventsPromise = this.getSchedule();
+
+            fetchEventsPromise
+                .then(events => {
+                    const mappedEvents = events.map((event: any) => {
+                        return this.mapScheduleToEvent(event)
+                    });
+                    successCallback(mappedEvents);
+                })
+                .catch(error => {
+                    failureCallback(error);
+                });
+        },
         headerToolbar: {
             start: 'prev,next today',
             center: 'title',
             end: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         eventClick: this.handleEventClick.bind(this),
-        datesSet: this.handleDateClick.bind(this),
         locales: [{ code: 'fr' }],
         buttonText: {
             today: "Aujourd'hui",
@@ -87,124 +109,131 @@ export class ScheduleComponent implements OnInit {
         },
     };
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void>{
         if (this.checkPermission('manager')) {
-            this.getManagerEntreprise();
+            await this.getManagerEntreprise();
         }
-        this.calendarOptions.events = [];
     }
 
     ngAfterViewInit() {
         this.cdref.detectChanges();
-        this.calendarOptions.events = [];
         this.fullcalendar.getApi().refetchEvents();
         this.calendarApi = this.fullcalendar.getApi();
         this.currentStartDate = this.calendarApi.view.currentStart;
         this.currentEndDate = this.calendarApi.view.currentEnd;
-        // this.getSchedule();
     }
 
-    onDateSelected(event: any): void {
-        // Handle date selection logic here if needed
-        // This method should be defined in your component
-    }
+    getSchedule(): Promise<any[]> {
+        return new Promise((resolve, reject) => {
 
-    getSchedule() {
-        console.trace('getSchedule() was called by:');
-        this.loading = true;
-        const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) || new Date().toISOString();
-        const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) || new Date().toISOString();
-        if (this.updatingEvents === false) {
-            this.updatingEvents = true;
-            this.scheduleService
-                .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
-                .pipe(
-                    tap({
-                        next: (data: any) => {
-                            this.loading = false;
-                            this.updatingEvents = true;
+            this.ngZone.runOutsideAngular(() => {
+                this.loading = true;
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
 
-                            if (!data || data.length === 0) {
-                                this.calendarOptions.events = [];
-                                return;
+                this.scheduleService
+                    .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
+                    .pipe(
+                        tap({
+                            next: (data: any) => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
+    
+                                if (!data || data.length === 0) {
+                                    resolve([]); // Resolve with an empty array if no events
+                                    return;
+                                }
+                                return resolve(data);
+                            },
+                            error: (err) => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
+                                reject(err); // Reject with the error if any error occurs
+                            },
+                            complete: () => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
                             }
-
-                            this.calendarOptions.events = data.map((event: any) =>
-                                this.mapScheduleToEvent(event)
-                            );
-                            
-                        },
-                        error: (err) => {
-                            this.loading = false; // Set loading to false on error too
-                            this.updatingEvents = false;
-                        },
-                        complete: () => {
-                            this.loading = false; // Set loading to false on completion too
-                            this.updatingEvents = false;
-                        }
-                    })
-                )
-                .subscribe();
-        }
+                        })
+                    )
+                    .subscribe();
+            });
+        });
     }
 
-    getScheduleByUser() {
-        const startDateFormatted =
-            (this.currentStartDate?.setHours(0, 0, 0, 0) &&
-                this.currentStartDate.toISOString()) ||
-            new Date().toISOString();
-        const endDateFormatted =
-            (this.currentEndDate?.setHours(23, 59, 59, 999) &&
-                this.currentEndDate.toISOString()) ||
-            new Date().toISOString();
+    async getScheduleByUser(): Promise<any[]> {
+        return new Promise(async (resolve, reject) => {
 
-        const user_id = this.userList.find(
-            (user) => user.name === this.managerControl.value.name && user.user_id === this.managerControl.value.user_id
-        )?.user_id;
+            this.ngZone.runOutsideAngular(async () => {
+                this.loading = true;
 
-        if (user_id === undefined) {
-            return;
-        }
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
+                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
+                    await this.getManagerEntreprise();
+                }
+                const user_id = this.currUser.user_id;
 
-        this.customHeaderText = this.managerControl.value.name;
+                if (user_id === undefined) {
+                    return;
+                }
 
-        this.scheduleService
-            .getScheduleBetweenDatesByUser(
-                startDateFormatted,
-                endDateFormatted,
-                user_id
-            )
-            .pipe(
-                tap({
-                    next: (data: any) => {
-                        localStorage.setItem(
-                            'scheduleData',
-                            JSON.stringify(data)
-                        );
+                this.customHeaderText = this.managerControl.value.name;
+                this.ngZone.runOutsideAngular(() => {
+                    this.scheduleService
+                        .getScheduleBetweenDatesByUser(
+                            startDateFormatted,
+                            endDateFormatted,
+                            user_id
+                        )
+                        .pipe(
+                            tap({
+                                next: (data: any) => {
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    if (!data || data.length === 0) {
+                                        resolve([]);
+                                        return;
+                                    }
+                                    return resolve(data);
 
-                        // Clear events if no data
-                        if (!data || data.length === 0) {
-                            this.calendarOptions.events = [];
-                            return;
-                        }
-
-                        // Update events in calendarOptions
-                        this.calendarOptions.events = data.map((event: any) =>
-                            this.mapScheduleToEvent(event)
-                        );
-                        this.fullcalendar.getApi().refetchEvents();
-                    },
-                    error: (err) => {
-                        console.error('Error fetching schedule:', err);
-                    },
-                })
-            )
-            .subscribe();
+                                },
+                                error: (err) => {
+                                    console.error('Error fetching schedule:', err);
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    reject(err);
+                                },
+                                complete: () => {
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                }
+                            })
+                        )
+                        .subscribe();
+                });
+            });
+        });
     }
 
     // Helper function to map schedule data to CalendarEvent
 	private mapScheduleToEvent(schedule: any): EventInput {
-	
 		return {
 			title: schedule.order?.description,
 			start: schedule.delivery_date,
@@ -227,11 +256,10 @@ export class ScheduleComponent implements OnInit {
 				status: schedule.status,
 			},
 		};
-	
 	}
 
     handleEventClick(info: any) {
-        // 'info' contains information about the clicked event
+
 		const extendedProps = info.event.extendedProps;
 		const start = info.event.start.toISOString();
 		const description = info.event.title
@@ -253,7 +281,7 @@ export class ScheduleComponent implements OnInit {
 		const status = extendedProps.status;
 
 		const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
-            width: '400px', // Set the desired width
+            width: '400px',
             data: {
 				start,
 				description,
@@ -264,39 +292,52 @@ export class ScheduleComponent implements OnInit {
 				actualTime,
 				status,
 				manager: this.checkPermission('manager'),
-				user:	this.userList.find(
-							(user) => user.name === this.managerControl.value.name
-						)
+				user: this.userList.find(
+						(user) => user.name === this.managerControl.value.name
+                    )
 			}
         });
 
+        let fetchEventsPromise: Promise<any>;
 
+        dialogRef.afterClosed().subscribe(result => {
+            if (this.checkPermission('manager'))
+                fetchEventsPromise = this.getScheduleByUser();
+            else
+                fetchEventsPromise = this.getSchedule();
 
-		dialogRef.afterClosed().subscribe(result => {
-            // Handle the result if needed (e.g., check if the user submitted the form)
-			if (this.checkPermission('manager')) {
-				this.getScheduleByUser();
-			} else {
-                console.log("here eventlcick")
-				this.getSchedule();
-			}
+            console.log("fetchEventsPromise:", fetchEventsPromise);
+
+            fetchEventsPromise.then(events => {
+                this.calendarOptions.events = events.map((event: any) =>
+                    this.mapScheduleToEvent(event)
+                );
+                this.fullcalendar.getApi().refetchEvents();
+            });
         });
     }
 
-    getManagerEntreprise() {
-        this.managerService
-            .getManagerEntreprise()
-            .subscribe((response: any) => {
-                this.filteredUsers = response.users;
-                this.userList = response.users;
-                this.users = response.users;
-                this.currUser = this.userList.find((user: User) => {
-                    const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
-                    const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
-                    return nameCondition && idCondition;
-                });
-                this.managerControl.setValue(this.currUser);
-            })
+    async getManagerEntreprise(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.managerService.getManagerEntreprise().subscribe({
+                next: (response: any) => {
+                    this.filteredUsers = response.users;
+                    this.userList = response.users;
+                    this.users = response.users;
+                    this.currUser = this.userList.find((user: User) => {
+                        const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
+                        const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
+                        return nameCondition && idCondition;
+                    });
+                    this.managerControl.setValue(this.currUser);
+                    resolve();
+                },
+                error: (error: any) => {
+                    console.error("Error in getManagerEntreprise():", error);
+                    reject(error);
+                }
+            });
+        });
     }
 
     // Function to filter managers based on user input
@@ -318,7 +359,6 @@ export class ScheduleComponent implements OnInit {
 
     onManagerSelected(event: any): void {
         const selectedManager = event.option.value;
-        console.log('Selected manager:', selectedManager);
         this.currUser = {name: selectedManager.name, user_id: selectedManager.user_id};
     }
 
@@ -327,21 +367,6 @@ export class ScheduleComponent implements OnInit {
             return false;
         }
         return this.permissionsService.hasPermission(permission);
-    }
-
-    handleDateClick(arg: any) {
-        const visibleStart = arg.view.activeStart;
-        const visibleEnd = arg.view.activeEnd;
-
-        this.currentStartDate = visibleStart;
-        this.currentEndDate = visibleEnd;
-        console.log("loopping ????", this.updatingEvents)
-
-        if (this.checkPermission('manager')) {
-            this.getScheduleByUser();
-        } else {
-            this.getSchedule();
-        }
     }
 
     // Inside your ScheduleComponent class
@@ -358,16 +383,29 @@ export class ScheduleComponent implements OnInit {
             data: { start, end, currUser: this.currUser }
         });
 
+        // this.fullcalendar.getApi().addEvent({
+        //     title: 'New Event',
+        //     start: start,
+        //     end: end,
+        //     allDay: false,
+        // });
+        let fetchEventsPromise: Promise<any>;
+
         dialogRef.afterClosed().subscribe(result => {
-            if (this.checkPermission('manager')) {
-                setTimeout(() => {
-                    this.getScheduleByUser();
-                }, 1000); // Delay for 1 second
-            } else {
-                setTimeout(() => {
-                    this.getSchedule();
-                }, 1000); // Delay for 1 second
-            }
+            if (!result)
+                return;
+
+            if (this.checkPermission('manager'))
+                fetchEventsPromise = this.getScheduleByUser();
+            else
+                fetchEventsPromise = this.getSchedule();
+
+            fetchEventsPromise.then(events => {
+                this.calendarOptions.events = events.map((event: any) =>
+                    this.mapScheduleToEvent(event)
+                );
+                this.fullcalendar.getApi().refetchEvents();
+            });
         });
 	}
 }
