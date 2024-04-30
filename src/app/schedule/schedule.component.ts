@@ -281,7 +281,6 @@ export class ScheduleComponent implements OnInit {
 		const status = extendedProps.status;
 
 		const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
-            width: '400px',
             data: {
 				start,
 				description,
@@ -379,7 +378,6 @@ export class ScheduleComponent implements OnInit {
 	openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
-            width: '400px',
             data: { start, end, currUser: this.currUser }
         });
 
