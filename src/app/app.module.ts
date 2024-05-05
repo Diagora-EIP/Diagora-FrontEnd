@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WebsocketComponent, WebsocketDialogComponent } from './services/websocket/websocket.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
@@ -67,6 +68,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
+        WebsocketComponent,
+        WebsocketDialogComponent,
         LoginComponent,
         ForgotPasswordComponent,
         RegisterComponent,
