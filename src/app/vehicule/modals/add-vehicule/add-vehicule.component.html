@@ -1,21 +1,48 @@
-<div ngClass="container-addVehiculeModal">
-    <div ngClass="container-title-addVehiculeModal">
-        <h1 ngClass="title-addVehiculeModal">Ajouter un véhicule</h1>
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Ajouter un véhicule</h1>
     </div>
 
-    <div ngClass="content-addVehiculeModal">
-        <div ngClass="container-input-addVehiculeModal">
-            <mat-form-field ngClass="content-input-addVehiculeModal">
-                <mat-label ngClass="title-input-addVehiculeModal">Nom du véhicule:</mat-label>
-                <input matInput ngClass="input-addVehiculeModal" placeholder="Ex. BMW" [(ngModel)]="name" name="name"
+    <div ngClass="content-big-grid-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. BMW" [(ngModel)]="name" name="name"
                     [required]="true">
             </mat-form-field>
         </div>
-    
-        <div ngClass="container-button-addVehiculeModal">
-            <button ngClass="cancel button-addVehiculeModal" mat-raised-button color="warn"
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Marque du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. BMW" [(ngModel)]="brand" name="brand"
+                    [required]="false">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Model du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. X3" [(ngModel)]="model" name="model"
+                    [required]="false">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Plaque d'immatriculation du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. AA229AA" [(ngModel)]="license"
+                    name="license" [required]="false">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Kilométrage du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. 12740" [(ngModel)]="mileage"
+                    name="mileage" [required]="false" type="number">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
                 (click)="close()">Annuler</button>
-            <button ngClass="validate button-addVehiculeModal" mat-raised-button color="primary"
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
                 (click)="addVehicule()">Valider</button>
         </div>
     </div>

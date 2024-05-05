@@ -9,6 +9,7 @@ import { ItineraryService } from '../services/itinerary.service';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { PermissionsService } from '../services/permissions.service';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
     selector: 'app-carte',
@@ -189,7 +190,6 @@ export class CarteComponent implements AfterViewInit {
                             JSON.stringify(data)
                         );
 
-                        // Clear map and routeSteps if there is no data
                         if (!data || data.length === 0) {
                             this.clearMap();
                             this.routeSteps = [];
@@ -206,21 +206,6 @@ export class CarteComponent implements AfterViewInit {
                 })
             )
             .subscribe();
-
-        // this.userService
-        //     .getUserInfos()
-        //     .pipe(
-        //         tap({
-        //             next: (data: any) => {
-        //                 console.log(data);
-        //                 this.user = data;
-        //             },
-        //             error: (err) => {
-        //                 console.error('Error fetching user:', err);
-        //             },
-        //         })
-        //     )
-        //     .subscribe();
     }
 
     getScheduleByUserId(user_id: number) {
@@ -238,7 +223,6 @@ export class CarteComponent implements AfterViewInit {
                             JSON.stringify(data)
                         );
 
-                        // Clear map and routeSteps if there is no data
                         if (!data || data.length === 0) {
                             this.clearMap();
                             this.routeSteps = [];
@@ -255,21 +239,6 @@ export class CarteComponent implements AfterViewInit {
                 })
             )
             .subscribe();
-
-        // this.userService
-        //     .getUserInfos()
-        //     .pipe(
-        //         tap({
-        //             next: (data: any) => {
-        //                 console.log(data);
-        //                 this.user = data;
-        //             },
-        //             error: (err) => {
-        //                 console.error('Error fetching user:', err);
-        //             },
-        //         })
-        //     )
-        //     .subscribe();
     }
 
     private clearMap() {
@@ -288,7 +257,11 @@ export class CarteComponent implements AfterViewInit {
         this.selectedStepIndex = null;
     }
 
+    loading: boolean = false;
+
     getItinerary(itineraryId: string) {
+        this.loading = true;
+
         if (!itineraryId || itineraryId === '0') return;
 
         this.itineraryService
@@ -296,6 +269,7 @@ export class CarteComponent implements AfterViewInit {
             .pipe(
                 tap({
                     next: (data: any) => {
+                        this.loading = false;
                         this.itineraryData = data;
                         localStorage.setItem(
                             'itineraryData',
@@ -308,6 +282,7 @@ export class CarteComponent implements AfterViewInit {
                         }
                     },
                     error: (err) => {
+                        this.loading = false;
                         console.error('Error fetching itinerary:', err);
                     },
                 })

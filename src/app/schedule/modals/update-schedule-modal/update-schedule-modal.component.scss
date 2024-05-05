@@ -1,0 +1,32 @@
+@import "../../../../modals.scss";
+
+.content-modals {
+    display: flex;
+    width: 80%;
+    gap: 30px;
+    justify-items: center;
+    margin-bottom: 30px;
+    flex-direction: column;
+}
+
+.container-inputs-modals {
+    width: 100%;
+    position: relative;
+}
+
+.container-button-modals {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    grid-area: button;
+    gap: 30px;
+}
+
+.button-modals {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

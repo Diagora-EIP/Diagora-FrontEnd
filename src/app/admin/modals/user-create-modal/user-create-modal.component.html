@@ -1,0 +1,57 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Création d'un nouvel utilisateur</h1>
+    </div>
+
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Entreprise</mat-label>
+                <mat-select ngClass="container-selectInput-modals" [(ngModel)]="selectedCompany">
+                    <mat-option ngClass="option-selectInput-modals" *ngFor="let company of companies"
+                        [value]="company">
+                        {{company.company_name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Rôles</mat-label>
+                <mat-select ngClass="container-selectInput-modals" placeholder="Sélectionnez" [(value)]="roles"
+                    multiple [required]="true">
+                    <mat-option ngClass="option-selectInput-modals" *ngFor="let role of rolesList"
+                        [value]="role">{{ role.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre" [(ngModel)]="name" name="name"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Email</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre@mail.com" [(ngModel)]="email"
+                    name="email" #emailField="ngModel" [required]="true">
+            </mat-form-field>
+            <!-- <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
+                <mat-error *ngIf="emailField.errors?.['required']">L'email est requis.</mat-error>
+                <mat-error *ngIf="emailField.errors?.['email']">L'email n'est pas valide.</mat-error>
+            </div> -->
+        </div>
+
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="createUser()">Valider</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modification d'un Client</h1>
+    </div>
+
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. John"
+                    [(ngModel)]="name" name="name" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Adresse mail:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. smith@gmail.com"
+                    [(ngModel)]="mail" name="mail" [required]="true">
+            </mat-form-field>
+        </div>
+    
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="editVehicule()">Valider</button>
+        </div>
+    </div>
+</div>
