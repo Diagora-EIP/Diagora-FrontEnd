@@ -1,0 +1,42 @@
+.websocket-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.websocket-console-actions,
+.websocket-console-subscriptions-form,
+.websocket-console-subscription,
+.websocket-console-grid {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.websocket-console-subscription {
+    align-items: center;
+
+    > button {
+    margin-left: auto;
+    }
+}
+
+.websocket-console-container {
+    flex-grow: 1;
+    width: 50%;
+
+    > h3 {
+        margin-top: 0;
+        text-align: center;
+    }
+}
+
+.websocket-console {
+    margin: 0;
+    padding: 1rem;
+    background: rgb(0 0 0 / 10%);
+    border-radius: 0.25rem;
+    white-space: pre-wrap;
+    max-height: 40vh;
+    overflow: auto;
+}

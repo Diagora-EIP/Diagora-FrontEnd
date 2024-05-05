@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Websocket Debugger</h2>
+<mat-dialog-content>
+    <div class="websocket-console-actions">
+        <button mat-flat-button color="primary" (click)="connect()" [disabled]="isConnected">Connexion</button>
+        <button mat-flat-button color="warn" (click)="disconnect()" [disabled]="!isConnected">Déconnexion</button>
+    </div>
+    <div class="websocket-console-subscriptions-form">
+        <mat-form-field>
+            <mat-label>Namespace</mat-label>
+            <input matInput placeholder="follow-up" [(ngModel)]="namespace" [disabled]="!isConnected">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Topic</mat-label>
+            <input matInput placeholder="point" [(ngModel)]="topic" [disabled]="!isConnected">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Parameters (JSON)</mat-label>
+            <input matInput placeholder='{ "user_id": 0 }' [(ngModel)]="parameters" [disabled]="!isConnected">
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="subscribe()" [disabled]="!isConnected">S'abonner</button>
+    </div>
+    <div class="websocket-console-subscriptions-list" *ngIf="subscriptions.length > 0">
+        <div *ngFor="let subscription of subscriptions">
+            <div class="websocket-console-subscription">
+                <span>{{ subscription.namespace }}</span>
+                <span>{{ subscription.topic }}</span>
+                <button mat-flat-button color="warn" (click)="unsubscribe(subscription)">
+                    Se désabonner
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="websocket-console-grid">
+        <div class="websocket-console-container">
+            <h3>Envoyé</h3>
+            <pre class="websocket-console"><code>{{ sent }}</code></pre>
+        </div>
+        <div class="websocket-console-container">
+            <h3>Reçu</h3>
+            <pre class="websocket-console"><code>{{ received }}</code></pre>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()">Fermer et se déconnecter</button>
+</mat-dialog-actions>
+

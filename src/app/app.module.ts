@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WebsocketComponent, WebsocketDialogComponent } from './services/websocket/websocket.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -52,9 +53,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './update-schedule-modal/update-schedule-modal.component';
 import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
     declarations: [
         AppComponent,
+        WebsocketComponent,
+        WebsocketDialogComponent,
         LoginComponent,
         HomeComponent,
         ForgotPasswordComponent,
