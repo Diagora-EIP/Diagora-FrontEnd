@@ -77,4 +77,22 @@ export class VehiculesService {
         const url = `${this.apiUrl}/vehicleExpense` + (user_id ? `/${user_id}` : '');
         return this.http.post<any>(url, requestBody, this.header);
     }
+
+    lockVehicle(vehicle_id: number, date: any, user_id?: number): Observable<any> {
+        const url = `${this.apiUrl}/vehicleLock` + (user_id ? `/${user_id}` : '');
+        const body = {
+            vehicle_id: vehicle_id,
+            lock_date: date
+        };
+        return this.http.post<any>(url, body, this.header);
+    }
+
+    unlockVehicle(vehicle_lock_id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/vehicleLock/${vehicle_lock_id}`, this.header);
+    }
+
+    getVehicleLock(date: any, user_id?: number): Observable<any> {
+        const url = `${this.apiUrl}/vehicleLock` + (user_id ? `/${user_id}` : '');
+        return this.http.get<any>(`${url}?date=${date}`, this.header);
+    }
 }

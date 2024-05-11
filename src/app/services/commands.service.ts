@@ -30,14 +30,20 @@ export class CommandsService {
         return this.http.get<any>(`${this.apiUrl}/orders/between-dates?begin=${begin}&end=${end}`, this.header);
     }
 
-    getSchedules(date: string, userId: number): Observable<any> {
+    getSchedules(date: string): Observable<any> {
+        const begin = `${date}T00:00:00.000Z`;
+        const end = `${date}T23:59:59.999Z`;
+        return this.http.get<any>(`${this.apiUrl}/schedule/get-between-date/?start_date=${begin}&end_date=${end}`, this.header);
+    }
+
+    getSchedulesByUserId(date: string, userId: number): Observable<any> {
         const begin = `${date}T00:00:00.000Z`;
         const end = `${date}T23:59:59.999Z`;
         return this.http.get<any>(`${this.apiUrl}/schedule/get-between-date/${userId}?start_date=${begin}&end_date=${end}`, this.header);
     }
 
     createOrder(description: string, delivery_date: string, delivery_address: string): Observable<any> {
-        const requestBody = { description, delivery_date, delivery_address, estimated_time: 3600, actual_time:1800, order_date: delivery_date };
+        const requestBody = { description, delivery_date, delivery_address, estimated_time: 3600, actual_time: 1800, order_date: delivery_date };
         return this.http.post<any>(`${this.apiUrl}/schedule/create`, requestBody, this.header);
     }
 
@@ -53,5 +59,4 @@ export class CommandsService {
     getCompanyInfo(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/company`, this.header);
     }
-
 }
