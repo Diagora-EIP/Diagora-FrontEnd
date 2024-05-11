@@ -64,6 +64,7 @@ import { VehicleExpenseCreateModalComponent } from './vehicule/modals/vehicle-ex
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
 
 @NgModule({
     declarations: [
@@ -107,6 +108,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
         VehicleExpenseCreateModalComponent,
         LoadingSpinnerComponent,
         ConfirmModalComponent,
+        LockVehicleComponent,
     ],
     imports: [
         BrowserModule,
