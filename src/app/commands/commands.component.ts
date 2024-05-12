@@ -10,11 +10,14 @@ import { EditCommandComponent } from './modals/edit-command/edit-command.compone
 import { PermissionsService } from '../services/permissions.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
+import { LockVehicleComponent } from './modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { ManagerService } from '../services/manager.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsCommandComponent,
     ADD: AddCommandComponent,
     EDIT: EditCommandComponent,
+    LOCK: LockVehicleComponent,
 };
 
 @Component({
@@ -32,24 +35,32 @@ export class CommandsComponent {
     selectedUser: any;
     selectedUserName: string = '';
     date: string = new Date().toISOString().split('T')[0];
+    isManager: boolean = false;
 
-    constructor(private router: Router, 
-                public dialog: MatDialog, 
-                private commandsService: CommandsService,
-                private permissionsService: PermissionsService,
-                private snackbarService: SnackbarService,
-                private confirmModalService: ConfirmModalService ) { }
+
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private commandsService: CommandsService,
+        private permissionsService: PermissionsService,
+        private managerService: ManagerService,
+        private snackbarService: SnackbarService,
+        private confirmModalService: ConfirmModalService) { }
 
     ngOnInit(): void {
-        this.commandsService.getCompanyInfo().subscribe((data) => {
-            this.users = data.users;
-            this.users.forEach((user) => {
-                if (user.user_id == this.user_id) {
-                    this.selectedUser = user;
-                }
+        this.isManager = this.permissionsService.hasPermission('manager');
+        if (this.isManager) {
+            this.managerService.getManagerEntreprise().subscribe((data) => {
+                this.users = data.users;
+                this.users.forEach((user) => {
+                    if (user.user_id == this.user_id) {
+                        this.selectedUser = user;
+                    }
+                });
+                this.selectedUserName = this.selectedUser.name;
             });
-            this.selectedUserName = this.selectedUser.name;
-        });
+        } else {
+            this.selectedUser = { user_id: this.user_id, name: "Moi" }
+        }
     }
 
     async getOrders() {
@@ -57,9 +68,7 @@ export class CommandsComponent {
             return;
         }
 
-        this.selectedUserName = this.selectedUser.name;
-
-        this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) => {
+        this.commandsService.getSchedules(this.date).subscribe((data) => {
             this.allOrders = data;
             if (this.allOrders.length === 0) {
                 this.formatedOrders = [];
@@ -118,4 +127,7 @@ export class CommandsComponent {
         return this.permissionsService.hasPermission(permission);
     }
 
+    lockVehicle() {
+        this.openModal('LOCK', { user_id: this.selectedUser.user_id, date: this.date, isManager: this.isManager });
+    }
 }
