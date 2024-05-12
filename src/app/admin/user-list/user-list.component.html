@@ -22,6 +22,9 @@
         </div>
     </div>
     <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <div class="vehicle-loading-spinner" *ngIf="loading">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
         <table ngClass="tab-userList" mat-table [dataSource]="dataSource">
             <ng-container class="content-tab-userList" matColumnDef="entreprise">
                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Entreprise </th>

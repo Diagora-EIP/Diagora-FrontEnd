@@ -14,8 +14,8 @@
                             [formControl]="managerControl"
                             (input)="onManagerInput($event)"
                         />
-                        <mat-autocomplete #managerAuto="matAutocomplete" (optionSelected)="onManagerSelected($event)">
-                            <mat-option *ngFor="let manager of filteredUsers" [value]="manager.name">
+                        <mat-autocomplete #managerAuto="matAutocomplete" (optionSelected)="onManagerSelected($event)" [displayWith]="displayManager">
+                            <mat-option *ngFor="let manager of filteredUsers" [value]="manager">
                                 {{ manager.name }}
                             </mat-option>
                         </mat-autocomplete>
@@ -32,7 +32,10 @@
         <!-- Left Container -->
         <div class="left-right-container">
             <div class="calendar-container">
-                <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+                <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+                    <div *ngIf="!loading">
+                        <full-calendar #fullcalendar [options]="calendarOptions"> </full-calendar>
+                    </div>
             </div>
         </div>
     </div>

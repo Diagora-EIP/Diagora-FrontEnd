@@ -7,14 +7,17 @@ import { CommandsService } from '../services/commands.service';
 import { AddCommandComponent } from './modals/add-command/add-command.component';
 import { DetailsCommandComponent } from './modals/details-command/details-command.component';
 import { EditCommandComponent } from './modals/edit-command/edit-command.component';
-import { DeleteCommandComponent } from './modals/delete-command/delete-command.component';
 import { PermissionsService } from '../services/permissions.service';
+import { SnackbarService } from '../services/snackbar.service';
+import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
+import { LockVehicleComponent } from './modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { ManagerService } from '../services/manager.service';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsCommandComponent,
     ADD: AddCommandComponent,
     EDIT: EditCommandComponent,
-    DELETE: DeleteCommandComponent,
+    LOCK: LockVehicleComponent,
 };
 
 @Component({
@@ -27,18 +30,37 @@ export class CommandsComponent {
     displayedColumns = ['date', 'address', 'description', 'action'];
     allOrders: any[] = [];
     formatedOrders: any = [];
+    user_id = localStorage.getItem('id');
     users: any[] = [];
     selectedUser: any;
     selectedUserName: string = '';
     date: string = new Date().toISOString().split('T')[0];
+    isManager: boolean = false;
 
-    constructor(private router: Router, public dialog: MatDialog, private commandsService: CommandsService, private permissionsService: PermissionsService) { }
+
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private commandsService: CommandsService,
+        private permissionsService: PermissionsService,
+        private managerService: ManagerService,
+        private snackbarService: SnackbarService,
+        private confirmModalService: ConfirmModalService) { }
 
     ngOnInit(): void {
-        console.log('Date ', this.date);
-        this.commandsService.getCompanyInfo().subscribe((data) => {
-            this.users = data.users;
-        });
+        this.isManager = this.permissionsService.hasPermission('manager');
+        if (this.isManager) {
+            this.managerService.getManagerEntreprise().subscribe((data) => {
+                this.users = data.users;
+                this.users.forEach((user) => {
+                    if (user.user_id == this.user_id) {
+                        this.selectedUser = user;
+                    }
+                });
+                this.selectedUserName = this.selectedUser.name;
+            });
+        } else {
+            this.selectedUser = { user_id: this.user_id, name: "Moi" }
+        }
     }
 
     async getOrders() {
@@ -46,9 +68,7 @@ export class CommandsComponent {
             return;
         }
 
-        this.selectedUserName = this.selectedUser.name;
-
-        this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) => {
+        this.commandsService.getSchedules(this.date).subscribe((data) => {
             this.allOrders = data;
             if (this.allOrders.length === 0) {
                 this.formatedOrders = [];
@@ -84,6 +104,19 @@ export class CommandsComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('La modal', type, 'est fermée.', result);
+            this.getOrders();
+        });
+    }
+
+    deleteOrder(info: any) {
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer cette commande ?').then((result) => {
+            if (result) {
+                this.commandsService.deleteOrder(info.schedule_id).pipe(
+                    tap(() => this.snackbarService.successSnackBar('Commande supprimée avec succès'))
+                ).subscribe(() => {
+                    this.getOrders();
+                });
+            }
         });
     }
 
@@ -94,4 +127,7 @@ export class CommandsComponent {
         return this.permissionsService.hasPermission(permission);
     }
 
+    lockVehicle() {
+        this.openModal('LOCK', { user_id: this.selectedUser.user_id, date: this.date, isManager: this.isManager });
+    }
 }

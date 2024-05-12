@@ -5,6 +5,7 @@ import { UtilsService } from '../services/utils.service';
 import { tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,7 +16,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ForgotPasswordComponent  {
   emailForm: FormGroup;
 
-  constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder,) {
+  constructor(private router: Router, 
+              private securityService: SecurityService, 
+              private utilsService: UtilsService, 
+              private fb: FormBuilder,
+              private snackBarService: SnackbarService) {
     this.emailForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -36,7 +41,7 @@ export class ForgotPasswordComponent  {
       .pipe(
         tap({
           next: data => {
-            alert('Un email vous a été envoyé, veuillez vérifier votre boîte mail');
+            this.snackBarService.successSnackBar('Un email vous a été envoyé, veuillez vérifier votre boîte mail');
           },
           error: error => {
             throwError(error);

@@ -1,0 +1,63 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Enregistrement d'une dépense liée au véhicule {{ selectedVehicle ?
+            selectedVehicle.name : '' }}
+        </h1>
+    </div>
+
+    <div ngClass="content-big-grid-modals">
+        <div ngClass="container-input-modals" *ngIf="isManager">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Utilisateur</mat-label>
+                <mat-select ngClass="container-selectInput-modals" placeholder="Sélectionnez"
+                    [(value)]="user_id" [required]="true">
+                    <mat-option ngClass="option-selectInput-modals" *ngFor="let user of userList"
+                        [value]="user.user_id">{{ user.name }} - {{ user.email}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Péage" [(ngModel)]="name"
+                    name="name" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">description</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Prix du péage"
+                    [(ngModel)]="description" name="description" [required]="false">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Prix</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. 10" [(ngModel)]="price" name="price"
+                    [required]="true" pattern="[0-9]+([,.][0-9]+)?">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Image</mat-label>
+                <button mat-icon-button matPrefix (click)="f_input.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <input type="text" readonly matInput [(ngModel)]="pictureName" (click)="f_input.click()"
+                    [required]="false">
+                <input type="file" hidden #f_input (change)="onFileSelected($event)">
+            </mat-form-field>
+        </div>
+
+        <div ngClass=" container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="updateUserVehicle()">Valider</button>
+        </div>
+    </div>
+</div>

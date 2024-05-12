@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Subscription, throwError, lastValueFrom } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermissionsService } from '../services/permissions.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +20,12 @@ export class LoginComponent {
     popUp: boolean = false;
     loginSubscription: Subscription | undefined;
 
-    constructor(private router: Router, private securityService: SecurityService, private utilsService: UtilsService, private fb: FormBuilder, private permissionsService: PermissionsService) {
+    constructor(private router: Router, 
+                private securityService: SecurityService, 
+                private utilsService: UtilsService, 
+                private fb: FormBuilder, 
+                private permissionsService: PermissionsService,
+                private snackBarService: SnackbarService) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
@@ -37,7 +43,7 @@ export class LoginComponent {
 
     loginRequest(data: any) {
         if (data.status === 401) {
-            this.Erreur = 'Veuillez vérifier vos identifiants';
+            this.snackBarService.warningSnackBar('Veuillez vérifier vos identifiants');
             this.popUp = true;
             this.loginForm.controls['password'].setErrors({ 'loginFailed': true });
             this.loginForm.controls['email'].setErrors({ 'loginFailed': true });
@@ -47,7 +53,7 @@ export class LoginComponent {
 
     async login() {
         if (this.loginForm.invalid) {
-            this.Erreur = 'Veuillez remplir tous les champs correctement.';
+            this.snackBarService.warningSnackBar('Veuillez remplir tous les champs correctement.');
             this.popUp = true;
             return;
         }
@@ -55,7 +61,7 @@ export class LoginComponent {
         const { email, password, remember } = this.loginForm.value;
 
         if (!this.utilsService.checkEmail(email)) {
-            this.Erreur = 'Veuillez entrer une adresse mail valide';
+            this.snackBarService.warningSnackBar('Veuillez entrer une adresse mail valide');
             this.popUp = true;
             return;
         }
@@ -85,6 +91,7 @@ export class LoginComponent {
             )
             .subscribe({
                 next: (data) => {
+                    this.snackBarService.successSnackBar('Vous êtes connecté !');
                     this.router.navigate(['home']);
                 }
             });

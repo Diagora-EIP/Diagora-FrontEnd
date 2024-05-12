@@ -21,3 +21,14 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: $background-color;
 }
+
+.mat-mdc-snack-bar-container {
+    &.warning-snackbar {
+      --mdc-snackbar-container-color:#ff0f0f;
+      --mdc-snackbar-supporting-text-color: #fff; 
+    }
+    &.success-snackbar {
+      --mdc-snackbar-container-color:#228b22;
+      --mdc-snackbar-supporting-text-color: #fff; 
+    }
+  }

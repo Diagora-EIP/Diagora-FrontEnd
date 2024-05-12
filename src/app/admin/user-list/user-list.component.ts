@@ -1,10 +1,10 @@
 import { Component, Type } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UserCreateModalComponent } from '../user-create-modal/user-create-modal.component';
-import { UserUpdateModalComponent } from '../user-update-modal/user-update-modal.component';
-import { CompanyCreateModalComponent } from '../company-create-modal/company-create-modal.component';
-import { CompanyUpdateModalComponent } from '../company-update-modal/company-update-modal.component';
+import { UserCreateModalComponent } from '../modals/user-create-modal/user-create-modal.component';
+import { UserUpdateModalComponent } from '../modals/user-update-modal/user-update-modal.component';
+import { CompanyCreateModalComponent } from '../modals/company-create-modal/company-create-modal.component';
+import { CompanyUpdateModalComponent } from '../modals/company-update-modal/company-update-modal.component';
 import { Subscription, tap, throwError } from 'rxjs';
 import { Roles } from 'src/app/models/Roles.dto';
 
@@ -53,6 +53,7 @@ export class UserListComponent {
     RolesList: any = []
     selectedCompany: any = null
     selectedUser: any = null
+    loading: boolean = false;
 
     private _companyFilter: string = '';
     getUsersSubscription: Subscription | undefined;
@@ -125,6 +126,7 @@ export class UserListComponent {
     }
 
     getUsers = async () => {
+        this.loading = true;
         this.getUsersSubscription = this.adminService.newgetUsers()
             .pipe(
                 tap({
@@ -139,6 +141,7 @@ export class UserListComponent {
             .subscribe({
                 next: (data) => {
                     this.userList = data.map((user: any) => {
+                        this.loading = false;
                         return {
                             id: user.user_id ? user.user_id : '',
                             name: user.name ? user.name : '',

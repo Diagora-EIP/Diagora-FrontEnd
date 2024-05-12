@@ -1,0 +1,70 @@
+<div *ngIf="isLoading || isError" class="app-map-container-full">
+
+    <ng-container *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-container>
+
+    <ng-container *ngIf="isError">
+        <app-alert type="error" title="Une erreur est survenue.">
+            Veuillez réessayer plus tard.
+        </app-alert>
+    </ng-container>
+
+</div>
+
+<div *ngIf="!isLoading && !isError" class="app-map-wrapper">
+    <div class="app-map-sider">
+        <ng-container *ngIf="schedules.length === 0">
+            <app-alert type="warning" title="Aucune commande planifiée.">
+                Aucune commande n'a été planifiée pour cette journée.
+            </app-alert>
+        </ng-container>
+
+        <ng-container *ngIf="isLoadingSchedule">
+            <app-alert type="info" title="Chargement de la journée en cours...">
+                Cette opération peut prendre quelques instants.
+            </app-alert>
+        </ng-container>
+        <ng-container *ngIf="isErrorSchedule">
+            <app-alert type="error" title="Impossible de charger la journée.">
+                Veuillez réessayer plus tard.
+            </app-alert>
+        </ng-container>
+
+        <ng-container *ngIf="isLoadingItinerary">
+            <app-alert type="info" title="Chargement de l'itinéraire en cours...">
+                Cette opération peut prendre quelques instants.
+            </app-alert>
+        </ng-container>
+        <ng-container *ngIf="isErrorItinerary">
+            <app-alert type="error" title="Impossible de charger l'itinéraire.">
+                Veuillez réessayer plus tard.
+            </app-alert>
+        </ng-container>
+
+        <ng-container *ngIf="itinerary">
+            <ng-container *ngIf="routeSteps.length == 0">
+                <app-alert type="info">
+                    Aucune étape de livraison n'est disponible.
+                </app-alert>
+            </ng-container>
+            <ng-container *ngIf="routeSteps.length > 0">
+                <div *ngFor="let routeStep of routeSteps; let i = index" (click)="selectStep(i)" class="app-map-sider-items">
+                    <ng-container *ngIf="routeStep.finished">
+                        <app-alert type="success" [showIcon]="routeStep.finished">
+                            {{ routeStep.address }}
+                        </app-alert>
+                    </ng-container>
+                    <ng-container *ngIf="!routeStep.finished">
+                        <app-alert type="info" [title]="routeStep.address">
+                            {{ routeStep.arrive_at }}
+                        </app-alert>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="app-map-container">
+        <div class="app-map-element" #mapElem></div>
+    </div>
+</div>

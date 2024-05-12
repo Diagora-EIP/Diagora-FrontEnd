@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-content>
+        <div class="app-alert-wrapper">
+
+            <div class="app-alert-icon" *ngIf="showIcon && type">
+                <ng-container [ngSwitch]="type">
+                    <ng-container *ngSwitchCase="'error'">
+                        <mat-icon aria-hidden="true" fontIcon="error"></mat-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'warning'">
+                        <mat-icon aria-hidden="true" fontIcon="warning"></mat-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'info'">
+                        <mat-icon aria-hidden="true" fontIcon="info"></mat-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'success'">
+                        <mat-icon aria-hidden="true" fontIcon="check"></mat-icon>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <div class="app-alert-content">
+                <span *ngIf="title" class="app-alert-title">{{ title }}</span>
+                <p class="app-alert-message">
+                    <ng-content></ng-content>
+                </p>
+            </div>
+
+        </div>
+    </mat-card-content>
+</mat-card>
