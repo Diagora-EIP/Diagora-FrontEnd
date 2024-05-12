@@ -1,0 +1,19 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">{{ data.user.name }} - {{ date | date: 'dd/MM/yyyy' }}</h1>
+    </div>
+
+    <div ngClass="content-modals-custom">
+        <div ngClass="content-modals">
+            <app-map
+                [userId]="data.user.user_id"
+                [dateStr]="data.start"
+                [siderWidth]="'100%'"
+            ></app-map> <!-- siderWidth to 100% makes it 50% of the available space because it is inside a flex box. -->
+        </div>
+
+        <div ngClass="container-button-modals">
+            <button type="button" ngClass="cancel button-modals" mat-raised-button (click)="closeDialog()">Fermer</button>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,9 @@
 // create-schedule-modal.component.ts
 
 import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VisualizeScheduleDayComponent } from '../visualize-schedule-day/visualize-schedule-day.component';
 import { ClientService } from '../../../services/client.service';
 import { ScheduleService } from '../../../services/schedule.service';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -32,7 +33,8 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         private scheduleService: ScheduleService,
         private permissionsService: PermissionsService,
         private clientService: ClientService,
-        private snackBarService: SnackbarService
+        private snackBarService: SnackbarService,
+        private dialog: MatDialog,
     ) {
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(this.data.start), Validators.required],
@@ -91,7 +93,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             }
         }
     }
-    
+
     createClient() {
         const formData = this.newClientForm.value;
         const newClient = {
@@ -119,7 +121,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         // Focus the description input field when the modal opens
-        
+
     }
 
     submitForm() {
@@ -189,5 +191,16 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             return false;
         }
         return this.permissionsService.hasPermission(permission);
+    }
+
+    visualizeDay() {
+        this.closeDialog(null);
+        const dialogRef = this.dialog.open(VisualizeScheduleDayComponent, {
+            data: {
+                start: this.data.start,
+                end: this.data.end,
+                user: this.data.currUser,
+            }
+        });
     }
 }

@@ -1,48 +1,27 @@
 <!-- carte.component.html -->
 
 <div class="container">
-  <div class="filter-container">
-    
-    <h2 class="filter-section-heading">Filtres</h2>
-    <div class="filter-components">
-      <div class="date-selector">
-        <label class="label-text" for="deliveryDate">Jour de Livraison :</label>
-        <div class="input-container">
-          <input type="date" id="deliveryDate" [(ngModel)]="date">
-          <i class="fas fa-calendar-alt"></i> <!-- FontAwesome calendar icon -->
+    <div class="filter-container">
+
+        <h2 class="filter-section-heading">Filtres</h2>
+            <div class="filter-components">
+            <div class="date-selector">
+                <label class="label-text" for="deliveryDate">Jour de Livraison :</label>
+                <div class="input-container">
+                    <input type="date" id="deliveryDate" [(ngModel)]="date">
+                    <i class="fas fa-calendar-alt"></i> <!-- FontAwesome calendar icon -->
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="display-button-container">
-        <button class="schedule-button" (click)="getSchedule()"> Afficher </button>
-      </div>
     </div>
-  </div>
 
-  <div class="itinerary-container">
-    <h2 class="itinerary-section-heading">Livraisons de {{ user || '' }} du {{ date | date: 'dd/MM/yyyy' }}</h2>
+    <div class="itinerary-container">
+        <h2 class="itinerary-section-heading">Livraisons de {{ user || '' }} du {{ date | date: 'dd/MM/yyyy' }}</h2>
 
-    <!-- Left Container -->
-    <div class="left-right-container">
-      <div class="left-container">
-        <div class="delivery-steps-container">
-          <!-- Default message -->
-          <div *ngIf="!routeSteps?.length && !loading" class="default-message">Aucune étape de livraison n'est disponible.</div>
-          <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-          <!-- Actual delivery steps -->
-          <ul *ngIf="routeSteps.length">
-            <li *ngFor="let step of routeSteps; let i = index" (click)="selectStep(i)">
-              {{ step }}
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Right Container -->
-      <div class="right-container">
-        <div class="map-container">
-          <div id="map"></div>
-        </div>
-      </div>
+        <app-map
+            [userId]="userId"
+            [dateStr]="date"
+            [siderWidth]="'70%'"
+        ></app-map> <!-- siderWidth to 70% makes it 70% of 50% of the available space because it is inside a flex box. -->
     </div>
-  </div>
 </div>

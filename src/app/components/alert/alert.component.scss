@@ -1,0 +1,43 @@
+.app-alert {
+    display: block;
+
+    .mdc-card {
+        background-color: rgba(var(--app-alert-color), 0.1);
+        color: rgb(var(--app-alert-color));
+        box-shadow: 0px 0px 0px 0px rgba(var(--app-alert-color) 0.2), 0px 0px 0px 0px rgba(var(--app-alert-color) 0.14), 0px 0px 0px 0px rgba(var(--app-alert-color) 0.12);
+    }
+
+    .app-alert-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        align-items: center;
+
+        .app-alert-content {
+            flex-grow: 1;
+
+            .app-alert-message {
+                margin: 0;
+            }
+        }
+    }
+
+    &.app-alert-with-title {
+        .app-alert-wrapper {
+            .app-alert-content {
+                .app-alert-title {
+                    display: inline-block;
+                    letter-spacing: -.025em;
+                    line-height: 1;
+                    font-weight: 600;
+                    margin-bottom: .25rem;
+                }
+
+                .app-alert-message {
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+
+}

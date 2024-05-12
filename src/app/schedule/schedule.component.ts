@@ -96,13 +96,15 @@ export class ScheduleComponent implements OnInit {
         eventClick: this.handleEventClick.bind(this),
         locales: [{ code: 'fr' }],
         buttonText: {
-            today: "Aujourd'hui",
+            today: 'Aujourd\'hui',
             month: 'Mois',
             week: 'Semaine',
             day: 'Jour',
         },
+        firstDay: 1,
         titleFormat: (dateInfo) => {
-            const startDateString = dateInfo.start.marker;
+            const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
+            const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
             const formattedStartDate =
 			dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
@@ -142,7 +144,7 @@ export class ScheduleComponent implements OnInit {
                                     this.loading = false;
                                     this.cdref.detectChanges();
                                 });
-    
+
                                 if (!data || data.length === 0) {
                                     resolve([]); // Resolve with an empty array if no events
                                     return;
