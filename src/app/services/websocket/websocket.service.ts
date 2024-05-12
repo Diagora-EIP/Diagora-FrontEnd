@@ -65,7 +65,7 @@ export class WebsocketService {
     constructor() {}
 
     public connect(): void {
-        if (this._socket !== null) {
+        if (this.isConnected) {
             console.warn('WS: Already connected.');
             return;
         }
@@ -102,9 +102,15 @@ export class WebsocketService {
         });
     }
 
-    public disconnect(): void {
-        if (this._socket === null) {
+    public disconnect(force: boolean = false): void {
+        if (!this.isConnected) {
             console.warn('WS: Already disconnected.');
+            return;
+        }
+
+        if (force) {
+            this._socket?.disconnect();
+            this._socket = null;
             return;
         }
 
