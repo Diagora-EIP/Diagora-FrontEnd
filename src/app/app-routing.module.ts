@@ -20,7 +20,7 @@ import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.com
 import { ClientComponent } from './client/client.component';
 
 const routes: Routes = [
-    { path: 'client/:token', component: ClientComponent},
+    { path: 'client/:token', component: ClientComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: '', canActivate: [AuthLeftGuard], children: [
@@ -44,6 +44,7 @@ const routes: Routes = [
     {
         path: '', canActivate: [AuthGuard], children: [
             { path: 'vehicule', component: VehiculeComponent },
+            { path: 'statistic', component: StatisticComponent },
         ],
         data: {
             permission: ['manager', 'livreur']
@@ -63,7 +64,6 @@ const routes: Routes = [
     {
         path: 'admin', canActivate: [AuthGuard], children: [
             { path: 'userList', component: UserListComponent, },
-            { path: 'statistic', component: StatisticComponent },
         ],
         data: {
             permission: ['admin']

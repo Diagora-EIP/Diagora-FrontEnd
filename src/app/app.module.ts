@@ -135,7 +135,7 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
         MatAutocompleteModule,
         MatNativeDateModule,
         MatSnackBarModule,
-        MatMenuModule
+        MatMenuModule,
     ],
     providers: [
     ],
