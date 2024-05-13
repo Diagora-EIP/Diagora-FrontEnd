@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { environment } from 'environment';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -8,6 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
     title = 'Diagora';
     showNavbar: boolean = false;
+    isProduction = environment.production;
 
     constructor(private router: Router) {
         // Subscribe to route changes

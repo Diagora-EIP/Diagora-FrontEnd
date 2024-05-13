@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WebsocketComponent, WebsocketDialogComponent } from './services/websocket/websocket.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { MapComponent } from './components/map/map.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
@@ -48,6 +51,7 @@ import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehi
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
+import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ClientComponent } from './client/client.component';
@@ -65,10 +69,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
+import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        WebsocketComponent,
+        WebsocketDialogComponent,
+        AlertComponent,
+        MapComponent,
         LoginComponent,
         ForgotPasswordComponent,
         RegisterComponent,
@@ -94,6 +103,7 @@ import { NotificationShowModalComponent } from './notification/notification-show
         EditVehiculeComponent,
         CreateScheduleModalComponent,
         UpdateScheduleModalComponent,
+        VisualizeScheduleDayComponent,
         ClientComponent,
         ManagerComponent,
         ManagerGestionClientComponent,
@@ -108,6 +118,9 @@ import { NotificationShowModalComponent } from './notification/notification-show
         ConfirmModalComponent,
         NotificationComponent,
         NotificationShowModalComponent,
+
+        LockVehicleComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -134,7 +147,7 @@ import { NotificationShowModalComponent } from './notification/notification-show
         MatAutocompleteModule,
         MatNativeDateModule,
         MatSnackBarModule,
-        MatMenuModule
+        MatMenuModule,
     ],
     providers: [
     ],

@@ -62,9 +62,26 @@ export class ScheduleService {
         );
     }
 
+    getScheduleById(
+        schedule_id: number,
+    ): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/schedule/${schedule_id}`,
+            this.header,
+        );
+    }
+
     createSchedule(scheduleData: any): Observable<any> {
         return this.http.post<any>(
             `${this.apiUrl}/schedule/create`,
+            scheduleData,
+            this.header
+        );
+    }
+
+    createScheduleByUser(user_id: number, scheduleData: any): Observable<any> {
+        return this.http.post<any>(
+            `${this.apiUrl}/schedule/create/with-user-id/${user_id}`,
             scheduleData,
             this.header
         );

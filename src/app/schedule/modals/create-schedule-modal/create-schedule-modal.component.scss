@@ -1,74 +1,53 @@
 /* create-schedule-modal.component.scss */
+@import "../../../../modals.scss";
 
-// Overall modal styles
-:host {
-    display: block;
+.expanded-form {
+    flex-grow: 1; /* Le premier formulaire prend tout l'espace disponible */
+    flex-basis: inherit; /* Taille normale du premier formulaire */
 }
 
-mat-dialog-content {
-    margin-top: 15px;
+.collapsed-form {
+    flex-grow: 0; /* Le premier formulaire ne prend pas d'espace supplémentaire */
+    flex-basis: 50%; /* Taille du premier formulaire lorsqu'il est réduit */
 }
 
-.full-width {
-    width: 100%;
-}
-
-// Form field styles
-mat-form-field {
-    width: 100%;
-    margin-bottom: 15px;
-
-    // Input styles
-    input,
-    textarea {
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
-// Button styles
-mat-dialog-actions {
+.content-space-around-modals-custom {
     display: flex;
-    justify-content: space-between;
+    width: 80%;
+    gap: 30px;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    flex-direction: row;
     align-items: center;
-    margin-top: 15px;
-
-    button {
-        min-width: 100px;
-    }
-}
-
-.error-message {
-    color: red;
-    margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .AddClientButton {
     margin-bottom: 10px;
     width: 100%;
-    background-color: white;
     padding: 5px;
     border: none;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
-    &:hover {
-        background-color: #f5f5f5;
-    }
+    background-color: #f5f5f5;
+    transition: background-color 0.3s, font-size 0.3s; /* Add transition for smooth effect */
 }
+
+.AddClientButton:hover {
+    background-color: #e0e0e0; /* Darker background color on hover */
+    font-size: 16px; /* Increase font size on hover */
+}
+
 
 .addOrDelete {
     margin-bottom: 10px;
     width: 50%;
-    background-color: white;
     padding: 5px;
     border: none;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
-    &:hover {
-        background-color: #f5f5f5;
-    }
 }
 
 .clientSelct {
@@ -80,4 +59,8 @@ mat-dialog-actions {
         font-size: 12px;
         margin-top: 5px;
     }
+}
+
+.container-button-modals {
+    grid-template-columns: 1fr 1fr 1fr;
 }

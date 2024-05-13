@@ -1,46 +1,52 @@
 <!-- update-schedule-modal.component.html -->
-
-<h2 mat-dialog-title>Modifier la commande</h2>
-
-<div mat-dialog-content>
-    <form [formGroup]="updateForm">
-        <!-- Display title and start (delivery date) -->
-        <div class="full-width">
-            <p><strong>Title:</strong> {{ description }}</p>
-            <p><strong>Start:</strong> {{ start | date }}</p>
-        </div>
-
-        <!-- Date picker for delivery date -->
-        <mat-form-field class="full-width">
-            <mat-label>Jour de livraison :</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="deliveryDate" required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <!-- Display order details (non-editable) -->
-        <div class="full-width">
-            <p><strong>Order ID:</strong> {{ order.orderId }}</p>
-            <p><strong>Order Date:</strong> {{ order.orderDate | date }}</p>
-            <p><strong>Description:</strong> {{ order.description }}</p>
-        </div>
-
-        <!-- Textarea for editable delivery address -->
-        <mat-form-field class="full-width">
-            <mat-label>Adresse de livraison :</mat-label>
-            <textarea matInput formControlName="deliveryAddress" required></textarea>
-        </mat-form-field>
-    </form>
-
-    <!-- Display error message -->
-    <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modifier la commande</h1>
     </div>
-</div>
+    <div ngClass="content-modals">
+        <form [formGroup]="updateForm">
+            <!-- Display title and start (delivery date) -->
+            <div class="container-input-modals">
+                <p><strong>Title:</strong> {{ description }}</p>
+                <p><strong>Start:</strong> {{ start | date }}</p>
+            </div>
 
-<div mat-dialog-actions>
-    <button mat-button (click)="submitForm()">Modifier</button>
-    <button mat-button color="warn" (click)="deleteSchedule()">Supprimer</button>
-    <button mat-button color="primary" (click)="redirectToItineraryPage()">Itinéraire</button>
-    <button mat-button (click)="closeDialog()">Fermer</button>
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Jour de livraison :</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="deliveryDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <!-- Date picker for delivery date -->
+
+            <!-- Display order details (non-editable) -->
+
+            <div ngClass="container-input-modals">
+                <p><strong>Order ID:</strong> {{ order.orderId }}</p>
+                <p><strong>Order Date:</strong> {{ order.orderDate | date }}</p>
+                <p><strong>Description:</strong> {{ order.description }}</p>
+            </div>
+
+            <!-- Textarea for editable delivery address -->
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Adresse de livraison :</mat-label>
+                    <textarea matInput formControlName="deliveryAddress" required></textarea>
+                </mat-form-field>
+            </div>
+        </form>
+
+        <!-- Display error message -->
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+        <div ngClass="container-button-modals">
+            <button ngClass="button-modals" mat-raised-button (click)="closeDialog()">Fermer</button>
+            <button ngClass="button-modals" mat-raised-button color="warn" (click)="deleteSchedule()">Supprimer</button>
+            <button ngClass="button-modals" mat-raised-button (click)="redirectToItineraryPage()">Itinéraire</button>
+            <button ngClass="button-modals" mat-raised-button color="primary" (click)="submitForm()">Modifier</button>
+        </div>
+    </div>
 </div>
