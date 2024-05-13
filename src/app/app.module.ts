@@ -118,9 +118,7 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
         ConfirmModalComponent,
         NotificationComponent,
         NotificationShowModalComponent,
-
         LockVehicleComponent,
-
     ],
     imports: [
         BrowserModule,

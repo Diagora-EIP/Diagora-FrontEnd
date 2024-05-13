@@ -317,6 +317,7 @@ export class ScheduleComponent implements OnInit {
             });
         });
     }
+
     async getManagerEntreprise(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
