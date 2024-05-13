@@ -317,7 +317,6 @@ export class ScheduleComponent implements OnInit {
             });
         });
     }
-
     async getManagerEntreprise(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
@@ -325,6 +324,10 @@ export class ScheduleComponent implements OnInit {
                     this.filteredUsers = response.users;
                     this.userList = response.users;
                     this.users = response.users;
+                    localStorage.setItem('entreprise', response.name);
+                    localStorage.setItem('addressEntreprise', response.address);
+                    localStorage.setItem('company_id', response.company_id);
+                    localStorage.setItem('users', JSON.stringify(response.users));
                     this.currUser = this.userList.find((user: User) => {
                         const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
                         const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);

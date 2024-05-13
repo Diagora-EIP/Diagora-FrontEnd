@@ -1,6 +1,6 @@
 <div class="navbar-wrapper">
     <nav class="navbar">
-        <a routerLink="/" routerLinkActive="active">
+        <a routerLink="/schedule" routerLinkActive="active">
             <div class="logo-container">
                 <img class="logo" src="../../assets/logo.png" alt="Home">
             </div>
@@ -41,6 +41,7 @@
             </li>
         </ul>
         <ul class="right-nav-links">
+            <button *ngIf="checkPermission('admin') ||  checkPermission('manager')" mat-button  routerLink="/notification"><mat-icon>notifications</mat-icon></button>
             <li routerLink="/profile" class="profile-button" routerLinkActive="active">
                 <a matTooltip="Profile">
                     <mat-icon>account_circle</mat-icon>
