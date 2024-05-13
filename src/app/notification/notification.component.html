@@ -1,0 +1,48 @@
+<div class="all-container">
+    <div>
+        <h1>Notifications</h1>
+    </div>
+    <div class="filter">
+        <mat-form-field>
+            <mat-label>Recherche </mat-label>
+            <input matInput (keyup)="applyFilter($event, false)" placeholder="">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Filtre</mat-label>
+            <mat-select [(ngModel)]="selectedValue" (selectionChange)="filter()">
+                <mat-option>----</mat-option>
+                <mat-option value="update">update</mat-option>
+                <mat-option value="create">create</mat-option>
+                <mat-option value="delete">delete</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div ngClass="container-tab mat-elevation-z8" tabindex="0">
+        <div *ngIf="loading">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <table mat-table [dataSource]="notificationList">
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let notification"> {{notification.entity_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let notification"> {{notification.log_type}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Logged At">
+                <th mat-header-cell *matHeaderCellDef> Logged At </th>
+                <td mat-cell *matCellDef="let notification"> {{notification.logged_at}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Show">
+                <th mat-header-cell *matHeaderCellDef> Show </th>
+                <td mat-cell *matCellDef="let notification"> 
+                    <button class="user-edit-button button-data-tab-userList" (click)='showNotification(notification)'>
+                        <mat-icon>zoom_out_map</mat-icon>
+                    </button></td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

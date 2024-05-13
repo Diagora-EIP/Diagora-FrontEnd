@@ -1,0 +1,32 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals" style="text-align: center;">Détails de la Notifications: <br> {{ name }}</h1>
+    </div>
+
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Type</mat-label>
+                <input matInput ngClass="input-modals" placeholder="" [(ngModel)]="type"
+                    name="type" [required]="true">
+            </mat-form-field>
+
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Date</mat-label>
+                <input matInput ngClass="input-modals" placeholder="" [(ngModel)]="logged_at"
+                    name="logged_at" [required]="true">
+            </mat-form-field>
+
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Type de la value changé</mat-label>
+                <input matInput ngClass="input-modals" placeholder="" [(ngModel)]="type_value"
+                    name="type_value" [required]="true">
+            </mat-form-field>
+
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nouvelle Value</mat-label>
+                <input matInput ngClass="input-modals" placeholder="" [(ngModel)]="value"
+                    name="value" [required]="true">
+            </mat-form-field>
+    </div>
+</div>

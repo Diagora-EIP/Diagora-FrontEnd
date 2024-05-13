@@ -18,6 +18,7 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerGestionClientComponent } from './manager/manager-gestion-client/manager-gestion-client.component';
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { ClientComponent } from './client/client.component';
+import { NotificationComponent } from './notification/notification.component';
 
 const routes: Routes = [
     { path: 'client/:token', component: ClientComponent},
@@ -36,6 +37,7 @@ const routes: Routes = [
             { path: 'profile', component: ProfileComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
+            { path: 'notification', component: NotificationComponent}
         ],
         data: {
             permission: ['user', 'admin']
