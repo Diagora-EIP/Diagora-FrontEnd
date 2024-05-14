@@ -21,6 +21,7 @@ import { ScheduleService } from '../../services/schedule.service';
 import { ItineraryService } from '../../services/itinerary.service';
 import { PermissionsService } from '../../services/permissions.service';
 import { FollowUpService, FollowUpPoint, FollowUpSchedule } from '../../services/follow-up.service';
+import { UtilsService } from '../../services/utils.service';
 
 type RouteStep = {
     address: string;
@@ -95,32 +96,25 @@ export class MapComponent implements AfterViewInit, OnChanges {
         return `${newYear}-${newMonth}-${newDay}`;
     }
 
-    private get dateFormattedFollowUp(): string | null {
+    private get dateFormatted(): string | null {
         if (this.dateStr) {
-            return this.formatDate(new Date(this.dateStr), 2);
+            return this.formatDate(new Date(this.dateStr), 0);
         }
         if (this.date) {
-            return this.formatDate(this.date, 2);
-        }
-        return null;
-    }
-
-    private get dateFormattedCurrentUser(): string | null {
-        if (this.dateStr) {
-            return this.formatDate(new Date(this.dateStr), 1);
-        }
-        if (this.date) {
-            return this.formatDate(this.date, 1);
+            return this.formatDate(this.date, 0);
         }
         return null;
     }
 
     private init(): void {
-        if (!this.userId || !this.dateFormattedFollowUp) {
+        if (!this.userId || !this.dateFormatted) {
             this.isLoading = false;
             this.isError = true;
             console.error('MapComponent: Missing userId or date input');
             this.cdr.detectChanges();
+            if (!this.userId) {
+                this.userId = +(this.utilsService.getUserId() || 0);
+            }
             return;
         }
         // we put them here, because if this method is called again, we want to reset the values
@@ -141,24 +135,23 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.itinerary = null;
         this.map = null;
 
-        if (this.fetchedPermissions) {
+        const startDependingOnPermissions = () => {
             if (this.checkPermission('manager') && this.userId !== undefined && this.userId !== 0) {
-                // this.fetchUserSchedules();
-                this.followUpService.init(this.userId, this.dateFormattedFollowUp);
+                // this.fetchUserSchedules(); // debug
+                this.followUpService.init(this.userId, this.dateFormatted!);
             } else {
                 this.fetchUserSchedules();
             }
+        };
+
+        if (this.fetchedPermissions) {
+            startDependingOnPermissions();
         } else {
             this.permissionsService.userPermissionsSubject.pipe(
                 take(1),
                 tap(() => {
                     this.fetchedPermissions = true;
-                    if (this.checkPermission('manager') && this.userId !== undefined && this.userId !== 0) {
-                        // this.fetchUserSchedules();
-                        this.followUpService.init(this.userId, this.dateFormattedFollowUp!);
-                    } else {
-                        this.fetchUserSchedules();
-                    }
+                    startDependingOnPermissions();
                 })
             ).subscribe();
         }
@@ -231,6 +224,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
             if (isFinished === false && this.schedules.find((schedule) => (schedule as any).status === 1 && currentStop.address === (schedule as any).order?.delivery_address)) {
                 isFinished = true;
             }
+            // if schedule with the same adress and order_status 1 is found, we consider that the point is finished
+            if (isFinished === false && this.schedules.find((schedule) => (schedule as any).order_status === 1 && currentStop.address === (schedule as any).order?.delivery_address)) {
+                isFinished = true;
+            }
 
             routeSteps.push({
                 address: currentStop.address,
@@ -243,8 +240,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
 
     private fetchUserSchedules() {
-        const startDate = this.dateFormattedCurrentUser + 'T00:00:00.000Z';
-        const endDate = this.dateFormattedCurrentUser + 'T23:59:59.999Z';
+        const startDate = this.dateFormatted + 'T00:00:00.000Z';
+        const endDate = this.dateFormatted + 'T23:59:59.999Z';
+        console.log("this.dateFormattedCurrentUser: ", this.dateFormatted)
+        console.log("startDate", startDate)
 
         this.scheduleService
             .getScheduleBetweenDates(startDate, endDate)
@@ -350,7 +349,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         const polylinePoints: Leaflet.LatLngExpression[] = this.points.map((point) => {
             return [Number(point.latitude), Number(point.longitude)];
         });
-        const polyline = Leaflet.polyline(polylinePoints, {color: 'red'}).addTo(this.map);
+        const polyline = Leaflet.polyline(polylinePoints, { color: 'red' }).addTo(this.map);
 
         if (!this.routeSteps.length) {
             this.map.fitBounds(polyline.getBounds());
@@ -408,8 +407,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
                 )
                 .subscribe(() => {
                     const defaultPosition: Leaflet.LatLngExpression = this.points.length > 0 ?
-                            [Number(this.points[0].latitude), Number(this.points[0].longitude)] :
-                            [43.610769, 3.876716];
+                        [Number(this.points[0].latitude), Number(this.points[0].longitude)] :
+                        [43.610769, 3.876716];
 
                     this.map = Leaflet.map(this.mapElement.nativeElement, {
                         center: defaultPosition,
@@ -452,7 +451,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         private permissionsService: PermissionsService,
         private cdr: ChangeDetectorRef,
         private zone: NgZone,
-    ) {}
+        private utilsService: UtilsService,
+    ) { }
 
     ngAfterViewInit(): void {
         this.followUpService.onError$

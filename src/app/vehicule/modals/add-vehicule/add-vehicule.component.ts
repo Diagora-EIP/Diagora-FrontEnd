@@ -42,7 +42,7 @@ export class AddVehiculeComponent {
                 tap({
                     next: data => {
                         this.snackBarService.successSnackBar('Le véhicule ' + this.name + ' a été ajouté avec succès !');
-                        this.dialogRef.close();
+                        this.dialogRef.close('added');
                     },
                     error: error => {
                         console.log(error);

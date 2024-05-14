@@ -54,14 +54,13 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         this.getClients();
     }
 
-    updateAdress(client: any){
+    updateAdress(client: any) {
         this.scheduleForm.patchValue({
             deliveryAddress: client.address
         });
     }
 
     getClients() {
-
         this.clientService
             .getAllClientsByCompany()
             .pipe(
@@ -73,7 +72,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                         console.log(error);
                     }
                 })
-        ).subscribe();
+            ).subscribe();
     }
 
     addNewClient() {
@@ -85,7 +84,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 email: formData.email,
                 address: formData.address,
             };
-            const already = this.clientsList.find((client: { email: string; }) => client.email === newClient.email);
+            const already = this.clientsList?.find((client: { email: string; }) => client.email === newClient.email);
             if (already) {
                 this.displayClientAlreadyExists = true
             } else {
@@ -103,20 +102,21 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             address: formData.address,
         };
         this.clientService.
-            createClient(newClient).subscribe(
-                (res) => {
-                console.log(res);
-                // Check the HTTP status
-                if (res.status && res.status !== 201) {
-                    this.errorMessage =
-                        'Failed to create client. Please try again.';
+            createClient(newClient).subscribe({
+                next: (data) => {
+                    this.displayClientAlreadyExists = false;
+                    this.displayNewClient = false;
+                    this.newClientForm.reset();
+                    console.log("Client created", data)
+                    if (this.clientsList === null)
+                        this.clientsList = [data];
+                    else
+                        this.clientsList = [...this.clientsList, data];
+                },
+                error: (error) => {
+                    this.errorMessage = 'Failed to create client. Please try again.';
                 }
-            }
-        );
-        this.displayClientAlreadyExists = false;
-        this.displayNewClient = false;
-        this.newClientForm.reset();
-        this.clientsList.push(newClient);
+            });
     }
 
     ngAfterViewInit(): void {
@@ -127,7 +127,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
     submitForm() {
         if (this.scheduleForm.valid) {
             const formData = this.scheduleForm.value;
-			const deliveryDateTime = this.combineDateAndTime(formData.deliveryDate, formData.deliveryTime);
+            const deliveryDateTime = this.combineDateAndTime(formData.deliveryDate, formData.deliveryTime);
             const estimated_time = 4200;
             const actual_time = 3600;
             const order_date = formData.deliveryDate;
