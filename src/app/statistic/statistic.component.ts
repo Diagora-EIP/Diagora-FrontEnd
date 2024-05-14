@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Chart, registerables } from "chart.js";
 import { StatisticService } from '../services/statistic.service';
 import { ClientService } from '../services/client.service';
+import { VehiculesService } from '../services/vehicules.service';
 
 @Component({
     selector: 'app-statistic',
@@ -13,8 +14,6 @@ export class StatisticComponent {
     mileageChart: Chart = Chart.prototype;
     expenseChart: Chart = Chart.prototype;
     vehicleDeliveryChart: Chart = Chart.prototype;
-    data = [12, 19, 3, 29, 6, 3, 2, 10, 6, 3, 7, 9, 10, 11, 27, 8, 14, 2, 9, 4, 5, 24, 7, 4, 9, 10, 11, 27, 8, 23, 2];
-    dataSum = this.data.reduce((a, b) => a + b, 0);
     clientCount = 0;
     monthExpense = []
     totalExpense = 0
@@ -23,16 +22,20 @@ export class StatisticComponent {
     totalOrder = 0;
     monthClientCount = 0
     clientList = []
+    totalMileage = 0;
+    monthMileage = []
+    lockCount = []
+    vehicleList = []
+
     clientDeliveryChart: Chart<'doughnut'> = Chart.prototype;
 
-    constructor(private statisticService: StatisticService, private clientService: ClientService) {
+    constructor(private statisticService: StatisticService, private clientService: ClientService, private vehiculesService: VehiculesService) {
         this.getClientList();
     }
 
     ngAfterViewInit(): void {
         Chart.register(...registerables);
 
-        this.generateHorizontalChart();
         this.getClientCount();
         this.getExpense();
     }
@@ -42,8 +45,16 @@ export class StatisticComponent {
             .subscribe({
                 next: (data) => {
                     this.clientList = data;
-                    this.getOrder();
+                    this.getVehicules();
                 },
+            });
+    }
+
+    getVehicules() {
+        this.vehiculesService.getVehicules()
+            .subscribe((data) => {
+                this.vehicleList = data;
+                this.getOrder();
             });
     }
 
@@ -85,6 +96,10 @@ export class StatisticComponent {
                     this.monthOrder = data.order_of_month;
                     this.totalOrder = this.monthOrder.reduce((a, b: any) => a + b.count, 0);
                     this.monthClientCount = this.clientOrder.length
+                    this.monthMileage = data.mileage_of_month
+                    this.totalMileage = this.monthMileage.reduce((a, b: any) => a + b.mileage, 0);
+                    this.lockCount = data.lock_order_count;
+
                     this.livraisonChart = this.createChart(
                         'livraisonChart',
                         'Nombre de commandes',
@@ -97,6 +112,31 @@ export class StatisticComponent {
                         }),
                         this.monthOrder.map((order: any) => order.count)
                     )
+
+                    this.mileageChart = this.createChart(
+                        'mileageChart',
+                        'Km',
+                        this.monthMileage.map((mileage: any) => {
+                            const date = new Date(mileage.date);
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear().toString();
+                            return `${day} ${month} ${year}`;
+                        }),
+                        this.monthMileage.map((mileage: any) => mileage.mileage)
+                    );
+
+                    this.vehicleDeliveryChart = this.generateHorizontalChart(
+                        'vehicleDeliveryChart',
+                        'Nombre de commandes',
+                        this.lockCount.map((lock: any) => {
+                            const matchedVehicle: any = this.vehicleList.find((v: any) => +v.vehicle_id === +lock.vehicle_id);
+                            return matchedVehicle ? (matchedVehicle.name.length < 8 ? matchedVehicle.name.padEnd(8, ' ') : matchedVehicle.name.slice(0, 8) + '...') : '';
+                        }),
+                        this.lockCount.map((lock: any) => lock.lock_count)
+                    );
+
+
                     this.clientDeliveryChart = this.generateDonutChart(
                         'clientDeliveryChart',
                         'Nombre de commandes',
@@ -111,6 +151,7 @@ export class StatisticComponent {
     }
 
     createChart(name: string, label: string, label_title: string[], data: number[]) {
+
         return new Chart(name, {
             type: 'line',
             data: {
@@ -148,32 +189,16 @@ export class StatisticComponent {
         });
     }
 
-    generateHorizontalChart(): void {
-        const dataChart = [
-            { value: 65, delivery: 100 },
-            { value: 59, delivery: 120 },
-            { value: 80, delivery: 90 },
-            { value: 81, delivery: 110 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-            { value: 56, delivery: 95 },
-        ]
-        this.vehicleDeliveryChart = new Chart('vehicleDeliveryChart', {
+    generateHorizontalChart(name: string, label: string, label_title: string[], data: number[]) {
+        return new Chart(name, {
             type: 'bar',
             data: {
-                labels: ['Audi', 'Clio', 'BMW', 'BUS', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion', 'Camion'],
+                labels: label_title,
                 datasets: [{
-                    label: 'Km',
-                    data: dataChart.map(data => data.value),
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    label: label,
+                    data: data,
+                    // borderColor: 'rgb(209, 209, 209)',
+                    // backgroundColor: 'rgb(233, 233, 233)',
                 }]
             },
             options: {
@@ -184,15 +209,15 @@ export class StatisticComponent {
                     },
                     tooltip: {
                         callbacks: {
-                            label: (context) => {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                const data = dataChart[context.dataIndex];
-                                label += data.value + ' (livraison: ' + data.delivery + ')';
-                                return label;
-                            }
+                            // label: (context) => {
+                            //     let label = context.dataset.label || '';
+                            //     if (label) {
+                            //         label += ': ';
+                            //     }
+                            //     const data = dataChart[context.dataIndex];
+                            //     label += data.value + ' (livraison: ' + data.delivery + ')';
+                            //     return label;
+                            // }
                         }
                     }
                 },

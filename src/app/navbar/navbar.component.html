@@ -13,10 +13,12 @@
             <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
                 <a>Commandes</a>
             </li>
-            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/vehicule" class="contentBox" routerLinkActive="active">
+            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/vehicule"
+                class="contentBox" routerLinkActive="active">
                 <a>Vehicules</a>
             </li>
-            <li *ngIf="checkPermission('admin')" routerLink="/statistic" class="contentBox" routerLinkActive="active">
+            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/statistic"
+                class="contentBox" routerLinkActive="active">
                 <a>Statistiques</a>
             </li>
             <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
@@ -29,14 +31,12 @@
                     <button mat-menu-item routerLink="manager/gestion-client">Gestion clients</button>
                     <button mat-menu-item routerLink="/manager/tools">Outils</button>
                 </mat-menu>
-                <button mat-button
-                [matMenuTriggerFor]="managerMenu"
-                [class.menu-open]="isMenuOpen"
-                class="dropdown">
+                <button mat-button [matMenuTriggerFor]="managerMenu" [class.menu-open]="isMenuOpen" class="dropdown">
                     MANAGER PANEL <mat-icon class="arrow-icon">keyboard_arrow_down</mat-icon>
                 </button>
             </li>
-            <li *ngIf="checkPermission('admin')" routerLink="/admin/userList" class="contentBox" routerLinkActive="active">
+            <li *ngIf="checkPermission('admin')" routerLink="/admin/userList" class="contentBox"
+                routerLinkActive="active">
                 <a>Admin Panel</a>
             </li>
         </ul>
