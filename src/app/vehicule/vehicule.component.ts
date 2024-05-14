@@ -54,8 +54,10 @@ export class VehiculeComponent {
                 }
             },
             action: (instance: any) => {
-                this.getVehicules()
-                this.snackbarService.successSnackBar("Le véhicule a bien été ajouté.");
+                // setTimeout(() => {
+                // console.log("getVehicules")
+                this.getVehicules();
+                // }, 2000);
             }
         },
         EDIT: {
@@ -67,7 +69,6 @@ export class VehiculeComponent {
             },
             action: (instance: any) => {
                 this.getVehicules()
-                this.snackbarService.successSnackBar("Le véhicule a bien été modifié.");
             }
         },
     };
