@@ -106,8 +106,8 @@ export class VehiculeComponent {
         this.loading = true;
         this.vehiculesService.getVehicules()
             .subscribe((data) => {
-                this.loading = false;
                 this.allVehicles = data;
+                this.loading = false;
             });
     }
 
@@ -124,6 +124,7 @@ export class VehiculeComponent {
         });
 
         dialogRef.afterClosed().subscribe((data) => {
+            this.getVehicules();
             if (!data)
                 return
             action(data);
@@ -151,6 +152,7 @@ export class VehiculeComponent {
     deleteVehicle(vehicle: any) {
         this.selectedVehicle = vehicle
 
+
         if (!this.isManager)
             return
         this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce véhicule ?').then((result) => {
@@ -159,6 +161,7 @@ export class VehiculeComponent {
                 this.vehiculesService.deleteVehicule(vehicle.vehicle_id).pipe().subscribe(() => {
                     this.getVehicules()
                     this.snackbarService.successSnackBar("Le véhicule a bien été supprimé.");
+                    this.loading = false;
                 });
             }
         });
