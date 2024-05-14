@@ -58,12 +58,12 @@ export class ManagerUserListComponent {
     selectedUser: any = null;
     vehicleList: any = [];
 
-    constructor(private managerService: ManagerService, 
-                private userService: UserService, 
-                public dialog: MatDialog, 
-                private fb: FormBuilder,
-                private confirmModalService: ConfirmModalService,
-                private snackbarService: SnackbarService) {
+    constructor(private managerService: ManagerService,
+        private userService: UserService,
+        public dialog: MatDialog,
+        private fb: FormBuilder,
+        private confirmModalService: ConfirmModalService,
+        private snackbarService: SnackbarService) {
         this.entreprise = localStorage.getItem('entreprise') || '';
         this.getRolesList();
         this.getManagerEntreprise();
@@ -95,12 +95,12 @@ export class ManagerUserListComponent {
 
     callDeleteUser = (user: any) => {
         this.selectedUser = user;
-        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce client ?').then((result) => {
+        this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer cet employé ?').then((result) => {
             if (result) {
                 this.managerService.deleteUser(user.user_id).subscribe({
                     next: () => {
                         this.deleteUser(true);
-                        this.snackbarService.successSnackBar("Le client a bien été supprimé.");
+                        this.snackbarService.successSnackBar("L'employé a bien été supprimé.");
                     }
                 });
             }
@@ -178,7 +178,7 @@ export class ManagerUserListComponent {
             email: user.email,
             roles: user.roles.map((role_id: number) => this.rolesList.find((role: any) => role.role_id === role_id)),
         }
-        this.userList = [...this.userList, userFormat]; 
+        this.userList = [...this.userList, userFormat];
     }
 
     deleteUser = (isDeleted: any) => {

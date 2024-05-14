@@ -15,6 +15,7 @@ export class EditVehiculeComponent {
     model: string = ''
     license: string = ''
     mileage: number = 0
+    vehicle_id: number = 0
 
     constructor(@Inject(MAT_DIALOG_DATA)
     public data: any,
@@ -26,6 +27,7 @@ export class EditVehiculeComponent {
         this.model = this.data.data.model;
         this.license = this.data.data.license;
         this.mileage = this.data.data.mileage;
+        this.vehicle_id = this.data.data.vehicle_id;
     }
 
     close(): void {
@@ -43,12 +45,12 @@ export class EditVehiculeComponent {
     editVehicule = async () => {
         if (!this.dataCheck())
             return
-        this.vehiculeService.updateVehicule(this.data.vehicle_id, this.name, this.brand, this.model, this.license, this.mileage)
+        this.vehiculeService.updateVehicule(this.vehicle_id, this.name, this.brand, this.model, this.license, this.mileage)
             .pipe(
                 tap({
                     next: data => {
                         this.snackBarService.successSnackBar('Le véhicule ' + this.data.name + ' a été modifié avec succès !');
-                        this.dialogRef.close();
+                        this.dialogRef.close('updated');
                     },
                     error: error => {
                         console.log(error);
