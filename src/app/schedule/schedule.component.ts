@@ -44,7 +44,7 @@ export class ScheduleComponent implements OnInit {
     filteredDates: Date[] = [];
     users: any[] = [];
     customHeaderText: string = localStorage.getItem('name') || '';
-    currUser: User = { name: '', user_id: 0};
+    currUser: User = { name: '', user_id: 0 };
     loading: boolean = false;
     updatingEvents: boolean = false;
     events = [];
@@ -53,7 +53,7 @@ export class ScheduleComponent implements OnInit {
         private scheduleService: ScheduleService,
         private managerService: ManagerService,
         private permissionsService: PermissionsService,
-		private dialog: MatDialog,
+        private dialog: MatDialog,
         private cdref: ChangeDetectorRef,
         private ngZone: NgZone
 
@@ -106,12 +106,12 @@ export class ScheduleComponent implements OnInit {
             const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
             const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
             const formattedStartDate =
-			dayjs(startDateString).format('MMMM YYYY');
+                dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
 
-    async ngOnInit(): Promise<void>{
+    async ngOnInit(): Promise<void> {
         if (this.checkPermission('manager')) {
             await this.getManagerEntreprise();
         }
@@ -235,68 +235,68 @@ export class ScheduleComponent implements OnInit {
     }
 
     // Helper function to map schedule data to CalendarEvent
-	private mapScheduleToEvent(schedule: any): EventInput {
-		return {
-			title: schedule.order?.description,
-			start: schedule.delivery_date,
-			extendedProps: {
-				scheduleId: schedule.schedule_id,
-				order: {
-					orderId: schedule.order?.order_id,
-					orderDate: schedule.order?.order_date,
-					deliveryAddress: schedule.order?.delivery_address,
-					description: schedule.order?.description,
-					company: {
-						companyId: schedule.order?.company?.company_id,
-						name: schedule.order?.company?.name,
-						address: schedule.order?.company?.address,
-					},
-				},
-				itineraryId: schedule.itinerary_id,
-				estimatedTime: schedule.estimated_time,
-				actualTime: schedule.actual_time,
-				status: schedule.status,
-			},
-		};
-	}
+    private mapScheduleToEvent(schedule: any): EventInput {
+        return {
+            title: schedule.order?.description,
+            start: schedule.delivery_date,
+            extendedProps: {
+                scheduleId: schedule.schedule_id,
+                order: {
+                    orderId: schedule.order?.order_id,
+                    orderDate: schedule.order?.order_date,
+                    deliveryAddress: schedule.order?.delivery_address,
+                    description: schedule.order?.description,
+                    company: {
+                        companyId: schedule.order?.company?.company_id,
+                        name: schedule.order?.company?.name,
+                        address: schedule.order?.company?.address,
+                    },
+                },
+                itineraryId: schedule.itinerary_id,
+                estimatedTime: schedule.estimated_time,
+                actualTime: schedule.actual_time,
+                status: schedule.status,
+            },
+        };
+    }
 
     handleEventClick(info: any) {
 
-		const extendedProps = info.event.extendedProps;
-		const start = info.event.start.toISOString();
-		const description = info.event.title
-		const scheduleId = extendedProps.scheduleId.toString();
-		const order = {
-			orderId: extendedProps.order.orderId.toString(),
-			orderDate: extendedProps.order.orderDate,
-			deliveryAddress: extendedProps.order.deliveryAddress,
-			description: extendedProps.order.description,
-			company: {
-				companyId: extendedProps.order.company.companyId.toString(),
-				name: extendedProps.order.company.name,
-				address: extendedProps.order.company.address,
-			},
-		};
-		const itineraryId = extendedProps.itineraryId.toString();
-		const estimatedTime = extendedProps.estimatedTime;
-		const actualTime = extendedProps.actualTime;
-		const status = extendedProps.status;
+        const extendedProps = info.event.extendedProps;
+        const start = info.event.start.toISOString();
+        const description = info.event.title
+        const scheduleId = extendedProps.scheduleId.toString();
+        const order = {
+            orderId: extendedProps.order.orderId.toString(),
+            orderDate: extendedProps.order.orderDate,
+            deliveryAddress: extendedProps.order.deliveryAddress,
+            description: extendedProps.order.description,
+            company: {
+                companyId: extendedProps.order.company.companyId.toString(),
+                name: extendedProps.order.company.name,
+                address: extendedProps.order.company.address,
+            },
+        };
+        const itineraryId = extendedProps.itineraryId.toString();
+        const estimatedTime = extendedProps.estimatedTime;
+        const actualTime = extendedProps.actualTime;
+        const status = extendedProps.status;
 
-		const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
+        const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
-				start,
-				description,
-				scheduleId,
-				order,
-				itineraryId,
-				estimatedTime,
-				actualTime,
-				status,
-				manager: this.checkPermission('manager'),
-				user: this.userList.find(
-						(user) => user.name === this.managerControl.value.name
-                    )
-			}
+                start,
+                description,
+                scheduleId,
+                order,
+                itineraryId,
+                estimatedTime,
+                actualTime,
+                status,
+                manager: this.checkPermission('manager'),
+                user: this.userList.find(
+                    (user) => user.name === this.managerControl.value.name
+                )
+            }
         });
 
         let fetchEventsPromise: Promise<any>;
@@ -364,7 +364,7 @@ export class ScheduleComponent implements OnInit {
 
     onManagerSelected(event: any): void {
         const selectedManager = event.option.value;
-        this.currUser = {name: selectedManager.name, user_id: selectedManager.user_id};
+        this.currUser = { name: selectedManager.name, user_id: selectedManager.user_id };
     }
 
     checkPermission(permission: string): boolean {
@@ -376,12 +376,12 @@ export class ScheduleComponent implements OnInit {
 
     // Inside your ScheduleComponent class
     handleDateSelection(selectInfo: any) {
-		const start = selectInfo.startStr;
-		const end = selectInfo.endStr;
-		this.openEventCreationForm(start, end);
+        const start = selectInfo.startStr;
+        const end = selectInfo.endStr;
+        this.openEventCreationForm(start, end);
     }
 
-	openEventCreationForm(start: string, end: string) {
+    openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
             data: { start, end, currUser: this.currUser }
@@ -411,5 +411,5 @@ export class ScheduleComponent implements OnInit {
                 this.fullcalendar.getApi().refetchEvents();
             });
         });
-	}
+    }
 }

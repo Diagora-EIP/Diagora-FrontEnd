@@ -82,12 +82,11 @@ export class FollowUpService implements OnDestroy {
         private api: ApiService,
         private ws: WebsocketService,
         private destroy$: DestroyService,
-    ) {}
+    ) { }
 
     public init(userId: number, date: string): void {
         this._userId = userId;
         this._date = date;
-
         if (this.ws.isConnected) {
             this._subscribedTo = 0;
             this._isFirstSchedulesEmit = true;

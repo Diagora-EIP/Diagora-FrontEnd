@@ -21,6 +21,7 @@ import { ScheduleService } from '../../services/schedule.service';
 import { ItineraryService } from '../../services/itinerary.service';
 import { PermissionsService } from '../../services/permissions.service';
 import { FollowUpService, FollowUpPoint, FollowUpSchedule } from '../../services/follow-up.service';
+import { UtilsService } from '../../services/utils.service';
 
 type RouteStep = {
     address: string;
@@ -97,10 +98,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
     private get dateFormatted(): string | null {
         if (this.dateStr) {
-            return this.formatDate(new Date(this.dateStr), 1);
+            return this.formatDate(new Date(this.dateStr), 0);
         }
         if (this.date) {
-            return this.formatDate(this.date, 1);
+            return this.formatDate(this.date, 0);
         }
         return null;
     }
@@ -111,6 +112,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
             this.isError = true;
             console.error('MapComponent: Missing userId or date input');
             this.cdr.detectChanges();
+            if (!this.userId) {
+                this.userId = +(this.utilsService.getUserId() || 0);
+            }
             return;
         }
         // we put them here, because if this method is called again, we want to reset the values
@@ -238,6 +242,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
     private fetchUserSchedules() {
         const startDate = this.dateFormatted + 'T00:00:00.000Z';
         const endDate = this.dateFormatted + 'T23:59:59.999Z';
+        console.log("this.dateFormattedCurrentUser: ", this.dateFormatted)
+        console.log("startDate", startDate)
 
         this.scheduleService
             .getScheduleBetweenDates(startDate, endDate)
@@ -343,7 +349,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         const polylinePoints: Leaflet.LatLngExpression[] = this.points.map((point) => {
             return [Number(point.latitude), Number(point.longitude)];
         });
-        const polyline = Leaflet.polyline(polylinePoints, {color: 'red'}).addTo(this.map);
+        const polyline = Leaflet.polyline(polylinePoints, { color: 'red' }).addTo(this.map);
 
         if (!this.routeSteps.length) {
             this.map.fitBounds(polyline.getBounds());
@@ -401,8 +407,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
                 )
                 .subscribe(() => {
                     const defaultPosition: Leaflet.LatLngExpression = this.points.length > 0 ?
-                            [Number(this.points[0].latitude), Number(this.points[0].longitude)] :
-                            [43.610769, 3.876716];
+                        [Number(this.points[0].latitude), Number(this.points[0].longitude)] :
+                        [43.610769, 3.876716];
 
                     this.map = Leaflet.map(this.mapElement.nativeElement, {
                         center: defaultPosition,
@@ -445,7 +451,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         private permissionsService: PermissionsService,
         private cdr: ChangeDetectorRef,
         private zone: NgZone,
-    ) {}
+        private utilsService: UtilsService,
+    ) { }
 
     ngAfterViewInit(): void {
         this.followUpService.onError$
