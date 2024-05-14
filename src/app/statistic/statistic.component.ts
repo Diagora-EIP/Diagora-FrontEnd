@@ -1,138 +1,276 @@
-import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import Chart from 'chart.js/auto';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { NgIf, NgFor } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import {MatSelectModule} from '@angular/material/select';
+import { Component } from '@angular/core';
+import { Chart, registerables } from "chart.js";
+import { StatisticService } from '../services/statistic.service';
+import { ClientService } from '../services/client.service';
+import { VehiculesService } from '../services/vehicules.service';
 
 @Component({
-  selector: 'app-statistic',
-  templateUrl: './statistic.component.html',
-  styleUrls: ['./statistic.component.scss']
+    selector: 'app-statistic',
+    templateUrl: './statistic.component.html',
+    styleUrls: ['./statistic.component.scss']
 })
 export class StatisticComponent {
-  logout1!: boolean;
-  public chart: any;
-  constructor(private router: Router, public dialog: MatDialog) { }
+    livraisonChart: Chart = Chart.prototype;
+    mileageChart: Chart = Chart.prototype;
+    expenseChart: Chart = Chart.prototype;
+    vehicleDeliveryChart: Chart = Chart.prototype;
+    clientCount = 0;
+    monthExpense = []
+    totalExpense = 0
+    clientOrder = []
+    monthOrder = []
+    totalOrder = 0;
+    monthClientCount = 0
+    clientList = []
+    totalMileage = 0;
+    monthMileage = []
+    lockCount = []
+    vehicleList = []
 
-  ngOnInit(): void {
-    this.logout1 = false;
-    this.createChart();
-  }
+    clientDeliveryChart: Chart<'doughnut'> = Chart.prototype;
 
-  goto(params: string) {
-    this.router.navigate([params]);
-  }
-
-  logout() {
-    this.logout1 = true;
-  }
-
-  cancel() {
-    this.logout1 = false;
-  }
-
-  confirm() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login']);
-  }
-
-  createChart(){
-  
-    this.chart = new Chart("MyChart", {
-      type: 'bar',
-
-      data: {
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
-	       datasets: [
-          {
-            label: "Sales",
-            data: ['467','576', '572', '79', '92',
-								 '574', '573', '576'],
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: ['542', '542', '536', '327', '17',
-									 '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
-          }  
-        ]
-      },
-      options: {
-        aspectRatio:2.5
-      }
-      
-    });
-  }
-
-  statsAction(type:string = 'null', opt:string = 'null'): void {
-    if (type === 'null') { return; }
-    else if (type === 'AddStats') {
-      this.dialog.open(AddStatsModalComponent);
+    constructor(private statisticService: StatisticService, private clientService: ClientService, private vehiculesService: VehiculesService) {
+        this.getClientList();
     }
-    else if (type === 'DeleteStats') {
-      const data = { data: {type: '' }};
-      if (opt === 'null') { return; }
-      else if (opt === 'essences') { data.data['type'] = opt; }
-      else if (opt === 'salaires') { data.data['type'] = opt; }
-      else if (opt === 'materiels') { data.data['type'] = opt; }
-      this.dialog.open(DeleteStatsModalComponent, data);
+
+    ngAfterViewInit(): void {
+        Chart.register(...registerables);
+
+        this.getClientCount();
+        this.getExpense();
     }
-  }
 
-}
+    getClientList(): void {
+        this.clientService.getAllClientsByCompany()
+            .subscribe({
+                next: (data) => {
+                    this.clientList = data;
+                    this.getVehicules();
+                },
+            });
+    }
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+    getVehicules() {
+        this.vehiculesService.getVehicules()
+            .subscribe((data) => {
+                this.vehicleList = data;
+                this.getOrder();
+            });
+    }
 
-@Component({
-  selector: 'add-statistic-modal.component',
-  templateUrl: './add-statistic-modal.component.html',
-  styleUrls: ['./add-statistic-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatButtonModule, MatDialogModule],
-})
+    getClientCount(): void {
+        this.statisticService.getClientCount()
+            .subscribe({
+                next: (data) => {
+                    this.clientCount = data;
+                },
+            });
+    }
 
-export class AddStatsModalComponent {
-  requiredValue = new FormControl('', [Validators.required]);
+    getExpense(): void {
+        this.statisticService.getExpense()
+            .subscribe({
+                next: (data) => {
+                    this.monthExpense = data;
+                    this.totalExpense = this.monthExpense.reduce((a, b: any) => a + b.amount, 0);
+                    this.expenseChart = this.createChart('expenseChart',
+                        'Dépenses',
+                        this.monthExpense.map((expense: any) => {
+                            const date = new Date(expense.date);
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear().toString();
+                            return `${day} ${month} ${year}`;
+                        }),
+                        this.monthExpense.map((expense: any) => expense.amount)
+                    );
+                },
+            });
+    }
 
-  matcher = new MyErrorStateMatcher();
-}
+    getOrder(): void {
+        this.statisticService.getOrder()
+            .subscribe({
+                next: (data) => {
+                    this.clientOrder = data.client_order_count;
+                    this.monthOrder = data.order_of_month;
+                    this.totalOrder = this.monthOrder.reduce((a, b: any) => a + b.count, 0);
+                    this.monthClientCount = this.clientOrder.length
+                    this.monthMileage = data.mileage_of_month
+                    this.totalMileage = this.monthMileage.reduce((a, b: any) => a + b.mileage, 0);
+                    this.lockCount = data.lock_order_count;
 
-export interface DialogData {
-  type: string;
-}
+                    this.livraisonChart = this.createChart(
+                        'livraisonChart',
+                        'Nombre de commandes',
+                        this.monthOrder.map((order: any) => {
+                            const date = new Date(order.date);
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear().toString();
+                            return `${day} ${month} ${year}`;
+                        }),
+                        this.monthOrder.map((order: any) => order.count)
+                    )
 
-@Component({
-  selector: 'delete-statistic-modal.component',
-  templateUrl: './delete-statistic-modal.component.html',
-  styleUrls: ['./delete-statistic-modal.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatIconModule, MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf, NgFor],
-})
+                    this.mileageChart = this.createChart(
+                        'mileageChart',
+                        'Km',
+                        this.monthMileage.map((mileage: any) => {
+                            const date = new Date(mileage.date);
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear().toString();
+                            return `${day} ${month} ${year}`;
+                        }),
+                        this.monthMileage.map((mileage: any) => mileage.mileage)
+                    );
 
-export class DeleteStatsModalComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-  factures = new FormControl('');
+                    this.vehicleDeliveryChart = this.generateHorizontalChart(
+                        'vehicleDeliveryChart',
+                        'Nombre de commandes',
+                        this.lockCount.map((lock: any) => {
+                            const matchedVehicle: any = this.vehicleList.find((v: any) => +v.vehicle_id === +lock.vehicle_id);
+                            return matchedVehicle ? (matchedVehicle.name.length < 8 ? matchedVehicle.name.padEnd(8, ' ') : matchedVehicle.name.slice(0, 8) + '...') : '';
+                        }),
+                        this.lockCount.map((lock: any) => lock.lock_count)
+                    );
 
-  factureList: string[] = [`${this.data['type']}_01`, `${this.data['type']}_02`, `${this.data['type']}_03`, `${this.data['type']}_04`, `${this.data['type']}_05`,];
+
+                    this.clientDeliveryChart = this.generateDonutChart(
+                        'clientDeliveryChart',
+                        'Nombre de commandes',
+                        this.clientOrder.map((client: any) => {
+                            const matchedClient: any = this.clientList.find((c: any) => +c.client_id === +client.client_id);
+                            return matchedClient ? (matchedClient.name.length < 8 ? matchedClient.name.padEnd(8, ' ') : matchedClient.name.slice(0, 8) + '...') : '';
+                        }),
+                        this.clientOrder.map((client: any) => client.schedule_count)
+                    );
+                },
+            });
+    }
+
+    createChart(name: string, label: string, label_title: string[], data: number[]) {
+
+        return new Chart(name, {
+            type: 'line',
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    fill: true,
+                    tension: 0.4,
+                    borderColor: 'rgb(209, 209, 209)',
+                    backgroundColor: 'rgb(233, 233, 233)',
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        beginAtZero: true,
+                        display: false,
+                        max: 1.75 * Math.max(...data)
+                    },
+                    x: {
+                        display: false
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                }
+            }
+        });
+    }
+
+    generateHorizontalChart(name: string, label: string, label_title: string[], data: number[]) {
+        return new Chart(name, {
+            type: 'bar',
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    // borderColor: 'rgb(209, 209, 209)',
+                    // backgroundColor: 'rgb(233, 233, 233)',
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // label: (context) => {
+                            //     let label = context.dataset.label || '';
+                            //     if (label) {
+                            //         label += ': ';
+                            //     }
+                            //     const data = dataChart[context.dataIndex];
+                            //     label += data.value + ' (livraison: ' + data.delivery + ')';
+                            //     return label;
+                            // }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+            }
+        });
+    }
+
+    generateDonutChart(name: string, label: string, label_title: string[], data: number[]) {
+        return new Chart(name, {
+            type: 'doughnut',
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)', // Couleur pour Client A
+                        'rgba(54, 162, 235, 0.5)',  // Couleur pour Client B
+                        'rgba(255, 206, 86, 0.5)',  // Couleur pour Client C
+                        'rgba(75, 192, 192, 0.5)',  // Couleur pour Client D
+                        'rgba(153, 102, 255, 0.5)', // Couleur pour Client E
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'left'
+                    }
+                }
+            }
+        });
+    }
 }
