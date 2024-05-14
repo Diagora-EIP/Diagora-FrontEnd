@@ -95,17 +95,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         return `${newYear}-${newMonth}-${newDay}`;
     }
 
-    private get dateFormattedFollowUp(): string | null {
-        if (this.dateStr) {
-            return this.formatDate(new Date(this.dateStr), 2);
-        }
-        if (this.date) {
-            return this.formatDate(this.date, 2);
-        }
-        return null;
-    }
-
-    private get dateFormattedCurrentUser(): string | null {
+    private get dateFormatted(): string | null {
         if (this.dateStr) {
             return this.formatDate(new Date(this.dateStr), 1);
         }
@@ -116,7 +106,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
 
     private init(): void {
-        if (!this.userId || !this.dateFormattedFollowUp) {
+        if (!this.userId || !this.dateFormatted) {
             this.isLoading = false;
             this.isError = true;
             console.error('MapComponent: Missing userId or date input');
@@ -141,24 +131,23 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.itinerary = null;
         this.map = null;
 
-        if (this.fetchedPermissions) {
+        const startDependingOnPermissions = () => {
             if (this.checkPermission('manager') && this.userId !== undefined && this.userId !== 0) {
-                // this.fetchUserSchedules();
-                this.followUpService.init(this.userId, this.dateFormattedFollowUp);
+                // this.fetchUserSchedules(); // debug
+                this.followUpService.init(this.userId, this.dateFormatted!);
             } else {
                 this.fetchUserSchedules();
             }
+        };
+
+        if (this.fetchedPermissions) {
+            startDependingOnPermissions();
         } else {
             this.permissionsService.userPermissionsSubject.pipe(
                 take(1),
                 tap(() => {
                     this.fetchedPermissions = true;
-                    if (this.checkPermission('manager') && this.userId !== undefined && this.userId !== 0) {
-                        // this.fetchUserSchedules();
-                        this.followUpService.init(this.userId, this.dateFormattedFollowUp!);
-                    } else {
-                        this.fetchUserSchedules();
-                    }
+                    startDependingOnPermissions();
                 })
             ).subscribe();
         }
@@ -231,6 +220,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
             if (isFinished === false && this.schedules.find((schedule) => (schedule as any).status === 1 && currentStop.address === (schedule as any).order?.delivery_address)) {
                 isFinished = true;
             }
+            // if schedule with the same adress and order_status 1 is found, we consider that the point is finished
+            if (isFinished === false && this.schedules.find((schedule) => (schedule as any).order_status === 1 && currentStop.address === (schedule as any).order?.delivery_address)) {
+                isFinished = true;
+            }
 
             routeSteps.push({
                 address: currentStop.address,
@@ -243,8 +236,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
 
     private fetchUserSchedules() {
-        const startDate = this.dateFormattedCurrentUser + 'T00:00:00.000Z';
-        const endDate = this.dateFormattedCurrentUser + 'T23:59:59.999Z';
+        const startDate = this.dateFormatted + 'T00:00:00.000Z';
+        const endDate = this.dateFormatted + 'T23:59:59.999Z';
 
         this.scheduleService
             .getScheduleBetweenDates(startDate, endDate)
