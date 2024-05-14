@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'environment';
 
 @Component({
   selector: 'app-manager-tools',
@@ -24,8 +25,29 @@ export class ManagerToolsComponent {
         MissingDelivery: { message: "This is the result for Tool 2", data: { example: "data" } },
         Stats: { message: "This is the result for Tool 3", data: { example: "data" } }
       };
-  
-      this.result = mockResponses[this.selectedTool];
+      let token = localStorage.getItem('token');
+      let user_id = localStorage.getItem('id');
+      let header: any = {};
+      let apiUrl = environment.apiUrl;
+      if (token != null) {
+        header = {
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + token,
+            },
+        };
+      }
+      console.log(this.selectedTool, this.result); // Add this line for debugging
+      if (this.selectedTool === "ForeCast") {
+        this.http.get<any>(
+          `${apiUrl}/prediction/`,
+          header
+        ).subscribe((response: any) => {
+          console.log('Response:', response); // Add this line for debugging
+          this.result = response[0];
+        }
+      );
+      }
       console.log('Result:', this.result);
     }
   }
