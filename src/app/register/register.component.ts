@@ -25,7 +25,10 @@ export class RegisterComponent {
                 private snackBarService: SnackbarService) { 
         this.registerGroup = this.fb.group({
             name: ['', [Validators.required]],
-            address: ['', [Validators.required]],
+            number: ['', [Validators.required]],
+            rue: ['', [Validators.required]],
+            ville: ['', [Validators.required]],
+            postalCode: ['', [Validators.required]],
             company: ['', [Validators.required]],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
@@ -42,13 +45,14 @@ export class RegisterComponent {
             return;
         }
         
-        const { name, address, company, email, password, passwordConf } = this.registerGroup.value;
+        const { name, number, rue, ville, postalCode, company, email, password, passwordConf } = this.registerGroup.value;
         
         if (password != passwordConf) {
             this.snackBarService.warningSnackBar('Les mots de passe ne correspondent pas');
             return;
         }
 
+        const address = `${number} ${rue}, ${postalCode}, ${ville}`;
         const body = {
             "name": name,
             "email": email,

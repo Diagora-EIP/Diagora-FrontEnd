@@ -1,25 +1,46 @@
+<!-- numero, rue, ville, code postal -->
 <div class="contentPage">
     <div class="contentRegister">
         <div class="container-title-login">
             <h1 class="title-login">Créer votre compte !</h1>
         </div>
         <form [formGroup]="registerGroup" (ngSubmit)="register()" class="container-form-login">
-            <div class="nameFirstContainer">
+            <div class="numberAdresse">
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Prénom</mat-label>
-                        <input type="name" matInput formControlName="name" placeholder="Ex. William">
-                        <mat-error *ngIf="registerGroup.get('name')?.hasError('required')">
-                            Le prénom est <strong>obligatoire</strong>
+                        <mat-label>Numéro de rue</mat-label>
+                        <input type="text" matInput formControlName="number" placeholder="Ex. 116">
+                        <mat-error *ngIf="registerGroup.get('number')?.hasError('required')">
+                            Le numéro de rue est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="inputContainer-form-login">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Adresse de l'entreprise</mat-label>
-                        <input type="address" matInput formControlName="address" placeholder="Ex. 3 place paul bec, 34000, France">
-                        <mat-error *ngIf="registerGroup.get('address')?.hasError('required')">
-                            L'addresse est <strong>obligatoire</strong>
+                        <mat-label>Code postal</mat-label>
+                        <input type="text" matInput formControlName="postalCode" placeholder="Ex. 34000">
+                        <mat-error *ngIf="registerGroup.get('postalCode')?.hasError('required')">
+                            Le code postal est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="numberAdresse">
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Nom de rue</mat-label>
+                        <input type="address" matInput formControlName="rue" placeholder="Ex. place paul bec">
+                        <mat-error *ngIf="registerGroup.get('rue')?.hasError('required')">
+                            Le nom de rue est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer-form-login">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Ville</mat-label>
+                        <input type="address" matInput formControlName="ville" placeholder="Ex. Montpellier">
+                        <mat-error *ngIf="registerGroup.get('rvilleue')?.hasError('required')">
+                            La ville est <strong>obligatoire</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -30,6 +51,15 @@
                     <input type="company" matInput formControlName="company" placeholder="Ex. Diagora">
                     <mat-error *ngIf="registerGroup.get('company')?.hasError('required')">
                         Entreprise est <strong>obligatoire</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="inputContainer-form-login">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Prénom</mat-label>
+                    <input type="name" matInput formControlName="name" placeholder="Ex. William">
+                    <mat-error *ngIf="registerGroup.get('name')?.hasError('required')">
+                        Le prénom est <strong>obligatoire</strong>
                     </mat-error>
                 </mat-form-field>
             </div>

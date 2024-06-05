@@ -72,8 +72,26 @@
                 </div>
                 <div ngClass="container-input-modals">
                     <mat-form-field ngClass="content-input-modals">
-                        <mat-label ngClass="title-input-modals">address</mat-label>
-                        <input matInput formControlName="address" required>
+                        <mat-label ngClass="title-input-modals">Numero de rue</mat-label>
+                        <input matInput formControlName="number" required>
+                    </mat-form-field>
+                </div>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">Nom de rue</mat-label>
+                        <input matInput formControlName="rue" required>
+                    </mat-form-field>
+                </div>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">Ville</mat-label>
+                        <input matInput formControlName="ville" required>
+                    </mat-form-field>
+                </div>
+                <div ngClass="container-input-modals">
+                    <mat-form-field ngClass="content-input-modals">
+                        <mat-label ngClass="title-input-modals">Code postal</mat-label>
+                        <input matInput formControlName="postalCode" required>
                     </mat-form-field>
                 </div>
                 <div *ngIf="displayClientAlreadyExists">

@@ -16,10 +16,10 @@ h2 {
 .contentGlobal {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
-    padding: 50px;
+    padding: 150px 100px;
 }
     
 .userInformation { 
@@ -29,7 +29,7 @@ h2 {
 }
 .EntrepriseInformation { 
     padding: 15px;
-    grid-area: 3 / 1 / 4 / 2;
+    grid-area: 1 / 2 / 4 / 2;
     text-align: center;
 }
 
@@ -87,4 +87,34 @@ h2 {
 .line {
     border-bottom: 1px solid black;
     width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.contentSelectColor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    mat-form-field {
+        width: 80%;
+    }
+}
+
+.twoInColumn {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    div {
+        width: 45%;
+    }
 }

@@ -103,6 +103,38 @@ $button-color: #002b2c;
     }
 }
 
+.logout-button {
+    width: 50%;
+    height: 50%;
+    align-items: center;
+    padding: 1.5rem 0;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: color 0.2s, box-shadow 0.2s;
+    display: flex;
+    position: static;
+    cursor: pointer;
+    
+    mat-icon {
+        width: 100%;
+        height: 100%;
+        color: $button-color;
+        margin-right: 8px;
+        font-size: 2.5rem;
+        transition: transform 0.2s ease-in-out, color 0.2s;
+        &:hover {
+            transform: scale(1.2);
+            color: $hover-color;
+        }
+    }
+    .mat-tooltip {
+        background-color: #333;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 2.5rem;
+    }
+}
+
 .cdk-overlay-pane {
     min-width: 400vw;
 }
