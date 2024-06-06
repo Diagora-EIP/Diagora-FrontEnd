@@ -34,4 +34,44 @@
             <canvas id="clientDeliveryChart">{{clientDeliveryChart}}</canvas>
         </div>
     </div>
+    <div *ngIf="vehicleExpenses.length !== 0" ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <table ngClass="tab-userList" mat-table [dataSource]="vehicleExpenses">
+            <ng-container class="content-tab-userList" matColumnDef="title">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Dépense</th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.title}}
+                </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="description">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Description</th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
+                    {{data.description || "pas de description"}}
+                </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="vehicle.name">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Véhicule</th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.vehicle?.name}}
+                </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="amount">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Montant</th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.amount}}€
+                </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="action">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
+                <td class="data-tab-userList" mat-cell *matCellDef="let expense">
+                    <div class="company-container">
+                        <button class="button-data-tab-userList" (click)="editExpense(expense)">
+                            <mat-icon>settings</mat-icon>
+                        </button>
+                        <button class="button-data-tab-userList" (click)="deleteExpense(expense)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="expensesColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: expensesColumns;"></tr>
+        </table>
+    </div>
 </div>
