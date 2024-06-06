@@ -48,7 +48,7 @@ type RouteStep = {
 export class MapComponent implements AfterViewInit, OnChanges {
     @Input() userId?: number;
     @Input() dateStr?: string; // format: 'YYYY-MM-DD'
-    @Input() date?: Date;
+    // @Input() date?: Date;
     @Input() siderWidth?: string;
 
     @ViewChild('mapElem', { static: false, read: ElementRef }) mapElement!: ElementRef<HTMLDivElement>;
@@ -98,11 +98,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
     private get dateFormatted(): string | null {
         if (this.dateStr) {
-            return this.formatDate(new Date(this.dateStr), 0);
+            const newDate = new Date(this.dateStr);
+            // return this.formatDate(new Date(this.dateStr), 0);
+            return this.dateStr;
         }
-        if (this.date) {
-            return this.formatDate(this.date, 0);
-        }
+        // if (this.date) {
+        //     return this.formatDate(this.date, 0);
+        // }
         return null;
     }
 
@@ -110,7 +112,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
         if (!this.userId || !this.dateFormatted) {
             this.isLoading = false;
             this.isError = true;
-            console.error('MapComponent: Missing userId or date input');
+            // console.log("this.userId", this.userId)
+            // console.log("this.dateFormatted", this.dateFormatted)
+            // console.error('MapComponent: Missing userId or date input');
             this.cdr.detectChanges();
             if (!this.userId) {
                 this.userId = +(this.utilsService.getUserId() || 0);
@@ -242,8 +246,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
     private fetchUserSchedules() {
         const startDate = this.dateFormatted + 'T00:00:00.000Z';
         const endDate = this.dateFormatted + 'T23:59:59.999Z';
-        console.log("this.dateFormattedCurrentUser: ", this.dateFormatted)
-        console.log("startDate", startDate)
 
         this.scheduleService
             .getScheduleBetweenDates(startDate, endDate)
@@ -452,7 +454,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         private cdr: ChangeDetectorRef,
         private zone: NgZone,
         private utilsService: UtilsService,
-    ) { }
+    ) {
+    }
 
     ngAfterViewInit(): void {
         this.followUpService.onError$
