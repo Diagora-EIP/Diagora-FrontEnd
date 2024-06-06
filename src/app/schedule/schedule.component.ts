@@ -307,7 +307,6 @@ export class ScheduleComponent implements OnInit {
             else
                 fetchEventsPromise = this.getSchedule();
 
-            console.log("fetchEventsPromise:", fetchEventsPromise);
 
             fetchEventsPromise.then(events => {
                 this.calendarOptions.events = events.map((event: any) =>
