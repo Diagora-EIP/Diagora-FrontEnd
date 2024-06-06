@@ -389,8 +389,10 @@ export class ScheduleComponent implements OnInit {
 
     openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
+        const isManager = this.checkPermission('manager');
+        const currentUser = isManager ? this.currUser : { user_id: this.permissionsService.getUserId(), name: "Moi" };
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
-            data: { start, end, currUser: this.currUser }
+            data: { start, end, currUser: currentUser }
         });
 
         // this.fullcalendar.getApi().addEvent({
