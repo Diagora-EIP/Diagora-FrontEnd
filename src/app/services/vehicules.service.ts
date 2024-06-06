@@ -95,4 +95,22 @@ export class VehiculesService {
         const url = `${this.apiUrl}/vehicleLock` + (user_id ? `/${user_id}` : '');
         return this.http.get<any>(`${url}?date=${date}`, this.header);
     }
+
+    getUserVehicleExpenses(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/vehicleExpense`, this.header);
+    }
+
+    updateVehicleExpense(id: number, name: string, description: string, price: number, picture: any): Observable<any> {
+        const requestBody = {
+            title: name,
+            description: description,
+            amount: price,
+            picture: picture
+        };
+        return this.http.patch<any>(`${this.apiUrl}/vehicleExpense/${id}`, requestBody, this.header);
+    }
+
+    deleteVehicleExpense(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/vehicleExpense/${id}`, this.header);
+    }
 }

@@ -1,0 +1,49 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modifier une dépense pour {{ vehicle_name }}</h1>
+    </div>
+
+    <div ngClass="content-big-grid-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom de la dépense:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Péage" [(ngModel)]="title" name="title"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Description</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Péage de Marseille" [(ngModel)]="description"
+                    name="description" [required]="false">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">prix</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. 15" [(ngModel)]="amount" name="amount"
+                    [required]="false" type="number">
+            </mat-form-field>
+        </div>
+        <!-- <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Plaque d'immatriculation du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. AA229AA" [(ngModel)]="license" name="license"
+                    [required]="false">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Kilométrage du véhicule:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. 12740" [(ngModel)]="mileage" name="mileage"
+                    [required]="false" type="number">
+            </mat-form-field>
+        </div> -->
+
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn" (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="editVehicule()">Valider</button>
+        </div>
+    </div>
+</div>

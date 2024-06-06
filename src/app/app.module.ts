@@ -70,6 +70,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
 import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
 
 @NgModule({
     declarations: [
@@ -119,6 +120,7 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        EditVehiculeExpenseComponent,
     ],
     imports: [
         BrowserModule,
