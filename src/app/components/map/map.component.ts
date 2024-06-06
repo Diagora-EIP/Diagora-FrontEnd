@@ -112,7 +112,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
         if (!this.userId || !this.dateFormatted) {
             this.isLoading = false;
             this.isError = true;
-            console.error('MapComponent: Missing userId or date input');
+            // console.log("this.userId", this.userId)
+            // console.log("this.dateFormatted", this.dateFormatted)
+            // console.error('MapComponent: Missing userId or date input');
             this.cdr.detectChanges();
             if (!this.userId) {
                 this.userId = +(this.utilsService.getUserId() || 0);
@@ -452,7 +454,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         private cdr: ChangeDetectorRef,
         private zone: NgZone,
         private utilsService: UtilsService,
-    ) { 
+    ) {
     }
 
     ngAfterViewInit(): void {
@@ -470,7 +472,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
                 this.onDataUpdated$.next();
                 this.cdr.markForCheck();
             });
-        
+
         this.followUpService.schedules$
             .pipe(takeUntil(this.destroy$))
             .subscribe((schedules) => {
