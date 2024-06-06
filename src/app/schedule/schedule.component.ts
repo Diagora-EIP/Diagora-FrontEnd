@@ -281,7 +281,16 @@ export class ScheduleComponent implements OnInit {
         const estimatedTime = extendedProps.estimatedTime;
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
-
+        const isManager = this.checkPermission('manager');
+        let user: any = undefined;
+        //code de merde a fix
+        if (isManager) {
+            user = this.userList.find(
+                (user) => user.name === this.managerControl.value.name
+            )
+        } else {
+            user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
+        }
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
                 start,
@@ -292,10 +301,8 @@ export class ScheduleComponent implements OnInit {
                 estimatedTime,
                 actualTime,
                 status,
-                manager: this.checkPermission('manager'),
-                user: this.userList.find(
-                    (user) => user.name === this.managerControl.value.name
-                )
+                manager: isManager,
+                user: user
             }
         });
 

@@ -24,8 +24,8 @@ export class UpdateScheduleModalComponent {
     estimatedTime: any; // You may need to define the type based on your data structure
     actualTime: any; // You may need to define the type based on your data structure
     status: any; // You may need to define the type based on your data structure
-	manager: boolean
-	user: any
+    manager: boolean
+    user: any
 
     constructor(
         public dialogRef: MatDialogRef<UpdateScheduleModalComponent>,
@@ -33,7 +33,7 @@ export class UpdateScheduleModalComponent {
         private fb: FormBuilder,
         private scheduleService: ScheduleService,
         private router: Router,
-        private snackBarService: SnackbarService 
+        private snackBarService: SnackbarService
     ) {
         // Initialize variables based on the data
         this.start = data.start;
@@ -54,8 +54,8 @@ export class UpdateScheduleModalComponent {
         this.estimatedTime = data.estimatedTime;
         this.actualTime = data.actualTime;
         this.status = data.status;
-		this.manager = data.manager
-		this.user = data.user
+        this.manager = data.manager
+        this.user = data.user
 
         this.updateForm = this.fb.group({
             deliveryDate: [new Date(this.start), Validators.required],
@@ -82,55 +82,55 @@ export class UpdateScheduleModalComponent {
                 // Add other properties based on your data structure
             };
 
-			if (!this.manager) {
-				this.scheduleService
-					.updateSchedule(this.scheduleId, updatedScheduleData)
-					.pipe(
-						tap((res) => {
-							if (res.status === 'success') {
+            if (!this.manager) {
+                this.scheduleService
+                    .updateSchedule(this.scheduleId, updatedScheduleData)
+                    .pipe(
+                        tap((res) => {
+                            if (res.status === 'success') {
 
-							} else {
-								this.errorMessage = res.message;
-							}
-						})
-					)
-					.subscribe((res) => {
-						console.log(res);
-						// Handle success or error accordingly
-					}
-				)
-			} else {
-				this.scheduleService
-					.updateScheduleByUser(this.user?.user_id, this.scheduleId, updatedScheduleData)
-					.pipe(
-						tap((res) => {
-							if (res.status === 'success') {
+                            } else {
+                                this.errorMessage = res.message;
+                            }
+                        })
+                    )
+                    .subscribe((res) => {
+                        console.log(res);
+                        // Handle success or error accordingly
+                    }
+                    )
+            } else {
+                this.scheduleService
+                    .updateScheduleByUser(this.user?.user_id, this.scheduleId, updatedScheduleData)
+                    .pipe(
+                        tap((res) => {
+                            if (res.status === 'success') {
 
-							} else {
-								this.errorMessage = res.message;
-							}
-						})
-					)
-					.subscribe((res) => {
-						console.log(res);
-						// Handle success or error accordingly
-					}
-				)
-			}
+                            } else {
+                                this.errorMessage = res.message;
+                            }
+                        })
+                    )
+                    .subscribe((res) => {
+                        console.log(res);
+                        // Handle success or error accordingly
+                    }
+                    )
+            }
         }
         this.snackBarService.successSnackBar('Le planning a été modifié avec succès !');
-		this.closeDialog();
+        this.closeDialog();
     }
 
     deleteSchedule() {
         // Add logic to delete the schedule
         // You can call your service method to delete the schedule
         this.scheduleService.deleteSchedule(this.scheduleId).subscribe((res) => {
-                console.log(res);
-                // Handle success or error accordingly
-		});
+            console.log(res);
+            // Handle success or error accordingly
+        });
         this.snackBarService.successSnackBar('Le planning a été supprimé avec succès !');
-		this.closeDialog();
+        this.closeDialog();
     }
 
     redirectToItineraryPage() {
@@ -139,15 +139,22 @@ export class UpdateScheduleModalComponent {
 
             const user_name = this.user?.name;
             const user_id = this.user?.user_id;
-			this.closeDialog();
+            this.closeDialog();
             this.router.navigate([
                 '/carte',
                 { date: this.start, user_id: user_id, user_name: user_name },
             ]);
         } else {
-			this.closeDialog();
-			this.router.navigate(['/carte', { date: this.start }]);
-		}
+            this.closeDialog();
+            //code de merde a fix
+            const user_name = this.user?.name;
+            const user_id = this.user?.user_id;
+            console.log(this.start);
+            this.router.navigate([
+                '/carte',
+                { date: this.start, user_id: user_id, user_name: user_name },
+            ]);
+        }
     }
 
     closeDialog(): void {
