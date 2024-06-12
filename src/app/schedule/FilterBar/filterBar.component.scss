@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    padding: 10px;
+    height: 94vh;
+    overflow: hidden;
+    padding: 10px;
+    max-height: calc(80vh - 80px); /* Adjust height as needed */
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-left: 1px solid #e0e0e0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.calendar-container {
+    width: 80%;
+    margin: auto;
+}
+
+.main-calendar-container {
+    flex: 11;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.filter-container {
+    flex: 1;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    max-height: 94vh; // Ensure this matches the parent container's height
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #01aba8;
+    color: #fff;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+.filter-components {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.manager-selector {
+    margin-bottom: 20px;
+}
+
+.label-text {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-container {
+    width: 100%;
+}
+
+.team-selectors {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.display-button-container {
+    text-align: right;
+}
+
+.schedule-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-button:hover {
+    background-color: #0056b3;
+}
+
+.no-team-users {
+    margin-top: 20px;
+    position: relative; /* Required for positioning the pseudo-element */
+}
+
+.loading-spinner {
+    display: block;
+    height: 100%;
+    position: relative;
+}

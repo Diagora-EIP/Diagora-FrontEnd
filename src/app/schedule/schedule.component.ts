@@ -5,6 +5,7 @@ import { CalendarOptions, EventInput } from '@fullcalendar/core'; // useful for 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { tap } from 'rxjs/operators';
 import { ScheduleService } from '../services/schedule.service';
+import { TeamService } from '../services/team.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ManagerService } from '../services/manager.service';
@@ -19,7 +20,7 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NgZone } from '@angular/core';
-
+import teamjson from './teams.json';
 
 interface User {
     name: string;
@@ -34,11 +35,13 @@ interface User {
 })
 export class ScheduleComponent implements OnInit {
     @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
+    UsersTeams = teamjson;
     private calendarApi: any;
     currentStartDate: any;
     currentEndDate: any;
     managerControl = new FormControl();
     userList: any[] = [];
+    teams: any[] = [];
     filteredUsers: any[] = [];
     selectedDate: Date | null = null;
     filteredDates: Date[] = [];
@@ -61,7 +64,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     calendarOptions: CalendarOptions = {
-        initialView: 'dayGridMonth',
+        initialView: 'dayGridWeek',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: true,
         selectable: true,
@@ -146,7 +149,7 @@ export class ScheduleComponent implements OnInit {
                                 });
 
                                 if (!data || data.length === 0) {
-                                    resolve([]); // Resolve with an empty array if no events
+                                    resolve([]);
                                     return;
                                 }
                                 return resolve(data);
@@ -156,7 +159,7 @@ export class ScheduleComponent implements OnInit {
                                     this.loading = false;
                                     this.cdref.detectChanges();
                                 });
-                                reject(err); // Reject with the error if any error occurs
+                                reject(err);
                             },
                             complete: () => {
                                 this.ngZone.run(() => {
@@ -184,6 +187,7 @@ export class ScheduleComponent implements OnInit {
                 if (this.checkPermission('manager') && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
+                console.log('currUser:', this.currUser);
                 const user_id = this.currUser.user_id;
 
                 if (user_id === undefined) {
@@ -318,17 +322,29 @@ export class ScheduleComponent implements OnInit {
         });
     }
 
+    handleCompanyDataChange(companyData: any): void {
+        // Handle company data
+        console.log('Company data:', companyData);
+    }
+
+    handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): void {
+        // Handle selected teams and users without teams
+        console.log('Selected teams:', selectedData.teams);
+        console.log('Selected users without teams:', selectedData.usersWithoutTeams);
+    }
+
     async getManagerEntreprise(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    this.filteredUsers = response.users;
-                    this.userList = response.users;
-                    this.users = response.users;
-                    localStorage.setItem('entreprise', response.name);
-                    localStorage.setItem('addressEntreprise', response.address);
-                    localStorage.setItem('company_id', response.company_id);
-                    localStorage.setItem('users', JSON.stringify(response.users));
+                    this.filteredUsers = teamjson.users;
+                    this.userList = teamjson.users;
+                    this.users = teamjson.users;
+                    this.teams = teamjson.teams;
+                    localStorage.setItem('entreprise', teamjson.name);
+                    localStorage.setItem('addressEntreprise', teamjson.address);
+                    localStorage.setItem('company_id', teamjson.company_id);
+                    localStorage.setItem('users', JSON.stringify(teamjson.users));
                     this.currUser = this.userList.find((user: User) => {
                         const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
                         const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
@@ -382,17 +398,10 @@ export class ScheduleComponent implements OnInit {
     }
 
     openEventCreationForm(start: string, end: string) {
-        // Open the modal for event creation
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
             data: { start, end, currUser: this.currUser }
         });
 
-        // this.fullcalendar.getApi().addEvent({
-        //     title: 'New Event',
-        //     start: start,
-        //     end: end,
-        //     allDay: false,
-        // });
         let fetchEventsPromise: Promise<any>;
 
         dialogRef.afterClosed().subscribe(result => {

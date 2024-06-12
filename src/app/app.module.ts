@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,6 +69,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
 import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
+import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
@@ -119,6 +121,8 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        FilterBarComponent,
+        OrderBarComponent,
     ],
     imports: [
         BrowserModule,
@@ -146,6 +150,7 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
         MatNativeDateModule,
         MatSnackBarModule,
         MatMenuModule,
+        MatExpansionModule,
     ],
     providers: [
     ],
