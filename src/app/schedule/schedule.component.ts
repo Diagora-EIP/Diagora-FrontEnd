@@ -421,4 +421,8 @@ export class ScheduleComponent implements OnInit {
             });
         });
     }
+
+    //Proposition Modal
+    openPropositionModal() {
+    }
 }
