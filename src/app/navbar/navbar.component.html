@@ -29,6 +29,7 @@
                 <mat-menu #managerMenu="matMenu" [overlapTrigger]="false" (closed)="toggleMenu()">
                     <button mat-menu-item routerLink="manager/userList">Gestion Livreurs</button>
                     <button mat-menu-item routerLink="manager/gestion-client">Gestion clients</button>
+                    <button mat-menu-item routerLink="manager/teams">Gestion teams</button>
                     <button mat-menu-item routerLink="/manager/tools">Outils</button>
                 </mat-menu>
                 <button mat-button [matMenuTriggerFor]="managerMenu" [class.menu-open]="isMenuOpen" class="dropdown">

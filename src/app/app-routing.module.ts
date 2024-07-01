@@ -19,6 +19,7 @@ import { ManagerGestionClientComponent } from './manager/manager-gestion-client/
 import { ManagerToolsComponent } from './manager/manager-tools/manager-tools.component';
 import { ClientComponent } from './client/client.component';
 import { NotificationComponent } from './notification/notification.component';
+import { ManagerTeamsComponent } from './manager/manager-teams/manager-teams.component';
 
 const routes: Routes = [
     { path: 'client/:token', component: ClientComponent },
@@ -58,6 +59,7 @@ const routes: Routes = [
             { path: 'manager/gestion-client', component: ManagerGestionClientComponent },
             { path: 'manager/userList', component: ManagerUserListComponent },
             { path: 'manager/tools', component: ManagerToolsComponent },
+            { path: 'manager/teams', component: ManagerTeamsComponent}
         ],
         data: {
             permission: ['manager', 'admin']

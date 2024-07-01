@@ -71,6 +71,9 @@ import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
 import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
+import { ManagerTeamsComponent } from './manager/manager-teams/manager-teams.component';
+import { UpdateTeamsModalComponent } from './manager/update-teams-modal/update-teams-modal.component';
+import { CreateTeamsModalComponent } from './manager/create-teams-modal/create-teams-modal.component';
 
 @NgModule({
     declarations: [
@@ -121,6 +124,9 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         NotificationShowModalComponent,
         LockVehicleComponent,
         EditVehiculeExpenseComponent,
+        ManagerTeamsComponent,
+        UpdateTeamsModalComponent,
+        CreateTeamsModalComponent,
     ],
     imports: [
         BrowserModule,
