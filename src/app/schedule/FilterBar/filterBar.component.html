@@ -36,6 +36,7 @@
                         (ngModelChange)="onSelectionChange(team)"
                     >
                         <mat-list-option
+                            class="team-users"
                             *ngFor="let user of getUsersForTeam(team.users)"
                             [value]="user"
                             [ngStyle]="{
@@ -46,7 +47,15 @@
                                     : 'transparent'
                             }"
                         >
-                            {{ user.name }}
+                        <div class="user-info">
+                            <mat-icon 
+                                class="signalization-icon" 
+                                (click)="openAbsenceModal(user, $event)"
+                            >
+                                error_outline
+                            </mat-icon>
+                            <span class="user-name">{{ user.name }}</span>
+                        </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
@@ -64,7 +73,15 @@
                             'background-color': isUserSelected(null, user) ? user.color : 'transparent'
                         }"
                     >
-                        {{ user.name }}
+                    <div class="user-info">
+                        <mat-icon 
+                            class="signalization-icon" 
+                            (click)="openAbsenceModal(user, $event)"
+                        >
+                            error_outline
+                        </mat-icon>
+                        <span class="user-name">{{ user.name }}</span>
+                    </div>
                     </mat-list-option>
                 </mat-selection-list>
             </div>

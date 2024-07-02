@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
+import { PropositionComponent } from './modals/delivery-proposition-modal/create-proposition-modal';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -424,5 +425,11 @@ export class ScheduleComponent implements OnInit {
 
     //Proposition Modal
     openPropositionModal() {
+        const dialogRef = this.dialog.open(PropositionComponent, {
+        });
+
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
     }
 }

@@ -1,9 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { TeamService } from '../../services/team.service';
 import { ManagerService } from '../../services/manager.service';
+import { DelivererAbsenceModalComponent } from '../modals/create-absent-modal/create-absent-modal';
+
 
 @Component({
     selector: 'filter-bar',
@@ -172,6 +174,25 @@ export class FilterBarComponent implements AfterViewInit {
                     reject(error);
                 }
             });
+        });
+    }
+
+    openAbsenceModal(user: any, event: Event): void {
+        event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
+    
+        const dialogRef = this.dialog.open(DelivererAbsenceModalComponent, {
+          width: '400px',
+          data: { 
+            user: user, 
+            declaredAbsences: user.declaredAbsences || [] // Ensure declaredAbsences is passed
+          }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            // Handle the new absence declaration
+            console.log('New absence declared:', result);
+          }
         });
     }
 }

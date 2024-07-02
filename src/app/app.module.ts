@@ -51,6 +51,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
+import { PropositionComponent } from './schedule/modals/delivery-proposition-modal/create-proposition-modal';
+import { DelivererAbsenceModalComponent } from './schedule/modals/create-absent-modal/create-absent-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ClientComponent } from './client/client.component';
@@ -123,6 +125,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
         LockVehicleComponent,
         FilterBarComponent,
         OrderBarComponent,
+        PropositionComponent,
+        DelivererAbsenceModalComponent,
+
     ],
     imports: [
         BrowserModule,

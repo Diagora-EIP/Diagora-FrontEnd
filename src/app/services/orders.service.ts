@@ -30,7 +30,7 @@ export class OrderService {
         endDate: string
     ): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/order/get-between-date?start_date=${startDate}&end_date=${endDate}`,
+            `${this.apiUrl}/order/?start_date=${startDate}&end_date=${endDate}`,
             this.header
         );
     }

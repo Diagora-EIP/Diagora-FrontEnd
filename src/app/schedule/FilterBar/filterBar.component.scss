@@ -1,3 +1,5 @@
+
+
 .container {
     display: flex;
     padding: 10px;
@@ -81,6 +83,12 @@
     text-align: right;
 }
 
+.loading-spinner {
+    display: block;
+    height: 100%;
+    position: relative;
+}
+
 .schedule-button {
     background-color: #007bff;
     color: #fff;
@@ -97,7 +105,37 @@
 
 .no-team-users {
     margin-top: 20px;
+    font-size: 5px;
     position: relative; /* Required for positioning the pseudo-element */
+}
+
+.team-users .user-info {
+    display: flex;
+    align-items: center; /* Vertically center align items */
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Vertically center align items */
+    justify-content: space-between; /* Ensure the icon is on the right */
+}
+
+.mat-list-option .mat-checkbox-layout .mat-checkbox-inner-container {
+    margin-left: 0 !important;
+}
+
+.user-name {
+    flex: 1; /* Allow user name to take remaining space 
+    font-size: 15px !important; /* Adjust the font size of user name */
+    overflow: hidden; /* Prevent overflow if necessary */
+    text-overflow: ellipsis; /* Add ellipsis for text overflow */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.signalization-icon {
+    cursor: pointer; /* Make the icon clickable */
+    color: #757575; /* Example color for the icon */
+    font-size: 14px; /* Example font size for the icon */
 }
 
 .loading-spinner {

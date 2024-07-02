@@ -1,0 +1,30 @@
+<div class="modal" [class.show]="isModalOpen" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h5 class="modal-title">Propositions de planning</h5>
+            <button type="button" class="close" (click)="closeModal($event)">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="schedule-days-container">
+                <div *ngFor="let day of schedulePropositions" class="day-container">
+                    <h6>{{ day.date | date }}</h6>
+                    <div class="deliveries-list">
+                        <div *ngFor="let delivery of day.deliveries" class="delivery-item">
+                            <div class="delivery-box" [ngClass]="{ 'proposition-delivery': delivery.proposition }">
+                                <div class="delivery-info">
+                                    <div>Date : {{ delivery.delivery_date | date:'short' }}</div>
+                                    <div>Description : {{ delivery.order.description }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assigned-user">Assigné à : {{ day.user }}</div>
+                    <div class="action-buttons">
+                        <button class="btn accept-btn" (click)="accept(day)">Accepter</button>
+                        <button class="btn decline-btn" (click)="decline(day)">Refuser</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
