@@ -74,6 +74,7 @@ import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-
 import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
 import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
 
 @NgModule({
     declarations: [
@@ -127,7 +128,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         OrderBarComponent,
         PropositionComponent,
         DelivererAbsenceModalComponent,
-
+        EditVehiculeExpenseComponent,
     ],
     imports: [
         BrowserModule,

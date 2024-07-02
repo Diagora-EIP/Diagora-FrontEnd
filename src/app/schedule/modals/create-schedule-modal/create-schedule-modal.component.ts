@@ -195,6 +195,10 @@ export class CreateScheduleModalComponent implements AfterViewInit {
 
     visualizeDay() {
         this.closeDialog(null);
+        console.log("marche pas")
+        console.log("start", this.data.start)
+        console.log("end", this.data.end)
+        console.log("user", this.data.currUser)
         const dialogRef = this.dialog.open(VisualizeScheduleDayComponent, {
             data: {
                 start: this.data.start,

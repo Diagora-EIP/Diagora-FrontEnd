@@ -1,15 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Chart, registerables } from "chart.js";
 import { StatisticService } from '../services/statistic.service';
 import { ClientService } from '../services/client.service';
 import { VehiculesService } from '../services/vehicules.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditVehiculeExpenseComponent } from './modals/edit-vehicule-expense/edit-vehicule-expense.component';
+import { SnackbarService } from '../services/snackbar.service';
 
+const modalComponentMapping: { [key: string]: Type<any> } = {
+    EDIT: EditVehiculeExpenseComponent,
+};
 @Component({
     selector: 'app-statistic',
     templateUrl: './statistic.component.html',
     styleUrls: ['./statistic.component.scss']
 })
 export class StatisticComponent {
+    modalComponentMapping: { [key: string]: { component: Type<any>; constructor: () => any, action: (instance: any) => void } } = {
+        EDIT: {
+            component: EditVehiculeExpenseComponent,
+            constructor: () => {
+                return {
+                    data: this.selectedExpense,
+                }
+            },
+            action: (instance: any) => {
+                this.getUserVehicleExpense();
+            }
+        },
+    };
     livraisonChart: Chart = Chart.prototype;
     mileageChart: Chart = Chart.prototype;
     expenseChart: Chart = Chart.prototype;
@@ -26,16 +45,27 @@ export class StatisticComponent {
     monthMileage = []
     lockCount = []
     vehicleList = []
+    vehicleExpenses: any[] = [];
+    expensesColumns = ['title', 'description', 'vehicle.name', 'amount', 'action'];
+    selectedExpense: any = null;
+
+    // expensesColumns = ['title', 'description', 'amount'];
 
     clientDeliveryChart: Chart<'doughnut'> = Chart.prototype;
 
-    constructor(private statisticService: StatisticService, private clientService: ClientService, private vehiculesService: VehiculesService) {
+    constructor(
+        private statisticService: StatisticService,
+        private clientService: ClientService,
+        private vehiculesService: VehiculesService,
+        public dialog: MatDialog,
+        private snackBarService: SnackbarService,
+    ) {
+        this.getUserVehicleExpense()
         this.getClientList();
     }
 
     ngAfterViewInit(): void {
         Chart.register(...registerables);
-
         this.getClientCount();
         this.getExpense();
     }
@@ -272,5 +302,45 @@ export class StatisticComponent {
                 }
             }
         });
+    }
+
+    getUserVehicleExpense() {
+        this.vehiculesService.getUserVehicleExpenses()
+            .subscribe({
+                next: (data) => {
+                    this.vehicleExpenses = data;
+                    console.log(this.vehicleExpenses)
+                }
+            });
+    }
+
+    editExpense(expense: any) {
+        this.selectedExpense = expense;
+        const { component, constructor, action } = this.modalComponentMapping["EDIT"];
+
+        if (!component) {
+            throw new Error(`Type de modal non pris en charge : "EDIT"`);
+        }
+
+        const dialogRef = this.dialog.open(component, {
+            panelClass: 'custom',
+            data: constructor()
+        });
+
+        dialogRef.afterClosed().subscribe((data) => {
+            if (!data)
+                return
+            action(data);
+        });
+    }
+
+    deleteExpense(expense: any) {
+        this.vehiculesService.deleteVehicleExpense(expense.vehicle_expense_id)
+            .subscribe({
+                next: () => {
+                    this.getUserVehicleExpense();
+                    this.snackBarService.successSnackBar('La dépense a été supprimée avec succès !');
+                }
+            });
     }
 }
