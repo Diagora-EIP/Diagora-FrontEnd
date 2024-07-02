@@ -1,0 +1,90 @@
+{
+    "company_id": "32",
+    "name": "Diagoras",
+    "address": "10 Rue Richelieu 34000 Montpellier, France",
+    "teams": [
+      {
+        "team_id": 1,
+        "name": "Sales Team",
+        "color": "#ff5733",
+        "user_ids": [139, 109, 111, 113] 
+      },
+      {
+        "team_id": 2,
+        "name": "Marketing Team",
+        "color": "#33ff57",
+        "user_ids": [140, 112] 
+      },
+      {
+        "team_id": 3,
+        "name": "Support Team",
+        "color": "#3366ff",
+        "user_ids": [141, 114, 115] 
+      }
+    ],
+    "users": [
+      {
+        "user_id": 139,
+        "name": "Alice Smith",
+        "email": "alice.smith@example.com",
+        "company_id": 32,
+        "user_color": "#3366ff"
+      },
+      {
+        "user_id": 109,
+        "name": "Diogo",
+        "email": "john.doe@example.com",
+        "company_id": 32,
+        "user_color": "#ff33cc"
+      },
+      {
+        "user_id": 111,
+        "name": "Emily Johnson",
+        "email": "emily.johnson@example.com",
+        "company_id": 32,
+        "user_color": "#ffcc33"
+      },
+      {
+        "user_id": 113,
+        "name": "David Brown",
+        "email": "david.brown@example.com",
+        "company_id": 32,
+        "user_color": "#33ccff"
+      },
+      {
+        "user_id": 140,
+        "name": "Jessica Garcia",
+        "email": "jessica.garcia@example.com",
+        "company_id": 32,
+        "user_color": "#ff99cc"
+      },
+      {
+        "user_id": 112,
+        "name": "Michael Taylor",
+        "email": "michael.taylor@example.com",
+        "company_id": 32,
+        "user_color": "#99ccff"
+      },
+      {
+        "user_id": 141,
+        "name": "Sophia Martinez",
+        "email": "sophia.martinez@example.com",
+        "company_id": 32,
+        "user_color": "#99ff99"
+      },
+      {
+        "user_id": 114,
+        "name": "Daniel Wilson",
+        "email": "daniel.wilson@example.com",
+        "company_id": 32,
+        "user_color": "#cc99ff"
+      },
+      {
+        "user_id": 115,
+        "name": "Olivia Anderson",
+        "email": "olivia.anderson@example.com",
+        "company_id": 32,
+        "user_color": "#ff9966"
+      }
+    ]
+}

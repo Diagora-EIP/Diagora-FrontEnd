@@ -1,0 +1,20 @@
+.absence-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .declared-absences {
+    margin-top: 16px;
+  }
+  
+  .declared-absences ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .declared-absences li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
