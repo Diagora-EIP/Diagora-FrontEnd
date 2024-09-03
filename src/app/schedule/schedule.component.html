@@ -1,42 +1,30 @@
-<!-- full-calendar.component.html -->
-<div class="container">
-    <div *ngIf="checkPermission('manager')" class="filter-container">
-        <h2 class="filter-section-heading">Filtres</h2>
-        <div class="filter-components">
-            <div class="manager-selector">
-                <label class="label-text" for="manager">Livreur :</label>
-                <div class="input-container">
-                    <mat-form-field>
-                        <input
-                            matInput
-                            placeholder="Sélectionner un employé"
-                            [matAutocomplete]="managerAuto"
-                            [formControl]="managerControl"
-                            (input)="onManagerInput($event)"
-                        />
-                        <mat-autocomplete #managerAuto="matAutocomplete" (optionSelected)="onManagerSelected($event)" [displayWith]="displayManager">
-                            <mat-option *ngFor="let manager of filteredUsers" [value]="manager">
-                                {{ manager.name }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
+<div class="page-container">
+    <filter-bar
+        class="filter-container"
+        [UsersTeams]="UsersTeams"
+        (selectedDataChange)="handleSelectedDataChange($event)"
+        (companyDataChange)="handleCompanyDataChange($event)"
+    ></filter-bar>
+    <div class="container">
+        <div class="main-calendar-container">
+            <h2 class="itinerary-section-heading"></h2>
+            <div class="left-right-container">
+                <div class="calendar-container">
+                    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+                    <div *ngIf="!loading">
+                        <full-calendar
+                            #fullcalendar
+                            [options]="calendarOptions"
+                        ></full-calendar>
+                    </div>
                 </div>
-            </div>
-            <div class="display-button-container">
-                <button class="schedule-button" (click)="getScheduleByUser()"> Afficher </button>
             </div>
         </div>
     </div>
-    <div class="main-calendar-container">
-        <h2 class="itinerary-section-heading"></h2>
-        <!-- Left Container -->
-        <div class="left-right-container">
-            <div class="calendar-container">
-                <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-                    <div *ngIf="!loading">
-                        <full-calendar #fullcalendar [options]="calendarOptions"> </full-calendar>
-                    </div>
-            </div>
+    <div class="sidebar">
+        <order-bar class="order-bar"></order-bar>
+        <div class="button-container">
+            <button class="schedule-proposition-button" (click)="openPropositionModal()">Proposition</button>
         </div>
     </div>
 </div>

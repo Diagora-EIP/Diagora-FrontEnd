@@ -1,0 +1,21 @@
+<div class="order-bar-container">
+    <h2 class="filter-section-heading">Commandes</h2>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let order of orders">
+            <mat-expansion-panel-header>
+                <mat-panel-title matTooltip="{{ order.description }}">
+                    <span class="order-description">{{ order.description }}</span>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <span class="order-date">{{ order.order_date | date:'short' }}</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="order-details">
+                <p><strong>Company:</strong> {{ order.company.name }}</p>
+                <p><strong>Address:</strong> {{ order.delivery_address }}</p>
+                <p><strong>Description:</strong> {{ order.description }}</p>
+                <button mat-raised-button color="primary" (click)="assignOrder(order)">Assign Order</button>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

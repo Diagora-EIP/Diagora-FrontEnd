@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +51,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
+import { PropositionComponent } from './schedule/modals/delivery-proposition-modal/create-proposition-modal';
+import { DelivererAbsenceModalComponent } from './schedule/modals/create-absent-modal/create-absent-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ClientComponent } from './client/client.component';
@@ -70,6 +71,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
 import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
+import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
 
 @NgModule({
@@ -120,6 +124,10 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        FilterBarComponent,
+        OrderBarComponent,
+        PropositionComponent,
+        DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
     ],
     imports: [
@@ -148,6 +156,7 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         MatNativeDateModule,
         MatSnackBarModule,
         MatMenuModule,
+        MatExpansionModule,
     ],
     providers: [
     ],
