@@ -137,3 +137,93 @@ li {
     font-style: italic;
     color: #555;
 }
+
+.container-tab-userList {
+    display: grid;
+    width: 1100px;
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 60px;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-rows: repeat(auto-fill, 225px);
+    grid-auto-flow: row;
+    grid-gap: 50px 100px;
+}
+
+.new-vehicle-container-tab-userList {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: #B4DAD9;
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+}
+
+.new-vehicle-content-tab-userList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+.new-picture-container-tab-userList {
+    width: 100%;
+    height: 154px;
+    border-radius: 8px;
+    position: relative;
+}
+.new-lock-tab-userList {
+    display: flex;
+    position: absolute;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border-radius: 8px;
+    background-color: #05050520;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.new-picture-tab-userList {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.new-infos-container-tab-userList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
+    gap: 5px;
+}
+.new-vehicule-model-tab-userList {
+    margin: 0;
+    font-size: 0.9rem;
+}
+.new-vehicule-status-tab-userList {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+}
+.new-vehicule-status-icon-tab-userList {
+    color: #00D26A;
+}
+.new-vehicule-status-icon-tab-userList.repair {
+    color: #FFB800;
+}
+.new-vehicule-status-icon-tab-userList.unavailable {
+    color: #D20000;
+}
+.new-vehicule-status-text-tab-userList {
+    margin: 0;
+    font-size: 0.75rem;
+}

@@ -12,15 +12,42 @@
                     <div class="vehicle-loading-spinner" *ngIf="loading">
                         <app-loading-spinner></app-loading-spinner>
                     </div>
-                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule enregistré dans
+                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule
+                        enregistré dans
                         votre
                         entreprise.</div>
-                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne vous est
+                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne
+                        vous est
                         assigné.</div>
 
-                    <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList mat-elevation-z8"
-                        tabindex="0">
-                        <table ngClass="tab-userList" mat-table [dataSource]="allVehicles">
+                    <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList">
+                        <div *ngFor="let vehicle of allVehicles" ngClass="new-vehicle-container-tab-userList">
+                            <div ngClass="new-vehicle-content-tab-userList">
+                                <div ngClass="new-picture-container-tab-userList">
+                                    <div *ngIf="allVehiclesLocked.includes(vehicle.vehicle_id)"
+                                        ngClass="new-lock-tab-userList">
+                                        <mat-icon>lock</mat-icon>
+                                    </div>
+                                    <img ngClass=" new-picture-tab-userList" src="../../assets/interrogation.png"
+                                        alt="vehicule">
+                                </div>
+                                <div ngClass="new-infos-container-tab-userList">
+                                    <p ngClass="new-vehicule-model-tab-userList">{{vehicle.brand}} -
+                                        {{vehicle.model}}
+                                    </p>
+                                    <div ngClass="new-vehicule-status-tab-userList">
+                                        <div class="new-vehicule-status-icon-tab-userList"
+                                            [ngClass]="{'repair': vehicle.status == this.vehiclesStatus[1], 'unavailable': vehicle.status == this.vehiclesStatus[2]}">
+                                            <mat-icon>circle</mat-icon>
+                                        </div>
+                                        <p ngClass="new-vehicule-status-text-tab-userList">{{ setStatus(vehicle.status)
+                                            || 'Inconnu'
+                                            }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <table ngClass="tab-userList" mat-table [dataSource]="allVehicles">
                             <ng-container class="content-tab-userList" matColumnDef="name">
                                 <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Nom</th>
                                 <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}
@@ -67,7 +94,7 @@
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
             </div>

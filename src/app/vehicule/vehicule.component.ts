@@ -73,12 +73,14 @@ export class VehiculeComponent {
         },
     };
     displayedColumns = ['name', 'brand', 'model', 'license', 'mileage'];
+    vehiclesStatus = ['available', 'repair', 'broken'];
     allVehicles: any[] = [];
     users: any[] = [];
     companyName: string = '';
     isManager: boolean = false;
     selectedVehicle: any = null;
     loading: boolean = false;
+    allVehiclesLocked: number[] = [];
 
     constructor(private router: Router,
         public dialog: MatDialog,
@@ -94,6 +96,7 @@ export class VehiculeComponent {
         this.displayedColumns.push('action');
         this.getCompany();
         this.getVehicules();
+        this.getVehiculesLocked();
     }
 
     getCompany() {
@@ -109,6 +112,16 @@ export class VehiculeComponent {
             .subscribe((data) => {
                 this.allVehicles = data;
                 this.loading = false;
+            });
+    }
+
+    getVehiculesLocked() {
+        const current_date = new Date();
+        const current_date_string = current_date.toISOString().split('T')[0];
+        this.vehiculesService.getVehicleLock(current_date_string)
+            .subscribe((data) => {
+                const vehicleIds = data.map((vehicle_lock: any) => (vehicle_lock).vehicle.vehicle_id);
+                this.allVehiclesLocked = vehicleIds;
             });
     }
 
@@ -157,7 +170,6 @@ export class VehiculeComponent {
         if (!this.isManager)
             return
         this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce véhicule ?').then((result) => {
-            console.log('result', result, vehicle);
             if (result) {
                 this.vehiculesService.deleteVehicule(vehicle.vehicle_id).pipe().subscribe(() => {
                     this.getVehicules()
@@ -166,5 +178,18 @@ export class VehiculeComponent {
                 });
             }
         });
+    }
+
+    setStatus(vehicle_status: string) {
+        switch (vehicle_status) {
+            case this.vehiclesStatus[0]:
+                return 'Disponible'
+            case this.vehiclesStatus[1]:
+                return 'En maintenance'
+            case this.vehiclesStatus[2]:
+                return 'Hors service'
+            default:
+                return 'Inconnu'
+        }
     }
 }
