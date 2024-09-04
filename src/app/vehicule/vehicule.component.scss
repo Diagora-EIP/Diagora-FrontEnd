@@ -40,15 +40,16 @@ body {
     text-decoration: none;
     font-size: 15px;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .buttonContainer {
-    position: fixed;
-    bottom: 2%;
+    position: absolute;
+    top: 2%;
     right: 1%;
+    z-index: 1;
 }
 
 .left-right-container {
@@ -64,10 +65,6 @@ body {
     width: 100%;
 }
 
-li:hover {
-    background-color: #95B1AF;
-}
-
 .mainContainer {
     flex: 11;
     box-sizing: border-box;
@@ -79,7 +76,7 @@ li:hover {
     width: 100%;
 }
 
-.itinerary-section-heading {
+.company-name-section-heading {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,8 +91,8 @@ li:hover {
 // -------------
 
 .vehicleListContainer {
-    background-color: #e8e9ea;
-    border: 1px solid #dee2e6;
+    // background-color: #e8e9ea;
+    // border: 1px solid #dee2e6;
     box-sizing: border-box;
     text-align: center;
     // overflow-y: auto;
@@ -106,29 +103,6 @@ li:hover {
     position: relative;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-li {
-    width: 80%;
-    margin-bottom: 10px;
-    background-color: #e2f3f5;
-    border: 1px solid #b3d7f9;
-    box-sizing: border-box;
-    padding: 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-
 .default-message {
     position: absolute;
     top: 50%;
@@ -138,9 +112,19 @@ li {
     color: #555;
 }
 
-.container-tab-userList {
+.container-tab-vehicleList {
     display: grid;
-    width: 1100px;
+    width: 100%;
+    height: 100%;
+    // separate the grid to 80% and 10 % with a 10% gap
+    grid-template-columns: 75% 15%;
+    grid-gap: 10%;
+    grid-template-rows: 10% 90%;
+    position: relative;
+}
+.all-vehicle-container-tab-vehicleList {
+    display: grid;
+    width: 100%;
     height: 80vh;
     overflow-y: auto;
     overflow-x: hidden;
@@ -148,10 +132,10 @@ li {
     grid-template-columns: repeat(auto-fill, 200px);
     grid-template-rows: repeat(auto-fill, 225px);
     grid-auto-flow: row;
-    grid-gap: 50px 100px;
+    grid-gap: 40px 100px;
 }
 
-.new-vehicle-container-tab-userList {
+.new-vehicle-container-tab-vehicleList {
     width: 100%;
     height: 100%;
     border-radius: 8px;
@@ -162,20 +146,20 @@ li {
     user-select: none;
 }
 
-.new-vehicle-content-tab-userList {
+.new-vehicle-content-tab-vehicleList {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
     height: 100%;
 }
-.new-picture-container-tab-userList {
+.new-picture-container-tab-vehicleList {
     width: 100%;
     height: 154px;
     border-radius: 8px;
     position: relative;
 }
-.new-lock-tab-userList {
+.new-lock-tab-vehicleList {
     display: flex;
     position: absolute;
     border-radius: 8px;
@@ -188,13 +172,13 @@ li {
     align-items: center;
     color: white;
 }
-.new-picture-tab-userList {
+.new-picture-tab-vehicleList {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
-.new-infos-container-tab-userList {
+.new-infos-container-tab-vehicleList {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -204,26 +188,202 @@ li {
     margin-left: 10px;
     gap: 5px;
 }
-.new-vehicule-model-tab-userList {
+.new-vehicule-model-tab-vehicleList {
     margin: 0;
     font-size: 0.9rem;
 }
-.new-vehicule-status-tab-userList {
+.new-vehicule-status-tab-vehicleList {
     display: flex;
     justify-content: center;
     gap: 5px;
     align-items: center;
 }
-.new-vehicule-status-icon-tab-userList {
+.new-vehicule-status-icon-tab-vehicleList {
     color: #00D26A;
 }
-.new-vehicule-status-icon-tab-userList.repair {
+.new-vehicule-status-icon-tab-vehicleList.repair {
     color: #FFB800;
 }
-.new-vehicule-status-icon-tab-userList.unavailable {
+.new-vehicule-status-icon-tab-vehicleList.unavailable {
     color: #D20000;
 }
-.new-vehicule-status-text-tab-userList {
+.new-vehicule-status-text-tab-vehicleList {
     margin: 0;
     font-size: 0.75rem;
 }
+
+.sidebar-container-tab-vehicleList {
+    background-color: #F8F8F8;
+    display: grid;
+    width: 100%;
+    height: 80vh;
+    grid-gap: 0;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid #ccc;
+    z-index: 2;
+    animation: sidebar-appear 0.5s ease forwards;
+}
+
+@keyframes sidebar-appear {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+.sidebar-container-tab-vehicleList.hidden {
+    animation: sidebar-disappear 0.5s ease forwards;
+}
+
+@keyframes sidebar-disappear {
+    0% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+.sidebar-header-tab-vehicleList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    position: relative;
+}
+.sidebar-title-tab-vehicleList {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: bold;
+    // limit the title to 20 characters
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebar-askPicture-icon-tab-vehicleList {
+    color: #00D26A;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.sidebar-askPicture-icon-tab-vehicleList:hover {
+    color: #00aa5a;
+}
+.sidebar-delete-icon-tab-vehicleList {
+    color: #D20000;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.sidebar-delete-icon-tab-vehicleList:hover {
+    color: #aa0000;
+}
+.sidebar-form-tab-vehicleList {
+
+}
+.container-input-tab-vehicleList {
+    scale: 0.8;
+    border-radius: 6px;
+}
+.error-message-input-modals {
+    position: absolute;
+    margin: 0;
+    top: 60px;
+    left: 0;
+    color: red;
+    font-size: 10px;
+    font-style: italic;
+}
+.sidebar-lock-container-tab-vehicleList,
+.sidebar-expense-container-tab-vehicleList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-header-cell {
+  position: relative;
+}
+
+.add-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 4px;
+    font-size: 19px;
+    cursor: pointer;
+    color: #00D26A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-icon:hover {
+    color: #00aa5a;
+}
+
+.small-table {
+    min-width: unset;
+    min-height: unset;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+mat-header-row, mat-row {
+    min-height: unset;
+    height: 30px;
+    position: relative;
+}
+
+mat-header-cell, mat-cell {
+    position: relative;
+    font-size: 10px;
+    padding: 0px;
+    text-align: left;
+    border-bottom: 1px solid #000;
+    min-width: unset;
+    min-height: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-header-cell {
+    font-weight: bold;
+    min-height: unset;
+}
+mat-row:last-child mat-cell {
+    border-bottom: none;
+}
+
+.sidebar-button-container-tab-vehicleList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.container-button-modals {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-area: button;
+    gap: 10%;
+}
+
+.button-modals {
+    height: 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 95%;
+}
+
+
+

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
 
+import { tap } from 'rxjs';
 
 import { VehiculesService } from '../services/vehicules.service';
 import { AddVehiculeComponent } from './modals/add-vehicule/add-vehicule.component';
@@ -81,6 +82,25 @@ export class VehiculeComponent {
     selectedVehicle: any = null;
     loading: boolean = false;
     allVehiclesLocked: number[] = [];
+    name: string = ''
+    brand: string = ''
+    model: string = ''
+    license: string = ''
+    mileage: number = 0
+    vehicle_id: number = 0
+    showSideBar: boolean = false
+    newdisplayedColumns: string[] = ['name', 'date'];
+    newdisplayedColumnsExpense: string[] = ['title', 'price', 'date'];
+    testSource: any[] = [
+        { name: 'Patrick', date: '2024-06-02' },
+        { name: 'Ahmed', date: '2024-06-01' },
+        { name: 'Bernard', date: '2024-05-26' }
+    ];
+    testSourceExpense: any[] = [
+        { title: 'Péage', price: 10, date: '2024-06-02' },
+        { title: 'Essence', price: 10, date: '2024-06-01' },
+        { title: 'Péage', price: 10, date: '2024-05-26' }
+    ];
 
     constructor(private router: Router,
         public dialog: MatDialog,
@@ -151,9 +171,10 @@ export class VehiculeComponent {
         this.openModal('ADD')
     }
 
-    addExpense(vehicle: any) {
+    addExpense() {
+        const vehicle = this.selectedVehicle
         this.selectedVehicle = vehicle
-        this.openModal('CREATEEXPENSE')
+        // this.openModal('CREATEEXPENSE')
     }
 
     editVehicle(vehicle: any) {
@@ -163,18 +184,28 @@ export class VehiculeComponent {
         this.openModal('EDIT')
     }
 
-    deleteVehicle(vehicle: any) {
+    onSelectVehicle(vehicle: any) {
         this.selectedVehicle = vehicle
+        this.name = vehicle.name
+        this.brand = vehicle.brand
+        this.model = vehicle.model
+        this.license = vehicle.license
+        this.mileage = vehicle.mileage
+        this.vehicle_id = vehicle.vehicle_id
+        this.showSideBar = true
+    }
 
-
+    deleteVehicle() {
         if (!this.isManager)
             return
         this.confirmModalService.openConfirmModal('Voulez-vous vraiment supprimer ce véhicule ?').then((result) => {
             if (result) {
-                this.vehiculesService.deleteVehicule(vehicle.vehicle_id).pipe().subscribe(() => {
+                this.snackbarService.successSnackBar("Le véhicule est en train d'être supprimé.");
+                this.vehiculesService.deleteVehicule(this.vehicle_id).pipe().subscribe(() => {
                     this.getVehicules()
                     this.snackbarService.successSnackBar("Le véhicule a bien été supprimé.");
                     this.loading = false;
+                    this.close();
                 });
             }
         });
@@ -191,5 +222,48 @@ export class VehiculeComponent {
             default:
                 return 'Inconnu'
         }
+    }
+
+    close() {
+        this.showSideBar = false
+        this.selectedVehicle = null
+        this.name = ''
+        this.brand = ''
+        this.model = ''
+        this.license = ''
+        this.mileage = 0
+        this.vehicle_id = 0
+    }
+
+    dataCheck() {
+        if (this.name === '')
+            return false;
+        if (this.mileage < 0)
+            return false;
+        return true;
+    }
+
+    editVehicule = async () => {
+        if (!this.dataCheck())
+            return
+        this.vehiculesService.updateVehicule(this.vehicle_id, this.name, this.brand, this.model, this.license, this.mileage)
+            .pipe(
+                tap({
+                    next: data => {
+                        this.snackbarService.successSnackBar('Le véhicule ' + this.name + ' a été modifié avec succès !');
+                        this.close();
+                    },
+                    error: error => {
+                        console.log(error);
+                        this.snackbarService.warningSnackBar('Erreur lors de la modification du véhicule ' + this.name + ' !');
+                    }
+                })
+            ).subscribe();
+    }
+
+    askVehiclePicture() {
+    }
+
+    lockVehicle() {
     }
 }
