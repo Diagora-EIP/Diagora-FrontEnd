@@ -1,0 +1,1665 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VehiculeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/vehicule/vehicule.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-vehicule</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./vehicule.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./vehicule.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allVehicles" >allVehicles</a>
+                            </li>
+                            <li>
+                                <a href="#companyName" >companyName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#isManager" >isManager</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#modalComponentMapping" >modalComponentMapping</a>
+                            </li>
+                            <li>
+                                <a href="#selectedVehicle" >selectedVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addExpense" >addExpense</a>
+                            </li>
+                            <li>
+                                <a href="#addVehicle" >addVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#deleteVehicle" >deleteVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#editVehicle" >editVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#getCompany" >getCompany</a>
+                            </li>
+                            <li>
+                                <a href="#getVehicules" >getVehicules</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openModal" >openModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, dialog: MatDialog, vehiculesService: <a href="../injectables/VehiculesService.html" target="_self">VehiculesService</a>, permissionsService: <a href="../injectables/PermissionsService.html" target="_self">PermissionsService</a>, cdr: ChangeDetectorRef, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>, confirmModalService: <a href="../injectables/ConfirmModalService.html" target="_self">ConfirmModalService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/vehicule/vehicule.component.ts:81</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>vehiculesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/VehiculesService.html" target="_self" >VehiculesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>permissionsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PermissionsService.html" target="_self" >PermissionsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmModalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfirmModalService.html" target="_self" >ConfirmModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addExpense"></a>
+                    <span class="name">
+                        <span ><b>addExpense</b></span>
+                        <a href="#addExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addExpense(vehicle: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addVehicle"></a>
+                    <span class="name">
+                        <span ><b>addVehicle</b></span>
+                        <a href="#addVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addVehicle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteVehicle"></a>
+                    <span class="name">
+                        <span ><b>deleteVehicle</b></span>
+                        <a href="#deleteVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteVehicle(vehicle: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:153</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editVehicle"></a>
+                    <span class="name">
+                        <span ><b>editVehicle</b></span>
+                        <a href="#editVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editVehicle(vehicle: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCompany"></a>
+                    <span class="name">
+                        <span ><b>getCompany</b></span>
+                        <a href="#getCompany"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCompany()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVehicules"></a>
+                    <span class="name">
+                        <span ><b>getVehicules</b></span>
+                        <a href="#getVehicules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVehicules()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openModal"></a>
+                    <span class="name">
+                        <span ><b>openModal</b></span>
+                        <a href="#openModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openModal(modalType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/vehicule/vehicule.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>modalType</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allVehicles"></a>
+                    <span class="name">
+                        <span ><b>allVehicles</b></span>
+                        <a href="#allVehicles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/vehicule/vehicule.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companyName"></a>
+                    <span class="name">
+                        <span ><b>companyName</b></span>
+                        <a href="#companyName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/vehicule/vehicule.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/vehicule/vehicule.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;name&#x27;, &#x27;brand&#x27;, &#x27;model&#x27;, &#x27;license&#x27;, &#x27;mileage&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/vehicule/vehicule.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isManager"></a>
+                    <span class="name">
+                        <span ><b>isManager</b></span>
+                        <a href="#isManager"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/vehicule/vehicule.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/vehicule/vehicule.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modalComponentMapping"></a>
+                    <span class="name">
+                        <span ><b>modalComponentMapping</b></span>
+                        <a href="#modalComponentMapping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        CREATEEXPENSE: {
+            component: VehicleExpenseCreateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    vehicle: this.selectedVehicle,
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; { }
+        },
+        DETAILS: {
+            component: DetailsVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.getVehicules()
+        },
+        ADD: {
+            component: AddVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                // setTimeout(() &#x3D;&gt; {
+                // console.log(&quot;getVehicules&quot;)
+                this.getVehicules();
+                // }, 2000);
+            }
+        },
+        EDIT: {
+            component: EditVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    data: this.selectedVehicle,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                this.getVehicules()
+            }
+        },
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/vehicule/vehicule.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedVehicle"></a>
+                    <span class="name">
+                        <span ><b>selectedVehicle</b></span>
+                        <a href="#selectedVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/vehicule/vehicule.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/vehicule/vehicule.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type, ViewRef } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { ChangeDetectorRef } from &#x27;@angular/core&#x27;;
+
+
+import { VehiculesService } from &#x27;../services/vehicules.service&#x27;;
+import { AddVehiculeComponent } from &#x27;./modals/add-vehicule/add-vehicule.component&#x27;;
+import { DetailsVehiculeComponent } from &#x27;./modals/details-vehicule/details-vehicule.component&#x27;;
+import { EditVehiculeComponent } from &#x27;./modals/edit-vehicule/edit-vehicule.component&#x27;;
+
+import { SnackbarService } from &#x27;../services/snackbar.service&#x27;;
+import { SecurityService } from &#x27;../services/security.service&#x27;;
+import { PermissionsService } from &#x27;../services/permissions.service&#x27;;
+import { VehicleExpenseCreateModalComponent } from &#x27;./modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component&#x27;;
+import { ConfirmModalService } from &#x27;../confirm-modal/confirm-modal.service&#x27;;
+
+const modalComponentMapping: { [key: string]: Type&lt;any&gt; } &#x3D; {
+    DETAILS: DetailsVehiculeComponent,
+    ADD: AddVehiculeComponent,
+    EDIT: EditVehiculeComponent,
+};
+
+@Component({
+    selector: &#x27;app-vehicule&#x27;,
+    templateUrl: &#x27;./vehicule.component.html&#x27;,
+    styleUrls: [&#x27;./vehicule.component.scss&#x27;]
+})
+export class VehiculeComponent {
+    modalComponentMapping: { [key: string]: { component: Type&lt;any&gt;; constructor: () &#x3D;&gt; any, action: (instance: any) &#x3D;&gt; void } } &#x3D; {
+        CREATEEXPENSE: {
+            component: VehicleExpenseCreateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    vehicle: this.selectedVehicle,
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; { }
+        },
+        DETAILS: {
+            component: DetailsVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    isManager: this.isManager,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.getVehicules()
+        },
+        ADD: {
+            component: AddVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                // setTimeout(() &#x3D;&gt; {
+                // console.log(&quot;getVehicules&quot;)
+                this.getVehicules();
+                // }, 2000);
+            }
+        },
+        EDIT: {
+            component: EditVehiculeComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    data: this.selectedVehicle,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                this.getVehicules()
+            }
+        },
+    };
+    displayedColumns &#x3D; [&#x27;name&#x27;, &#x27;brand&#x27;, &#x27;model&#x27;, &#x27;license&#x27;, &#x27;mileage&#x27;];
+    allVehicles: any[] &#x3D; [];
+    users: any[] &#x3D; [];
+    companyName: string &#x3D; &#x27;&#x27;;
+    isManager: boolean &#x3D; false;
+    selectedVehicle: any &#x3D; null;
+    loading: boolean &#x3D; false;
+
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private vehiculesService: VehiculesService,
+        private permissionsService: PermissionsService,
+        private cdr: ChangeDetectorRef,
+        private snackbarService: SnackbarService,
+        private confirmModalService: ConfirmModalService,) {
+    }
+
+    ngOnInit(): void {
+        this.isManager &#x3D; this.permissionsService.hasPermission(&#x27;manager&#x27;)
+        this.displayedColumns.push(&#x27;action&#x27;);
+        this.getCompany();
+        this.getVehicules();
+    }
+
+    getCompany() {
+        this.vehiculesService.getCompanyInfo()
+            .subscribe((data) &#x3D;&gt; {
+                this.companyName &#x3D; data.name;
+            });
+    }
+
+    getVehicules() {
+        this.loading &#x3D; true;
+        this.vehiculesService.getVehicules()
+            .subscribe((data) &#x3D;&gt; {
+                this.allVehicles &#x3D; data;
+                this.loading &#x3D; false;
+            });
+    }
+
+    openModal(modalType: string): void {
+        const { component, constructor, action } &#x3D; this.modalComponentMapping[modalType.toUpperCase()];
+
+        if (!component) {
+            throw new Error(&#x60;Type de modal non pris en charge : ${modalType}&#x60;);
+        }
+
+        const dialogRef &#x3D; this.dialog.open(component, {
+            panelClass: &#x27;custom&#x27;,
+            data: constructor()
+        });
+
+        dialogRef.afterClosed().subscribe((data) &#x3D;&gt; {
+            this.getVehicules();
+            if (!data)
+                return
+            action(data);
+        });
+    }
+
+    addVehicle() {
+        if (!this.isManager)
+            return
+        this.openModal(&#x27;ADD&#x27;)
+    }
+
+    addExpense(vehicle: any) {
+        this.selectedVehicle &#x3D; vehicle
+        this.openModal(&#x27;CREATEEXPENSE&#x27;)
+    }
+
+    editVehicle(vehicle: any) {
+        this.selectedVehicle &#x3D; vehicle
+        if (!this.isManager)
+            return
+        this.openModal(&#x27;EDIT&#x27;)
+    }
+
+    deleteVehicle(vehicle: any) {
+        this.selectedVehicle &#x3D; vehicle
+
+
+        if (!this.isManager)
+            return
+        this.confirmModalService.openConfirmModal(&#x27;Voulez-vous vraiment supprimer ce véhicule ?&#x27;).then((result) &#x3D;&gt; {
+            console.log(&#x27;result&#x27;, result, vehicle);
+            if (result) {
+                this.vehiculesService.deleteVehicule(vehicle.vehicle_id).pipe().subscribe(() &#x3D;&gt; {
+                    this.getVehicules()
+                    this.snackbarService.successSnackBar(&quot;Le véhicule a bien été supprimé.&quot;);
+                    this.loading &#x3D; false;
+                });
+            }
+        });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Vehicle page html --&gt;
+
+&lt;div class&#x3D;&quot;page-container&quot;&gt;
+    &lt;div class&#x3D;&quot;mainContainer&quot;&gt;
+        &lt;h2 class&#x3D;&quot;itinerary-section-heading&quot;&gt;Véhicules de {{companyName}}&lt;/h2&gt;
+
+        &lt;!-- Left Container --&gt;
+        &lt;div class&#x3D;&quot;left-right-container&quot;&gt;
+            &lt;div class&#x3D;&quot;left-container&quot;&gt;
+                &lt;div class&#x3D;&quot;vehicleListContainer&quot;&gt;
+                    &lt;!-- Default message --&gt;
+                    &lt;div class&#x3D;&quot;vehicle-loading-spinner&quot; *ngIf&#x3D;&quot;loading&quot;&gt;
+                        &lt;app-loading-spinner&gt;&lt;/app-loading-spinner&gt;
+                    &lt;/div&gt;
+                    &lt;div *ngIf&#x3D;&quot;!allVehicles.length &amp;&amp; isManager &amp;&amp; !loading&quot; class&#x3D;&quot;default-message&quot;&gt;Aucun véhicule enregistré dans
+                        votre
+                        entreprise.&lt;/div&gt;
+                    &lt;div *ngIf&#x3D;&quot;!allVehicles.length &amp;&amp; !isManager &amp;&amp; !loading&quot; class&#x3D;&quot;default-message&quot;&gt;Aucun véhicule ne vous est
+                        assigné.&lt;/div&gt;
+
+                    &lt;div *ngIf&#x3D;&quot;allVehicles.length !&#x3D;&#x3D; 0&quot; ngClass&#x3D;&quot;container-tab-userList mat-elevation-z8&quot;
+                        tabindex&#x3D;&quot;0&quot;&gt;
+                        &lt;table ngClass&#x3D;&quot;tab-userList&quot; mat-table [dataSource]&#x3D;&quot;allVehicles&quot;&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;name&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Nom&lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.name}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;brand&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Marque&lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.brand}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;model&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Model&lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.model}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;license&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Plaque
+                                    d&#x27;immatriculation&lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.license}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;mileage&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Kilométrage&lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.mileage}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;action&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Action &lt;/th&gt;
+                                &lt;td class&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let vehicle&quot;&gt;
+                                    &lt;div class&#x3D;&quot;company-container&quot;&gt;
+                                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;addExpense(vehicle)&quot;&gt;
+                                            &lt;mat-icon&gt;attach_money&lt;/mat-icon&gt;
+                                        &lt;/button&gt;
+                                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;editVehicle(vehicle)&quot;
+                                            *ngIf&#x3D;&quot;isManager&quot;&gt;
+                                            &lt;mat-icon&gt;settings&lt;/mat-icon&gt;
+                                        &lt;/button&gt;
+                                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;deleteVehicle(vehicle)&quot;
+                                            *ngIf&#x3D;&quot;isManager&quot;&gt;
+                                            &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                                        &lt;/button&gt;
+                                    &lt;/div&gt;
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns; sticky: true&quot;&gt;&lt;/tr&gt;
+                            &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;buttonContainer&quot; *ngIf&#x3D;&quot;isManager&quot;&gt;
+            &lt;button class&#x3D;&quot;buttonADD&quot; mat-fab extended (click)&#x3D;&quot;addVehicle()&quot;&gt;
+                Ajouter un véhicule
+                &lt;mat-icon&gt;playlist_add&lt;/mat-icon&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./vehicule.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
+
+@import &#x27;../../variables.scss&#x27;;
+@import &#x27;styles/filter.scss&#x27;;
+@import &#x27;styles/table.scss&#x27;;
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    // position: relative;
+    height: 94vh;
+    overflow: hidden;
+}
+
+.filter-container {
+    flex: 2;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+.buttonADD {
+    background-color: $button-main-color !important;
+    color: white;
+    border: none;
+    padding: 9px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+    position: fixed;
+    bottom: 2%;
+    right: 1%;
+}
+
+.left-right-container {
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+}
+
+.left-container {
+    box-sizing: border-box;
+    // overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+li:hover {
+    background-color: #95B1AF;
+}
+
+.mainContainer {
+    flex: 11;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.itinerary-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-color;
+    color: white;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+// -------------
+
+.vehicleListContainer {
+    background-color: #e8e9ea;
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+    text-align: center;
+    // overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    border-radius: 4px;
+    height: 100%;
+    padding-top: 10px;
+    position: relative;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    width: 80%;
+    margin-bottom: 10px;
+    background-color: #e2f3f5;
+    border: 1px solid #b3d7f9;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+
+.default-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-style: italic;
+    color: #555;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Vehicle page html --><div class="page-container">    <div class="mainContainer">        <h2 class="itinerary-section-heading">Véhicules de {{companyName}}</h2>        <!-- Left Container -->        <div class="left-right-container">            <div class="left-container">                <div class="vehicleListContainer">                    <!-- Default message -->                    <div class="vehicle-loading-spinner" *ngIf="loading">                        <app-loading-spinner></app-loading-spinner>                    </div>                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule enregistré dans                        votre                        entreprise.</div>                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne vous est                        assigné.</div>                    <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList mat-elevation-z8"                        tabindex="0">                        <table ngClass="tab-userList" mat-table [dataSource]="allVehicles">                            <ng-container class="content-tab-userList" matColumnDef="name">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Nom</th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="brand">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Marque</th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.brand}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="model">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Model</th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.model}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="license">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Plaque                                    d\'immatriculation</th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.license}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="mileage">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Kilométrage</th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.mileage}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="action">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>                                <td class="data-tab-userList" mat-cell *matCellDef="let vehicle">                                    <div class="company-container">                                        <button class="button-data-tab-userList" (click)="addExpense(vehicle)">                                            <mat-icon>attach_money</mat-icon>                                        </button>                                        <button class="button-data-tab-userList" (click)="editVehicle(vehicle)"                                            *ngIf="isManager">                                            <mat-icon>settings</mat-icon>                                        </button>                                        <button class="button-data-tab-userList" (click)="deleteVehicle(vehicle)"                                            *ngIf="isManager">                                            <mat-icon>delete</mat-icon>                                        </button>                                    </div>                                </td>                            </ng-container>                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>                        </table>                    </div>                </div>            </div>        </div>        <div class="buttonContainer" *ngIf="isManager">            <button class="buttonADD" mat-fab extended (click)="addVehicle()">                Ajouter un véhicule                <mat-icon>playlist_add</mat-icon>            </button>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'VehiculeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VehiculeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
