@@ -507,11 +507,10 @@ export class ScheduleComponent implements OnInit {
                     localStorage.setItem('addressEntreprise', teamjson.address);
                     localStorage.setItem('company_id', teamjson.company_id);
                     localStorage.setItem('users', JSON.stringify(teamjson.users));
-                    this.currUser = this.userList.find((user: User) => {
-                        const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
-                        const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
-                        return nameCondition && idCondition;
-                    });
+                    this.currUser = {
+                        name: localStorage.getItem('name') || "undefined",
+                        user_id: Number(localStorage.getItem('id')) || 0
+                      };
                     this.managerControl.setValue(this.currUser);
                     resolve();
                 },
@@ -525,11 +524,6 @@ export class ScheduleComponent implements OnInit {
 
     displayManager(manager: any): string {
         return manager ? manager.name : '';
-    }
-
-    onManagerSelected(event: any): void {
-        const selectedManager = event.option.value;
-        this.currUser = { name: selectedManager.name, user_id: selectedManager.user_id };
     }
 
     checkPermission(permission: string): boolean {
