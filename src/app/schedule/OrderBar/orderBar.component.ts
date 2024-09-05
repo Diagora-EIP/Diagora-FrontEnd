@@ -18,14 +18,14 @@ export class OrderBarComponent implements OnInit {
     constructor(private OrderService: OrderService, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-        this.getAllOrdersBetweenDate("2021-01-01", "2024-07-30").then(() => {
+        this.getAllOrdersBetweenDate("2021-01-01", "2024-07-30", ).then(() => {
             this.applyFilters();
         });
     }
 
     async getAllOrdersBetweenDate(start: string, end: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            this.OrderService.getOrdersBetweenDates(start, end).subscribe({
+            this.OrderService.getOrdersBetweenDates(start, end, false, true).subscribe({
                 next: (response: any) => {
                     console.log("getAllOrdersBetweenDate() response:", response);
                     this.orders = response;
