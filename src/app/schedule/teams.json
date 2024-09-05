@@ -6,8 +6,8 @@
       {
         "team_id": 1,
         "name": "Sales Team",
-        "color": "#ff5733",
-        "user_ids": [139, 109, 111, 113] 
+        "color": "#3366ff",
+        "user_ids": [139, 109, 111, 113, 109] 
       },
       {
         "team_id": 2,
