@@ -27,10 +27,11 @@ export class OrderService {
 
     getOrdersBetweenDates(
         startDate: string,
-        endDate: string
+        endDate: string,
+        withSchedule: boolean = false
     ): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/order/?start_date=${startDate}&end_date=${endDate}`,
+            `${this.apiUrl}/order/?start_date=${startDate}&end_date=${endDate}&withSchedule=${withSchedule}`,
             this.header
         );
     }
