@@ -199,7 +199,7 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     openAbsenceModal(user: any, event: Event): void {
-        // event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
+        event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
     
         const dialogRef = this.dialog.open(DelivererAbsenceModalComponent, {
           width: '400px',
