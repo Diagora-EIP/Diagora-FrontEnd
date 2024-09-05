@@ -68,26 +68,26 @@ export class ScheduleComponent implements OnInit {
         selectable: true,
         select: this.handleDateSelection.bind(this),
         events: (info, successCallback, failureCallback) => {
-            // this.currentStartDate = new Date(info.start.valueOf());
-            // this.currentEndDate = new Date(info.end.valueOf());
+            this.currentStartDate = new Date(info.start.valueOf());
+            this.currentEndDate = new Date(info.end.valueOf());
 
-            // let fetchEventsPromise: Promise<any>;
+            let fetchEventsPromise: Promise<any>;
 
-            // if (this.checkPermission('manager'))
-            //     fetchEventsPromise = this.getScheduleByUser();
-            // else
-            //     fetchEventsPromise = this.getSchedule();
+            if (this.checkPermission('manager'))
+                return;
+            else
+                fetchEventsPromise = this.getSchedule();
 
-            // fetchEventsPromise
-            //     .then(events => {
-            //         const mappedEvents = events.map((event: any) => {
-            //             return this.mapScheduleToEvent(event)
-            //         });
-            //         successCallback(mappedEvents);
-            //     })
-            //     .catch(error => {
-            //         failureCallback(error);
-            //     });
+            fetchEventsPromise
+                .then(events => {
+                    const mappedEvents = events.map((event: any) => {
+                        return this.mapScheduleToEvent(event)
+                    });
+                    successCallback(mappedEvents);
+                })
+                .catch(error => {
+                    failureCallback(error);
+                });
         },
         headerToolbar: {
             start: 'prev,next today',

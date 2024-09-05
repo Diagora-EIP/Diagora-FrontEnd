@@ -1,7 +1,41 @@
 <div class="order-bar-container">
     <h2 class="filter-section-heading">Commandes</h2>
+    
+    <!-- Button to Create Order -->
+    <div class="create-order">
+        <button mat-raised-button color="accent" (click)="openCreateOrder()">Créer une commande</button>
+    </div>
+    
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <!-- Search by Order Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Rechercher par nom</mat-label>
+            <input matInput placeholder="Nom de la commande" [(ngModel)]="searchTerm" (input)="applyFilters()" />
+        </mat-form-field>
+
+        <!-- Date Range Filter -->
+        <mat-form-field appearance="outline">
+            <mat-label>Date de début</mat-label>
+            <input matInput [matDatepicker]="startPicker" placeholder="Choisir la date" [(ngModel)]="startDate" (dateChange)="applyFilters()" />
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Date de fin</mat-label>
+            <input matInput [matDatepicker]="endPicker" placeholder="Choisir la date" [(ngModel)]="endDate" (dateChange)="applyFilters()" />
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Clear Filters Button -->
+        <button mat-raised-button color="primary" (click)="clearFilters()">Réinitialiser les filtres</button>
+    </div>
+
+    <!-- Orders List -->
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let order of orders">
+        <mat-expansion-panel *ngFor="let order of filteredOrders">
             <mat-expansion-panel-header>
                 <mat-panel-title matTooltip="{{ order.description }}">
                     <span class="order-description">{{ order.description }}</span>

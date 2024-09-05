@@ -49,6 +49,7 @@ import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicul
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
+import { CreateOrderModalComponent } from './schedule/OrderBar/create-order-modal/create-order-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
 import { PropositionComponent } from './schedule/modals/delivery-proposition-modal/create-proposition-modal';
@@ -129,6 +130,7 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         PropositionComponent,
         DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
+        CreateOrderModalComponent,
     ],
     imports: [
         BrowserModule,
