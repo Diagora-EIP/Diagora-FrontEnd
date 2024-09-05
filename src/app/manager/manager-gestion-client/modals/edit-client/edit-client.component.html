@@ -14,9 +14,25 @@
 
         <div ngClass="container-input-modals">
             <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Entreprise:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Diagora"
+                    [(ngModel)]="company" name="company" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
                 <mat-label ngClass="title-input-modals">Adresse mail:</mat-label>
                 <input matInput ngClass="input-modals" placeholder="Ex. smith@gmail.com"
-                    [(ngModel)]="mail" name="mail" [required]="true">
+                    [(ngModel)]="email" name="email" [required]="true">
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Adresse:</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. 3 Place Paul Bec"
+                    [(ngModel)]="address" name="address" [required]="true">
             </mat-form-field>
         </div>
     
