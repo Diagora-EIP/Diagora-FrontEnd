@@ -15,11 +15,12 @@ import { SecurityService } from '../services/security.service';
 import { PermissionsService } from '../services/permissions.service';
 import { VehicleExpenseCreateModalComponent } from './modals/vehicle-expense-create-modal/vehicle-expense-create-modal.component';
 import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
+import { LockVehicleModalComponent } from './modals/lock-vehicle/lock-vehicle.component';
 
 const modalComponentMapping: { [key: string]: Type<any> } = {
     DETAILS: DetailsVehiculeComponent,
     ADD: AddVehiculeComponent,
-    EDIT: EditVehiculeComponent,
+    LOCK: LockVehicleModalComponent,
 };
 
 @Component({
@@ -61,15 +62,15 @@ export class VehiculeComponent {
                 // }, 2000);
             }
         },
-        EDIT: {
-            component: EditVehiculeComponent,
+        LOCK: {
+            component: LockVehicleModalComponent,
             constructor: () => {
                 return {
                     data: this.selectedVehicle,
                 }
             },
             action: (instance: any) => {
-                this.getVehicules()
+                this.getVehiculesLocked();
             }
         },
     };
@@ -90,17 +91,12 @@ export class VehiculeComponent {
     vehicle_id: number = 0
     showSideBar: boolean = false
     newdisplayedColumns: string[] = ['name', 'date'];
-    newdisplayedColumnsExpense: string[] = ['title', 'price', 'date'];
-    testSource: any[] = [
-        { name: 'Patrick', date: '2024-06-02' },
-        { name: 'Ahmed', date: '2024-06-01' },
-        { name: 'Bernard', date: '2024-05-26' }
-    ];
-    testSourceExpense: any[] = [
-        { title: 'Péage', price: 10, date: '2024-06-02' },
-        { title: 'Essence', price: 10, date: '2024-06-01' },
-        { title: 'Péage', price: 10, date: '2024-05-26' }
-    ];
+    newdisplayedColumnsExpense: string[] = ['name', 'title', 'price'];
+    vehicleLock: any[] = [];
+    vehicleExpenses: any[] = [];
+    vehicleHasPicture: boolean = false;
+    modelsList: string[] = [];
+    vehiclePictures: any[] = [];
 
     constructor(private router: Router,
         public dialog: MatDialog,
@@ -132,6 +128,9 @@ export class VehiculeComponent {
             .subscribe((data) => {
                 this.allVehicles = data;
                 this.loading = false;
+                this.modelsList = Array.from(new Set(data.map((vehicle: any) => vehicle.model)));
+                this.getVehiclePictures();
+
             });
     }
 
@@ -140,6 +139,8 @@ export class VehiculeComponent {
         const current_date_string = current_date.toISOString().split('T')[0];
         this.vehiculesService.getVehicleLock(current_date_string)
             .subscribe((data) => {
+                if (!data)
+                    return
                 const vehicleIds = data.map((vehicle_lock: any) => (vehicle_lock).vehicle.vehicle_id);
                 this.allVehiclesLocked = vehicleIds;
             });
@@ -172,9 +173,7 @@ export class VehiculeComponent {
     }
 
     addExpense() {
-        const vehicle = this.selectedVehicle
-        this.selectedVehicle = vehicle
-        // this.openModal('CREATEEXPENSE')
+        this.openModal('CREATEEXPENSE')
     }
 
     editVehicle(vehicle: any) {
@@ -185,6 +184,8 @@ export class VehiculeComponent {
     }
 
     onSelectVehicle(vehicle: any) {
+        this.vehicleExpenses = []
+        this.vehicleLock = []
         this.selectedVehicle = vehicle
         this.name = vehicle.name
         this.brand = vehicle.brand
@@ -193,6 +194,8 @@ export class VehiculeComponent {
         this.mileage = vehicle.mileage
         this.vehicle_id = vehicle.vehicle_id
         this.showSideBar = true
+        this.getVehicleLock();
+        this.getVehicleExpenses();
     }
 
     deleteVehicle() {
@@ -233,6 +236,8 @@ export class VehiculeComponent {
         this.license = ''
         this.mileage = 0
         this.vehicle_id = 0
+        this.vehicleExpenses = []
+        this.vehicleLock = []
     }
 
     dataCheck() {
@@ -262,8 +267,56 @@ export class VehiculeComponent {
     }
 
     askVehiclePicture() {
+        if (!this.model || !this.brand || this.model === '' || this.brand === '') {
+            this.snackbarService.warningSnackBar('Vous devez avoir renseigné un model et une marque pour pouvoir demander l\'ajoute d\'une photo');
+            return;
+        }
+        this.vehiculesService.askHelpVehiclePicture(this.model, this.brand)
+            .subscribe((data) => {
+                if (data)
+                    this.snackbarService.successSnackBar('Demande d\'ajout de photo envoyée');
+                else
+                    this.snackbarService.warningSnackBar('Erreur lors de l\'envoi de la demande');
+            });
     }
 
     lockVehicle() {
+        this.openModal('LOCK')
+    }
+
+    getVehicleExpenses() {
+        this.vehiculesService.getExpenseByVehicleId(this.vehicle_id)
+            .subscribe((data) => {
+                this.vehicleExpenses = data.slice(0, 3);
+            });
+    }
+
+    getVehicleLock() {
+        this.vehiculesService.getLocksByVehicleId(this.vehicle_id)
+            .subscribe((data) => {
+                this.vehicleLock = data.slice(0, 3);
+            });
+    }
+
+    getVehiclePictures() {
+        if (this.modelsList.length === 0)
+            return;
+        this.vehiculesService.getVehiclePictures(this.modelsList)
+            .subscribe((data) => {
+                this.vehiclePictures = data;
+            });
+    }
+
+    findPicture(vehicle: any) {
+        const defaultImage = '../../assets/interrogation.png';
+
+        if (!this.vehiclePictures || this.vehiclePictures.length === 0)
+            return defaultImage;
+
+        const picture = this.vehiclePictures.find((vehiclePicture: any) =>
+            vehiclePicture.model.toLowerCase() === vehicle.model.toLowerCase()
+        );
+
+        return picture ? `data:image/png;base64,${picture.picture}` : defaultImage;
     }
 }

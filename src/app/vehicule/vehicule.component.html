@@ -30,7 +30,8 @@
                                             ngClass="new-lock-tab-vehicleList">
                                             <mat-icon>lock</mat-icon>
                                         </div>
-                                        <img ngClass=" new-picture-tab-vehicleList" src="../../assets/interrogation.png"
+                                        <!-- <img ngClass=" new-picture-tab-vehicleList" (src)="findPicture(vehicle)" -->
+                                        <img ngClass="new-picture-tab-vehicleList" [src]="findPicture(vehicle)"
                                             alt="vehicule">
                                     </div>
                                     <div ngClass="new-infos-container-tab-vehicleList">
@@ -99,13 +100,13 @@
                                 </div>
                             </div>
                             <div class="sidebar-lock-container-tab-vehicleList">
-                                <mat-table [dataSource]="testSource" class="small-table" matSort>
+                                <mat-table [dataSource]="vehicleLock" class="small-table" matSort>
                                     <ng-container matColumnDef="name">
                                         <mat-header-cell *matHeaderCellDef>
                                             Nom
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">
-                                            {{element.name}}
+                                            {{element.user.name}}
                                         </mat-cell>
                                     </ng-container>
 
@@ -124,7 +125,16 @@
                                 </mat-table>
                             </div>
                             <div class="sidebar-expense-container-tab-vehicleList">
-                                <mat-table [dataSource]="testSourceExpense" class="small-table" matSort>
+                                <mat-table [dataSource]="vehicleExpenses" class="small-table" matSort>
+                                    <ng-container matColumnDef="name">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Nom
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.user.name}}
+                                        </mat-cell>
+                                    </ng-container>
+
                                     <ng-container matColumnDef="title">
                                         <mat-header-cell *matHeaderCellDef>
                                             Titre
@@ -137,13 +147,14 @@
                                     <ng-container matColumnDef="price">
                                         <mat-header-cell *matHeaderCellDef>
                                             Prix
+                                            <mat-icon class="add-icon" (click)="addExpense()">add</mat-icon>
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">
-                                            {{element.price || 0}}
+                                            {{element.amount}}
                                         </mat-cell>
                                     </ng-container>
 
-                                    <ng-container matColumnDef="date">
+                                    <!-- <ng-container matColumnDef="date">
                                         <mat-header-cell *matHeaderCellDef>
                                             Date
                                             <mat-icon class="add-icon" (click)="addExpense()">add</mat-icon>
@@ -151,7 +162,7 @@
                                         <mat-cell *matCellDef="let element">
                                             {{element.date | date:'dd/MM/yyyy'}}
                                         </mat-cell>
-                                    </ng-container>
+                                    </ng-container> -->
 
                                     <mat-header-row *matHeaderRowDef="newdisplayedColumnsExpense"></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: newdisplayedColumnsExpense;"></mat-row>
