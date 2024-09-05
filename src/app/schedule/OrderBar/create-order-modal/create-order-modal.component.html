@@ -1,15 +1,26 @@
-<!-- create-schedule-modal.component.html -->
+<!-- create-order-modal.component.html -->
 <div ngClass="container-modals">
     <div ngClass="container-title-modals">
-        <h1 ngClass="title-modals">Ajouter une commande pour {{ userName }}</h1>
+        <h1 ngClass="title-modals">Ajouter une commande</h1>
     </div>
 
     <div ngClass="content-space-around-modals-custom">
         <form [formGroup]="scheduleForm" [ngClass]="{'expanded-form': !displayNewClient, 'collapsed-form': displayNewClient}">
-            <!-- Date picker -->
+            <!-- Livreur picker -->
             <div ngClass="container-input-modals">
                 <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">Jour de livraison :</mat-label>
+                    <mat-label ngClass="title-input-modals">Livreur</mat-label>
+                    <mat-select formControlName="livreur" required>
+                        <mat-option *ngFor="let livreur of livreurList" [value]="livreur">
+                            {{ livreur.name }} <!-- Assuming livreur has a name property -->
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Date de livraison :</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="deliveryDate" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -47,8 +58,10 @@
                     <textarea matInput formControlName="deliveryAddress" required></textarea>
                 </mat-form-field>
             </div>
-            <button  (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
+            <button (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
         </form>
+        
+        <!-- New Client Form -->
         <form [formGroup]="newClientForm" *ngIf="displayNewClient">
             <fieldset>
                 <legend>Ajouter un client</legend>
@@ -66,19 +79,19 @@
                 </div>
                 <div ngClass="container-input-modals">
                     <mat-form-field ngClass="content-input-modals">
-                        <mat-label ngClass="title-input-modals">email</mat-label>
+                        <mat-label ngClass="title-input-modals">Email</mat-label>
                         <input matInput formControlName="email" required>
                     </mat-form-field>
                 </div>
                 <div ngClass="container-input-modals">
                     <mat-form-field ngClass="content-input-modals">
-                        <mat-label ngClass="title-input-modals">address</mat-label>
+                        <mat-label ngClass="title-input-modals">Address</mat-label>
                         <input matInput formControlName="address" required>
                     </mat-form-field>
                 </div>
                 <div *ngIf="displayClientAlreadyExists">
                     <p>Client déjà existant</p>
-                    <p>Voulez-vous tout de meme l'ajouter ?</p>
+                    <p>Voulez-vous tout de même l'ajouter ?</p>
                     <div>
                         <button (click)="createClient()" class="addOrDelete">Oui</button>
                         <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists" class="addOrDelete">Non</button>
@@ -88,6 +101,7 @@
                 <button mat-button color="warn" (click)="displayNewClient = !displayNewClient" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Annuler</button>
             </fieldset>
         </form>
+        
         <!-- Display error message -->
         <div *ngIf="errorMessage" class="error-message">
             {{ errorMessage }}

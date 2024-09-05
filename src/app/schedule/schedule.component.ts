@@ -319,6 +319,11 @@ export class ScheduleComponent implements OnInit {
                         address: schedule.order?.company?.address,
                     },
                 },
+                user: {
+                    user_id: schedule.user?.user_id,
+                    name: schedule.user?.name,
+                    color: schedule.user?.color,
+                },
                 itineraryId: schedule.itinerary_id,
                 estimatedTime: schedule.estimated_time,
                 actualTime: schedule.actual_time,
@@ -349,15 +354,16 @@ export class ScheduleComponent implements OnInit {
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
         const isManager = this.checkPermission('manager');
-        let user: any = undefined;
+        let user: any = extendedProps.user;
+
         //code de merde a fix
-        if (isManager) {
-            user = this.userList.find(
-                (user) => user.name === this.managerControl.value.name
-            )
-        } else {
-            user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
-        }
+        // if (isManager) {
+        //     user = this.userList.find(
+        //         (user) => user.name === this.managerControl.value.name
+        //     )
+        // } else {
+        //     user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
+        // }
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
                 start,

@@ -57,13 +57,24 @@ export class OrderBarComponent implements OnInit {
 
 
     applyFilters(): void {
+        // Ensure searchTerm is initialized
+        const searchTerm = this.searchTerm ? this.searchTerm.toLowerCase() : '';
+    
+        // Filter orders based on searchTerm and date range
         this.filteredOrders = this.orders.filter(order => {
-            const matchesSearch = order.description.toLowerCase().includes(this.searchTerm.toLowerCase());
-
+            // Handle undefined order.description
+            const orderDescription = order.description ? order.description.toLowerCase() : '';
+    
+            // Check if description matches searchTerm
+            const matchesSearch = orderDescription.includes(searchTerm);
+    
+            // Create Date object for order_date
             const orderDate = new Date(order.order_date);
+            
+            // Check date range
             const matchesDate = (!this.startDate || orderDate >= this.startDate) &&
                                 (!this.endDate || orderDate <= this.endDate);
-
+    
             return matchesSearch && matchesDate;
         });
     }

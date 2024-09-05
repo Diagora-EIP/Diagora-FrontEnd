@@ -9,6 +9,7 @@ import { ScheduleService } from '../../../services/schedule.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { tap } from 'rxjs';
 import { PermissionsService } from '../../../services/permissions.service';
+import { ManagerService } from '../../../services/manager.service';
 
 @Component({
     selector: 'app-create-order-modal',
@@ -21,10 +22,10 @@ export class CreateOrderModalComponent implements AfterViewInit {
     scheduleForm: FormGroup;
     newClientForm: FormGroup;
     errorMessage: string = '';
-    userName: string = '';
     clientsList: any = [];
     displayNewClient: boolean = false;
     displayClientAlreadyExists: boolean = false;
+    livreurList: any = [];
 
     constructor(
         public dialogRef: MatDialogRef<CreateOrderModalComponent>,
@@ -35,15 +36,16 @@ export class CreateOrderModalComponent implements AfterViewInit {
         private clientService: ClientService,
         private snackBarService: SnackbarService,
         private dialog: MatDialog,
+        private managerService: ManagerService,
     ) {
         this.scheduleForm = this.fb.group({
+            livreur: [this.livreurList, Validators.required],
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],
             deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
             client: [data.client, Validators.required],
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
-        this.userName = this.data.currUser.name;
         this.newClientForm = this.fb.group({
             name: [data.name, Validators.required],
             surname: [data.surname, Validators.required],
@@ -52,6 +54,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
         });
 
         this.getClients();
+        this.getCompanyData();
     }
 
     updateAdress(client: any) {
@@ -73,6 +76,23 @@ export class CreateOrderModalComponent implements AfterViewInit {
                     }
                 })
             ).subscribe();
+    }
+
+    async getCompanyData(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.managerService.getManagerEntreprise().subscribe({
+                next: (response: any) => {
+                    console.log("getCompanyData() response:", response);
+                    this.livreurList = response.users || [];
+                    this.livreurList.unshift({ user_id: null, name: "Aucun" });
+                    resolve();
+                },
+                error: (error: any) => {
+                    console.error("Error in getCompanyData():", error);
+                    reject(error);
+                }
+            });
+        });
     }
 
     addNewClient() {
@@ -144,21 +164,10 @@ export class CreateOrderModalComponent implements AfterViewInit {
                 delivery_address,
                 client_id: client.client_id,
             };
-            if (!this.checkPermission('manager')) {
-                this.scheduleService.createSchedule(newSchedule).pipe(
-                    tap({
-                        next: data => {
-                            this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
-                            this.closeDialog(data);
-                        },
-                        error: error => {
-                            console.log(error);
-                            this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
-                            this.closeDialog(error);
-                        }
-                    })).subscribe();
-            } else {
-                this.scheduleService.createScheduleByUser(this.data.currUser.user_id, newSchedule).pipe(
+            console.log(formData.livreur)
+            console.log("Permissiosn", this.checkPermission('manager'))
+            if (this.checkPermission('manager')) {
+                this.scheduleService.createScheduleByUser(0, newSchedule).pipe(
                     tap({
                         next: data => {
                             this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
