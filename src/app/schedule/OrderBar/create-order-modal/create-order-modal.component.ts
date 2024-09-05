@@ -167,7 +167,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
             console.log(formData.livreur)
             console.log("Permissiosn", this.checkPermission('manager'))
             if (this.checkPermission('manager')) {
-                this.scheduleService.createScheduleByUser(0, newSchedule).pipe(
+                this.scheduleService.createScheduleByUser(formData.livreur.user_id, newSchedule).pipe(
                     tap({
                         next: data => {
                             this.snackBarService.successSnackBar('La livraison a été créée avec succès !');

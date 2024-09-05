@@ -356,14 +356,6 @@ export class ScheduleComponent implements OnInit {
         const isManager = this.checkPermission('manager');
         let user: any = extendedProps.user;
 
-        //code de merde a fix
-        // if (isManager) {
-        //     user = this.userList.find(
-        //         (user) => user.name === this.managerControl.value.name
-        //     )
-        // } else {
-        //     user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
-        // }
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
                 start,
