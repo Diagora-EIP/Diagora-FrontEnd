@@ -13,6 +13,7 @@ import { PermissionsService } from '../services/permissions.service';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
@@ -21,7 +22,9 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NgZone } from '@angular/core';
-import teamjson from './teams.json';
+// import teamjson from './teams.json';
+
+dayjs.locale('fr');
 
 interface User {
     name: string;
@@ -62,7 +65,9 @@ export class ScheduleComponent implements OnInit {
     }
 
     calendarOptions: CalendarOptions = {
-        initialView: 'dayGridWeek',
+        initialView: 'timeGridWeek',
+        // locales: [{ code: 'fr' }],
+        locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: true,
         selectable: true,
@@ -95,7 +100,6 @@ export class ScheduleComponent implements OnInit {
             end: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         eventClick: this.handleEventClick.bind(this),
-        locales: [{ code: 'fr' }],
         buttonText: {
             today: 'Aujourd\'hui',
             month: 'Mois',
@@ -106,8 +110,7 @@ export class ScheduleComponent implements OnInit {
         titleFormat: (dateInfo) => {
             const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
             const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
-            const formattedStartDate =
-                dayjs(startDateString).format('MMMM YYYY');
+            const formattedStartDate = dayjs(startDateString).format('MMMM YYYY'); // Format using French locale
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
@@ -500,11 +503,11 @@ export class ScheduleComponent implements OnInit {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    this.userList = teamjson.users;
-                    localStorage.setItem('entreprise', teamjson.name);
-                    localStorage.setItem('addressEntreprise', teamjson.address);
-                    localStorage.setItem('company_id', teamjson.company_id);
-                    localStorage.setItem('users', JSON.stringify(teamjson.users));
+                    // this.userList = teamjson.users;
+                    // localStorage.setItem('entreprise', teamjson.name);
+                    // localStorage.setItem('addressEntreprise', teamjson.address);
+                    // localStorage.setItem('company_id', teamjson.company_id);
+                    // localStorage.setItem('users', JSON.stringify(teamjson.users));
                     this.currUser = {
                         name: localStorage.getItem('name') || "undefined",
                         user_id: Number(localStorage.getItem('id')) || 0

@@ -1,5 +1,6 @@
 <div class="page-container">
     <filter-bar
+        *ngIf="checkPermission('manager')"
         class="filter-container"
         (selectedDataChange)="handleSelectedDataChange($event)"
         (companyDataChange)="handleCompanyDataChange($event)"
@@ -20,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="sidebar">
+    <div *ngIf="checkPermission('manager')" class="sidebar">
         <order-bar class="order-bar"></order-bar>
         <div class="button-container">
             <button class="schedule-proposition-button" (click)="openPropositionModal()">Proposition</button>
