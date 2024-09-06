@@ -1,0 +1,1468 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ManagerGestionClientComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/manager/manager-gestion-client/manager-gestion-client.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-manager-gestion-client</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./manager-gestion-client.component.scss,<br>../../../variables.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./manager-gestion-client.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allClients" >allClients</a>
+                            </li>
+                            <li>
+                                <a href="#clients" >clients</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkIsUnique" >checkIsUnique</a>
+                            </li>
+                            <li>
+                                <a href="#checkPermission" >checkPermission</a>
+                            </li>
+                            <li>
+                                <a href="#deleteClient" >deleteClient</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getClients" >getClients</a>
+                            </li>
+                            <li>
+                                <a href="#goto" >goto</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openModal" >openModal</a>
+                            </li>
+                            <li>
+                                <a href="#refresh" >refresh</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, dialog: MatDialog, permissionsService: <a href="../injectables/PermissionsService.html" target="_self">PermissionsService</a>, confirmModalService: <a href="../injectables/ConfirmModalService.html" target="_self">ConfirmModalService</a>, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>permissionsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PermissionsService.html" target="_self" >PermissionsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmModalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfirmModalService.html" target="_self" >ConfirmModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIsUnique"></a>
+                    <span class="name">
+                        <span ><b>checkIsUnique</b></span>
+                        <a href="#checkIsUnique"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIsUnique(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, mail: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>mail</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkPermission"></a>
+                    <span class="name">
+                        <span ><b>checkPermission</b></span>
+                        <a href="#checkPermission"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkPermission(permission: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>permission</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteClient"></a>
+                    <span class="name">
+                        <span ><b>deleteClient</b></span>
+                        <a href="#deleteClient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteClient(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClients"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getClients</b></span>
+                        <a href="#getClients"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getClients()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goto"></a>
+                    <span class="name">
+                        <span ><b>goto</b></span>
+                        <a href="#goto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goto(params: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openModal"></a>
+                    <span class="name">
+                        <span ><b>openModal</b></span>
+                        <a href="#openModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openModal(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>{}</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refresh"></a>
+                    <span class="name">
+                        <span ><b>refresh</b></span>
+                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>refresh()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allClients"></a>
+                    <span class="name">
+                        <span ><b>allClients</b></span>
+                        <a href="#allClients"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+        { name: &#x27;John Smith&#x27;, mail: &#x27;shadow@gmail.com&#x27;, },
+        { name: &#x27;Deliveroo&#x27;, mail: &#x27;deliveroo@gmail.com&#x27;, },
+        { name: &#x27;Uber&#x27;, mail: &#x27;eats@gmail.com&#x27;, },
+    ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clients"></a>
+                    <span class="name">
+                        <span ><b>clients</b></span>
+                        <a href="#clients"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;name&#x27;, &#x27;mail&#x27;, &#x27;action&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/manager/manager-gestion-client/manager-gestion-client.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { tap } from &#x27;rxjs/operators&#x27;;
+
+import { AddClientComponent } from &#x27;./modals/add-client/add-client.component&#x27;;
+import { EditClientComponent } from &#x27;./modals/edit-client/edit-client.component&#x27;;
+import { PermissionsService } from &#x27;../../services/permissions.service&#x27;;
+import { ConfirmModalService } from &#x27;../../confirm-modal/confirm-modal.service&#x27;;
+import { SnackbarService } from &#x27;../../services/snackbar.service&#x27;;
+
+
+const modalComponentMapping: { [key: string]: Type&lt;any&gt; } &#x3D; {
+    ADD: AddClientComponent,
+    EDIT: EditClientComponent,
+};
+@Component({
+    selector: &#x27;app-manager-gestion-client&#x27;,
+    templateUrl: &#x27;./manager-gestion-client.component.html&#x27;,
+    styleUrls: [&#x27;./manager-gestion-client.component.scss&#x27;, &#x27;../../../variables.scss&#x27;]
+})
+export class ManagerGestionClientComponent {
+    displayedColumns &#x3D; [&#x27;name&#x27;, &#x27;mail&#x27;, &#x27;action&#x27;];
+    // allClients: any[] &#x3D; [];
+    allClients &#x3D; [
+        { name: &#x27;John Smith&#x27;, mail: &#x27;shadow@gmail.com&#x27;, },
+        { name: &#x27;Deliveroo&#x27;, mail: &#x27;deliveroo@gmail.com&#x27;, },
+        { name: &#x27;Uber&#x27;, mail: &#x27;eats@gmail.com&#x27;, },
+    ];
+    // formatedOrders: any &#x3D; [];
+    clients: any[] &#x3D; [];
+
+    constructor(private router: Router, 
+                public dialog: MatDialog, 
+                private permissionsService: PermissionsService,
+                private confirmModalService: ConfirmModalService,
+                private snackbarService: SnackbarService) { }
+
+    refresh() {
+        this.allClients &#x3D; this.allClients;
+    };
+
+    ngOnInit(): void {
+        // console.log(&#x27;Date &#x27;, this.date);
+        // this.commandsService.getCompanyInfo().subscribe((data) &#x3D;&gt; {
+        //     this.users &#x3D; data.users;
+        // });
+    }
+
+    async getClients() {
+        // if (this.selectedUser &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+        //     return;
+        // }
+
+        // this.selectedUserName &#x3D; this.selectedUser.name;
+
+        // this.commandsService.getSchedules(this.date, this.selectedUser.user_id).subscribe((data) &#x3D;&gt; {
+        //     this.allOrders &#x3D; data;
+        //     if (this.allOrders.length &#x3D;&#x3D;&#x3D; 0) {
+        //         this.formatedOrders &#x3D; [];
+        //         return;
+        //     }
+        //     this.allOrders.forEach((order) &#x3D;&gt; {
+        //         let tmp: any &#x3D; {};
+        //         let tempDate &#x3D; new Date(order.delivery_date);
+        //         const formattedDate &#x3D; &#x60;${tempDate.toLocaleDateString(&#x27;en-GB&#x27;)} ${tempDate.toLocaleTimeString(&#x27;en-GB&#x27;, { hour12: false })}&#x60;;
+        //         tmp[&#x27;delivery_date&#x27;] &#x3D; formattedDate;
+        //         tmp[&#x27;delivery_address&#x27;] &#x3D; order.order.delivery_address;
+        //         tmp[&#x27;description&#x27;] &#x3D; order.order.description;
+        //         tmp[&#x27;schedule_id&#x27;] &#x3D; order.schedule_id;
+        //         this.formatedOrders.push(tmp);
+        //     });
+        // });
+    }
+
+    goto(params: string) {
+        this.router.navigate([params]);
+    }
+
+    openModal(type: string &#x3D; &#x27;&#x27;, info: any &#x3D; {}): void {
+        const modalComponent: Type&lt;any&gt; &#x3D; modalComponentMapping[type];
+        if (!modalComponent) {
+            throw new Error(&#x60;Type de modal non pris en charge : ${type}&#x60;);
+        }
+
+        const dialogRef &#x3D; this.dialog.open(modalComponent, {
+            panelClass: &#x27;custom&#x27;,
+            data: info
+        });
+
+        dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+            // TEMP PART BEFORE LINK WITH BACKEND
+            if (type &#x3D;&#x3D;&#x3D; &#x27;ADD&#x27;) {
+                this.allClients.push({ name: result.name, mail: result.mail });
+            }
+            // TEMP PART BEFORE LINK WITH BACKEND
+            if (type &#x3D;&#x3D;&#x3D; &#x27;EDIT&#x27;) {
+                if (!result) {
+                    return;
+                }
+                this.allClients.forEach((client, index) &#x3D;&gt; {
+                    if (client.name &#x3D;&#x3D;&#x3D; info.name &amp;&amp; client.mail &#x3D;&#x3D;&#x3D; info.mail) {
+                        this.allClients[index] &#x3D; result;
+                    }
+                });
+            }
+            console.log(&#x27;La modal&#x27;, type, &#x27;est fermée.&#x27;, result);
+        });
+        console.log(&#x27;allClients&#x27;, this.allClients);
+    }
+
+    deleteClient(info: any): void {
+        this.confirmModalService.openConfirmModal(&#x27;Voulez-vous vraiment supprimer ce client ?&#x27;).then((result) &#x3D;&gt; {
+            if (result) {
+                this.allClients.forEach((client, index) &#x3D;&gt; {
+                    if (client.name &#x3D;&#x3D;&#x3D; info.name &amp;&amp; client.mail &#x3D;&#x3D;&#x3D; info.mail) {
+                        this.allClients.splice(index, 1);
+                    }
+                });
+                this.snackbarService.successSnackBar(&quot;Le client a bien été supprimé.&quot;);
+            }
+        });
+    }
+
+    checkIsUnique(name: string, mail: string): boolean {
+        let count &#x3D; 0;
+        let allClients &#x3D; this.allClients;
+        allClients.forEach((client) &#x3D;&gt; {
+            if (client.name &#x3D;&#x3D;&#x3D; name &amp;&amp; client.mail &#x3D;&#x3D;&#x3D; mail) {
+                count +&#x3D; 1;
+            }
+        });
+        console.log(&#x27;CHECK IS UNIQUE:&#x27;);
+        console.log(&#x27;count&#x27;, count);
+        console.log(&#x27;name&#x27;, name, &#x27;mail&#x27;, mail);
+        console.log(&#x27;allClients&#x27;, this.allClients);
+        console.log(&#x27;---------------------------------------------&#x27;);
+
+        return count &lt;&#x3D; 1;
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem(&#x27;token&#x27;) &#x3D;&#x3D;&#x3D; null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;mainContainer&quot;&gt;
+    &lt;h2 class&#x3D;&quot;itinerary-section-heading&quot;&gt;Gestion Client&lt;/h2&gt;
+
+    &lt;!-- Left Container --&gt;
+    &lt;div class&#x3D;&quot;left-right-container&quot;&gt;
+        &lt;div class&#x3D;&quot;left-container&quot;&gt;
+            &lt;div class&#x3D;&quot;orderListContainer&quot;&gt;
+                &lt;div *ngIf&#x3D;&quot;!allClients.length&quot; class&#x3D;&quot;default-message&quot;&gt;Vous n&#x27;avez pas encore de client.&lt;/div&gt;
+
+                &lt;div *ngIf&#x3D;&quot;allClients.length&quot; ngClass&#x3D;&quot;container-tab-userList mat-elevation-z8&quot; tabindex&#x3D;&quot;0&quot;&gt;
+                    &lt;table ngClass&#x3D;&quot;tab-userList&quot; mat-table [dataSource]&#x3D;&quot;allClients&quot;&gt;
+                        &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;name&quot;&gt;
+                            &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Nom
+                            &lt;/th&gt;
+                            &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.name}}
+                            &lt;/td&gt;
+                        &lt;/ng-container&gt;
+                        &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;mail&quot;&gt;
+                            &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Adresse mail &lt;/th&gt;
+                            &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt;
+                                {{data.mail}} &lt;/td&gt;
+                        &lt;/ng-container&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;checkPermission(&#x27;manager&#x27;)&quot; class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;action&quot;&gt;
+                            &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Action &lt;/th&gt;
+                            &lt;td class&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt;
+                                &lt;div class&#x3D;&quot;company-container&quot;&gt;
+                                    &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;openModal(&#x27;EDIT&#x27;, data)&quot;&gt;
+                                        &lt;mat-icon&gt;settings&lt;/mat-icon&gt;
+                                    &lt;/button&gt;
+                                    &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;deleteClient(data)&quot;&gt;
+                                        &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                                    &lt;/button&gt;
+                                    &lt;button *ngIf&#x3D;&quot;!checkIsUnique(data.name, data.mail)&quot; class&#x3D;&quot;button-data-tab-userList&quot; title&#x3D;&quot;Ce client existe en plus d&#x27;un exemplaire !&quot;&gt;
+                                        &lt;mat-icon&gt;warning&lt;/mat-icon&gt;
+                                    &lt;/button&gt;
+                                &lt;/div&gt;
+                            &lt;/td&gt;
+                        &lt;/ng-container&gt;
+                        &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns; sticky: true&quot;&gt;&lt;/tr&gt;
+                        &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/tr&gt;
+                    &lt;/table&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;checkPermission(&#x27;manager&#x27;)&quot; class&#x3D;&quot;buttonContainer&quot;&gt;
+        &lt;button class&#x3D;&quot;buttonADD&quot; mat-fab extended (click)&#x3D;&quot;openModal(&#x27;ADD&#x27;)&quot;&gt;
+            Ajouter une commande
+            &lt;mat-icon&gt;playlist_add&lt;/mat-icon&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./manager-gestion-client.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
+
+// TODO: Import variables.scss
+@import &#x27;../../../variables.scss&#x27;;
+@import &#x27;./styles/table.scss&#x27;;
+@import &#x27;./styles/filter.scss&#x27;;
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    // position: relative;
+    height: 94vh;
+    overflow: hidden;
+}
+
+.filter-container {
+    flex: 2;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+.buttonADD {
+    background-color: $button-main-color !important;
+    color: white;
+    border: none;
+    padding: 9px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+    position: fixed;
+    bottom: 2%;
+    right: 1%;
+}
+
+.left-right-container {
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+}
+
+.left-container {
+    box-sizing: border-box;
+    // overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+li:hover {
+    background-color: #95B1AF;
+}
+
+.mainContainer {
+    flex: 11;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.itinerary-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-color;
+    color: white;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+// -------------
+
+.orderListContainer {
+    background-color: #e8e9ea;
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+    text-align: center;
+    // overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    border-radius: 4px;
+    height: 100%;
+    padding-top: 10px;
+    position: relative;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    width: 80%;
+    margin-bottom: 10px;
+    background-color: #e2f3f5;
+    border: 1px solid #b3d7f9;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+
+.default-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-style: italic;
+    color: #555;
+}</code></pre>
+                <p class="comment">
+                    <code>../../../variables.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$font-color: #01ABA8;
+$test2: #888585;
+
+$font-family: &#x27;Nunito&#x27;;
+$main-color: #01ABA8;
+
+$button-main-color: #01ABA8;
+$button-main-color-disabled: #7ab1b1;
+$button-main-color-hover: #01aba8b9;
+$button-wrong-color: #d30000;
+$button-wrong-color-disabled: #ff00005e;
+$button-wrong-color-hover: #d30000ad;
+
+
+$title-size: 32px;
+
+$subtitle-size: 20px;
+
+$font-size: 14px;
+
+$link-color: #0F3DDE;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="mainContainer">    <h2 class="itinerary-section-heading">Gestion Client</h2>    <!-- Left Container -->    <div class="left-right-container">        <div class="left-container">            <div class="orderListContainer">                <div *ngIf="!allClients.length" class="default-message">Vous n\'avez pas encore de client.</div>                <div *ngIf="allClients.length" ngClass="container-tab-userList mat-elevation-z8" tabindex="0">                    <table ngClass="tab-userList" mat-table [dataSource]="allClients">                        <ng-container class="content-tab-userList" matColumnDef="name">                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Nom                            </th>                            <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}                            </td>                        </ng-container>                        <ng-container class="content-tab-userList" matColumnDef="mail">                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse mail </th>                            <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">                                {{data.mail}} </td>                        </ng-container>                        <ng-container *ngIf="checkPermission(\'manager\')" class="content-tab-userList" matColumnDef="action">                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>                            <td class="data-tab-userList" mat-cell *matCellDef="let data">                                <div class="company-container">                                    <button class="button-data-tab-userList" (click)="openModal(\'EDIT\', data)">                                        <mat-icon>settings</mat-icon>                                    </button>                                    <button class="button-data-tab-userList" (click)="deleteClient(data)">                                        <mat-icon>delete</mat-icon>                                    </button>                                    <button *ngIf="!checkIsUnique(data.name, data.mail)" class="button-data-tab-userList" title="Ce client existe en plus d\'un exemplaire !">                                        <mat-icon>warning</mat-icon>                                    </button>                                </div>                            </td>                        </ng-container>                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>                    </table>                </div>            </div>        </div>    </div>    <div *ngIf="checkPermission(\'manager\')" class="buttonContainer">        <button class="buttonADD" mat-fab extended (click)="openModal(\'ADD\')">            Ajouter une commande            <mat-icon>playlist_add</mat-icon>        </button>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ManagerGestionClientComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ManagerGestionClientComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

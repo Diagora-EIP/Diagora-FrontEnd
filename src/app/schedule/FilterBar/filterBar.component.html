@@ -1,7 +1,7 @@
 <div *ngIf="checkPermission('manager')" class="filter-container">
     <h2 class="filter-section-heading">Filtres</h2>
     <div class="filter-components">
-        <app-loading-spinner *ngIf="isLoadingTeams" class="loading-spinner" >here</app-loading-spinner>
+        <!-- <app-loading-spinner *ngIf="isLoadingTeams" class="loading-spinner" >here</app-loading-spinner> -->
         <div class="team-selectors" *ngIf="!isLoadingTeams">
             <mat-accordion multi>
                 <mat-expansion-panel
@@ -37,7 +37,7 @@
                     >
                         <mat-list-option
                             class="team-users"
-                            *ngFor="let user of getUsersForTeam(team.users)"
+                            *ngFor="let user of getUsersForTeam(team.users, team)"
                             [value]="user"
                             [ngStyle]="{
                                 'background-color': isTeamFullySelected(team)

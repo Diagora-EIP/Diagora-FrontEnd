@@ -13,15 +13,14 @@ import { DelivererAbsenceModalComponent } from '../modals/create-absent-modal/cr
     styleUrls: ['./filterBar.component.scss'],
 })
 export class FilterBarComponent implements AfterViewInit {
-    @Input() UsersTeams: any = {};
     filteredUsers: any[] = [];
     managerControl: FormControl = new FormControl();
-    selectedTeams: { [teamId: number]: any[] } = {};
     selectedNoTeamUsers: any[] = [];
     teams: any[] = [];
     companyData: any = {};
     usersWithoutTeams: any[] = [];
     isLoadingTeams: boolean = true;
+    selectedTeams: { [key: number]: any[] } = {};
 
     @ViewChildren('teamPanel') teamPanels!: QueryList<MatExpansionPanel>;
     @Output() selectedDataChange: EventEmitter<{ teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }> = new EventEmitter<{ teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }>();
@@ -69,11 +68,21 @@ export class FilterBarComponent implements AfterViewInit {
         return manager ? manager.name : '';
     }
 
-    getUsersForTeam(userIds: any[]): any[] {
+    getUsersForTeam(userIds: any[], team: any): any[] {
         if (!userIds || userIds.length === 0)
             return [];
+    
+        const teamColor = team.color;
         const userIdsArray = userIds.map(user => user.user_id);
-        const filteredUsers = this.filteredUsers.filter(user => userIdsArray.includes(user.user_id));
+    
+        // Filter the users based on user IDs and add the teamColor property
+        const filteredUsers = this.filteredUsers
+            .filter(user => userIdsArray.includes(user.user_id))
+            .map(user => ({
+                ...user,         // Spread the original user properties
+                teamColor       // Add the teamColor property
+            }));
+    
         return filteredUsers;
     }
 
@@ -85,9 +94,15 @@ export class FilterBarComponent implements AfterViewInit {
        
     }
 
+    onSelectionChange(team: any) {
+        console.log('Team selection changed:', this.selectedTeams[team.team_id]);
+        // Ensure this method properly handles changes
+        this.emitSelectedData();
+    }
+
     toggleSelectAll(event: any, team: any): void {
         if (event.checked) {
-            this.selectedTeams[team.team_id] = this.getUsersForTeam(team.users);
+            this.selectedTeams[team.team_id] = this.getUsersForTeam(team.users, team);
         } else {
             this.selectedTeams[team.team_id] = [];
         }
@@ -98,11 +113,13 @@ export class FilterBarComponent implements AfterViewInit {
         this.emitSelectedData();
     }
 
-    onSelectionChange(team: any): void {
-        // Trigger change detection for the team selection
+    onUserSelectionChange(): void {
+        this.emitSelectedData()
+        
     }
 
     private emitSelectedData(): void {
+        console.log("Selected Data:", this.selectedTeams);
         this.selectedDataChange.emit({
             teams: this.selectedTeams,
             usersWithoutTeams: this.selectedNoTeamUsers
@@ -111,7 +128,7 @@ export class FilterBarComponent implements AfterViewInit {
 
     isTeamFullySelected(team: any): boolean {
         const selectedUsers = this.selectedTeams[team.team_id] || [];
-        const teamUsers = this.getUsersForTeam(team.users);
+        const teamUsers = this.getUsersForTeam(team.users, team);
         return selectedUsers.length === teamUsers.length;
     }
 
@@ -120,7 +137,6 @@ export class FilterBarComponent implements AfterViewInit {
             const selectedUsers = this.selectedNoTeamUsers || [];
             return selectedUsers.some(selectedUser => selectedUser.user_id === user.user_id);
         }
-    
         const selectedUsers = this.selectedTeams[team.team_id] || [];
         return selectedUsers.some(selectedUser => selectedUser.user_id === user.user_id);
     }
@@ -129,15 +145,20 @@ export class FilterBarComponent implements AfterViewInit {
         if (!team)
             return false;
         const selectedUsers = this.selectedTeams[team.team_id] || [];
-        const teamUsers = this.getUsersForTeam(team.user_ids);
+        const teamUsers = this.getUsersForTeam(team.user_ids, team);
 
         return selectedUsers.length > 0 && selectedUsers.length < teamUsers.length;
     }
 
     // Filter users who are not assigned to any team
     filterUsersWithoutTeams(): void {
-        const teamUserIds = new Set(this.teams.flatMap(team => team.users.map((user: { user_id: any; }) => user.user_id)));
-        this.usersWithoutTeams = this.filteredUsers.filter(user => !teamUserIds.has(user.user_id));
+        if (!this.teams || this.teams.length === 0) {
+            // If no teams are available, all users are without teams
+            this.usersWithoutTeams = [...this.filteredUsers];
+        } else {
+            const teamUserIds = new Set(this.teams.flatMap(team => team.users.map((user: { user_id: any; }) => user.user_id)));
+            this.usersWithoutTeams = this.filteredUsers.filter(user => !teamUserIds.has(user.user_id));
+        }
     }
 
     // Returns all teams within user company, including the users assigned to each team

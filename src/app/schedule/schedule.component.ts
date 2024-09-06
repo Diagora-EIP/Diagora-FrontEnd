@@ -13,6 +13,7 @@ import { PermissionsService } from '../services/permissions.service';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
@@ -21,7 +22,9 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NgZone } from '@angular/core';
-import teamjson from './teams.json';
+// import teamjson from './teams.json';
+
+dayjs.locale('fr');
 
 interface User {
     name: string;
@@ -36,22 +39,19 @@ interface User {
 })
 export class ScheduleComponent implements OnInit {
     @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
-    UsersTeams = teamjson;
     private calendarApi: any;
     currentStartDate: any;
     currentEndDate: any;
     managerControl = new FormControl();
     userList: any[] = [];
-    teams: any[] = [];
-    filteredUsers: any[] = [];
-    selectedDate: Date | null = null;
-    filteredDates: Date[] = [];
     users: any[] = [];
     customHeaderText: string = localStorage.getItem('name') || '';
     currUser: User = { name: '', user_id: 0 };
     loading: boolean = false;
-    updatingEvents: boolean = false;
     events = [];
+    private selectedUsersCache: { [userId: number]: any } = {};
+    private currentEventsCache: any[] = [];
+    private removedEventsCache: any[] = [];
 
     constructor(
         private scheduleService: ScheduleService,
@@ -65,7 +65,9 @@ export class ScheduleComponent implements OnInit {
     }
 
     calendarOptions: CalendarOptions = {
-        initialView: 'dayGridWeek',
+        initialView: 'timeGridWeek',
+        // locales: [{ code: 'fr' }],
+        locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: true,
         selectable: true,
@@ -77,7 +79,7 @@ export class ScheduleComponent implements OnInit {
             let fetchEventsPromise: Promise<any>;
 
             if (this.checkPermission('manager'))
-                fetchEventsPromise = this.getScheduleByUser();
+                return;
             else
                 fetchEventsPromise = this.getSchedule();
 
@@ -98,7 +100,6 @@ export class ScheduleComponent implements OnInit {
             end: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         eventClick: this.handleEventClick.bind(this),
-        locales: [{ code: 'fr' }],
         buttonText: {
             today: 'Aujourd\'hui',
             month: 'Mois',
@@ -109,8 +110,7 @@ export class ScheduleComponent implements OnInit {
         titleFormat: (dateInfo) => {
             const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
             const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
-            const formattedStartDate =
-                dayjs(startDateString).format('MMMM YYYY');
+            const formattedStartDate = dayjs(startDateString).format('MMMM YYYY'); // Format using French locale
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
@@ -239,11 +239,78 @@ export class ScheduleComponent implements OnInit {
         });
     }
 
+    async newgetScheduleByUser(userId: any): Promise<any[]> {
+        return new Promise(async (resolve, reject) => {
+
+            this.ngZone.runOutsideAngular(async () => {
+                this.loading = true;
+
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
+            
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
+            
+                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
+                    await this.getManagerEntreprise();
+                }
+                console.log('userId:', userId);
+                const user_id = userId;
+
+                if (user_id === undefined) {
+                    return;
+                }
+
+                this.customHeaderText = this.managerControl.value.name;
+                this.ngZone.runOutsideAngular(() => {
+                    this.scheduleService
+                        .getScheduleBetweenDatesByUser(
+                            startDateFormatted,
+                            endDateFormatted,
+                            user_id
+                        )
+                        .pipe(
+                            tap({
+                                next: (data: any) => {
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    if (!data || data.length === 0) {
+                                        resolve([]);
+                                        return;
+                                    }
+                                    return resolve(data);
+
+                                },
+                                error: (err) => {
+                                    console.error('Error fetching schedule:', err);
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    reject(err);
+                                },
+                                complete: () => {
+                                    this.ngZone.run(() => {
+                                        this.loading = false;
+                                        this.cdref.detectChanges();
+                                    });
+                                }
+                            })
+                        )
+                        .subscribe();
+                });
+            });
+        });
+    }
+
     // Helper function to map schedule data to CalendarEvent
     private mapScheduleToEvent(schedule: any): EventInput {
         return {
             title: schedule.order?.description,
             start: schedule.delivery_date,
+            color: schedule.color,
             extendedProps: {
                 scheduleId: schedule.schedule_id,
                 order: {
@@ -256,6 +323,11 @@ export class ScheduleComponent implements OnInit {
                         name: schedule.order?.company?.name,
                         address: schedule.order?.company?.address,
                     },
+                },
+                user: {
+                    user_id: schedule.user?.user_id,
+                    name: schedule.user?.name,
+                    color: schedule.user?.color,
                 },
                 itineraryId: schedule.itinerary_id,
                 estimatedTime: schedule.estimated_time,
@@ -287,15 +359,8 @@ export class ScheduleComponent implements OnInit {
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
         const isManager = this.checkPermission('manager');
-        let user: any = undefined;
-        //code de merde a fix
-        if (isManager) {
-            user = this.userList.find(
-                (user) => user.name === this.managerControl.value.name
-            )
-        } else {
-            user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
-        }
+        let user: any = extendedProps.user;
+
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
                 start,
@@ -335,28 +400,120 @@ export class ScheduleComponent implements OnInit {
     }
 
     handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): void {
-        // Handle selected teams and users without teams
-        console.log('Selected teams:', selectedData.teams);
-        console.log('Selected users without teams:', selectedData.usersWithoutTeams);
+        // Create a new object to track current selected users
+        const currentSelectedUsers: { [userId: number]: any } = {};
+
+        // Collect all users from selected teams
+        for (const teamId in selectedData.teams) {
+            if (selectedData.teams.hasOwnProperty(teamId)) {
+                selectedData.teams[teamId].forEach(user => {
+                    currentSelectedUsers[user.user_id] = user;
+                });
+            }
+        }
+
+        // Collect all users without teams
+        selectedData.usersWithoutTeams.forEach(user => {
+            currentSelectedUsers[user.user_id] = user;
+        });
+
+        console.log("CurrentSelectedUsers", currentSelectedUsers)
+
+        // Identify users that were previously selected but are no longer selected
+        const unselectedUserIds = Object.keys(this.selectedUsersCache).filter(
+            userId => !currentSelectedUsers[parseInt(userId)]
+        );
+
+        if (unselectedUserIds.length > 0) {
+            console.log('Unselected users:', unselectedUserIds);
+            // Remove from the current evens the users that were unselected
+            const filteredEvents = this.currentEventsCache.filter(
+                event => !unselectedUserIds.includes(event.user.user_id.toString())
+            );
+            this.calendarOptions.events = filteredEvents.map((event: any) =>
+                this.mapScheduleToEvent(event)
+            );
+            this.fullcalendar.getApi().refetchEvents();
+        }
+
+        // Update the cache with the current selection
+        this.selectedUsersCache = { ...currentSelectedUsers };
+
+        if (Object.keys(currentSelectedUsers).length === 0) {
+            this.calendarOptions.events = [];
+            this.fullcalendar.getApi().refetchEvents();
+            return;
+        }
+
+        // Fetch schedules for newly selected users
+        const fetchEventsPromises = Object.keys(currentSelectedUsers).map(userId => {
+            return this.newgetScheduleByUser(parseInt(userId));
+        });
+
+        // Handle the fetched events
+        Promise.all(fetchEventsPromises)
+            .then(eventsArrays => {
+                console.log(eventsArrays);
+                const allEvents = eventsArrays.flat();
+
+                allEvents.forEach((event: any) => {
+                    console.log(event);
+                    const user_id = event.user.user_id;
+                    
+                    // Default to the user's color
+                    console.log('SelectedUsersCache:', this.selectedUsersCache);
+                    try {
+                        console.log('User_id:', user_id);
+                        console.log('SelectedUsersCache:', this.selectedUsersCache[user_id]);
+                    } catch (error) {
+                        console.log('Error:', error);
+                    }
+                    let eventColor = this.selectedUsersCache[user_id].color;
+                
+                    // Check if the user belongs to a selected team and override with the team color if applicable
+                    console.log(selectedData)
+                    if (selectedData.teams) {
+                        for (const teamId in selectedData.teams) {
+                            if (selectedData.teams.hasOwnProperty(teamId)) {
+                                const team = selectedData.teams[teamId] as { user_id: number, teamColor: string }[];
+        
+                                const userInTeam = team.find(user => user.user_id === user_id);
+        
+                                if (userInTeam) {
+                                    eventColor = userInTeam.teamColor;
+                                }
+                            }
+                        }
+                    }
+                
+                    event.color = eventColor;
+                });
+                
+
+                this.calendarOptions.events = allEvents.map((event: any) =>
+                    this.mapScheduleToEvent(event)
+                );
+                this.fullcalendar.getApi().refetchEvents();
+                this.currentEventsCache = allEvents;
+
+            })
+            .catch(error => {
+            });
     }
 
     async getManagerEntreprise(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    this.filteredUsers = teamjson.users;
-                    this.userList = teamjson.users;
-                    this.users = teamjson.users;
-                    this.teams = teamjson.teams;
-                    localStorage.setItem('entreprise', teamjson.name);
-                    localStorage.setItem('addressEntreprise', teamjson.address);
-                    localStorage.setItem('company_id', teamjson.company_id);
-                    localStorage.setItem('users', JSON.stringify(teamjson.users));
-                    this.currUser = this.userList.find((user: User) => {
-                        const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
-                        const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
-                        return nameCondition && idCondition;
-                    });
+                    // this.userList = teamjson.users;
+                    // localStorage.setItem('entreprise', teamjson.name);
+                    // localStorage.setItem('addressEntreprise', teamjson.address);
+                    // localStorage.setItem('company_id', teamjson.company_id);
+                    // localStorage.setItem('users', JSON.stringify(teamjson.users));
+                    this.currUser = {
+                        name: localStorage.getItem('name') || "undefined",
+                        user_id: Number(localStorage.getItem('id')) || 0
+                      };
                     this.managerControl.setValue(this.currUser);
                     resolve();
                 },
@@ -368,26 +525,8 @@ export class ScheduleComponent implements OnInit {
         });
     }
 
-    // Function to filter managers based on user input
-    onManagerInput(event: any): void {
-        const value = event.target.value;
-        this.filteredUsers = this.filterManagers(value);
-    }
-
-    private filterManagers(value: string): any[] {
-        const filterValue = value.toLowerCase();
-        return this.users.filter((users) =>
-            users.name.toLowerCase().includes(filterValue)
-        );
-    }
-
     displayManager(manager: any): string {
         return manager ? manager.name : '';
-    }
-
-    onManagerSelected(event: any): void {
-        const selectedManager = event.option.value;
-        this.currUser = { name: selectedManager.name, user_id: selectedManager.user_id };
     }
 
     checkPermission(permission: string): boolean {
@@ -436,8 +575,6 @@ export class ScheduleComponent implements OnInit {
     openPropositionModal() {
         const dialogRef = this.dialog.open(PropositionComponent, {
         });
-
-
         dialogRef.afterClosed().subscribe(result => {
         });
     }

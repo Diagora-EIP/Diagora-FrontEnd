@@ -1,0 +1,1646 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ManagerUserListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/manager/manager-user-list/manager-user-list.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-manager-user-list</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./manager-user-list.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./manager-user-list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addUser" >addUser</a>
+                            </li>
+                            <li>
+                                <a href="#callDeleteUser" >callDeleteUser</a>
+                            </li>
+                            <li>
+                                <a href="#callUpdateUser" >callUpdateUser</a>
+                            </li>
+                            <li>
+                                <a href="#callUpdateUserVehicle" >callUpdateUserVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#deleteUser" >deleteUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#entreprise" >entreprise</a>
+                            </li>
+                            <li>
+                                <a href="#getUserRoles" >getUserRoles</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#modalComponentMapping" >modalComponentMapping</a>
+                            </li>
+                            <li>
+                                <a href="#modalUpdateUser" >modalUpdateUser</a>
+                            </li>
+                            <li>
+                                <a href="#rolesList" >rolesList</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUser" >selectedUser</a>
+                            </li>
+                            <li>
+                                <a href="#updateUserRole" >updateUserRole</a>
+                            </li>
+                            <li>
+                                <a href="#userList" >userList</a>
+                            </li>
+                            <li>
+                                <a href="#vehicleList" >vehicleList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getManagerEntreprise" >getManagerEntreprise</a>
+                            </li>
+                            <li>
+                                <a href="#getRolesList" >getRolesList</a>
+                            </li>
+                            <li>
+                                <a href="#openModal" >openModal</a>
+                            </li>
+                            <li>
+                                <a href="#updateCheckedRoles" >updateCheckedRoles</a>
+                            </li>
+                            <li>
+                                <a href="#updateUserBis" >updateUserBis</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(managerService: <a href="../injectables/ManagerService.html" target="_self">ManagerService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, dialog: MatDialog, fb: FormBuilder, confirmModalService: <a href="../injectables/ConfirmModalService.html" target="_self">ConfirmModalService</a>, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>managerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ManagerService.html" target="_self" >ManagerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmModalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfirmModalService.html" target="_self" >ConfirmModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagerEntreprise"></a>
+                    <span class="name">
+                        <span ><b>getManagerEntreprise</b></span>
+                        <a href="#getManagerEntreprise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getManagerEntreprise()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRolesList"></a>
+                    <span class="name">
+                        <span ><b>getRolesList</b></span>
+                        <a href="#getRolesList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRolesList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openModal"></a>
+                    <span class="name">
+                        <span ><b>openModal</b></span>
+                        <a href="#openModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openModal(modalType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>modalType</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateCheckedRoles"></a>
+                    <span class="name">
+                        <span ><b>updateCheckedRoles</b></span>
+                        <a href="#updateCheckedRoles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateCheckedRoles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserBis"></a>
+                    <span class="name">
+                        <span ><b>updateUserBis</b></span>
+                        <a href="#updateUserBis"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateUserBis(result: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>result</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addUser"></a>
+                    <span class="name">
+                        <span ><b>addUser</b></span>
+                        <a href="#addUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="callDeleteUser"></a>
+                    <span class="name">
+                        <span ><b>callDeleteUser</b></span>
+                        <a href="#callDeleteUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="callUpdateUser"></a>
+                    <span class="name">
+                        <span ><b>callUpdateUser</b></span>
+                        <a href="#callUpdateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="callUpdateUserVehicle"></a>
+                    <span class="name">
+                        <span ><b>callUpdateUserVehicle</b></span>
+                        <a href="#callUpdateUserVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteUser"></a>
+                    <span class="name">
+                        <span ><b>deleteUser</b></span>
+                        <a href="#deleteUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="184" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;utilisateur&#x27;, &#x27;email&#x27;, &#x27;roles&#x27;, &#x27;settings&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entreprise"></a>
+                    <span class="name">
+                        <span ><b>entreprise</b></span>
+                        <a href="#entreprise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;&quot;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserRoles"></a>
+                    <span class="name">
+                        <span ><b>getUserRoles</b></span>
+                        <a href="#getUserRoles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="128" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modalComponentMapping"></a>
+                    <span class="name">
+                        <span ><b>modalComponentMapping</b></span>
+                        <a href="#modalComponentMapping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        USERCREATE: {
+            component: ManagerUserCreateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    roles: this.rolesList,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.addUser(instance)
+        },
+        USERUPDATE: {
+            component: ManagerUserUpdateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    user: this.selectedUser,
+                    rolesList: this.rolesList,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.updateUserBis(instance)
+        },
+        USERVEHICLEUPDATE: {
+            component: ManagerUserVehicleUpdateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    user: this.selectedUser,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.updateUserBis(instance)
+        },
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modalUpdateUser"></a>
+                    <span class="name">
+                        <span ><b>modalUpdateUser</b></span>
+                        <a href="#modalUpdateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rolesList"></a>
+                    <span class="name">
+                        <span ><b>rolesList</b></span>
+                        <a href="#rolesList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUser"></a>
+                    <span class="name">
+                        <span ><b>selectedUser</b></span>
+                        <a href="#selectedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserRole"></a>
+                    <span class="name">
+                        <span ><b>updateUserRole</b></span>
+                        <a href="#updateUserRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userList"></a>
+                    <span class="name">
+                        <span ><b>userList</b></span>
+                        <a href="#userList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vehicleList"></a>
+                    <span class="name">
+                        <span ><b>vehicleList</b></span>
+                        <a href="#vehicleList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/manager/manager-user-list/manager-user-list.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type } from &#x27;@angular/core&#x27;;
+import { ManagerService } from &#x27;../../services/manager.service&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { tap } from &#x27;rxjs/operators&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { ManagerUserUpdateModalComponent } from &#x27;../user-update-modal/user-update-modal.component&#x27;;
+import { ManagerUserCreateModalComponent } from &#x27;../user-create-modal/user-create-modal.component&#x27;;
+import { ManagerUserVehicleUpdateModalComponent } from &#x27;../user-vehicle-update-modal/user-vehicle-update-modal.component&#x27;;
+import { ConfirmModalService } from &#x27;../../confirm-modal/confirm-modal.service&#x27;;
+import { SnackbarService } from &#x27;../../services/snackbar.service&#x27;;
+
+
+@Component({
+    selector: &#x27;app-manager-user-list&#x27;,
+    templateUrl: &#x27;./manager-user-list.component.html&#x27;,
+    styleUrls: [&#x27;./manager-user-list.component.scss&#x27;],
+})
+
+export class ManagerUserListComponent {
+    modalComponentMapping: { [key: string]: { component: Type&lt;any&gt;; constructor: () &#x3D;&gt; any, action: (instance: any) &#x3D;&gt; void } } &#x3D; {
+        USERCREATE: {
+            component: ManagerUserCreateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    roles: this.rolesList,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.addUser(instance)
+        },
+        USERUPDATE: {
+            component: ManagerUserUpdateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    user: this.selectedUser,
+                    rolesList: this.rolesList,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.updateUserBis(instance)
+        },
+        USERVEHICLEUPDATE: {
+            component: ManagerUserVehicleUpdateModalComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    user: this.selectedUser,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; this.updateUserBis(instance)
+        },
+    };
+    displayedColumns &#x3D; [&#x27;utilisateur&#x27;, &#x27;email&#x27;, &#x27;roles&#x27;, &#x27;settings&#x27;];
+    userList: any &#x3D; [];
+    entreprise: string &#x3D; &quot;&quot;
+    modalUpdateUser: boolean &#x3D; false;
+    loading: boolean &#x3D; false;
+    rolesList: any &#x3D; [];
+    updateUserRole: any &#x3D; [];
+    selectedUser: any &#x3D; null;
+    vehicleList: any &#x3D; [];
+
+    constructor(private managerService: ManagerService,
+        private userService: UserService,
+        public dialog: MatDialog,
+        private fb: FormBuilder,
+        private confirmModalService: ConfirmModalService,
+        private snackbarService: SnackbarService) {
+        this.entreprise &#x3D; localStorage.getItem(&#x27;entreprise&#x27;) || &#x27;&#x27;;
+        this.getRolesList();
+        this.getManagerEntreprise();
+    }
+
+    openModal(modalType: string): void {
+        const { component, constructor, action } &#x3D; this.modalComponentMapping[modalType.toUpperCase()];
+
+        if (!component) {
+            throw new Error(&#x60;Type de modal non pris en charge : ${modalType}&#x60;);
+        }
+
+        const dialogRef &#x3D; this.dialog.open(component, {
+            panelClass: &#x27;custom&#x27;,
+            data: constructor()
+        });
+
+        dialogRef.afterClosed().subscribe((data) &#x3D;&gt; {
+            if (!data)
+                return
+            action(data);
+        });
+    }
+
+    callUpdateUser &#x3D; (user: any) &#x3D;&gt; {
+        this.selectedUser &#x3D; user;
+        this.openModal(&#x27;USERUPDATE&#x27;)
+    }
+
+    callDeleteUser &#x3D; (user: any) &#x3D;&gt; {
+        this.selectedUser &#x3D; user;
+        this.confirmModalService.openConfirmModal(&#x27;Voulez-vous vraiment supprimer cet employé ?&#x27;).then((result) &#x3D;&gt; {
+            if (result) {
+                this.managerService.deleteUser(user.user_id).subscribe({
+                    next: () &#x3D;&gt; {
+                        this.deleteUser(true);
+                        this.snackbarService.successSnackBar(&quot;L&#x27;employé a bien été supprimé.&quot;);
+                    }
+                });
+            }
+        });
+    }
+
+    callUpdateUserVehicle &#x3D; (user: any) &#x3D;&gt; {
+        this.selectedUser &#x3D; user;
+        this.openModal(&#x27;USERVEHICLEUPDATE&#x27;)
+    }
+
+    getRolesList() {
+        this.userService.getRolesList()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.rolesList &#x3D; data;
+                    this.updateUserRole &#x3D; data;
+                    // this.updateUserRole.forEach((role: any) &#x3D;&gt; {
+                    //     role.checked &#x3D; false;
+                    // })
+                },
+            });
+    }
+
+    getUserRoles &#x3D; (roles: any) &#x3D;&gt; {
+        if (roles)
+            return roles.map((role: any) &#x3D;&gt; role.name).join(&#x27;, &#x27;)
+
+        return &quot;No Roles&quot;
+    }
+
+    getManagerEntreprise() {
+        this.loading &#x3D; true;
+        this.managerService
+            .getManagerEntreprise()
+            .pipe(
+                tap({
+                    next: (data: any) &#x3D;&gt; {
+                        this.loading &#x3D; false;
+                        this.entreprise &#x3D; data.name;
+                        const users &#x3D; JSON.stringify(data.users);
+                        localStorage.setItem(&#x27;users&#x27;, users);
+                        this.userList &#x3D; data.users;
+                        this.updateCheckedRoles();
+                    },
+                    error: (err) &#x3D;&gt; {
+                        this.loading &#x3D; false;
+                        console.error(&#x27;Error fetching manager entreprise:&#x27;, err);
+                    },
+                })
+            )
+            .subscribe();
+    }
+
+    updateCheckedRoles() {
+        for (let i &#x3D; 0; i &lt; this.userList.length; i++) {
+            this.managerService.getUserInformations(this.userList[i].user_id).subscribe(
+                (res) &#x3D;&gt; {
+                    this.userList[i].roles &#x3D; res;
+                },
+                (err) &#x3D;&gt; {
+                    console.log(err);
+                }
+            );
+        }
+    }
+
+    updateUserBis(result: any) {
+    }
+
+    addUser &#x3D; (user: any) &#x3D;&gt; {
+        const userFormat &#x3D; {
+            user_id: user.id,
+            name: user.name,
+            email: user.email,
+            roles: user.roles.map((role_id: number) &#x3D;&gt; this.rolesList.find((role: any) &#x3D;&gt; role.role_id &#x3D;&#x3D;&#x3D; role_id)),
+        }
+        this.userList &#x3D; [...this.userList, userFormat];
+    }
+
+    deleteUser &#x3D; (isDeleted: any) &#x3D;&gt; {
+        if (isDeleted)
+            this.userList &#x3D; [...this.userList.filter((user: any) &#x3D;&gt; user.user_id !&#x3D;&#x3D; this.selectedUser.user_id)]
+    }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div ngClass&#x3D;&quot;container-userList&quot;&gt;
+    &lt;div ngClass&#x3D;&quot;container-title-userList&quot;&gt;
+        &lt;h1 ngClass&#x3D;&quot;title-userList&quot;&gt;Utilisateurs de {{ entreprise }}&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;div ngClass&#x3D;&quot;container-utils-userList&quot;&gt;
+        &lt;div ngClass&#x3D;&quot;container-button-utils-userList&quot;&gt;
+            &lt;button ngClass&#x3D;&quot;new button-utils-userList&quot; mat-raised-button color&#x3D;&quot;primary&quot;
+                (click)&#x3D;&#x27;openModal(&quot;USERCREATE&quot;)&#x27;&gt;
+                + Nouvel Utilisateur
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div ngClass&#x3D;&quot;container-tab-userList mat-elevation-z8&quot; tabindex&#x3D;&quot;0&quot;&gt;
+        &lt;div class&#x3D;&quot;user-list-loading-spinner&quot; *ngIf&#x3D;&quot;loading&quot;&gt;
+            &lt;app-loading-spinner&gt;&lt;/app-loading-spinner&gt;
+        &lt;/div&gt;
+        &lt;table ngClass&#x3D;&quot;tab-userList&quot; mat-table [dataSource]&#x3D;&quot;userList&quot;&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;utilisateur&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Utilisateur &lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let user&quot;&gt; {{user.name}} &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;email&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Email &lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let user&quot;&gt; {{user.email}} &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;roles&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Rôles &lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let user&quot;&gt;
+                    &lt;div class&#x3D;&quot;roles-container&quot;&gt;
+                        &lt;span class&#x3D;&quot;roles-name&quot;&gt;{{getUserRoles(user.roles)}}&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;settings&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;&lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let user&quot;&gt;
+                    &lt;div class&#x3D;&quot;settings-container&quot;&gt;
+                        &lt;button class&#x3D;&quot;user-edit-button button-data-tab-userList&quot; (click)&#x3D;&#x27;callUpdateUser(user)&#x27;&gt;
+                            &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+                        &lt;/button&gt;
+                        &lt;button class&#x3D;&quot;user-edit-button button-data-tab-userList&quot; (click)&#x3D;&#x27;callUpdateUserVehicle(user)&#x27;&gt;
+                            &lt;mat-icon&gt;directions_car&lt;/mat-icon&gt;
+                        &lt;/button&gt;
+                        &lt;button class&#x3D;&quot;user-edit-button button-data-tab-userList&quot; (click)&#x3D;&#x27;callDeleteUser(user)&#x27;&gt;
+                            &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns; sticky: true&quot;&gt;&lt;/tr&gt;
+            &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./manager-user-list.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$font-color: #01ABA8;
+
+.container-userList {
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    justify-items: center;
+}
+
+.container-title-userList {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: $font-color;
+    text-transform: uppercase;
+}
+
+.container-utils-userList {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.title-filter-userList {
+    font-weight: bold;
+    color: $font-color;
+}
+
+.container-button-utils-userList {
+    display: flex;
+    gap: 50px;
+}
+
+.button-utils-userList {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.container-tab-userList {
+    display: flex;
+    width: 80%;
+    justify-self: center;
+    margin-bottom: 20px;
+}
+
+.header-tab-userList {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.data-tab-userList {
+    font-size: 1rem;
+}
+
+.company-container, .roles-container, .settings-container {
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+}
+
+.settings-container {
+    justify-content: end;
+}
+
+.company-name {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.button-data-tab-userList {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.button-data-tab-userList:hover, .button-data-tab-userList:active {
+    color: #01ABA8;
+}
+
+.button-data-tab-userList .mat-icon {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div ngClass="container-userList">    <div ngClass="container-title-userList">        <h1 ngClass="title-userList">Utilisateurs de {{ entreprise }}</h1>    </div>    <div ngClass="container-utils-userList">        <div ngClass="container-button-utils-userList">            <button ngClass="new button-utils-userList" mat-raised-button color="primary"                (click)=\'openModal("USERCREATE")\'>                + Nouvel Utilisateur            </button>        </div>    </div>    <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">        <div class="user-list-loading-spinner" *ngIf="loading">            <app-loading-spinner></app-loading-spinner>        </div>        <table ngClass="tab-userList" mat-table [dataSource]="userList">            <ng-container class="content-tab-userList" matColumnDef="utilisateur">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Utilisateur </th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.name}} </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="email">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user"> {{user.email}} </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="roles">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Rôles </th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user">                    <div class="roles-container">                        <span class="roles-name">{{getUserRoles(user.roles)}}</span>                    </div>                </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="settings">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef></th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let user">                    <div class="settings-container">                        <button class="user-edit-button button-data-tab-userList" (click)=\'callUpdateUser(user)\'>                            <mat-icon>edit</mat-icon>                        </button>                        <button class="user-edit-button button-data-tab-userList" (click)=\'callUpdateUserVehicle(user)\'>                            <mat-icon>directions_car</mat-icon>                        </button>                        <button class="user-edit-button button-data-tab-userList" (click)=\'callDeleteUser(user)\'>                            <mat-icon>delete</mat-icon>                        </button>                    </div>                </td>            </ng-container>            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>        </table>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ManagerUserListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ManagerUserListComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

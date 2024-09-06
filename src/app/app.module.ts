@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +50,7 @@ import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicul
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
+import { CreateOrderModalComponent } from './schedule/OrderBar/create-order-modal/create-order-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
 import { PropositionComponent } from './schedule/modals/delivery-proposition-modal/create-proposition-modal';
@@ -75,6 +77,11 @@ import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
 import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
+import { DatePipe } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { AssignDelivererModal } from './schedule/OrderBar/assign-deliverer-modal/assign-deliverer-modal.component';
+registerLocaleData(localeFr);
+import { LockVehicleModalComponent } from './vehicule/modals/lock-vehicle/lock-vehicle.component';
 
 @NgModule({
     declarations: [
@@ -124,11 +131,14 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        LockVehicleModalComponent,
         FilterBarComponent,
         OrderBarComponent,
         PropositionComponent,
         DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
+        CreateOrderModalComponent,
+        AssignDelivererModal
     ],
     imports: [
         BrowserModule,
@@ -159,6 +169,8 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         MatExpansionModule,
     ],
     providers: [
+        { provide: LOCALE_ID, useValue: 'fr' },
+        DatePipe,
     ],
     bootstrap: [AppComponent]
 })

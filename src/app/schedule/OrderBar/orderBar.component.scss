@@ -76,3 +76,24 @@ button {
     display: block;
     width: 100%;
 }
+
+.filter-section mat-form-field {
+    max-width: 200px; /* Reduce the width of the date picker inputs */
+    width: 100%; /* Make sure they remain responsive */
+}
+
+button {
+    margin-top: 10px;
+    display: block;
+    width: auto; /* Keeps the button auto-sized instead of full width */
+}
+
+.create-order {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.create-order button {
+    font-weight: 500;
+}

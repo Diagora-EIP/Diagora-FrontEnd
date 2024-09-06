@@ -32,4 +32,12 @@ export class ClientService {
     getOrderByClient(header: any): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/order/get-order-by-client`, header);
     }
+
+    updateClient(client: any, client_id: number): Observable<any> {
+        return this.http.patch<any>(`${this.apiUrl}/client/${client_id}`, client, this.header);
+    }
+
+    deleteClient(client_id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/client/${client_id}`, this.header);
+    }
 }
