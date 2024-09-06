@@ -1,0 +1,64 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Modification de la team</h1>
+    </div>
+    <div style="width: 80%; margin-bottom: 15px;">
+        <form style="width: 100%; display: flex; justify-content: space-around;">
+            <mat-form-field style="width: 80%;">
+                <mat-label>Recherche nouveau livreur</mat-label>
+                <input matInput type="text" placeholder="Ex. Pierre" [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button ngClass="button-modals" (click)="addUser()">Ajouter</button>
+        </form>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container class="content-tab-userList" matColumnDef="Nom du livreur">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Livreurs </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let item"> {{item.name}} </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="email">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let item"> {{item.email}} </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="settings">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef></th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let item">
+                    <div class="settings-container">
+                        <button class="user-edit-button button-data-tab-userList" (click)='callDeleteUser(item)'>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div ngClass="content-space-around-modals">
+        <div ngClass="container-input-modals">
+            <mat-form-field ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Nom</mat-label>
+                <input matInput ngClass="input-modals" placeholder="Ex. Pierre" [(ngModel)]="name" name="name"
+                    [required]="true">
+            </mat-form-field>
+        </div>
+        <div ngClass="container-input-modals">
+            <mat-form-field appearance="fill" ngClass="content-input-modals">
+                <mat-label ngClass="title-input-modals">Couleur de la team</mat-label>
+                <input matInput type="color" [(ngModel)]="selectedColor">
+            </mat-form-field>
+        </div>
+        
+
+        <div ngClass="container-button-modals">
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="updateTeam()">Valider</button>
+        </div>
+    </div>
+</div>
