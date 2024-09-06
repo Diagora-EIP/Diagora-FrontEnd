@@ -66,6 +66,10 @@ export class VehiculesService {
         return this.http.get<any>(`${this.apiUrl}/user/${user_id}/vehicles`, this.header);
     }
 
+    getUserVehicleByVehicleId(vehicle_id: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/manager/vehicles/${vehicle_id}`, this.header);
+    }
+
     createExpense(vehicle_id: number, name: string, description: string, price: number, picture: any, user_id?: number): Observable<any> {
         const requestBody = {
             title: name,
@@ -112,5 +116,37 @@ export class VehiculesService {
 
     deleteVehicleExpense(id: number): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/vehicleExpense/${id}`, this.header);
+    }
+
+    getExpenseByVehicleId(vehicle_id: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/vehicleExpense/${vehicle_id}`, this.header);
+    }
+
+    getLocksByVehicleId(vehicle_id: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/stat/vehicleLock/${vehicle_id}`, this.header);
+    }
+
+    askHelpVehiclePicture(vehicle_model: string, vehicle_brand: string): Observable<any> {
+        const requestBody = {
+            model: vehicle_model,
+            brand: vehicle_brand
+        };
+        return this.http.post<any>(`${this.apiUrl}/vehicle-help/create`, requestBody, this.header);
+    }
+
+    getVehiclePictures(models: string[]): Observable<any> {
+        let url = `${this.apiUrl}/vehiclePicture`;
+
+        models.forEach((model, index) => {
+            model = model.replace(' ', '_');
+            if (index === 0) {
+                url += `?`;
+            } else {
+                url += `&`;
+            }
+            url += `models=${model}`;
+        });
+
+        return this.http.get<any>(url, this.header);
     }
 }

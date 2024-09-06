@@ -1,0 +1,984 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserUpdateModalComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/admin/modals/user-update-modal/user-update-modal.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-update-modal</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./user-update-modal.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./user-update-modal.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#baseEmail" >baseEmail</a>
+                            </li>
+                            <li>
+                                <a href="#baseName" >baseName</a>
+                            </li>
+                            <li>
+                                <a href="#baseUser" >baseUser</a>
+                            </li>
+                            <li>
+                                <a href="#companies" >companies</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef" >dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#rolesList" >rolesList</a>
+                            </li>
+                            <li>
+                                <a href="#updateUser" >updateUser</a>
+                            </li>
+                            <li>
+                                <a href="#updateUserSubscription" >updateUserSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                <a href="#dataCheck" >dataCheck</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, dialogRef: <a href="../interfaces/User.html" target="_self">MatDialogRef&lt;UserUpdateModalComponent&gt;</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, snackBarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/User.html" target="_self" >MatDialogRef&lt;UserUpdateModalComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>adminService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AdminService.html" target="_self" >AdminService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackBarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataCheck"></a>
+                    <span class="name">
+                        <span ><b>dataCheck</b></span>
+                        <a href="#dataCheck"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>dataCheck()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseEmail"></a>
+                    <span class="name">
+                        <span ><b>baseEmail</b></span>
+                        <a href="#baseEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseName"></a>
+                    <span class="name">
+                        <span ><b>baseName</b></span>
+                        <a href="#baseName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseUser"></a>
+                    <span class="name">
+                        <span ><b>baseUser</b></span>
+                        <a href="#baseUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companies"></a>
+                    <span class="name">
+                        <span ><b>companies</b></span>
+                        <a href="#companies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Inject(MAT_DIALOG_DATA)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRef"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialogRef</b></span>
+                        <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >MatDialogRef&lt;UserUpdateModalComponent&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rolesList"></a>
+                    <span class="name">
+                        <span ><b>rolesList</b></span>
+                        <a href="#rolesList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUser"></a>
+                    <span class="name">
+                        <span ><b>updateUser</b></span>
+                        <a href="#updateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserSubscription"></a>
+                    <span class="name">
+                        <span ><b>updateUserSubscription</b></span>
+                        <a href="#updateUserSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Subscription" target="_self" >Subscription | undefined</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/admin/modals/user-update-modal/user-update-modal.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject } from &#x27;@angular/core&#x27;;
+import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { Subscription, tap, throwError } from &#x27;rxjs&#x27;;
+import { AdminService } from &#x27;../../../services/admin.service&#x27;;
+import { SnackbarService } from &#x27;../../../services/snackbar.service&#x27;;
+
+@Component({
+    selector: &#x27;app-user-update-modal&#x27;,
+    templateUrl: &#x27;./user-update-modal.component.html&#x27;,
+    styleUrls: [&#x27;./user-update-modal.component.scss&#x27;],
+})
+export class UserUpdateModalComponent {
+    rolesList: any &#x3D; []
+    companies: any &#x3D; []
+    baseName: string &#x3D; &#x27;&#x27;
+    baseEmail: string &#x3D; &#x27;&#x27;
+    user: any &#x3D; null
+    baseUser: any &#x3D; null
+    updateUserSubscription: Subscription | undefined;
+
+
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        public dialogRef: MatDialogRef&lt;UserUpdateModalComponent&gt;,
+        private adminService: AdminService,
+        private snackBarService: SnackbarService
+    ) {
+        this.user &#x3D; data.user
+        this.baseUser &#x3D; data.user
+        this.baseEmail &#x3D; this.user.email
+        this.baseName &#x3D; this.user.name
+        // this.rolesList &#x3D; data.roles
+        // this.companies &#x3D; data.companyList
+    }
+
+
+    close(): void {
+        this.dialogRef.close();
+        this.updateUserSubscription?.unsubscribe();
+    }
+
+    dataCheck() {
+        const emailRegex &#x3D; /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(this.user.email)) {
+            return false
+        }
+        if (this.user.name.length &#x3D;&#x3D; 0) {
+            return false
+        }
+        return true
+    }
+
+    updateUser &#x3D; async () &#x3D;&gt; {
+        if (this.dataCheck() &#x3D;&#x3D; false) {
+            return
+        }
+
+        if (this.baseEmail &#x3D;&#x3D; this.user.email &amp;&amp; this.baseName &#x3D;&#x3D; this.user.name) {
+            this.dialogRef.close();
+            return
+        }
+
+        this.updateUserSubscription &#x3D; this.adminService.updateUser(this.user.id, this.user.email, this.user.name)
+            .pipe(
+                tap({
+                    error: (err) &#x3D;&gt; {
+                        if (err.status &#x3D;&#x3D;&#x3D; 409) {
+                            // this.emailErrorMessage &#x3D; &#x27;Cet utilisateur existe déjà&#x27;;
+                            return;
+                        }
+                        // this.emailErrorMessage &#x3D; &#x27;Une erreur est survenue&#x27;;
+                        this.snackBarService.warningSnackBar(err.error.message);
+                        return throwError(() &#x3D;&gt; new Error(err.error?.error || &#x27;Une erreur est survenue&#x27;));
+                    },
+                }),
+            )
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.snackBarService.successSnackBar(&#x27;L\&#x27;utilisateur &#x27;+ this.user.name + &#x27; mis à jour&#x27;);
+                    this.dialogRef.close({ user: this.user });
+                },
+            });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div ngClass&#x3D;&quot;container-modals&quot;&gt;
+    &lt;div ngClass&#x3D;&quot;container-title-modals&quot;&gt;
+        &lt;h1 ngClass&#x3D;&quot;title-modals&quot;&gt;Modification de {{ baseEmail }}&lt;/h1&gt;
+    &lt;/div&gt;
+
+    &lt;div ngClass&#x3D;&quot;content-space-around-modals&quot;&gt;
+        &lt;div ngClass&#x3D;&quot;container-input-modals&quot;&gt;
+            &lt;mat-form-field ngClass&#x3D;&quot;content-input-modals&quot;&gt;
+                &lt;mat-label ngClass&#x3D;&quot;title-input-modals&quot;&gt;Nom&lt;/mat-label&gt;
+                &lt;input matInput ngClass&#x3D;&quot;input-modals&quot; placeholder&#x3D;&quot;Ex. Pierre&quot; [(ngModel)]&#x3D;&quot;user.name&quot;
+                    name&#x3D;&quot;name&quot; [required]&#x3D;&quot;true&quot;&gt;
+            &lt;/mat-form-field&gt;
+        &lt;/div&gt;
+
+        &lt;div ngClass&#x3D;&quot;container-input-modals&quot;&gt;
+            &lt;mat-form-field ngClass&#x3D;&quot;content-input-modals&quot;&gt;
+                &lt;mat-label ngClass&#x3D;&quot;title-input-modals&quot;&gt;Email&lt;/mat-label&gt;
+                &lt;input matInput ngClass&#x3D;&quot;input-modals&quot; placeholder&#x3D;&quot;Ex. Pierre@mail.com&quot;
+                    [(ngModel)]&#x3D;&quot;user.email&quot; name&#x3D;&quot;email&quot; #emailField&#x3D;&quot;ngModel&quot; [required]&#x3D;&quot;true&quot;&gt;
+            &lt;/mat-form-field&gt;
+            &lt;!-- &lt;div *ngIf&#x3D;&quot;emailField.invalid &amp;&amp; (emailField.dirty || emailField.touched)&quot;&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;emailField.errors?.[&#x27;required&#x27;]&quot;&gt;L&#x27;email est requis.&lt;/mat-error&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;emailField.errors?.[&#x27;email&#x27;]&quot;&gt;L&#x27;email n&#x27;est pas valide.&lt;/mat-error&gt;
+            &lt;/div&gt; --&gt;
+        &lt;/div&gt;
+
+        &lt;div ngClass&#x3D;&quot;container-button-modals&quot;&gt;
+            &lt;button ngClass&#x3D;&quot;cancel button-modals&quot; mat-raised-button color&#x3D;&quot;warn&quot;
+                (click)&#x3D;&quot;close()&quot;&gt;Annuler&lt;/button&gt;
+            &lt;button ngClass&#x3D;&quot;validate button-modals&quot; mat-raised-button color&#x3D;&quot;primary&quot;
+                (click)&#x3D;&quot;updateUser()&quot;&gt;Valider&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./user-update-modal.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../modals.scss&quot;;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div ngClass="container-modals">    <div ngClass="container-title-modals">        <h1 ngClass="title-modals">Modification de {{ baseEmail }}</h1>    </div>    <div ngClass="content-space-around-modals">        <div ngClass="container-input-modals">            <mat-form-field ngClass="content-input-modals">                <mat-label ngClass="title-input-modals">Nom</mat-label>                <input matInput ngClass="input-modals" placeholder="Ex. Pierre" [(ngModel)]="user.name"                    name="name" [required]="true">            </mat-form-field>        </div>        <div ngClass="container-input-modals">            <mat-form-field ngClass="content-input-modals">                <mat-label ngClass="title-input-modals">Email</mat-label>                <input matInput ngClass="input-modals" placeholder="Ex. Pierre@mail.com"                    [(ngModel)]="user.email" name="email" #emailField="ngModel" [required]="true">            </mat-form-field>            <!-- <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">                <mat-error *ngIf="emailField.errors?.[\'required\']">L\'email est requis.</mat-error>                <mat-error *ngIf="emailField.errors?.[\'email\']">L\'email n\'est pas valide.</mat-error>            </div> -->        </div>        <div ngClass="container-button-modals">            <button ngClass="cancel button-modals" mat-raised-button color="warn"                (click)="close()">Annuler</button>            <button ngClass="validate button-modals" mat-raised-button color="primary"                (click)="updateUser()">Valider</button>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'UserUpdateModalComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserUpdateModalComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -81,6 +81,7 @@ import { DatePipe } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { AssignDelivererModal } from './schedule/OrderBar/assign-deliverer-modal/assign-deliverer-modal.component';
 registerLocaleData(localeFr);
+import { LockVehicleModalComponent } from './vehicule/modals/lock-vehicle/lock-vehicle.component';
 
 @NgModule({
     declarations: [
@@ -130,6 +131,7 @@ registerLocaleData(localeFr);
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        LockVehicleModalComponent,
         FilterBarComponent,
         OrderBarComponent,
         PropositionComponent,

@@ -1,0 +1,2484 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  StatisticComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/statistic/statistic.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-statistic</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./statistic.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./statistic.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clientCount" >clientCount</a>
+                            </li>
+                            <li>
+                                <a href="#clientDeliveryChart" >clientDeliveryChart</a>
+                            </li>
+                            <li>
+                                <a href="#clientList" >clientList</a>
+                            </li>
+                            <li>
+                                <a href="#clientOrder" >clientOrder</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#expenseChart" >expenseChart</a>
+                            </li>
+                            <li>
+                                <a href="#expensesColumns" >expensesColumns</a>
+                            </li>
+                            <li>
+                                <a href="#livraisonChart" >livraisonChart</a>
+                            </li>
+                            <li>
+                                <a href="#lockCount" >lockCount</a>
+                            </li>
+                            <li>
+                                <a href="#mileageChart" >mileageChart</a>
+                            </li>
+                            <li>
+                                <a href="#modalComponentMapping" >modalComponentMapping</a>
+                            </li>
+                            <li>
+                                <a href="#monthClientCount" >monthClientCount</a>
+                            </li>
+                            <li>
+                                <a href="#monthExpense" >monthExpense</a>
+                            </li>
+                            <li>
+                                <a href="#monthMileage" >monthMileage</a>
+                            </li>
+                            <li>
+                                <a href="#monthOrder" >monthOrder</a>
+                            </li>
+                            <li>
+                                <a href="#selectedExpense" >selectedExpense</a>
+                            </li>
+                            <li>
+                                <a href="#totalExpense" >totalExpense</a>
+                            </li>
+                            <li>
+                                <a href="#totalMileage" >totalMileage</a>
+                            </li>
+                            <li>
+                                <a href="#totalOrder" >totalOrder</a>
+                            </li>
+                            <li>
+                                <a href="#vehicleDeliveryChart" >vehicleDeliveryChart</a>
+                            </li>
+                            <li>
+                                <a href="#vehicleExpenses" >vehicleExpenses</a>
+                            </li>
+                            <li>
+                                <a href="#vehicleList" >vehicleList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createChart" >createChart</a>
+                            </li>
+                            <li>
+                                <a href="#deleteExpense" >deleteExpense</a>
+                            </li>
+                            <li>
+                                <a href="#editExpense" >editExpense</a>
+                            </li>
+                            <li>
+                                <a href="#generateDonutChart" >generateDonutChart</a>
+                            </li>
+                            <li>
+                                <a href="#generateHorizontalChart" >generateHorizontalChart</a>
+                            </li>
+                            <li>
+                                <a href="#getClientCount" >getClientCount</a>
+                            </li>
+                            <li>
+                                <a href="#getClientList" >getClientList</a>
+                            </li>
+                            <li>
+                                <a href="#getExpense" >getExpense</a>
+                            </li>
+                            <li>
+                                <a href="#getOrder" >getOrder</a>
+                            </li>
+                            <li>
+                                <a href="#getUserVehicleExpense" >getUserVehicleExpense</a>
+                            </li>
+                            <li>
+                                <a href="#getVehicules" >getVehicules</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(statisticService: <a href="../injectables/StatisticService.html" target="_self">StatisticService</a>, clientService: <a href="../injectables/ClientService.html" target="_self">ClientService</a>, vehiculesService: <a href="../injectables/VehiculesService.html" target="_self">VehiculesService</a>, dialog: MatDialog, snackBarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/statistic/statistic.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>statisticService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StatisticService.html" target="_self" >StatisticService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>clientService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ClientService.html" target="_self" >ClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>vehiculesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/VehiculesService.html" target="_self" >VehiculesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackBarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createChart"></a>
+                    <span class="name">
+                        <span ><b>createChart</b></span>
+                        <a href="#createChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createChart(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label_title: string[], data: number[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="183"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label_title</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteExpense"></a>
+                    <span class="name">
+                        <span ><b>deleteExpense</b></span>
+                        <a href="#deleteExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteExpense(expense: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>expense</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editExpense"></a>
+                    <span class="name">
+                        <span ><b>editExpense</b></span>
+                        <a href="#editExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editExpense(expense: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="317"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:317</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>expense</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateDonutChart"></a>
+                    <span class="name">
+                        <span ><b>generateDonutChart</b></span>
+                        <a href="#generateDonutChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateDonutChart(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label_title: string[], data: number[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="271"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:271</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label_title</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateHorizontalChart"></a>
+                    <span class="name">
+                        <span ><b>generateHorizontalChart</b></span>
+                        <a href="#generateHorizontalChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateHorizontalChart(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, label_title: string[], data: number[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>label_title</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClientCount"></a>
+                    <span class="name">
+                        <span ><b>getClientCount</b></span>
+                        <a href="#getClientCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getClientCount()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClientList"></a>
+                    <span class="name">
+                        <span ><b>getClientList</b></span>
+                        <a href="#getClientList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getClientList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getExpense"></a>
+                    <span class="name">
+                        <span ><b>getExpense</b></span>
+                        <a href="#getExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getExpense()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrder"></a>
+                    <span class="name">
+                        <span ><b>getOrder</b></span>
+                        <a href="#getOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getOrder()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserVehicleExpense"></a>
+                    <span class="name">
+                        <span ><b>getUserVehicleExpense</b></span>
+                        <a href="#getUserVehicleExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserVehicleExpense()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="307"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:307</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVehicules"></a>
+                    <span class="name">
+                        <span ><b>getVehicules</b></span>
+                        <a href="#getVehicules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVehicules()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/statistic/statistic.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clientCount"></a>
+                    <span class="name">
+                        <span ><b>clientCount</b></span>
+                        <a href="#clientCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/statistic/statistic.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clientDeliveryChart"></a>
+                    <span class="name">
+                        <span ><b>clientDeliveryChart</b></span>
+                        <a href="#clientDeliveryChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart&lt;doughnut&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Chart.prototype</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/statistic/statistic.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clientList"></a>
+                    <span class="name">
+                        <span ><b>clientList</b></span>
+                        <a href="#clientList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/statistic/statistic.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clientOrder"></a>
+                    <span class="name">
+                        <span ><b>clientOrder</b></span>
+                        <a href="#clientOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/statistic/statistic.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/statistic/statistic.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expenseChart"></a>
+                    <span class="name">
+                        <span ><b>expenseChart</b></span>
+                        <a href="#expenseChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Chart.prototype</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/statistic/statistic.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expensesColumns"></a>
+                    <span class="name">
+                        <span ><b>expensesColumns</b></span>
+                        <a href="#expensesColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;title&#x27;, &#x27;description&#x27;, &#x27;vehicle.name&#x27;, &#x27;amount&#x27;, &#x27;action&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/statistic/statistic.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="livraisonChart"></a>
+                    <span class="name">
+                        <span ><b>livraisonChart</b></span>
+                        <a href="#livraisonChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Chart.prototype</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/statistic/statistic.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lockCount"></a>
+                    <span class="name">
+                        <span ><b>lockCount</b></span>
+                        <a href="#lockCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/statistic/statistic.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mileageChart"></a>
+                    <span class="name">
+                        <span ><b>mileageChart</b></span>
+                        <a href="#mileageChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Chart.prototype</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/statistic/statistic.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modalComponentMapping"></a>
+                    <span class="name">
+                        <span ><b>modalComponentMapping</b></span>
+                        <a href="#modalComponentMapping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        EDIT: {
+            component: EditVehiculeExpenseComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    data: this.selectedExpense,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                this.getUserVehicleExpense();
+            }
+        },
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/statistic/statistic.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthClientCount"></a>
+                    <span class="name">
+                        <span ><b>monthClientCount</b></span>
+                        <a href="#monthClientCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/statistic/statistic.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthExpense"></a>
+                    <span class="name">
+                        <span ><b>monthExpense</b></span>
+                        <a href="#monthExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/statistic/statistic.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthMileage"></a>
+                    <span class="name">
+                        <span ><b>monthMileage</b></span>
+                        <a href="#monthMileage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/statistic/statistic.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="monthOrder"></a>
+                    <span class="name">
+                        <span ><b>monthOrder</b></span>
+                        <a href="#monthOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/statistic/statistic.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedExpense"></a>
+                    <span class="name">
+                        <span ><b>selectedExpense</b></span>
+                        <a href="#selectedExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/statistic/statistic.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalExpense"></a>
+                    <span class="name">
+                        <span ><b>totalExpense</b></span>
+                        <a href="#totalExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/statistic/statistic.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalMileage"></a>
+                    <span class="name">
+                        <span ><b>totalMileage</b></span>
+                        <a href="#totalMileage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/statistic/statistic.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalOrder"></a>
+                    <span class="name">
+                        <span ><b>totalOrder</b></span>
+                        <a href="#totalOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/statistic/statistic.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vehicleDeliveryChart"></a>
+                    <span class="name">
+                        <span ><b>vehicleDeliveryChart</b></span>
+                        <a href="#vehicleDeliveryChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Chart.prototype</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/statistic/statistic.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vehicleExpenses"></a>
+                    <span class="name">
+                        <span ><b>vehicleExpenses</b></span>
+                        <a href="#vehicleExpenses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/statistic/statistic.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vehicleList"></a>
+                    <span class="name">
+                        <span ><b>vehicleList</b></span>
+                        <a href="#vehicleList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/statistic/statistic.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type } from &#x27;@angular/core&#x27;;
+import { Chart, registerables } from &quot;chart.js&quot;;
+import { StatisticService } from &#x27;../services/statistic.service&#x27;;
+import { ClientService } from &#x27;../services/client.service&#x27;;
+import { VehiculesService } from &#x27;../services/vehicules.service&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { EditVehiculeExpenseComponent } from &#x27;./modals/edit-vehicule-expense/edit-vehicule-expense.component&#x27;;
+import { SnackbarService } from &#x27;../services/snackbar.service&#x27;;
+
+const modalComponentMapping: { [key: string]: Type&lt;any&gt; } &#x3D; {
+    EDIT: EditVehiculeExpenseComponent,
+};
+@Component({
+    selector: &#x27;app-statistic&#x27;,
+    templateUrl: &#x27;./statistic.component.html&#x27;,
+    styleUrls: [&#x27;./statistic.component.scss&#x27;]
+})
+export class StatisticComponent {
+    modalComponentMapping: { [key: string]: { component: Type&lt;any&gt;; constructor: () &#x3D;&gt; any, action: (instance: any) &#x3D;&gt; void } } &#x3D; {
+        EDIT: {
+            component: EditVehiculeExpenseComponent,
+            constructor: () &#x3D;&gt; {
+                return {
+                    data: this.selectedExpense,
+                }
+            },
+            action: (instance: any) &#x3D;&gt; {
+                this.getUserVehicleExpense();
+            }
+        },
+    };
+    livraisonChart: Chart &#x3D; Chart.prototype;
+    mileageChart: Chart &#x3D; Chart.prototype;
+    expenseChart: Chart &#x3D; Chart.prototype;
+    vehicleDeliveryChart: Chart &#x3D; Chart.prototype;
+    clientCount &#x3D; 0;
+    monthExpense &#x3D; []
+    totalExpense &#x3D; 0
+    clientOrder &#x3D; []
+    monthOrder &#x3D; []
+    totalOrder &#x3D; 0;
+    monthClientCount &#x3D; 0
+    clientList &#x3D; []
+    totalMileage &#x3D; 0;
+    monthMileage &#x3D; []
+    lockCount &#x3D; []
+    vehicleList &#x3D; []
+    vehicleExpenses: any[] &#x3D; [];
+    expensesColumns &#x3D; [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;vehicle.name&#x27;, &#x27;amount&#x27;, &#x27;action&#x27;];
+    selectedExpense: any &#x3D; null;
+
+    // expensesColumns &#x3D; [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;amount&#x27;];
+
+    clientDeliveryChart: Chart&lt;&#x27;doughnut&#x27;&gt; &#x3D; Chart.prototype;
+
+    constructor(
+        private statisticService: StatisticService,
+        private clientService: ClientService,
+        private vehiculesService: VehiculesService,
+        public dialog: MatDialog,
+        private snackBarService: SnackbarService,
+    ) {
+        this.getUserVehicleExpense()
+        this.getClientList();
+    }
+
+    ngAfterViewInit(): void {
+        Chart.register(...registerables);
+        this.getClientCount();
+        this.getExpense();
+    }
+
+    getClientList(): void {
+        this.clientService.getAllClientsByCompany()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.clientList &#x3D; data;
+                    this.getVehicules();
+                },
+            });
+    }
+
+    getVehicules() {
+        this.vehiculesService.getVehicules()
+            .subscribe((data) &#x3D;&gt; {
+                this.vehicleList &#x3D; data;
+                this.getOrder();
+            });
+    }
+
+    getClientCount(): void {
+        this.statisticService.getClientCount()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.clientCount &#x3D; data;
+                },
+            });
+    }
+
+    getExpense(): void {
+        this.statisticService.getExpense()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.monthExpense &#x3D; data;
+                    this.totalExpense &#x3D; this.monthExpense.reduce((a, b: any) &#x3D;&gt; a + b.amount, 0);
+                    this.expenseChart &#x3D; this.createChart(&#x27;expenseChart&#x27;,
+                        &#x27;Dépenses&#x27;,
+                        this.monthExpense.map((expense: any) &#x3D;&gt; {
+                            const date &#x3D; new Date(expense.date);
+                            const day &#x3D; date.getDate().toString().padStart(2, &#x27;0&#x27;);
+                            const month &#x3D; (date.getMonth() + 1).toString().padStart(2, &#x27;0&#x27;);
+                            const year &#x3D; date.getFullYear().toString();
+                            return &#x60;${day} ${month} ${year}&#x60;;
+                        }),
+                        this.monthExpense.map((expense: any) &#x3D;&gt; expense.amount)
+                    );
+                },
+            });
+    }
+
+    getOrder(): void {
+        this.statisticService.getOrder()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.clientOrder &#x3D; data.client_order_count;
+                    this.monthOrder &#x3D; data.order_of_month;
+                    this.totalOrder &#x3D; this.monthOrder.reduce((a, b: any) &#x3D;&gt; a + b.count, 0);
+                    this.monthClientCount &#x3D; this.clientOrder.length
+                    this.monthMileage &#x3D; data.mileage_of_month
+                    this.totalMileage &#x3D; this.monthMileage.reduce((a, b: any) &#x3D;&gt; a + b.mileage, 0);
+                    this.lockCount &#x3D; data.lock_order_count;
+
+                    this.livraisonChart &#x3D; this.createChart(
+                        &#x27;livraisonChart&#x27;,
+                        &#x27;Nombre de commandes&#x27;,
+                        this.monthOrder.map((order: any) &#x3D;&gt; {
+                            const date &#x3D; new Date(order.date);
+                            const day &#x3D; date.getDate().toString().padStart(2, &#x27;0&#x27;);
+                            const month &#x3D; (date.getMonth() + 1).toString().padStart(2, &#x27;0&#x27;);
+                            const year &#x3D; date.getFullYear().toString();
+                            return &#x60;${day} ${month} ${year}&#x60;;
+                        }),
+                        this.monthOrder.map((order: any) &#x3D;&gt; order.count)
+                    )
+
+                    this.mileageChart &#x3D; this.createChart(
+                        &#x27;mileageChart&#x27;,
+                        &#x27;Km&#x27;,
+                        this.monthMileage.map((mileage: any) &#x3D;&gt; {
+                            const date &#x3D; new Date(mileage.date);
+                            const day &#x3D; date.getDate().toString().padStart(2, &#x27;0&#x27;);
+                            const month &#x3D; (date.getMonth() + 1).toString().padStart(2, &#x27;0&#x27;);
+                            const year &#x3D; date.getFullYear().toString();
+                            return &#x60;${day} ${month} ${year}&#x60;;
+                        }),
+                        this.monthMileage.map((mileage: any) &#x3D;&gt; mileage.mileage)
+                    );
+
+                    this.vehicleDeliveryChart &#x3D; this.generateHorizontalChart(
+                        &#x27;vehicleDeliveryChart&#x27;,
+                        &#x27;Nombre de commandes&#x27;,
+                        this.lockCount.map((lock: any) &#x3D;&gt; {
+                            const matchedVehicle: any &#x3D; this.vehicleList.find((v: any) &#x3D;&gt; +v.vehicle_id &#x3D;&#x3D;&#x3D; +lock.vehicle_id);
+                            return matchedVehicle ? (matchedVehicle.name.length &lt; 8 ? matchedVehicle.name.padEnd(8, &#x27; &#x27;) : matchedVehicle.name.slice(0, 8) + &#x27;...&#x27;) : &#x27;&#x27;;
+                        }),
+                        this.lockCount.map((lock: any) &#x3D;&gt; lock.lock_count)
+                    );
+
+
+                    this.clientDeliveryChart &#x3D; this.generateDonutChart(
+                        &#x27;clientDeliveryChart&#x27;,
+                        &#x27;Nombre de commandes&#x27;,
+                        this.clientOrder.map((client: any) &#x3D;&gt; {
+                            const matchedClient: any &#x3D; this.clientList.find((c: any) &#x3D;&gt; +c.client_id &#x3D;&#x3D;&#x3D; +client.client_id);
+                            return matchedClient ? (matchedClient.name.length &lt; 8 ? matchedClient.name.padEnd(8, &#x27; &#x27;) : matchedClient.name.slice(0, 8) + &#x27;...&#x27;) : &#x27;&#x27;;
+                        }),
+                        this.clientOrder.map((client: any) &#x3D;&gt; client.schedule_count)
+                    );
+                },
+            });
+    }
+
+    createChart(name: string, label: string, label_title: string[], data: number[]) {
+
+        return new Chart(name, {
+            type: &#x27;line&#x27;,
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    fill: true,
+                    tension: 0.4,
+                    borderColor: &#x27;rgb(209, 209, 209)&#x27;,
+                    backgroundColor: &#x27;rgb(233, 233, 233)&#x27;,
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        type: &#x27;linear&#x27;,
+                        beginAtZero: true,
+                        display: false,
+                        max: 1.75 * Math.max(...data)
+                    },
+                    x: {
+                        display: false
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                }
+            }
+        });
+    }
+
+    generateHorizontalChart(name: string, label: string, label_title: string[], data: number[]) {
+        return new Chart(name, {
+            type: &#x27;bar&#x27;,
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    // borderColor: &#x27;rgb(209, 209, 209)&#x27;,
+                    // backgroundColor: &#x27;rgb(233, 233, 233)&#x27;,
+                }]
+            },
+            options: {
+                indexAxis: &#x27;y&#x27;,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // label: (context) &#x3D;&gt; {
+                            //     let label &#x3D; context.dataset.label || &#x27;&#x27;;
+                            //     if (label) {
+                            //         label +&#x3D; &#x27;: &#x27;;
+                            //     }
+                            //     const data &#x3D; dataChart[context.dataIndex];
+                            //     label +&#x3D; data.value + &#x27; (livraison: &#x27; + data.delivery + &#x27;)&#x27;;
+                            //     return label;
+                            // }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+            }
+        });
+    }
+
+    generateDonutChart(name: string, label: string, label_title: string[], data: number[]) {
+        return new Chart(name, {
+            type: &#x27;doughnut&#x27;,
+            data: {
+                labels: label_title,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: [
+                        &#x27;rgba(255, 99, 132, 0.5)&#x27;, // Couleur pour Client A
+                        &#x27;rgba(54, 162, 235, 0.5)&#x27;,  // Couleur pour Client B
+                        &#x27;rgba(255, 206, 86, 0.5)&#x27;,  // Couleur pour Client C
+                        &#x27;rgba(75, 192, 192, 0.5)&#x27;,  // Couleur pour Client D
+                        &#x27;rgba(153, 102, 255, 0.5)&#x27;, // Couleur pour Client E
+                    ],
+                    borderColor: [
+                        &#x27;rgba(255, 99, 132, 1)&#x27;,
+                        &#x27;rgba(54, 162, 235, 1)&#x27;,
+                        &#x27;rgba(255, 206, 86, 1)&#x27;,
+                        &#x27;rgba(75, 192, 192, 1)&#x27;,
+                        &#x27;rgba(153, 102, 255, 1)&#x27;,
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: &#x27;left&#x27;
+                    }
+                }
+            }
+        });
+    }
+
+    getUserVehicleExpense() {
+        this.vehiculesService.getUserVehicleExpenses()
+            .subscribe({
+                next: (data) &#x3D;&gt; {
+                    this.vehicleExpenses &#x3D; data;
+                    console.log(this.vehicleExpenses)
+                }
+            });
+    }
+
+    editExpense(expense: any) {
+        this.selectedExpense &#x3D; expense;
+        const { component, constructor, action } &#x3D; this.modalComponentMapping[&quot;EDIT&quot;];
+
+        if (!component) {
+            throw new Error(&#x60;Type de modal non pris en charge : &quot;EDIT&quot;&#x60;);
+        }
+
+        const dialogRef &#x3D; this.dialog.open(component, {
+            panelClass: &#x27;custom&#x27;,
+            data: constructor()
+        });
+
+        dialogRef.afterClosed().subscribe((data) &#x3D;&gt; {
+            if (!data)
+                return
+            action(data);
+        });
+    }
+
+    deleteExpense(expense: any) {
+        this.vehiculesService.deleteVehicleExpense(expense.vehicle_expense_id)
+            .subscribe({
+                next: () &#x3D;&gt; {
+                    this.getUserVehicleExpense();
+                    this.snackBarService.successSnackBar(&#x27;La dépense a été supprimée avec succès !&#x27;);
+                }
+            });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container-statistic&quot;&gt;
+    &lt;div class&#x3D;&quot;header-container-statistic&quot;&gt;
+        &lt;div class&#x3D;&quot;header-content-statistic&quot;&gt;
+            &lt;p class&#x3D;&quot;header-title-statistic&quot;&gt;{{totalOrder || 0}}&lt;/p&gt;
+            &lt;p class&#x3D;&quot;header-subtitle-statistic&quot;&gt;Livraisons&lt;/p&gt;
+            &lt;canvas id&#x3D;&quot;livraisonChart&quot;&gt;{{livraisonChart}}&lt;/canvas&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;header-content-statistic&quot;&gt;
+            &lt;p class&#x3D;&quot;header-title-statistic&quot;&gt;{{totalMileage || 0}} km&lt;/p&gt;
+            &lt;p class&#x3D;&quot;header-subtitle-statistic&quot;&gt;Distance&lt;/p&gt;
+            &lt;canvas id&#x3D;&quot;mileageChart&quot;&gt;{{mileageChart}}&lt;/canvas&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;header-content-statistic&quot;&gt;
+            &lt;p class&#x3D;&quot;header-title-statistic&quot;&gt;{{totalExpense}} €&lt;/p&gt;
+            &lt;p class&#x3D;&quot;header-subtitle-statistic&quot;&gt;Dépenses&lt;/p&gt;
+            &lt;canvas id&#x3D;&quot;expenseChart&quot;&gt;{{expenseChart}}&lt;/canvas&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;body-container-statistic&quot;&gt;
+        &lt;div class&#x3D;&quot;body-content-statistic&quot;&gt;
+            &lt;canvas id&#x3D;&quot;vehicleDeliveryChart&quot;&gt;{{vehicleDeliveryChart}}&lt;/canvas&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;body-content-statistic&quot;&gt;
+            &lt;div class&#x3D;&quot;body-text-container-statistic&quot;&gt;
+                &lt;div class&#x3D;&quot;body-text-content-statistic&quot;&gt;
+                    &lt;p class&#x3D;&quot;header-title-statistic&quot;&gt;{{clientCount || 0}}&lt;/p&gt;
+                    &lt;p class&#x3D;&quot;header-subtitle-statistic&quot;&gt;Clients Totaux&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;p class&#x3D;&quot;header-title-statistic&quot;&gt;{{monthClientCount || 0}}&lt;/p&gt;
+                    &lt;p class&#x3D;&quot;header-subtitle-statistic&quot;&gt;Clients ce mois&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;canvas id&#x3D;&quot;clientDeliveryChart&quot;&gt;{{clientDeliveryChart}}&lt;/canvas&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;vehicleExpenses.length !&#x3D;&#x3D; 0&quot; ngClass&#x3D;&quot;container-tab-userList mat-elevation-z8&quot; tabindex&#x3D;&quot;0&quot;&gt;
+        &lt;table ngClass&#x3D;&quot;tab-userList&quot; mat-table [dataSource]&#x3D;&quot;vehicleExpenses&quot;&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;title&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Dépense&lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.title}}
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;description&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Description&lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt;
+                    {{data.description || &quot;pas de description&quot;}}
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;vehicle.name&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Véhicule&lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.vehicle?.name}}
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;amount&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt;Montant&lt;/th&gt;
+                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.amount}}€
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;action&quot;&gt;
+                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Action &lt;/th&gt;
+                &lt;td class&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let expense&quot;&gt;
+                    &lt;div class&#x3D;&quot;company-container&quot;&gt;
+                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;editExpense(expense)&quot;&gt;
+                            &lt;mat-icon&gt;settings&lt;/mat-icon&gt;
+                        &lt;/button&gt;
+                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;deleteExpense(expense)&quot;&gt;
+                            &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/ng-container&gt;
+            &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;expensesColumns; sticky: true&quot;&gt;&lt;/tr&gt;
+            &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: expensesColumns;&quot;&gt;&lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./statistic.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;../../variables.scss&#x27;;
+@import &#x27;../vehicule/styles/table.scss&#x27;;
+
+
+.container-statistic {
+    display: grid;
+    justify-content: center;
+    height: calc(100vh - 80px);
+    width: 100%;
+}
+
+.header-container-statistic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    margin-top: 50px;
+    gap: 100px;
+    position: relative;
+}
+
+.header-content-statistic {
+    display: grid;
+    background-color: rgb(240, 240, 240);
+    width: 320px;
+    height: 160px;
+    border-radius: 10px;
+    position: relative;
+    gap: 0;
+    align-content: start;
+    overflow: hidden;
+    box-shadow: 0px 1px 22px -12px #607D8B;
+}
+
+.header-title-statistic {
+    z-index: 2;
+    font-size: 36px;
+    height: 36px;
+    font-weight: bold;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 0;
+    margin-left: 30px;
+}
+
+.header-subtitle-statistic {
+    z-index: 2;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(71, 71, 71);
+    margin: 0;
+    margin-left: 30px;
+}
+
+.header-content-statistic canvas {
+    background-color: rgb(243, 243, 243);
+    width: 330px !important;
+    height: 165px !important;
+    position: absolute;
+    z-index: 1;
+    border-radius: 10px;
+    left: -5px;
+}
+
+.body-container-statistic {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    height: 100%;
+}
+
+.body-content-statistic {
+    display: grid;
+    position: relative;
+    z-index: 1;
+}
+
+.body-text-container-statistic {
+    display: grid;
+    gap: 10px;
+    position: absolute;
+    z-index: 2;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.body-text-content-statistic {
+    display: grid;
+    margin: 0;
+}
+
+.header-title-statistic {
+    margin: 0;
+}
+
+.header-subtitle-statistic {
+    margin: 0;
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container-statistic">    <div class="header-container-statistic">        <div class="header-content-statistic">            <p class="header-title-statistic">{{totalOrder || 0}}</p>            <p class="header-subtitle-statistic">Livraisons</p>            <canvas id="livraisonChart">{{livraisonChart}}</canvas>        </div>        <div class="header-content-statistic">            <p class="header-title-statistic">{{totalMileage || 0}} km</p>            <p class="header-subtitle-statistic">Distance</p>            <canvas id="mileageChart">{{mileageChart}}</canvas>        </div>        <div class="header-content-statistic">            <p class="header-title-statistic">{{totalExpense}} €</p>            <p class="header-subtitle-statistic">Dépenses</p>            <canvas id="expenseChart">{{expenseChart}}</canvas>        </div>    </div>    <div class="body-container-statistic">        <div class="body-content-statistic">            <canvas id="vehicleDeliveryChart">{{vehicleDeliveryChart}}</canvas>        </div>        <div class="body-content-statistic">            <div class="body-text-container-statistic">                <div class="body-text-content-statistic">                    <p class="header-title-statistic">{{clientCount || 0}}</p>                    <p class="header-subtitle-statistic">Clients Totaux</p>                </div>                <div>                    <p class="header-title-statistic">{{monthClientCount || 0}}</p>                    <p class="header-subtitle-statistic">Clients ce mois</p>                </div>            </div>            <canvas id="clientDeliveryChart">{{clientDeliveryChart}}</canvas>        </div>    </div>    <div *ngIf="vehicleExpenses.length !== 0" ngClass="container-tab-userList mat-elevation-z8" tabindex="0">        <table ngClass="tab-userList" mat-table [dataSource]="vehicleExpenses">            <ng-container class="content-tab-userList" matColumnDef="title">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Dépense</th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.title}}                </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="description">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Description</th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">                    {{data.description || "pas de description"}}                </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="vehicle.name">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Véhicule</th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.vehicle?.name}}                </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="amount">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Montant</th>                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.amount}}€                </td>            </ng-container>            <ng-container class="content-tab-userList" matColumnDef="action">                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>                <td class="data-tab-userList" mat-cell *matCellDef="let expense">                    <div class="company-container">                        <button class="button-data-tab-userList" (click)="editExpense(expense)">                            <mat-icon>settings</mat-icon>                        </button>                        <button class="button-data-tab-userList" (click)="deleteExpense(expense)">                            <mat-icon>delete</mat-icon>                        </button>                    </div>                </td>            </ng-container>            <tr mat-header-row *matHeaderRowDef="expensesColumns; sticky: true"></tr>            <tr mat-row *matRowDef="let row; columns: expensesColumns;"></tr>        </table>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'StatisticComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'StatisticComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
