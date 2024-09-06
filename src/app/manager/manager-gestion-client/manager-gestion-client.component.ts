@@ -21,7 +21,7 @@ const modalComponentMapping: { [key: string]: Type<any> } = {
     styleUrls: ['./manager-gestion-client.component.scss', '../../../variables.scss']
 })
 export class ManagerGestionClientComponent {
-    displayedColumns = ['name', 'mail', 'action'];
+    displayedColumns = ['name', 'email', 'address', 'action'];
     allClients: any[] = [];
     // allClients = [
     //     { name: 'John Smith', mail: 'shadow@gmail.com', },
@@ -53,6 +53,7 @@ export class ManagerGestionClientComponent {
     getClients() {
         this.clientService.getAllClientsByCompany().subscribe(
             (data) => {
+                this.allClients = [];
                 this.allClients = data;
             }
         )
@@ -101,12 +102,13 @@ export class ManagerGestionClientComponent {
                     return;
                 }
 
+                console.log('result', result);
                 this.getClients();
+                console.log('allClients', this.allClients);
                 this.snackbarService.successSnackBar("Le client a bien été modifié.");
             }
             console.log('La modal', type, 'est fermée.', result);
         });
-        console.log('allClients', this.allClients);
     }
 
     deleteClient(info: any): void {
