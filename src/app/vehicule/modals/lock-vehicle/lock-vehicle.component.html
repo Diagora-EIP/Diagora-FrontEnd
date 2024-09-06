@@ -1,0 +1,36 @@
+<div ngClass="container-vehicleUpdateModal">
+    <div ngClass="container-title-vehicleUpdateModal">
+        <h1 ngClass="title-vehicleUpdateModal">Sélection de la date pour
+            {{ vehicle_name }}</h1>
+        <!-- {{ date | date:'dd MMM yyyy' }}</h1> -->
+    </div>
+
+    <div ngClass="content-vehicleUpdateModal">
+        <div ngClass="container-input-vehicleUpdateModal">
+            <mat-form-field *ngIf="isManager" ngClass="content-input-vehicleUpdateModal">
+                <mat-label ngClass="title-input-vehicleUpdateModal">Utilisateurs</mat-label>
+                <mat-select ngClass="container-selectInput-vehicleUpdateModal" placeholder="Sélectionnez"
+                    [(value)]="selectedUser" [required]="true">
+                    <mat-option ngClass="option-selectInput-vehicleUpdateModal"
+                        *ngFor="let user of userList; let i = index" [value]="user">
+                        {{ user.name + ' - ' + user.email }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field ngClass="content-input-vehicleUpdateModal">
+                <mat-label ngClass="title-input-vehicleUpdateModal">Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date" name="date" [required]="true"
+                    ngClass="input-vehicleUpdateModal">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div ngClass="container-button-vehicleUpdateModal">
+            <button ngClass="cancel button-vehicleUpdateModal" mat-raised-button color="warn"
+                (click)="close()">Annuler</button>
+            <button ngClass="validate button-vehicleUpdateModal" mat-raised-button color="primary"
+                (click)="updateLockVehicle()">Valider</button>
+        </div>
+    </div>
+</div>

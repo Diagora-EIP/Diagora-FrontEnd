@@ -2,7 +2,7 @@
 
 <div class="page-container">
     <div class="mainContainer">
-        <h2 class="itinerary-section-heading">Véhicules de {{companyName}}</h2>
+        <h2 class="company-name-section-heading">Véhicules de {{companyName}}</h2>
 
         <!-- Left Container -->
         <div class="left-right-container">
@@ -12,71 +12,180 @@
                     <div class="vehicle-loading-spinner" *ngIf="loading">
                         <app-loading-spinner></app-loading-spinner>
                     </div>
-                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule enregistré dans
+                    <div *ngIf="!allVehicles.length && isManager && !loading" class="default-message">Aucun véhicule
+                        enregistré dans
                         votre
                         entreprise.</div>
-                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne vous est
+                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne
+                        vous est
                         assigné.</div>
 
-                    <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-userList mat-elevation-z8"
-                        tabindex="0">
-                        <table ngClass="tab-userList" mat-table [dataSource]="allVehicles">
-                            <ng-container class="content-tab-userList" matColumnDef="name">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Nom</th>
-                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}
-                                </td>
-                            </ng-container>
-                            <ng-container class="content-tab-userList" matColumnDef="brand">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Marque</th>
-                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.brand}}
-                                </td>
-                            </ng-container>
-                            <ng-container class="content-tab-userList" matColumnDef="model">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Model</th>
-                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.model}}
-                                </td>
-                            </ng-container>
-                            <ng-container class="content-tab-userList" matColumnDef="license">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Plaque
-                                    d'immatriculation</th>
-                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.license}}
-                                </td>
-                            </ng-container>
-                            <ng-container class="content-tab-userList" matColumnDef="mileage">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef>Kilométrage</th>
-                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.mileage}}
-                                </td>
-                            </ng-container>
-                            <ng-container class="content-tab-userList" matColumnDef="action">
-                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
-                                <td class="data-tab-userList" mat-cell *matCellDef="let vehicle">
-                                    <div class="company-container">
-                                        <button class="button-data-tab-userList" (click)="addExpense(vehicle)">
-                                            <mat-icon>attach_money</mat-icon>
-                                        </button>
-                                        <button class="button-data-tab-userList" (click)="editVehicle(vehicle)"
-                                            *ngIf="isManager">
-                                            <mat-icon>settings</mat-icon>
-                                        </button>
-                                        <button class="button-data-tab-userList" (click)="deleteVehicle(vehicle)"
-                                            *ngIf="isManager">
-                                            <mat-icon>delete</mat-icon>
-                                        </button>
+                    <div *ngIf="allVehicles.length !== 0" ngClass="container-tab-vehicleList">
+                        <div class="all-vehicle-container-tab-vehicleList">
+                            <div *ngFor="let vehicle of allVehicles" ngClass="new-vehicle-container-tab-vehicleList"
+                                (click)="onSelectVehicle(vehicle)">
+                                <div ngClass="new-vehicle-content-tab-vehicleList">
+                                    <div ngClass="new-picture-container-tab-vehicleList">
+                                        <div *ngIf="allVehiclesLocked.includes(vehicle.vehicle_id)"
+                                            ngClass="new-lock-tab-vehicleList">
+                                            <mat-icon>lock</mat-icon>
+                                        </div>
+                                        <!-- <img ngClass=" new-picture-tab-vehicleList" (src)="findPicture(vehicle)" -->
+                                        <img ngClass="new-picture-tab-vehicleList" [src]="findPicture(vehicle)"
+                                            alt="vehicule">
                                     </div>
-                                </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
+                                    <div ngClass="new-infos-container-tab-vehicleList">
+                                        <p ngClass="new-vehicule-model-tab-vehicleList">{{vehicle.name}}
+                                        </p>
+                                        <div ngClass="new-vehicule-status-tab-vehicleList">
+                                            <div class="new-vehicule-status-icon-tab-vehicleList"
+                                                [ngClass]="{'repair': vehicle.status == this.vehiclesStatus[1], 'unavailable': vehicle.status == this.vehiclesStatus[2]}">
+                                                <mat-icon>circle</mat-icon>
+                                            </div>
+                                            <p ngClass="new-vehicule-status-text-tab-vehicleList">{{
+                                                setStatus(vehicle.status)
+                                                || 'Inconnu'
+                                                }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showSideBar" class="sidebar-container-tab-vehicleList"
+                            [ngClass]="{'hidden': !showSideBar}">
+                            <div class="sidebar-header-tab-vehicleList">
+                                <mat-icon *ngIf="isManager" class="sidebar-askPicture-icon-tab-vehicleList"
+                                    (click)="askVehiclePicture()">add_a_photo</mat-icon>
+                                <p class="sidebar-title-tab-vehicleList">{{name}}</p>
+                                <mat-icon *ngIf="isManager" class="sidebar-delete-icon-tab-vehicleList"
+                                    (click)="deleteVehicle()">delete</mat-icon>
+                            </div>
+                            <div class="sidebar-form-tab-vehicleList">
+                                <div ngClass="container-input-tab-vehicleList">
+                                    <mat-form-field ngClass="content-input-tab-vehicleList">
+                                        <mat-label ngClass="title-input-tab-vehicleList">Nom du véhicule:</mat-label>
+                                        <input matInput ngClass="input-tab-vehicleList" placeholder="Ex. BMW"
+                                            [(ngModel)]="name" name="name" [required]="true">
+                                    </mat-form-field>
+                                </div>
+                                <div ngClass="container-input-tab-vehicleList">
+                                    <mat-form-field ngClass="content-input-tab-vehicleList">
+                                        <mat-label ngClass="title-input-tab-vehicleList">Marque du véhicule:</mat-label>
+                                        <input matInput ngClass="input-tab-vehicleList" placeholder="Ex. BMW"
+                                            [(ngModel)]="brand" name="brand" [required]="false">
+                                    </mat-form-field>
+                                </div>
+                                <div ngClass="container-input-tab-vehicleList">
+                                    <mat-form-field ngClass="content-input-tab-vehicleList">
+                                        <mat-label ngClass="title-input-tab-vehicleList">Model du véhicule:</mat-label>
+                                        <input matInput ngClass="input-tab-vehicleList" placeholder="Ex. X3"
+                                            [(ngModel)]="model" name="model" [required]="false">
+                                    </mat-form-field>
+                                </div>
+                                <div ngClass="container-input-tab-vehicleList">
+                                    <mat-form-field ngClass="content-input-tab-vehicleList">
+                                        <mat-label ngClass="title-input-tab-vehicleList">Plaque d'immatriculation du
+                                            véhicule:</mat-label>
+                                        <input matInput ngClass="input-tab-vehicleList" placeholder="Ex. AA229AA"
+                                            [(ngModel)]="license" name="license" [required]="false">
+                                    </mat-form-field>
+                                </div>
+                                <div ngClass="container-input-tab-vehicleList">
+                                    <mat-form-field ngClass="content-input-tab-vehicleList">
+                                        <mat-label ngClass="title-input-tab-vehicleList">Kilométrage du
+                                            véhicule:</mat-label>
+                                        <input matInput ngClass="input-tab-vehicleList" placeholder="Ex. 12740"
+                                            [(ngModel)]="mileage" name="mileage" [required]="false" type="number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="sidebar-lock-container-tab-vehicleList">
+                                <mat-table [dataSource]="vehicleLock" class="small-table" matSort>
+                                    <ng-container matColumnDef="name">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Nom
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.user.name}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="date">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Date
+                                            <mat-icon class="add-icon" (click)="lockVehicle()">add</mat-icon>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.date | date:'dd/MM/yyyy'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="newdisplayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: newdisplayedColumns;"></mat-row>
+                                </mat-table>
+                            </div>
+                            <div class="sidebar-expense-container-tab-vehicleList">
+                                <mat-table [dataSource]="vehicleExpenses" class="small-table" matSort>
+                                    <ng-container matColumnDef="name">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Nom
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.user.name}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="title">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Titre
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.title}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="price">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Prix
+                                            <mat-icon class="add-icon" (click)="addExpense()">add</mat-icon>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.amount}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- <ng-container matColumnDef="date">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Date
+                                            <mat-icon class="add-icon" (click)="addExpense()">add</mat-icon>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            {{element.date | date:'dd/MM/yyyy'}}
+                                        </mat-cell>
+                                    </ng-container> -->
+
+                                    <mat-header-row *matHeaderRowDef="newdisplayedColumnsExpense"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: newdisplayedColumnsExpense;"></mat-row>
+                                </mat-table>
+                            </div>
+                            <div class="sidebar-button-container-tab-vehicleList">
+                                <div ngClass="container-button-modals">
+                                    <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                                        (click)="close()">Annuler</button>
+                                    <button ngClass="validate button-modals" mat-raised-button color="primary"
+                                        (click)="editVehicule()">Valider</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttonContainer" *ngIf="isManager">
+                            <button class="buttonADD" mat-fab extended (click)="addVehicle()">
+                                Ajouter un véhicule
+                                <mat-icon>playlist_add</mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="buttonContainer" *ngIf="isManager">
-            <button class="buttonADD" mat-fab extended (click)="addVehicle()">
-                Ajouter un véhicule
-                <mat-icon>playlist_add</mat-icon>
-            </button>
         </div>
     </div>
 </div>
