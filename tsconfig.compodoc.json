@@ -1,0 +1,9 @@
+{
+    "include": ["src/app/**/**/*"],
+    "exclude": ["*.spec.ts"],
+    "compilerOptions": {
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true
+    }
+  }
+  

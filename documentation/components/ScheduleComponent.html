@@ -1,0 +1,2750 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ScheduleComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/schedule/schedule.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-full-calendar</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>schedule.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>schedule.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#calendarApi" >calendarApi</a>
+                            </li>
+                            <li>
+                                <a href="#calendarOptions" >calendarOptions</a>
+                            </li>
+                            <li>
+                                <a href="#currentEndDate" >currentEndDate</a>
+                            </li>
+                            <li>
+                                <a href="#currentStartDate" >currentStartDate</a>
+                            </li>
+                            <li>
+                                <a href="#currUser" >currUser</a>
+                            </li>
+                            <li>
+                                <a href="#customHeaderText" >customHeaderText</a>
+                            </li>
+                            <li>
+                                <a href="#events" >events</a>
+                            </li>
+                            <li>
+                                <a href="#filteredDates" >filteredDates</a>
+                            </li>
+                            <li>
+                                <a href="#filteredUsers" >filteredUsers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#fullcalendar" >fullcalendar</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#managerControl" >managerControl</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDate" >selectedDate</a>
+                            </li>
+                            <li>
+                                <a href="#teams" >teams</a>
+                            </li>
+                            <li>
+                                <a href="#updatingEvents" >updatingEvents</a>
+                            </li>
+                            <li>
+                                <a href="#userList" >userList</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                            <li>
+                                <a href="#UsersTeams" >UsersTeams</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkPermission" >checkPermission</a>
+                            </li>
+                            <li>
+                                <a href="#displayManager" >displayManager</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#filterManagers" >filterManagers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getManagerEntreprise" >getManagerEntreprise</a>
+                            </li>
+                            <li>
+                                <a href="#getSchedule" >getSchedule</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getScheduleByUser" >getScheduleByUser</a>
+                            </li>
+                            <li>
+                                <a href="#handleCompanyDataChange" >handleCompanyDataChange</a>
+                            </li>
+                            <li>
+                                <a href="#handleDateSelection" >handleDateSelection</a>
+                            </li>
+                            <li>
+                                <a href="#handleEventClick" >handleEventClick</a>
+                            </li>
+                            <li>
+                                <a href="#handleSelectedDataChange" >handleSelectedDataChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mapScheduleToEvent" >mapScheduleToEvent</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onManagerInput" >onManagerInput</a>
+                            </li>
+                            <li>
+                                <a href="#onManagerSelected" >onManagerSelected</a>
+                            </li>
+                            <li>
+                                <a href="#openEventCreationForm" >openEventCreationForm</a>
+                            </li>
+                            <li>
+                                <a href="#openPropositionModal" >openPropositionModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(scheduleService: <a href="../injectables/ScheduleService.html" target="_self">ScheduleService</a>, managerService: <a href="../injectables/ManagerService.html" target="_self">ManagerService</a>, permissionsService: <a href="../injectables/PermissionsService.html" target="_self">PermissionsService</a>, dialog: MatDialog, cdref: ChangeDetectorRef, ngZone: NgZone)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/schedule/schedule.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>scheduleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ScheduleService.html" target="_self" >ScheduleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>managerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ManagerService.html" target="_self" >ManagerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>permissionsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PermissionsService.html" target="_self" >PermissionsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdref</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ngZone</td>
+                                                  
+                                                        <td>
+                                                                    <code>NgZone</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkPermission"></a>
+                    <span class="name">
+                        <span ><b>checkPermission</b></span>
+                        <a href="#checkPermission"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkPermission(permission: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="393"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:393</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>permission</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayManager"></a>
+                    <span class="name">
+                        <span ><b>displayManager</b></span>
+                        <a href="#displayManager"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>displayManager(manager: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="384"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:384</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>manager</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterManagers"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>filterManagers</b></span>
+                        <a href="#filterManagers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>filterManagers(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="377"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:377</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>any[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagerEntreprise"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getManagerEntreprise</b></span>
+                        <a href="#getManagerEntreprise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getManagerEntreprise()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="343"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:343</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSchedule"></a>
+                    <span class="name">
+                        <span ><b>getSchedule</b></span>
+                        <a href="#getSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSchedule()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;any[]&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getScheduleByUser"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getScheduleByUser</b></span>
+                        <a href="#getScheduleByUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getScheduleByUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;any[]&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleCompanyDataChange"></a>
+                    <span class="name">
+                        <span ><b>handleCompanyDataChange</b></span>
+                        <a href="#handleCompanyDataChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleCompanyDataChange(companyData: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>companyData</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDateSelection"></a>
+                    <span class="name">
+                        <span ><b>handleDateSelection</b></span>
+                        <a href="#handleDateSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleDateSelection(selectInfo: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="401"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:401</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selectInfo</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleEventClick"></a>
+                    <span class="name">
+                        <span ><b>handleEventClick</b></span>
+                        <a href="#handleEventClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleEventClick(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="268"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:268</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleSelectedDataChange"></a>
+                    <span class="name">
+                        <span ><b>handleSelectedDataChange</b></span>
+                        <a href="#handleSelectedDataChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleSelectedDataChange(selectedData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selectedData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mapScheduleToEvent"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mapScheduleToEvent</b></span>
+                        <a href="#mapScheduleToEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mapScheduleToEvent(schedule: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>schedule</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>EventInput</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onManagerInput"></a>
+                    <span class="name">
+                        <span ><b>onManagerInput</b></span>
+                        <a href="#onManagerInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onManagerInput(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="372"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:372</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onManagerSelected"></a>
+                    <span class="name">
+                        <span ><b>onManagerSelected</b></span>
+                        <a href="#onManagerSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onManagerSelected(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="388"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:388</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEventCreationForm"></a>
+                    <span class="name">
+                        <span ><b>openEventCreationForm</b></span>
+                        <a href="#openEventCreationForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEventCreationForm(start: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, end: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="407"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>start</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>end</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openPropositionModal"></a>
+                    <span class="name">
+                        <span ><b>openPropositionModal</b></span>
+                        <a href="#openPropositionModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openPropositionModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="436"
+                                    class="link-to-prism">src/app/schedule/schedule.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calendarApi"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>calendarApi</b></span>
+                        <a href="#calendarApi"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/schedule/schedule.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calendarOptions"></a>
+                    <span class="name">
+                        <span ><b>calendarOptions</b></span>
+                        <a href="#calendarOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CalendarOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        initialView: &#x27;dayGridWeek&#x27;,
+        plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+        editable: true,
+        selectable: true,
+        select: this.handleDateSelection.bind(this),
+        events: (info, successCallback, failureCallback) &#x3D;&gt; {
+            this.currentStartDate &#x3D; new Date(info.start.valueOf());
+            this.currentEndDate &#x3D; new Date(info.end.valueOf());
+
+            let fetchEventsPromise: Promise&lt;any&gt;;
+
+            if (this.checkPermission(&#x27;manager&#x27;))
+                fetchEventsPromise &#x3D; this.getScheduleByUser();
+            else
+                fetchEventsPromise &#x3D; this.getSchedule();
+
+            fetchEventsPromise
+                .then(events &#x3D;&gt; {
+                    const mappedEvents &#x3D; events.map((event: any) &#x3D;&gt; {
+                        return this.mapScheduleToEvent(event)
+                    });
+                    successCallback(mappedEvents);
+                })
+                .catch(error &#x3D;&gt; {
+                    failureCallback(error);
+                });
+        },
+        headerToolbar: {
+            start: &#x27;prev,next today&#x27;,
+            center: &#x27;title&#x27;,
+            end: &#x27;dayGridMonth,timeGridWeek,timeGridDay&#x27;,
+        },
+        eventClick: this.handleEventClick.bind(this),
+        locales: [{ code: &#x27;fr&#x27; }],
+        buttonText: {
+            today: &#x27;Aujourd\&#x27;hui&#x27;,
+            month: &#x27;Mois&#x27;,
+            week: &#x27;Semaine&#x27;,
+            day: &#x27;Jour&#x27;,
+        },
+        firstDay: 1,
+        titleFormat: (dateInfo) &#x3D;&gt; {
+            const timePadding &#x3D; 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
+            const startDateString &#x3D; new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
+            const formattedStartDate &#x3D;
+                dayjs(startDateString).format(&#x27;MMMM YYYY&#x27;);
+            return this.customHeaderText + &#x27; - &#x27; + formattedStartDate;
+        },
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/schedule/schedule.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentEndDate"></a>
+                    <span class="name">
+                        <span ><b>currentEndDate</b></span>
+                        <a href="#currentEndDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/schedule/schedule.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentStartDate"></a>
+                    <span class="name">
+                        <span ><b>currentStartDate</b></span>
+                        <a href="#currentStartDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/schedule/schedule.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currUser"></a>
+                    <span class="name">
+                        <span ><b>currUser</b></span>
+                        <a href="#currUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{ name: &#x27;&#x27;, user_id: 0 }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/schedule/schedule.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="customHeaderText"></a>
+                    <span class="name">
+                        <span ><b>customHeaderText</b></span>
+                        <a href="#customHeaderText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/schedule/schedule.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="events"></a>
+                    <span class="name">
+                        <span ><b>events</b></span>
+                        <a href="#events"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/schedule/schedule.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredDates"></a>
+                    <span class="name">
+                        <span ><b>filteredDates</b></span>
+                        <a href="#filteredDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/schedule/schedule.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredUsers"></a>
+                    <span class="name">
+                        <span ><b>filteredUsers</b></span>
+                        <a href="#filteredUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/schedule/schedule.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fullcalendar"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>fullcalendar</b></span>
+                        <a href="#fullcalendar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FullCalendarComponent</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;fullcalendar&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/schedule/schedule.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/schedule/schedule.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="managerControl"></a>
+                    <span class="name">
+                        <span ><b>managerControl</b></span>
+                        <a href="#managerControl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormControl()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/schedule/schedule.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedDate"></a>
+                    <span class="name">
+                        <span ><b>selectedDate</b></span>
+                        <a href="#selectedDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/schedule/schedule.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="teams"></a>
+                    <span class="name">
+                        <span ><b>teams</b></span>
+                        <a href="#teams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/schedule/schedule.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatingEvents"></a>
+                    <span class="name">
+                        <span ><b>updatingEvents</b></span>
+                        <a href="#updatingEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/schedule/schedule.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userList"></a>
+                    <span class="name">
+                        <span ><b>userList</b></span>
+                        <a href="#userList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/schedule/schedule.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/schedule/schedule.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UsersTeams"></a>
+                    <span class="name">
+                        <span ><b>UsersTeams</b></span>
+                        <a href="#UsersTeams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>teamjson</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/schedule/schedule.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ViewChild, ElementRef, OnInit } from &#x27;@angular/core&#x27;;
+import { FullCalendarComponent } from &#x27;@fullcalendar/angular&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { CalendarOptions, EventInput } from &#x27;@fullcalendar/core&#x27;; // useful for typechecking
+import dayGridPlugin from &#x27;@fullcalendar/daygrid&#x27;;
+import { tap } from &#x27;rxjs/operators&#x27;;
+import { ScheduleService } from &#x27;../services/schedule.service&#x27;;
+import { TeamService } from &#x27;../services/team.service&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { FormControl } from &#x27;@angular/forms&#x27;;
+import { ManagerService } from &#x27;../services/manager.service&#x27;;
+import { PermissionsService } from &#x27;../services/permissions.service&#x27;;
+import interactionPlugin from &#x27;@fullcalendar/interaction&#x27;;
+import timeGridPlugin from &#x27;@fullcalendar/timegrid&#x27;;
+import dayjs from &#x27;dayjs&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { CreateScheduleModalComponent } from &#x27;./modals/create-schedule-modal/create-schedule-modal.component&#x27;;
+import { UpdateScheduleModalComponent } from &#x27;./modals/update-schedule-modal/update-schedule-modal.component&#x27;;
+import { PropositionComponent } from &#x27;./modals/delivery-proposition-modal/create-proposition-modal&#x27;;
+import { LoadingSpinnerComponent } from &#x27;../loading-spinner/loading-spinner.component&#x27;;
+import { ChangeDetectorRef } from &#x27;@angular/core&#x27;;
+import { ChangeDetectionStrategy } from &#x27;@angular/core&#x27;;
+import { NgZone } from &#x27;@angular/core&#x27;;
+import teamjson from &#x27;./teams.json&#x27;;
+
+interface User {
+    name: string;
+    user_id: number;
+}
+
+@Component({
+    selector: &#x27;app-full-calendar&#x27;,
+    templateUrl: &#x27;schedule.component.html&#x27;,
+    styleUrls: [&#x27;schedule.component.scss&#x27;],
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ScheduleComponent implements OnInit {
+    @ViewChild(&#x27;fullcalendar&#x27;) fullcalendar!: FullCalendarComponent;
+    UsersTeams &#x3D; teamjson;
+    private calendarApi: any;
+    currentStartDate: any;
+    currentEndDate: any;
+    managerControl &#x3D; new FormControl();
+    userList: any[] &#x3D; [];
+    teams: any[] &#x3D; [];
+    filteredUsers: any[] &#x3D; [];
+    selectedDate: Date | null &#x3D; null;
+    filteredDates: Date[] &#x3D; [];
+    users: any[] &#x3D; [];
+    customHeaderText: string &#x3D; localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;;
+    currUser: User &#x3D; { name: &#x27;&#x27;, user_id: 0 };
+    loading: boolean &#x3D; false;
+    updatingEvents: boolean &#x3D; false;
+    events &#x3D; [];
+
+    constructor(
+        private scheduleService: ScheduleService,
+        private managerService: ManagerService,
+        private permissionsService: PermissionsService,
+        private dialog: MatDialog,
+        private cdref: ChangeDetectorRef,
+        private ngZone: NgZone
+
+    ) {
+    }
+
+    calendarOptions: CalendarOptions &#x3D; {
+        initialView: &#x27;dayGridWeek&#x27;,
+        plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+        editable: true,
+        selectable: true,
+        select: this.handleDateSelection.bind(this),
+        events: (info, successCallback, failureCallback) &#x3D;&gt; {
+            this.currentStartDate &#x3D; new Date(info.start.valueOf());
+            this.currentEndDate &#x3D; new Date(info.end.valueOf());
+
+            let fetchEventsPromise: Promise&lt;any&gt;;
+
+            if (this.checkPermission(&#x27;manager&#x27;))
+                fetchEventsPromise &#x3D; this.getScheduleByUser();
+            else
+                fetchEventsPromise &#x3D; this.getSchedule();
+
+            fetchEventsPromise
+                .then(events &#x3D;&gt; {
+                    const mappedEvents &#x3D; events.map((event: any) &#x3D;&gt; {
+                        return this.mapScheduleToEvent(event)
+                    });
+                    successCallback(mappedEvents);
+                })
+                .catch(error &#x3D;&gt; {
+                    failureCallback(error);
+                });
+        },
+        headerToolbar: {
+            start: &#x27;prev,next today&#x27;,
+            center: &#x27;title&#x27;,
+            end: &#x27;dayGridMonth,timeGridWeek,timeGridDay&#x27;,
+        },
+        eventClick: this.handleEventClick.bind(this),
+        locales: [{ code: &#x27;fr&#x27; }],
+        buttonText: {
+            today: &#x27;Aujourd\&#x27;hui&#x27;,
+            month: &#x27;Mois&#x27;,
+            week: &#x27;Semaine&#x27;,
+            day: &#x27;Jour&#x27;,
+        },
+        firstDay: 1,
+        titleFormat: (dateInfo) &#x3D;&gt; {
+            const timePadding &#x3D; 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
+            const startDateString &#x3D; new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
+            const formattedStartDate &#x3D;
+                dayjs(startDateString).format(&#x27;MMMM YYYY&#x27;);
+            return this.customHeaderText + &#x27; - &#x27; + formattedStartDate;
+        },
+    };
+
+    async ngOnInit(): Promise&lt;void&gt; {
+        if (this.checkPermission(&#x27;manager&#x27;)) {
+            await this.getManagerEntreprise();
+        }
+    }
+
+    ngAfterViewInit() {
+        this.cdref.detectChanges();
+        this.fullcalendar.getApi().refetchEvents();
+        this.calendarApi &#x3D; this.fullcalendar.getApi();
+        this.currentStartDate &#x3D; this.calendarApi.view.currentStart;
+        this.currentEndDate &#x3D; this.calendarApi.view.currentEnd;
+    }
+
+    getSchedule(): Promise&lt;any[]&gt; {
+        return new Promise((resolve, reject) &#x3D;&gt; {
+
+            this.ngZone.runOutsideAngular(() &#x3D;&gt; {
+                this.loading &#x3D; true;
+                const startDateFormatted &#x3D; (this.currentStartDate?.setHours(0, 0, 0, 0) &amp;&amp; this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted &#x3D; (this.currentEndDate?.setHours(23, 59, 59, 999) &amp;&amp; this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
+
+                this.scheduleService
+                    .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
+                    .pipe(
+                        tap({
+                            next: (data: any) &#x3D;&gt; {
+                                this.ngZone.run(() &#x3D;&gt; {
+                                    this.loading &#x3D; false;
+                                    this.cdref.detectChanges();
+                                });
+
+                                if (!data || data.length &#x3D;&#x3D;&#x3D; 0) {
+                                    resolve([]);
+                                    return;
+                                }
+                                return resolve(data);
+                            },
+                            error: (err) &#x3D;&gt; {
+                                this.ngZone.run(() &#x3D;&gt; {
+                                    this.loading &#x3D; false;
+                                    this.cdref.detectChanges();
+                                });
+                                reject(err);
+                            },
+                            complete: () &#x3D;&gt; {
+                                this.ngZone.run(() &#x3D;&gt; {
+                                    this.loading &#x3D; false;
+                                    this.cdref.detectChanges();
+                                });
+                            }
+                        })
+                    )
+                    .subscribe();
+            });
+        });
+    }
+
+    async getScheduleByUser(): Promise&lt;any[]&gt; {
+        return new Promise(async (resolve, reject) &#x3D;&gt; {
+
+            this.ngZone.runOutsideAngular(async () &#x3D;&gt; {
+                this.loading &#x3D; true;
+
+                const startDateFormatted &#x3D; (this.currentStartDate?.setHours(0, 0, 0, 0) &amp;&amp; this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted &#x3D; (this.currentEndDate?.setHours(23, 59, 59, 999) &amp;&amp; this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
+                if (this.checkPermission(&#x27;manager&#x27;) &amp;&amp; this.currUser.user_id &#x3D;&#x3D;&#x3D; 0) {
+                    await this.getManagerEntreprise();
+                }
+                console.log(&#x27;currUser:&#x27;, this.currUser);
+                const user_id &#x3D; this.currUser.user_id;
+
+                if (user_id &#x3D;&#x3D;&#x3D; undefined) {
+                    return;
+                }
+
+                this.customHeaderText &#x3D; this.managerControl.value.name;
+                this.ngZone.runOutsideAngular(() &#x3D;&gt; {
+                    this.scheduleService
+                        .getScheduleBetweenDatesByUser(
+                            startDateFormatted,
+                            endDateFormatted,
+                            user_id
+                        )
+                        .pipe(
+                            tap({
+                                next: (data: any) &#x3D;&gt; {
+                                    this.ngZone.run(() &#x3D;&gt; {
+                                        this.loading &#x3D; false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    if (!data || data.length &#x3D;&#x3D;&#x3D; 0) {
+                                        resolve([]);
+                                        return;
+                                    }
+                                    return resolve(data);
+
+                                },
+                                error: (err) &#x3D;&gt; {
+                                    console.error(&#x27;Error fetching schedule:&#x27;, err);
+                                    this.ngZone.run(() &#x3D;&gt; {
+                                        this.loading &#x3D; false;
+                                        this.cdref.detectChanges();
+                                    });
+                                    reject(err);
+                                },
+                                complete: () &#x3D;&gt; {
+                                    this.ngZone.run(() &#x3D;&gt; {
+                                        this.loading &#x3D; false;
+                                        this.cdref.detectChanges();
+                                    });
+                                }
+                            })
+                        )
+                        .subscribe();
+                });
+            });
+        });
+    }
+
+    // Helper function to map schedule data to CalendarEvent
+    private mapScheduleToEvent(schedule: any): EventInput {
+        return {
+            title: schedule.order?.description,
+            start: schedule.delivery_date,
+            extendedProps: {
+                scheduleId: schedule.schedule_id,
+                order: {
+                    orderId: schedule.order?.order_id,
+                    orderDate: schedule.order?.order_date,
+                    deliveryAddress: schedule.order?.delivery_address,
+                    description: schedule.order?.description,
+                    company: {
+                        companyId: schedule.order?.company?.company_id,
+                        name: schedule.order?.company?.name,
+                        address: schedule.order?.company?.address,
+                    },
+                },
+                itineraryId: schedule.itinerary_id,
+                estimatedTime: schedule.estimated_time,
+                actualTime: schedule.actual_time,
+                status: schedule.status,
+            },
+        };
+    }
+
+    handleEventClick(info: any) {
+
+        const extendedProps &#x3D; info.event.extendedProps;
+        const start &#x3D; info.event.start.toISOString();
+        const description &#x3D; info.event.title
+        const scheduleId &#x3D; extendedProps.scheduleId.toString();
+        const order &#x3D; {
+            orderId: extendedProps.order.orderId.toString(),
+            orderDate: extendedProps.order.orderDate,
+            deliveryAddress: extendedProps.order.deliveryAddress,
+            description: extendedProps.order.description,
+            company: {
+                companyId: extendedProps.order.company.companyId.toString(),
+                name: extendedProps.order.company.name,
+                address: extendedProps.order.company.address,
+            },
+        };
+        const itineraryId &#x3D; extendedProps.itineraryId.toString();
+        const estimatedTime &#x3D; extendedProps.estimatedTime;
+        const actualTime &#x3D; extendedProps.actualTime;
+        const status &#x3D; extendedProps.status;
+        const isManager &#x3D; this.checkPermission(&#x27;manager&#x27;);
+        let user: any &#x3D; undefined;
+        //code de merde a fix
+        if (isManager) {
+            user &#x3D; this.userList.find(
+                (user) &#x3D;&gt; user.name &#x3D;&#x3D;&#x3D; this.managerControl.value.name
+            )
+        } else {
+            user &#x3D; { user_id: this.permissionsService.getUserId(), name: &quot;Moi&quot; }
+        }
+        const dialogRef &#x3D; this.dialog.open(UpdateScheduleModalComponent, {
+            data: {
+                start,
+                description,
+                scheduleId,
+                order,
+                itineraryId,
+                estimatedTime,
+                actualTime,
+                status,
+                manager: isManager,
+                user: user
+            }
+        });
+
+        let fetchEventsPromise: Promise&lt;any&gt;;
+
+        dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+            if (this.checkPermission(&#x27;manager&#x27;))
+                fetchEventsPromise &#x3D; this.getScheduleByUser();
+            else
+                fetchEventsPromise &#x3D; this.getSchedule();
+
+
+            fetchEventsPromise.then(events &#x3D;&gt; {
+                this.calendarOptions.events &#x3D; events.map((event: any) &#x3D;&gt;
+                    this.mapScheduleToEvent(event)
+                );
+                this.fullcalendar.getApi().refetchEvents();
+            });
+        });
+    }
+
+    handleCompanyDataChange(companyData: any): void {
+        // Handle company data
+        console.log(&#x27;Company data:&#x27;, companyData);
+    }
+
+    handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): void {
+        // Handle selected teams and users without teams
+        console.log(&#x27;Selected teams:&#x27;, selectedData.teams);
+        console.log(&#x27;Selected users without teams:&#x27;, selectedData.usersWithoutTeams);
+    }
+
+    async getManagerEntreprise(): Promise&lt;void&gt; {
+        return new Promise&lt;void&gt;((resolve, reject) &#x3D;&gt; {
+            this.managerService.getManagerEntreprise().subscribe({
+                next: (response: any) &#x3D;&gt; {
+                    this.filteredUsers &#x3D; teamjson.users;
+                    this.userList &#x3D; teamjson.users;
+                    this.users &#x3D; teamjson.users;
+                    this.teams &#x3D; teamjson.teams;
+                    localStorage.setItem(&#x27;entreprise&#x27;, teamjson.name);
+                    localStorage.setItem(&#x27;addressEntreprise&#x27;, teamjson.address);
+                    localStorage.setItem(&#x27;company_id&#x27;, teamjson.company_id);
+                    localStorage.setItem(&#x27;users&#x27;, JSON.stringify(teamjson.users));
+                    this.currUser &#x3D; this.userList.find((user: User) &#x3D;&gt; {
+                        const nameCondition &#x3D; user.name.toLowerCase() &#x3D;&#x3D;&#x3D; localStorage.getItem(&#x27;name&#x27;)?.toLowerCase();
+                        const idCondition &#x3D; user.user_id &#x3D;&#x3D;&#x3D; parseInt(localStorage.getItem(&#x27;id&#x27;) ?? &#x27;&#x27;, 10);
+                        return nameCondition &amp;&amp; idCondition;
+                    });
+                    this.managerControl.setValue(this.currUser);
+                    resolve();
+                },
+                error: (error: any) &#x3D;&gt; {
+                    console.error(&quot;Error in getManagerEntreprise():&quot;, error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    // Function to filter managers based on user input
+    onManagerInput(event: any): void {
+        const value &#x3D; event.target.value;
+        this.filteredUsers &#x3D; this.filterManagers(value);
+    }
+
+    private filterManagers(value: string): any[] {
+        const filterValue &#x3D; value.toLowerCase();
+        return this.users.filter((users) &#x3D;&gt;
+            users.name.toLowerCase().includes(filterValue)
+        );
+    }
+
+    displayManager(manager: any): string {
+        return manager ? manager.name : &#x27;&#x27;;
+    }
+
+    onManagerSelected(event: any): void {
+        const selectedManager &#x3D; event.option.value;
+        this.currUser &#x3D; { name: selectedManager.name, user_id: selectedManager.user_id };
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem(&#x27;token&#x27;) &#x3D;&#x3D;&#x3D; null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
+    }
+
+    // Inside your ScheduleComponent class
+    handleDateSelection(selectInfo: any) {
+        const start &#x3D; selectInfo.startStr;
+        const end &#x3D; selectInfo.endStr;
+        this.openEventCreationForm(start, end);
+    }
+
+    openEventCreationForm(start: string, end: string) {
+        // Open the modal for event creation
+        const isManager &#x3D; this.checkPermission(&#x27;manager&#x27;);
+        const currentUser &#x3D; isManager ? this.currUser : { user_id: this.permissionsService.getUserId(), name: &quot;Moi&quot; };
+        const dialogRef &#x3D; this.dialog.open(CreateScheduleModalComponent, {
+            data: { start, end, currUser: currentUser }
+        });
+
+        let fetchEventsPromise: Promise&lt;any&gt;;
+
+        dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+            if (!result)
+                return;
+
+            if (this.checkPermission(&#x27;manager&#x27;))
+                fetchEventsPromise &#x3D; this.getScheduleByUser();
+            else
+                fetchEventsPromise &#x3D; this.getSchedule();
+
+            fetchEventsPromise.then(events &#x3D;&gt; {
+                this.calendarOptions.events &#x3D; events.map((event: any) &#x3D;&gt;
+                    this.mapScheduleToEvent(event)
+                );
+                this.fullcalendar.getApi().refetchEvents();
+            });
+        });
+    }
+
+    //Proposition Modal
+    openPropositionModal() {
+        const dialogRef &#x3D; this.dialog.open(PropositionComponent, {
+        });
+
+
+        dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+        });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;page-container&quot;&gt;
+    &lt;filter-bar
+        class&#x3D;&quot;filter-container&quot;
+        [UsersTeams]&#x3D;&quot;UsersTeams&quot;
+        (selectedDataChange)&#x3D;&quot;handleSelectedDataChange($event)&quot;
+        (companyDataChange)&#x3D;&quot;handleCompanyDataChange($event)&quot;
+    &gt;&lt;/filter-bar&gt;
+    &lt;div class&#x3D;&quot;container&quot;&gt;
+        &lt;div class&#x3D;&quot;main-calendar-container&quot;&gt;
+            &lt;h2 class&#x3D;&quot;itinerary-section-heading&quot;&gt;&lt;/h2&gt;
+            &lt;div class&#x3D;&quot;left-right-container&quot;&gt;
+                &lt;div class&#x3D;&quot;calendar-container&quot;&gt;
+                    &lt;app-loading-spinner *ngIf&#x3D;&quot;loading&quot;&gt;&lt;/app-loading-spinner&gt;
+                    &lt;div *ngIf&#x3D;&quot;!loading&quot;&gt;
+                        &lt;full-calendar
+                            #fullcalendar
+                            [options]&#x3D;&quot;calendarOptions&quot;
+                        &gt;&lt;/full-calendar&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;sidebar&quot;&gt;
+        &lt;order-bar class&#x3D;&quot;order-bar&quot;&gt;&lt;/order-bar&gt;
+        &lt;div class&#x3D;&quot;button-container&quot;&gt;
+            &lt;button class&#x3D;&quot;schedule-proposition-button&quot; (click)&#x3D;&quot;openPropositionModal()&quot;&gt;Proposition&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>schedule.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.page-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex: 8;
+    height: 100%;
+    overflow: hidden;
+}
+
+.calendar-container {
+    width: 100%;
+    margin: auto;
+}
+
+.main-calendar-container {
+    flex: 1;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.filter-container {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    max-height: calc(100vh - 81px);
+    overflow-y: auto;
+}
+
+.filter-section-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.filter-components {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.team-selectors {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.display-button-container {
+    text-align: right;
+}
+
+.schedule-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-button:hover {
+    background-color: #0056b3;
+}
+
+.order-bar {
+    background-color: #ffffff;
+    border-left: 1px solid #e0e0e0;
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 40px); /* Adjust height to make room for the button */
+}
+
+.sidebar {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+}
+
+.schedule-proposition-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-proposition-button:hover {
+    background-color: #0056b3;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="page-container">    <filter-bar        class="filter-container"        [UsersTeams]="UsersTeams"        (selectedDataChange)="handleSelectedDataChange($event)"        (companyDataChange)="handleCompanyDataChange($event)"    ></filter-bar>    <div class="container">        <div class="main-calendar-container">            <h2 class="itinerary-section-heading"></h2>            <div class="left-right-container">                <div class="calendar-container">                    <app-loading-spinner *ngIf="loading"></app-loading-spinner>                    <div *ngIf="!loading">                        <full-calendar                            #fullcalendar                            [options]="calendarOptions"                        ></full-calendar>                    </div>                </div>            </div>        </div>    </div>    <div class="sidebar">        <order-bar class="order-bar"></order-bar>        <div class="button-container">            <button class="schedule-proposition-button" (click)="openPropositionModal()">Proposition</button>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ScheduleComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ScheduleComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
