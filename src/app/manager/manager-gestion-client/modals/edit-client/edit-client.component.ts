@@ -38,6 +38,7 @@ export class EditClientComponent {
         if (!this.checkData()) {
             this.dialogRef.close();
         } else {
+            console.log('Edit client', this.name, this.company, this.email, this.address);
             this.newClient = {
                 name: this.name,
                 surname: this.company,
