@@ -25,8 +25,18 @@
 }
 
 .button-modals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 50px;
     border-radius: 8px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.button-map-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 0.8;
 }

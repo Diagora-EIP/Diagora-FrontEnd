@@ -13,6 +13,7 @@ import { PermissionsService } from '../services/permissions.service';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScheduleModalComponent } from './modals/create-schedule-modal/create-schedule-modal.component';
 import { UpdateScheduleModalComponent } from './modals/update-schedule-modal/update-schedule-modal.component';
@@ -21,7 +22,9 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NgZone } from '@angular/core';
-import teamjson from './teams.json';
+// import teamjson from './teams.json';
+
+dayjs.locale('fr');
 
 interface User {
     name: string;
@@ -62,32 +65,34 @@ export class ScheduleComponent implements OnInit {
     }
 
     calendarOptions: CalendarOptions = {
-        initialView: 'dayGridWeek',
+        initialView: 'timeGridWeek',
+        // locales: [{ code: 'fr' }],
+        locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: true,
         selectable: true,
         select: this.handleDateSelection.bind(this),
         events: (info, successCallback, failureCallback) => {
-            // this.currentStartDate = new Date(info.start.valueOf());
-            // this.currentEndDate = new Date(info.end.valueOf());
+            this.currentStartDate = new Date(info.start.valueOf());
+            this.currentEndDate = new Date(info.end.valueOf());
 
-            // let fetchEventsPromise: Promise<any>;
+            let fetchEventsPromise: Promise<any>;
 
-            // if (this.checkPermission('manager'))
-            //     fetchEventsPromise = this.getScheduleByUser();
-            // else
-            //     fetchEventsPromise = this.getSchedule();
+            if (this.checkPermission('manager'))
+                return;
+            else
+                fetchEventsPromise = this.getSchedule();
 
-            // fetchEventsPromise
-            //     .then(events => {
-            //         const mappedEvents = events.map((event: any) => {
-            //             return this.mapScheduleToEvent(event)
-            //         });
-            //         successCallback(mappedEvents);
-            //     })
-            //     .catch(error => {
-            //         failureCallback(error);
-            //     });
+            fetchEventsPromise
+                .then(events => {
+                    const mappedEvents = events.map((event: any) => {
+                        return this.mapScheduleToEvent(event)
+                    });
+                    successCallback(mappedEvents);
+                })
+                .catch(error => {
+                    failureCallback(error);
+                });
         },
         headerToolbar: {
             start: 'prev,next today',
@@ -95,7 +100,6 @@ export class ScheduleComponent implements OnInit {
             end: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         eventClick: this.handleEventClick.bind(this),
-        locales: [{ code: 'fr' }],
         buttonText: {
             today: 'Aujourd\'hui',
             month: 'Mois',
@@ -106,8 +110,7 @@ export class ScheduleComponent implements OnInit {
         titleFormat: (dateInfo) => {
             const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
             const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
-            const formattedStartDate =
-                dayjs(startDateString).format('MMMM YYYY');
+            const formattedStartDate = dayjs(startDateString).format('MMMM YYYY'); // Format using French locale
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
@@ -243,9 +246,11 @@ export class ScheduleComponent implements OnInit {
                 this.loading = true;
 
                 const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
-                    new Date().toISOString();
+                new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
+            
                 const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
-                    new Date().toISOString();
+                    new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
+            
                 if (this.checkPermission('manager') && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
@@ -319,6 +324,11 @@ export class ScheduleComponent implements OnInit {
                         address: schedule.order?.company?.address,
                     },
                 },
+                user: {
+                    user_id: schedule.user?.user_id,
+                    name: schedule.user?.name,
+                    color: schedule.user?.color,
+                },
                 itineraryId: schedule.itinerary_id,
                 estimatedTime: schedule.estimated_time,
                 actualTime: schedule.actual_time,
@@ -349,15 +359,8 @@ export class ScheduleComponent implements OnInit {
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
         const isManager = this.checkPermission('manager');
-        let user: any = undefined;
-        //code de merde a fix
-        if (isManager) {
-            user = this.userList.find(
-                (user) => user.name === this.managerControl.value.name
-            )
-        } else {
-            user = { user_id: this.permissionsService.getUserId(), name: "Moi" }
-        }
+        let user: any = extendedProps.user;
+
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
             data: {
                 start,
@@ -502,16 +505,15 @@ export class ScheduleComponent implements OnInit {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    this.userList = teamjson.users;
-                    localStorage.setItem('entreprise', teamjson.name);
-                    localStorage.setItem('addressEntreprise', teamjson.address);
-                    localStorage.setItem('company_id', teamjson.company_id);
-                    localStorage.setItem('users', JSON.stringify(teamjson.users));
-                    this.currUser = this.userList.find((user: User) => {
-                        const nameCondition = user.name.toLowerCase() === localStorage.getItem('name')?.toLowerCase();
-                        const idCondition = user.user_id === parseInt(localStorage.getItem('id') ?? '', 10);
-                        return nameCondition && idCondition;
-                    });
+                    // this.userList = teamjson.users;
+                    // localStorage.setItem('entreprise', teamjson.name);
+                    // localStorage.setItem('addressEntreprise', teamjson.address);
+                    // localStorage.setItem('company_id', teamjson.company_id);
+                    // localStorage.setItem('users', JSON.stringify(teamjson.users));
+                    this.currUser = {
+                        name: localStorage.getItem('name') || "undefined",
+                        user_id: Number(localStorage.getItem('id')) || 0
+                      };
                     this.managerControl.setValue(this.currUser);
                     resolve();
                 },
@@ -525,11 +527,6 @@ export class ScheduleComponent implements OnInit {
 
     displayManager(manager: any): string {
         return manager ? manager.name : '';
-    }
-
-    onManagerSelected(event: any): void {
-        const selectedManager = event.option.value;
-        this.currUser = { name: selectedManager.name, user_id: selectedManager.user_id };
     }
 
     checkPermission(permission: string): boolean {
@@ -578,8 +575,6 @@ export class ScheduleComponent implements OnInit {
     openPropositionModal() {
         const dialogRef = this.dialog.open(PropositionComponent, {
         });
-
-
         dialogRef.afterClosed().subscribe(result => {
         });
     }

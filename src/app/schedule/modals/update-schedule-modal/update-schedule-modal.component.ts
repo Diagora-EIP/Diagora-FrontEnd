@@ -140,6 +140,7 @@ export class UpdateScheduleModalComponent {
             const user_name = this.user?.name;
             const user_id = this.user?.user_id;
             this.closeDialog();
+            console.log(this.user);
             this.router.navigate([
                 '/carte',
                 { date: this.start, user_id: user_id, user_name: user_name },

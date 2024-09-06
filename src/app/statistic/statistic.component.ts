@@ -76,7 +76,7 @@ export class StatisticComponent {
                 next: (data) => {
                     this.clientList = data;
                     this.getVehicules();
-                },
+                    }
             });
     }
 
@@ -122,6 +122,7 @@ export class StatisticComponent {
         this.statisticService.getOrder()
             .subscribe({
                 next: (data) => {
+                    console.log("getOrder =>", data);
                     this.clientOrder = data.client_order_count;
                     this.monthOrder = data.order_of_month;
                     this.totalOrder = this.monthOrder.reduce((a, b: any) => a + b.count, 0);
@@ -166,7 +167,6 @@ export class StatisticComponent {
                         this.lockCount.map((lock: any) => lock.lock_count)
                     );
 
-
                     this.clientDeliveryChart = this.generateDonutChart(
                         'clientDeliveryChart',
                         'Nombre de commandes',
@@ -191,8 +191,8 @@ export class StatisticComponent {
                     data: data,
                     fill: true,
                     tension: 0.4,
-                    borderColor: 'rgb(209, 209, 209)',
-                    backgroundColor: 'rgb(233, 233, 233)',
+                    borderColor: '#01ABA8',
+                    backgroundColor: '#01aba8b9',
                 }]
             },
             options: {
@@ -220,6 +220,7 @@ export class StatisticComponent {
     }
 
     generateHorizontalChart(name: string, label: string, label_title: string[], data: number[]) {
+        console.log(data);
         return new Chart(name, {
             type: 'bar',
             data: {
@@ -227,15 +228,19 @@ export class StatisticComponent {
                 datasets: [{
                     label: label,
                     data: data,
-                    // borderColor: 'rgb(209, 209, 209)',
-                    // backgroundColor: 'rgb(233, 233, 233)',
+                    // borderWidth: 1,
+                    // borderColor: '#01ABA8',
+                    // backgroundColor: '#01aba8b9',
+                    backgroundColor: 'rgba(1, 171, 168, 0.75)',
+                    borderColor: 'rgba(1, 130, 128, 1)',
+                    borderWidth: 2
                 }]
             },
             options: {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     },
                     tooltip: {
                         callbacks: {
@@ -256,14 +261,19 @@ export class StatisticComponent {
                         beginAtZero: true,
                         grid: {
                             display: false
-                        }
+                        },
                     },
                     y: {
+                        min: 0,
+                        max: Math.max(...data),
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }
-                },
+                }
             }
         });
     }

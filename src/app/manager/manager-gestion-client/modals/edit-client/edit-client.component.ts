@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { tap } from 'rxjs';
+import { ClientService } from '../../../../services/client.service';
 
 @Component({
     selector: 'app-edit-client',
@@ -9,11 +10,18 @@ import { tap } from 'rxjs';
 })
 export class EditClientComponent {
     name: string = ''
-    mail: string = ''
+    company: string = ''
+    email: string = ''
+    address: string = ''
+    client_id: number = 0;
+    newClient: any = {};
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditClientComponent>) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditClientComponent>, private clientService: ClientService) {
         this.name = data.name;
-        this.mail = data.mail;
+        this.email = data.email;
+        this.company = data.surname;
+        this.address = data.address;
+        this.client_id = data.client_id;
     }
 
     close(): void {
@@ -21,7 +29,7 @@ export class EditClientComponent {
     }
 
     checkData() {
-        if (this.name !== this.data.name || this.mail !== this.data.mail)
+        if (this.name !== this.data.name || this.email !== this.data.email || this.company !== this.data.surname || this.address !== this.data.address)
             return true;
         return false;
     }
@@ -29,19 +37,24 @@ export class EditClientComponent {
     async editVehicule() {
         if (!this.checkData()) {
             this.dialogRef.close();
+        } else {
+            console.log('Edit client', this.name, this.company, this.email, this.address);
+            this.newClient = {
+                name: this.name,
+                surname: this.company,
+                email: this.email,
+                address: this.address
+            }
+            this.clientService.updateClient(this.newClient, this.client_id).subscribe(
+                (data) => {
+                    console.log('Client updated', data);
+                    this.dialogRef.close(this.newClient);
+                },
+                (error) => {
+                    console.log('Error updating client', error);
+                    this.dialogRef.close("error");
+                }
+            )
         }
-        this.dialogRef.close({ name: this.name, mail: this.mail});
-        // this.vehiculeService.updateVehicule(this.data.vehicle_id, this.name)
-        //     .pipe(
-        //         tap({
-        //             next: data => {
-        //                 this.dialogRef.close();
-        //             },
-        //             error: error => {
-        //                 console.log(error);
-        //                 this.dialogRef.close();
-        //             }
-        //         })
-        //     ).subscribe();
     }
 }

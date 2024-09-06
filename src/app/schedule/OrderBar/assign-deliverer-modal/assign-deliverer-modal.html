@@ -1,0 +1,33 @@
+<div ngClass="container-modals">
+    <div ngClass="container-title-modals">
+        <h1 ngClass="title-modals">Sélectionner un Livreur</h1>
+    </div>
+
+    <div ngClass="content-space-around-modals-custom">
+        <form [formGroup]="delivererForm">
+            <!-- Livreur picker -->
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Livreur</mat-label>
+                    <mat-select formControlName="livreur" required>
+                        <mat-option *ngFor="let livreur of livreurList" [value]="livreur">
+                            {{ livreur.name }} <!-- Assuming livreur has a name property -->
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- Optional: Add any other form elements if needed -->
+
+            <div ngClass="container-button-modals">
+                <button ngClass="cancel button-modals" mat-raised-button color="warn" (click)="closeDialog(null)">Annuler</button>
+                <button ngClass="validate button-modals" mat-raised-button color="primary" (click)="submitForm()">Confirmer</button>
+            </div>
+        </form>
+
+        <!-- Display error message -->
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>

@@ -152,8 +152,13 @@ export class FilterBarComponent implements AfterViewInit {
 
     // Filter users who are not assigned to any team
     filterUsersWithoutTeams(): void {
-        const teamUserIds = new Set(this.teams.flatMap(team => team.users.map((user: { user_id: any; }) => user.user_id)));
-        this.usersWithoutTeams = this.filteredUsers.filter(user => !teamUserIds.has(user.user_id));
+        if (!this.teams || this.teams.length === 0) {
+            // If no teams are available, all users are without teams
+            this.usersWithoutTeams = [...this.filteredUsers];
+        } else {
+            const teamUserIds = new Set(this.teams.flatMap(team => team.users.map((user: { user_id: any; }) => user.user_id)));
+            this.usersWithoutTeams = this.filteredUsers.filter(user => !teamUserIds.has(user.user_id));
+        }
     }
 
     // Returns all teams within user company, including the users assigned to each team
@@ -194,7 +199,7 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     openAbsenceModal(user: any, event: Event): void {
-        // event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
+        event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
     
         const dialogRef = this.dialog.open(DelivererAbsenceModalComponent, {
           width: '400px',

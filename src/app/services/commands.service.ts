@@ -47,6 +47,11 @@ export class CommandsService {
         return this.http.post<any>(`${this.apiUrl}/schedule/create`, requestBody, this.header);
     }
 
+    createOrderV2(description: string, delivery_date: string, delivery_address: string, client_id: number): Observable<any> {
+        const requestBody = { order_date: delivery_date, delivery_address, description, client_id };
+        return this.http.post<any>(`${this.apiUrl}/order/create`, requestBody, this.header);
+    }
+
     updateOrder(id: number, delivery_date: string): Observable<any> {
         const requestBody = { delivery_date };
         return this.http.patch<any>(`${this.apiUrl}/schedule/update/${id}`, requestBody, this.header);

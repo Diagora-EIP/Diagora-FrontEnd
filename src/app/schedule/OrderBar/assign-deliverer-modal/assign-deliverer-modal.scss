@@ -1,0 +1,66 @@
+/* create-schedule-modal.component.scss */
+@import "../../../../modals.scss";
+
+.expanded-form {
+    flex-grow: 1; /* Le premier formulaire prend tout l'espace disponible */
+    flex-basis: inherit; /* Taille normale du premier formulaire */
+}
+
+.collapsed-form {
+    flex-grow: 0; /* Le premier formulaire ne prend pas d'espace supplémentaire */
+    flex-basis: 50%; /* Taille du premier formulaire lorsqu'il est réduit */
+}
+
+.content-space-around-modals-custom {
+    display: flex;
+    width: 80%;
+    gap: 30px;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.AddClientButton {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s, font-size 0.3s; /* Add transition for smooth effect */
+}
+
+.AddClientButton:hover {
+    background-color: #e0e0e0; /* Darker background color on hover */
+    font-size: 16px; /* Increase font size on hover */
+}
+
+
+.addOrDelete {
+    margin-bottom: 10px;
+    width: 50%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.clientSelct {
+    h3 {
+        font-size: 15px;
+        margin: 0;
+    }
+    p {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+}
+
+.container-button-modals {
+    grid-template-columns: 1fr 1fr 1fr;
+}
