@@ -1,0 +1,34 @@
+<div ngClass="container-userList">
+    <div ngClass="container-title-userList">
+        <h1 ngClass="title-userList">Teams de {{ entreprise }}</h1>
+    </div>
+    <div ngClass="container-button-userList">
+        <button ngClass="button-userList" mat-raised-button color="primary" (click)="openCreateTeamModal()">Créer une team</button>
+    </div>
+    <div ngClass="container-tab-userList mat-elevation-z8" tabindex="0">
+        <div class="user-list-loading-spinner" *ngIf="loading">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <table ngClass="tab-userList" mat-table [dataSource]="teamsList">
+            <ng-container class="content-tab-userList" matColumnDef="Nom de la team">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Nom de la team </th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let team"> {{team.name}} </td>
+            </ng-container>
+            <ng-container class="content-tab-userList" matColumnDef="settings">
+                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef></th>
+                <td ngClass="data-tab-userList" mat-cell *matCellDef="let team">
+                    <div class="settings-container">
+                        <button class="user-edit-button button-data-tab-userList" (click)='callUpdateTeam(team)'>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="user-edit-button button-data-tab-userList" (click)='callDeleteTeam(team)'>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
