@@ -573,8 +573,6 @@ export class ScheduleComponent implements OnInit {
     openPropositionModal() {
         const dialogRef = this.dialog.open(PropositionComponent, {
         });
-
-
         dialogRef.afterClosed().subscribe(result => {
         });
     }
