@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,8 +50,11 @@ import { AddVehiculeComponent } from './vehicule/modals/add-vehicule/add-vehicul
 import { EditVehiculeComponent } from './vehicule/modals/edit-vehicule/edit-vehicule.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CreateScheduleModalComponent } from './schedule/modals/create-schedule-modal/create-schedule-modal.component';
+import { CreateOrderModalComponent } from './schedule/OrderBar/create-order-modal/create-order-modal.component';
 import { UpdateScheduleModalComponent } from './schedule/modals/update-schedule-modal/update-schedule-modal.component';
 import { VisualizeScheduleDayComponent } from './schedule/modals/visualize-schedule-day/visualize-schedule-day.component';
+import { PropositionComponent } from './schedule/modals/delivery-proposition-modal/create-proposition-modal';
+import { DelivererAbsenceModalComponent } from './schedule/modals/create-absent-modal/create-absent-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ClientComponent } from './client/client.component';
@@ -70,10 +73,18 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationShowModalComponent } from './notification/notification-show-modal/notification-show-modal.component';
 import { LockVehicleComponent } from './commands/modals/lock-vehicle-modal/lock-vehicle-modal.component';
+import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
+import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
 import { ManagerTeamsComponent } from './manager/manager-teams/manager-teams.component';
 import { UpdateTeamsModalComponent } from './manager/update-teams-modal/update-teams-modal.component';
 import { CreateTeamsModalComponent } from './manager/create-teams-modal/create-teams-modal.component';
+import { DatePipe } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { AssignDelivererModal } from './schedule/OrderBar/assign-deliverer-modal/assign-deliverer-modal.component';
+registerLocaleData(localeFr);
+import { LockVehicleModalComponent } from './vehicule/modals/lock-vehicle/lock-vehicle.component';
 
 @NgModule({
     declarations: [
@@ -123,10 +134,17 @@ import { CreateTeamsModalComponent } from './manager/create-teams-modal/create-t
         NotificationComponent,
         NotificationShowModalComponent,
         LockVehicleComponent,
+        LockVehicleModalComponent,
+        FilterBarComponent,
+        OrderBarComponent,
+        PropositionComponent,
+        DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
         ManagerTeamsComponent,
         UpdateTeamsModalComponent,
         CreateTeamsModalComponent,
+        CreateOrderModalComponent,
+        AssignDelivererModal
     ],
     imports: [
         BrowserModule,
@@ -154,8 +172,11 @@ import { CreateTeamsModalComponent } from './manager/create-teams-modal/create-t
         MatNativeDateModule,
         MatSnackBarModule,
         MatMenuModule,
+        MatExpansionModule,
     ],
     providers: [
+        { provide: LOCALE_ID, useValue: 'fr' },
+        DatePipe,
     ],
     bootstrap: [AppComponent]
 })

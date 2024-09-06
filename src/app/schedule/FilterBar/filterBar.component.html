@@ -1,0 +1,89 @@
+<div *ngIf="checkPermission('manager')" class="filter-container">
+    <h2 class="filter-section-heading">Filtres</h2>
+    <div class="filter-components">
+        <!-- <app-loading-spinner *ngIf="isLoadingTeams" class="loading-spinner" >here</app-loading-spinner> -->
+        <div class="team-selectors" *ngIf="!isLoadingTeams">
+            <mat-accordion multi>
+                <mat-expansion-panel
+                    *ngFor="let team of teams"
+                    class="team-selector"
+                    #teamPanel
+                    [ngStyle]="{
+                        'background-color': isTeamFullySelected(team)
+                            ? team.color
+                            : 'white'
+                    }"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-checkbox
+                                (change)="toggleSelectAll($event, team)"
+                                [checked]="isTeamFullySelected(team)"
+                                [indeterminate]="isTeamIndeterminate(team)"
+                                (click)="$event.stopPropagation()"
+                            >
+                                {{ team.name }}
+                            </mat-checkbox>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list
+                        [(ngModel)]="selectedTeams[team.team_id]"
+                        [ngStyle]="{
+                            'background-color': isTeamFullySelected(team)
+                                ? team.color
+                                : 'transparent'
+                        }"
+                        (ngModelChange)="onSelectionChange(team)"
+                    >
+                        <mat-list-option
+                            class="team-users"
+                            *ngFor="let user of getUsersForTeam(team.users, team)"
+                            [value]="user"
+                            [ngStyle]="{
+                                'background-color': isTeamFullySelected(team)
+                                    ? team.color
+                                    : isUserSelected(team, user)
+                                    ? user.color
+                                    : 'transparent'
+                            }"
+                        >
+                        <div class="user-info">
+                            <mat-icon 
+                                class="signalization-icon" 
+                                (click)="openAbsenceModal(user, $event)"
+                            >
+                                error_outline
+                            </mat-icon>
+                            <span class="user-name">{{ user.name }}</span>
+                        </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <!-- Section for users without teams -->
+            <div class="no-team-users">
+                <mat-selection-list
+                    [(ngModel)]="selectedNoTeamUsers"
+                    (ngModelChange)="onNoTeamUserSelectionChange()"
+                >
+                    <mat-list-option
+                        *ngFor="let user of usersWithoutTeams"
+                        [value]="user"
+                        [ngStyle]="{
+                            'background-color': isUserSelected(null, user) ? user.color : 'transparent'
+                        }"
+                    >
+                    <div class="user-info">
+                        <mat-icon 
+                            class="signalization-icon" 
+                            (click)="openAbsenceModal(user, $event)"
+                        >
+                            error_outline
+                        </mat-icon>
+                        <span class="user-name">{{ user.name }}</span>
+                    </div>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </div>
+</div>

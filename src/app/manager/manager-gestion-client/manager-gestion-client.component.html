@@ -15,12 +15,18 @@
                             <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.name}}
                             </td>
                         </ng-container>
-                        <ng-container class="content-tab-userList" matColumnDef="mail">
-                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse mail </th>
+                        <ng-container class="content-tab-userList" matColumnDef="email">
+                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Email </th>
                             <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
-                                {{data.mail}} </td>
+                                {{data.email}} </td>
                         </ng-container>
-                        <ng-container *ngIf="checkPermission('manager')" class="content-tab-userList" matColumnDef="action">
+                        <ng-container class="content-tab-userList" matColumnDef="address">
+                            <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse </th>
+                            <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
+                                {{data.address}} </td>
+                        </ng-container>
+                        <ng-container *ngIf="checkPermission('manager')" class="content-tab-userList"
+                            matColumnDef="action">
                             <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
                             <td class="data-tab-userList" mat-cell *matCellDef="let data">
                                 <div class="company-container">
@@ -30,7 +36,9 @@
                                     <button class="button-data-tab-userList" (click)="deleteClient(data)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                    <button *ngIf="!checkIsUnique(data.name, data.mail)" class="button-data-tab-userList" title="Ce client existe en plus d'un exemplaire !">
+                                    <button *ngIf="!checkIsUnique(data.name, data.mail)"
+                                        class="button-data-tab-userList"
+                                        title="Ce client existe en plus d'un exemplaire !">
                                         <mat-icon>warning</mat-icon>
                                     </button>
                                 </div>

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { tap } from 'rxjs/operators';
+import { ClientService } from '../../../../services/client.service';
 
 @Component({
     selector: 'app-add-client',
@@ -9,47 +10,55 @@ import { tap } from 'rxjs/operators';
 })
 export class AddClientComponent {
     name: string = ''
-    mail: string = ''
+    company: string = ''
+    email: string = ''
+    address: string = ''
+    displayClientAlreadyExists: boolean = false;
+    allClients: any[] = [];
+    newClient: any = {};
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddClientComponent>) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddClientComponent>, private clientService: ClientService) {
+        this.getClients();
+    }
+
+    getClients() {
+        this.clientService.getAllClientsByCompany().subscribe(
+            (data) => {
+                this.allClients = data;
+                console.log('allClients', this.allClients);
+            }
+        )
+    }
 
     close(): void {
         this.dialogRef.close();
     }
 
-    dataCheck() {
-        if (this.name.length == 0)
-            return false
-        if (this.mail.length == 0)
-            return false
-        return true
-    }
-
-    addClient = async () => {
-        if (!this.dataCheck()) { return }
-        console.log('Client added', this.name, this.mail);
-        this.dialogRef.close({ name: this.name, mail: this.mail });
+    addClient() {
+        console.log('Client added', this.name, this.company, this.email, this.address);
         
-        // let dateFormated: string = this.combineDateAndTime(this.date, this.hours);
-        // this.commandService.createOrder(this.description, dateFormated, this.address)
-        //     .pipe(
-        //         tap({
-        //             next: data => {
-        //                 this.dialogRef.close();
-        //             },
-        //             error: error => {
-        //                 console.log(error);
-        //                 this.dialogRef.close();
-        //             }
-        //         })
-        //     ).subscribe();
+        if (this.allClients?.find((client: { email: string; }) => client.email === this.email)) {
+            this.displayClientAlreadyExists = true
+            this.dialogRef.close();
+        } else {
+            this.newClient = {
+                name: this.name,
+                surname: this.company,
+                email: this.email,
+                address: this.address
+            }
+            this.clientService.createClient(this.newClient).subscribe(
+                (data) => {
+                    this.displayClientAlreadyExists = false;
+                    console.log('Client created', data);
+                    this.dialogRef.close(this.newClient);
+                },
+                (error) => {
+                    console.log('Error creating client', error);
+                    this.dialogRef.close("error");
+                }
+            )
+        }
+        
     }
-
-    // combineDateAndTime(date: Date, time: string): string {
-    //     const combinedDateTime = new Date(date);
-    //     const timeParts = time.split(':');
-    //     combinedDateTime.setHours(Number(timeParts[0]));
-    //     combinedDateTime.setMinutes(Number(timeParts[1]));
-    //     return combinedDateTime.toISOString();
-    // }
 }

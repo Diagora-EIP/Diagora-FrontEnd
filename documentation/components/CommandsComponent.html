@@ -1,0 +1,1607 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CommandsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/commands/commands.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-commands</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./commands.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./commands.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allOrders" >allOrders</a>
+                            </li>
+                            <li>
+                                <a href="#date" >date</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#formatedOrders" >formatedOrders</a>
+                            </li>
+                            <li>
+                                <a href="#isManager" >isManager</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUser" >selectedUser</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUserName" >selectedUserName</a>
+                            </li>
+                            <li>
+                                <a href="#user_id" >user_id</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkPermission" >checkPermission</a>
+                            </li>
+                            <li>
+                                <a href="#deleteOrder" >deleteOrder</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getOrders" >getOrders</a>
+                            </li>
+                            <li>
+                                <a href="#goto" >goto</a>
+                            </li>
+                            <li>
+                                <a href="#lockVehicle" >lockVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openModal" >openModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, dialog: MatDialog, commandsService: <a href="../injectables/CommandsService.html" target="_self">CommandsService</a>, permissionsService: <a href="../injectables/PermissionsService.html" target="_self">PermissionsService</a>, managerService: <a href="../injectables/ManagerService.html" target="_self">ManagerService</a>, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>, confirmModalService: <a href="../injectables/ConfirmModalService.html" target="_self">ConfirmModalService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/commands/commands.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>commandsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CommandsService.html" target="_self" >CommandsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>permissionsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PermissionsService.html" target="_self" >PermissionsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>managerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ManagerService.html" target="_self" >ManagerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmModalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfirmModalService.html" target="_self" >ConfirmModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkPermission"></a>
+                    <span class="name">
+                        <span ><b>checkPermission</b></span>
+                        <a href="#checkPermission"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkPermission(permission: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>permission</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteOrder"></a>
+                    <span class="name">
+                        <span ><b>deleteOrder</b></span>
+                        <a href="#deleteOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteOrder(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrders"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getOrders</b></span>
+                        <a href="#getOrders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOrders()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goto"></a>
+                    <span class="name">
+                        <span ><b>goto</b></span>
+                        <a href="#goto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goto(params: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lockVehicle"></a>
+                    <span class="name">
+                        <span ><b>lockVehicle</b></span>
+                        <a href="#lockVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>lockVehicle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openModal"></a>
+                    <span class="name">
+                        <span ><b>openModal</b></span>
+                        <a href="#openModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openModal(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/commands/commands.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;DETAILS&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>{}</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allOrders"></a>
+                    <span class="name">
+                        <span ><b>allOrders</b></span>
+                        <a href="#allOrders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/commands/commands.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="date"></a>
+                    <span class="name">
+                        <span ><b>date</b></span>
+                        <a href="#date"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date().toISOString().split(&#x27;T&#x27;)[0]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/commands/commands.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/commands/commands.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;date&#x27;, &#x27;address&#x27;, &#x27;description&#x27;, &#x27;action&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/commands/commands.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatedOrders"></a>
+                    <span class="name">
+                        <span ><b>formatedOrders</b></span>
+                        <a href="#formatedOrders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/commands/commands.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isManager"></a>
+                    <span class="name">
+                        <span ><b>isManager</b></span>
+                        <a href="#isManager"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/commands/commands.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUser"></a>
+                    <span class="name">
+                        <span ><b>selectedUser</b></span>
+                        <a href="#selectedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/commands/commands.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUserName"></a>
+                    <span class="name">
+                        <span ><b>selectedUserName</b></span>
+                        <a href="#selectedUserName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/commands/commands.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user_id"></a>
+                    <span class="name">
+                        <span ><b>user_id</b></span>
+                        <a href="#user_id"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>localStorage.getItem(&#x27;id&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/commands/commands.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/commands/commands.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { tap } from &#x27;rxjs/operators&#x27;;
+
+import { CommandsService } from &#x27;../services/commands.service&#x27;;
+import { AddCommandComponent } from &#x27;./modals/add-command/add-command.component&#x27;;
+import { DetailsCommandComponent } from &#x27;./modals/details-command/details-command.component&#x27;;
+import { EditCommandComponent } from &#x27;./modals/edit-command/edit-command.component&#x27;;
+import { PermissionsService } from &#x27;../services/permissions.service&#x27;;
+import { SnackbarService } from &#x27;../services/snackbar.service&#x27;;
+import { ConfirmModalService } from &#x27;../confirm-modal/confirm-modal.service&#x27;;
+import { LockVehicleComponent } from &#x27;./modals/lock-vehicle-modal/lock-vehicle-modal.component&#x27;;
+import { ManagerService } from &#x27;../services/manager.service&#x27;;
+
+const modalComponentMapping: { [key: string]: Type&lt;any&gt; } &#x3D; {
+    DETAILS: DetailsCommandComponent,
+    ADD: AddCommandComponent,
+    EDIT: EditCommandComponent,
+    LOCK: LockVehicleComponent,
+};
+
+@Component({
+    selector: &#x27;app-commands&#x27;,
+    templateUrl: &#x27;./commands.component.html&#x27;,
+    styleUrls: [&#x27;./commands.component.scss&#x27;]
+})
+
+export class CommandsComponent {
+    displayedColumns &#x3D; [&#x27;date&#x27;, &#x27;address&#x27;, &#x27;description&#x27;, &#x27;action&#x27;];
+    allOrders: any[] &#x3D; [];
+    formatedOrders: any &#x3D; [];
+    user_id &#x3D; localStorage.getItem(&#x27;id&#x27;);
+    users: any[] &#x3D; [];
+    selectedUser: any;
+    selectedUserName: string &#x3D; &#x27;&#x27;;
+    date: string &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+    isManager: boolean &#x3D; false;
+
+
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private commandsService: CommandsService,
+        private permissionsService: PermissionsService,
+        private managerService: ManagerService,
+        private snackbarService: SnackbarService,
+        private confirmModalService: ConfirmModalService) { }
+
+    ngOnInit(): void {
+        this.isManager &#x3D; this.permissionsService.hasPermission(&#x27;manager&#x27;);
+        if (this.isManager) {
+            this.managerService.getManagerEntreprise().subscribe((data) &#x3D;&gt; {
+                this.users &#x3D; data.users;
+                this.users.forEach((user) &#x3D;&gt; {
+                    if (user.user_id &#x3D;&#x3D; this.user_id) {
+                        this.selectedUser &#x3D; user;
+                    }
+                });
+                this.selectedUserName &#x3D; this.selectedUser.name;
+            });
+        } else {
+            this.selectedUser &#x3D; { user_id: this.user_id, name: &quot;Moi&quot; }
+        }
+    }
+
+    async getOrders() {
+        if (this.selectedUser &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+            return;
+        }
+
+        this.commandsService.getSchedules(this.date).subscribe((data) &#x3D;&gt; {
+            this.allOrders &#x3D; data;
+            if (this.allOrders.length &#x3D;&#x3D;&#x3D; 0) {
+                this.formatedOrders &#x3D; [];
+                return;
+            }
+            this.allOrders.forEach((order) &#x3D;&gt; {
+                let tmp: any &#x3D; {};
+                let tempDate &#x3D; new Date(order.delivery_date);
+                const formattedDate &#x3D; &#x60;${tempDate.toLocaleDateString(&#x27;en-GB&#x27;)} ${tempDate.toLocaleTimeString(&#x27;en-GB&#x27;, { hour12: false })}&#x60;;
+                tmp[&#x27;delivery_date&#x27;] &#x3D; formattedDate;
+                tmp[&#x27;delivery_address&#x27;] &#x3D; order.order.delivery_address;
+                tmp[&#x27;description&#x27;] &#x3D; order.order.description;
+                tmp[&#x27;schedule_id&#x27;] &#x3D; order.schedule_id;
+                this.formatedOrders.push(tmp);
+            });
+        });
+    }
+
+    goto(params: string) {
+        this.router.navigate([params]);
+    }
+
+    openModal(type: string &#x3D; &#x27;DETAILS&#x27;, info: any &#x3D; {}): void {
+        const modalComponent: Type&lt;any&gt; &#x3D; modalComponentMapping[type];
+        if (!modalComponent) {
+            throw new Error(&#x60;Type de modal non pris en charge : ${type}&#x60;);
+        }
+
+        const dialogRef &#x3D; this.dialog.open(modalComponent, {
+            panelClass: &#x27;custom&#x27;,
+            data: info
+        });
+
+        dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+            console.log(&#x27;La modal&#x27;, type, &#x27;est fermée.&#x27;, result);
+            this.getOrders();
+        });
+    }
+
+    deleteOrder(info: any) {
+        this.confirmModalService.openConfirmModal(&#x27;Voulez-vous vraiment supprimer cette commande ?&#x27;).then((result) &#x3D;&gt; {
+            if (result) {
+                this.commandsService.deleteOrder(info.schedule_id).pipe(
+                    tap(() &#x3D;&gt; this.snackbarService.successSnackBar(&#x27;Commande supprimée avec succès&#x27;))
+                ).subscribe(() &#x3D;&gt; {
+                    this.getOrders();
+                });
+            }
+        });
+    }
+
+    checkPermission(permission: string): boolean {
+        if (localStorage.getItem(&#x27;token&#x27;) &#x3D;&#x3D;&#x3D; null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
+    }
+
+    lockVehicle() {
+        this.openModal(&#x27;LOCK&#x27;, { user_id: this.selectedUser.user_id, date: this.date, isManager: this.isManager });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Commande page html --&gt;
+
+&lt;div class&#x3D;&quot;page-container&quot;&gt;
+
+
+    &lt;div class&#x3D;&quot;filter-container&quot;&gt;
+
+        &lt;h2 class&#x3D;&quot;filter-section-heading&quot;&gt;Filtres&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;filter-components&quot;&gt;
+            &lt;div class&#x3D;&quot;date-selector&quot; *ngIf&#x3D;&quot;isManager&quot;&gt;
+                &lt;label class&#x3D;&quot;label-text&quot;&gt;Livreur :&lt;/label&gt;
+                &lt;mat-form-field class&#x3D;&quot;input-container&quot;&gt;
+                    &lt;mat-select [(value)]&#x3D;&quot;selectedUser&quot;&gt;
+                        &lt;mat-option *ngFor&#x3D;&quot;let user of users&quot; [value]&#x3D;&quot;user&quot;&gt;
+                            {{user.name}}
+                        &lt;/mat-option&gt;
+                    &lt;/mat-select&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;date-selector&quot;&gt;
+                &lt;label class&#x3D;&quot;label-text&quot; for&#x3D;&quot;deliveryDate&quot;&gt;Jour de Livraison :&lt;/label&gt;
+                &lt;div class&#x3D;&quot;input-container&quot;&gt;
+                    &lt;input type&#x3D;&quot;date&quot; id&#x3D;&quot;deliveryDate&quot; [(ngModel)]&#x3D;&quot;date&quot;&gt;
+                    &lt;i class&#x3D;&quot;fas fa-calendar-alt&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;display-button-container&quot;&gt;
+                &lt;button class&#x3D;&quot;order-button&quot; (click)&#x3D;&quot;lockVehicle()&quot;&gt; Selectionner véhicule &lt;/button&gt;
+                &lt;button class&#x3D;&quot;order-button&quot; (click)&#x3D;&quot;getOrders()&quot;&gt; Afficher &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class&#x3D;&quot;mainContainer&quot;&gt;
+        &lt;!-- &lt;h2 class&#x3D;&quot;itinerary-section-heading&quot; *ngIf&#x3D;&quot;!selectedUserName&quot;&gt;Livraisons&lt;/h2&gt; --&gt;
+        &lt;h2 class&#x3D;&quot;itinerary-section-heading&quot; *ngIf&#x3D;&quot;selectedUserName&quot;&gt;Livraisons de {{ selectedUserName }} du {{ date
+            | date: &#x27;dd/MM/yyyy&#x27; }}&lt;/h2&gt;
+
+        &lt;!-- Left Container --&gt;
+        &lt;div class&#x3D;&quot;left-right-container&quot;&gt;
+            &lt;div class&#x3D;&quot;left-container&quot;&gt;
+                &lt;div class&#x3D;&quot;orderListContainer&quot;&gt;
+                    &lt;!-- Default message --&gt;
+                    &lt;div *ngIf&#x3D;&quot;isManager &amp;&amp; !selectedUserName&quot; class&#x3D;&quot;default-message&quot;&gt;Veuillez sélectionner un
+                        livreur.&lt;/div&gt;
+
+                    &lt;div *ngIf&#x3D;&quot;isManager &amp;&amp; selectedUserName &amp;&amp; !formatedOrders.length&quot; class&#x3D;&quot;default-message&quot;&gt;Ce
+                        livreur n&#x27;a pas de livraison pour cette journée.&lt;/div&gt;
+                    &lt;div *ngIf&#x3D;&quot;!isManager &amp;&amp; selectedUserName &amp;&amp; !formatedOrders.length&quot; class&#x3D;&quot;default-message&quot;&gt;
+                        Vous n&#x27;avez pas de livraison pour cette journée.
+                    &lt;/div&gt;
+
+                    &lt;div *ngIf&#x3D;&quot;selectedUserName &amp;&amp; formatedOrders.length !&#x3D;&#x3D; 0&quot;
+                        ngClass&#x3D;&quot;container-tab-userList mat-elevation-z8&quot; tabindex&#x3D;&quot;0&quot;&gt;
+                        &lt;table ngClass&#x3D;&quot;tab-userList&quot; mat-table [dataSource]&#x3D;&quot;formatedOrders&quot;&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;date&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Date de livraison
+                                &lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.delivery_date}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;address&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Adresse de
+                                    livraison &lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt;
+                                    {{data.delivery_address}} &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;description&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Description &lt;/th&gt;
+                                &lt;td ngClass&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt; {{data.description}}
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-container *ngIf&#x3D;&quot;isManager&quot; class&#x3D;&quot;content-tab-userList&quot; matColumnDef&#x3D;&quot;action&quot;&gt;
+                                &lt;th ngClass&#x3D;&quot;header-tab-userList&quot; mat-header-cell *matHeaderCellDef&gt; Action &lt;/th&gt;
+                                &lt;td class&#x3D;&quot;data-tab-userList&quot; mat-cell *matCellDef&#x3D;&quot;let data&quot;&gt;
+                                    &lt;div class&#x3D;&quot;company-container&quot;&gt;
+                                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;openModal(&#x27;EDIT&#x27;, data)&quot;&gt;
+                                            &lt;mat-icon&gt;settings&lt;/mat-icon&gt;
+                                        &lt;/button&gt;
+                                        &lt;button class&#x3D;&quot;button-data-tab-userList&quot; (click)&#x3D;&quot;deleteOrder(data)&quot;&gt;
+                                            &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                                        &lt;/button&gt;
+                                    &lt;/div&gt;
+                                &lt;/td&gt;
+                            &lt;/ng-container&gt;
+                            &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns; sticky: true&quot;&gt;&lt;/tr&gt;
+                            &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;isManager&quot; class&#x3D;&quot;buttonContainer&quot;&gt;
+            &lt;button class&#x3D;&quot;buttonADD&quot; mat-fab extended (click)&#x3D;&quot;openModal(&#x27;ADD&#x27;)&quot;&gt;
+                Ajouter une commande
+                &lt;mat-icon&gt;playlist_add&lt;/mat-icon&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./commands.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$primary-color: #1A8C8A;
+$background-color: #f4f4f4;
+$hover-color: #95B1AF;
+$hover-border: #95B1AF;
+$button-color: #002b2c;
+
+@import &#x27;../../variables.scss&#x27;;
+@import &#x27;styles/filter.scss&#x27;;
+@import &#x27;styles/table.scss&#x27;;
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    // position: relative;
+    height: 94vh;
+    overflow: hidden;
+}
+
+.filter-container {
+    flex: 2;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+.buttonADD {
+    background-color: $button-main-color !important;
+    color: white;
+    border: none;
+    padding: 9px 17px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+    position: fixed;
+    bottom: 2%;
+    right: 1%;
+}
+
+.left-right-container {
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+}
+
+.left-container {
+    box-sizing: border-box;
+    // overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+li:hover {
+    background-color: #95B1AF;
+}
+
+.mainContainer {
+    flex: 11;
+    box-sizing: border-box;
+    // overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.itinerary-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-color;
+    color: white;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+// -------------
+
+.orderListContainer {
+    background-color: #e8e9ea;
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+    text-align: center;
+    // overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    border-radius: 4px;
+    height: 100%;
+    padding-top: 10px;
+    position: relative;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    width: 80%;
+    margin-bottom: 10px;
+    background-color: #e2f3f5;
+    border: 1px solid #b3d7f9;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+
+.default-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-style: italic;
+    color: #555;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Commande page html --><div class="page-container">    <div class="filter-container">        <h2 class="filter-section-heading">Filtres</h2>        <div class="filter-components">            <div class="date-selector" *ngIf="isManager">                <label class="label-text">Livreur :</label>                <mat-form-field class="input-container">                    <mat-select [(value)]="selectedUser">                        <mat-option *ngFor="let user of users" [value]="user">                            {{user.name}}                        </mat-option>                    </mat-select>                </mat-form-field>            </div>            <div class="date-selector">                <label class="label-text" for="deliveryDate">Jour de Livraison :</label>                <div class="input-container">                    <input type="date" id="deliveryDate" [(ngModel)]="date">                    <i class="fas fa-calendar-alt"></i>                </div>            </div>            <div class="display-button-container">                <button class="order-button" (click)="lockVehicle()"> Selectionner véhicule </button>                <button class="order-button" (click)="getOrders()"> Afficher </button>            </div>        </div>    </div>    <div class="mainContainer">        <!-- <h2 class="itinerary-section-heading" *ngIf="!selectedUserName">Livraisons</h2> -->        <h2 class="itinerary-section-heading" *ngIf="selectedUserName">Livraisons de {{ selectedUserName }} du {{ date            | date: \'dd/MM/yyyy\' }}</h2>        <!-- Left Container -->        <div class="left-right-container">            <div class="left-container">                <div class="orderListContainer">                    <!-- Default message -->                    <div *ngIf="isManager && !selectedUserName" class="default-message">Veuillez sélectionner un                        livreur.</div>                    <div *ngIf="isManager && selectedUserName && !formatedOrders.length" class="default-message">Ce                        livreur n\'a pas de livraison pour cette journée.</div>                    <div *ngIf="!isManager && selectedUserName && !formatedOrders.length" class="default-message">                        Vous n\'avez pas de livraison pour cette journée.                    </div>                    <div *ngIf="selectedUserName && formatedOrders.length !== 0"                        ngClass="container-tab-userList mat-elevation-z8" tabindex="0">                        <table ngClass="tab-userList" mat-table [dataSource]="formatedOrders">                            <ng-container class="content-tab-userList" matColumnDef="date">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Date de livraison                                </th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.delivery_date}}                                </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="address">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Adresse de                                    livraison </th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">                                    {{data.delivery_address}} </td>                            </ng-container>                            <ng-container class="content-tab-userList" matColumnDef="description">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Description </th>                                <td ngClass="data-tab-userList" mat-cell *matCellDef="let data"> {{data.description}}                                </td>                            </ng-container>                            <ng-container *ngIf="isManager" class="content-tab-userList" matColumnDef="action">                                <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>                                <td class="data-tab-userList" mat-cell *matCellDef="let data">                                    <div class="company-container">                                        <button class="button-data-tab-userList" (click)="openModal(\'EDIT\', data)">                                            <mat-icon>settings</mat-icon>                                        </button>                                        <button class="button-data-tab-userList" (click)="deleteOrder(data)">                                            <mat-icon>delete</mat-icon>                                        </button>                                    </div>                                </td>                            </ng-container>                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>                        </table>                    </div>                </div>            </div>        </div>        <div *ngIf="isManager" class="buttonContainer">            <button class="buttonADD" mat-fab extended (click)="openModal(\'ADD\')">                Ajouter une commande                <mat-icon>playlist_add</mat-icon>            </button>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CommandsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CommandsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

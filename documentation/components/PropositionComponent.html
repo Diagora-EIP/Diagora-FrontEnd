@@ -1,0 +1,1402 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PropositionComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-your-component</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./create-proposition-modal.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./create-proposition-modal.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#companyUsers" >companyUsers</a>
+                            </li>
+                            <li>
+                                <a href="#deliveries" >deliveries</a>
+                            </li>
+                            <li>
+                                <a href="#isModalOpen" >isModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#schedulePropositions" >schedulePropositions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#accept" >accept</a>
+                            </li>
+                            <li>
+                                <a href="#closeModal" >closeModal</a>
+                            </li>
+                            <li>
+                                <a href="#decline" >decline</a>
+                            </li>
+                            <li>
+                                <a href="#getAllSchedulePerUser" >getAllSchedulePerUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getCompanyData" >getCompanyData</a>
+                            </li>
+                            <li>
+                                <a href="#openModal" >openModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#SendPropositionAnswer" >SendPropositionAnswer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(scheduleService: <a href="../injectables/ScheduleService.html" target="_self">ScheduleService</a>, managerService: <a href="../injectables/ManagerService.html" target="_self">ManagerService</a>, propositionService: <a href="../injectables/PropositionService.html" target="_self">PropositionService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>scheduleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ScheduleService.html" target="_self" >ScheduleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>managerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ManagerService.html" target="_self" >ManagerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>propositionService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PropositionService.html" target="_self" >PropositionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accept"></a>
+                    <span class="name">
+                        <span ><b>accept</b></span>
+                        <a href="#accept"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>accept(day: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>day</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModal"></a>
+                    <span class="name">
+                        <span ><b>closeModal</b></span>
+                        <a href="#closeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModal(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decline"></a>
+                    <span class="name">
+                        <span ><b>decline</b></span>
+                        <a href="#decline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>decline(day: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>day</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllSchedulePerUser"></a>
+                    <span class="name">
+                        <span ><b>getAllSchedulePerUser</b></span>
+                        <a href="#getAllSchedulePerUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllSchedulePerUser(user_id: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user_id</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCompanyData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getCompanyData</b></span>
+                        <a href="#getCompanyData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCompanyData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openModal"></a>
+                    <span class="name">
+                        <span ><b>openModal</b></span>
+                        <a href="#openModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SendPropositionAnswer"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>SendPropositionAnswer</b></span>
+                        <a href="#SendPropositionAnswer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>SendPropositionAnswer(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, schedule_ids: [], accept: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, user_id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>schedule_ids</td>
+                                            <td>
+                                                        <code>[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>accept</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user_id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companyUsers"></a>
+                    <span class="name">
+                        <span ><b>companyUsers</b></span>
+                        <a href="#companyUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deliveries"></a>
+                    <span class="name">
+                        <span ><b>deliveries</b></span>
+                        <a href="#deliveries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isModalOpen</b></span>
+                        <a href="#isModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="schedulePropositions"></a>
+                    <span class="name">
+                        <span ><b>schedulePropositions</b></span>
+                        <a href="#schedulePropositions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/schedule/modals/delivery-proposition-modal/create-proposition-modal.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { NgModule } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { ScheduleService } from &#x27;../../../services/schedule.service&#x27;;
+import { ManagerService } from &#x27;../../../services/manager.service&#x27;;
+import { PropositionService } from &#x27;../../../services/proposition.service&#x27;;
+import { tap } from &#x27;rxjs&#x27;;
+
+@Component({
+  selector: &#x27;app-your-component&#x27;,
+  templateUrl: &#x27;./create-proposition-modal.html&#x27;,
+  styleUrls: [&#x27;./create-proposition-modal.scss&#x27;],
+})
+export class PropositionComponent {
+  isModalOpen &#x3D; true;
+  loading &#x3D; false;
+  companyUsers: any[] &#x3D; [];
+  deliveries: any[] &#x3D; [];
+
+  schedulePropositions: any[] &#x3D; [];
+
+    constructor(
+        private scheduleService: ScheduleService,
+        private managerService: ManagerService,
+        private propositionService: PropositionService
+    ) {
+        this.getCompanyData().then(() &#x3D;&gt; {
+            for (const user of this.companyUsers)
+                this.getAllSchedulePerUser(user.user_id).then(() &#x3D;&gt; {
+                    console.log(&#x27;Schedule retrieved&#x27;);
+                });
+        });
+    }
+
+    openModal() {
+        this.isModalOpen &#x3D; true;
+    }
+
+    closeModal(event: Event) {
+        event.stopPropagation();
+        this.isModalOpen &#x3D; false;
+    }
+
+    accept(day: any) {
+        console.log(&#x27;Accepted&#x27;, day);
+        this.SendPropositionAnswer(
+            day.date,
+            day.deliveries.map((delivery: any) &#x3D;&gt; Number(delivery.schedule_id)),
+            true,
+            day.deliveries[0].user.user_id
+        ).then(() &#x3D;&gt; {
+            console.log(&#x27;Proposition accepted&#x27;);
+        });
+    }
+
+    decline(day: any) {
+        console.log(&#x27;Declined&#x27;, day);
+        this.SendPropositionAnswer(
+            day.date,
+            day.deliveries.map((delivery: any) &#x3D;&gt; Number(delivery.schedule_id)),
+            false,
+            day.deliveries[0].user.user_id
+        ).then(() &#x3D;&gt; {
+            console.log(&#x27;Proposition declined&#x27;);
+        });
+    }
+
+    getAllSchedulePerUser(user_id: any): Promise&lt;void&gt; {
+        console.log(&#x27;getAllSchedulePerUser() called&#x27;, user_id);
+        return new Promise&lt;void&gt;((resolve, reject) &#x3D;&gt; {
+            this.loading &#x3D; true;
+
+            const startDateFormatted &#x3D; new Date(&#x27;1970-01-01T00:00:00.000Z&#x27;).toISOString();
+            const endDateFormatted &#x3D; new Date(&#x27;2100-12-31T23:59:59.999Z&#x27;).toISOString();
+
+            this.scheduleService
+                .getScheduleBetweenDatesByUser(startDateFormatted, endDateFormatted, user_id)
+                .pipe(
+                    tap({
+                        next: (data: any[]) &#x3D;&gt; {
+                            if (!data || data.length &#x3D;&#x3D;&#x3D; 0) {
+                                resolve();
+                                return;
+                            }
+
+                            console.log(&#x27;getAllSchedule() response:&#x27;, data);
+
+                             // Group deliveries by delivery_date and user
+                            const groupedDeliveries: any &#x3D; {};
+                            data.forEach(delivery &#x3D;&gt; {
+                                // Extract day, month, and year from delivery_date
+                                const date &#x3D; new Date(delivery.delivery_date);
+                                const day &#x3D; date.getDate();
+                                const month &#x3D; date.getMonth() + 1; // Month is zero-indexed, so add 1
+                                const year &#x3D; date.getFullYear();
+
+                                // Create key using day, month, and year
+                                const key &#x3D; &#x60;${year}-${month}-${day}_${delivery.user.user_id}&#x60;;
+
+                                if (!groupedDeliveries[key]) {
+                                    groupedDeliveries[key] &#x3D; {
+                                        date: &#x60;${year}-${month}-${day}&#x60;, // Format date as needed
+                                        deliveries: [],
+                                        user: delivery.user.name // Assuming user.name is available
+                                    };
+                                }
+
+                                groupedDeliveries[key].deliveries.push(delivery);
+                            });
+                            console.log(&#x27;Grouped Deliveries:&#x27;, groupedDeliveries);
+
+                            const newPropositions &#x3D; Object.values(groupedDeliveries)
+                            .filter((group: any) &#x3D;&gt; group.deliveries.some((delivery: any) &#x3D;&gt; delivery.proposition &#x3D;&#x3D;&#x3D; true));
+
+                            this.schedulePropositions &#x3D; [...this.schedulePropositions, ...newPropositions];
+
+
+                            console.log(&#x27;Schedule Propositions:&#x27;, this.schedulePropositions);
+
+                            resolve();
+                        },
+                        error: (err) &#x3D;&gt; {
+                            reject(err);
+                        },
+                        complete: () &#x3D;&gt; {
+                            this.loading &#x3D; false; // Ensure loading is set to false when complete
+                        }
+                    })
+                )
+                .subscribe();
+        });
+    }
+
+    async SendPropositionAnswer(date: string, schedule_ids: [], accept: boolean, user_id: number): Promise&lt;void&gt; {
+        return new Promise&lt;void&gt;((resolve, reject) &#x3D;&gt; {
+            this.propositionService.SendProposition(date, schedule_ids, accept, user_id).subscribe({
+                next: (response: any) &#x3D;&gt; {
+                    console.log(&quot;SendPropositionAnswer() response:&quot;, response);
+                    resolve();
+                },
+                error: (error: any) &#x3D;&gt; {
+                    console.error(&quot;Error in SendPropositionAnswer():&quot;, error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    async getCompanyData(): Promise&lt;void&gt; {
+        return new Promise&lt;void&gt;((resolve, reject) &#x3D;&gt; {
+            this.managerService.getManagerEntreprise().subscribe({
+                next: (response: any) &#x3D;&gt; {
+                    console.log(&quot;getCompanyData() response:&quot;, response);
+                    this.companyUsers &#x3D; response.users || [];
+                    resolve();
+                },
+                error: (error: any) &#x3D;&gt; {
+                    console.error(&quot;Error in getCompanyData():&quot;, error);
+                    reject(error);
+                }
+            });
+        });
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;modal&quot; [class.show]&#x3D;&quot;isModalOpen&quot; (click)&#x3D;&quot;closeModal($event)&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+        &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+            &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;Propositions de planning&lt;/h5&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;close&quot; (click)&#x3D;&quot;closeModal($event)&quot;&gt;&amp;times;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+            &lt;div class&#x3D;&quot;schedule-days-container&quot;&gt;
+                &lt;div *ngFor&#x3D;&quot;let day of schedulePropositions&quot; class&#x3D;&quot;day-container&quot;&gt;
+                    &lt;h6&gt;{{ day.date | date }}&lt;/h6&gt;
+                    &lt;div class&#x3D;&quot;deliveries-list&quot;&gt;
+                        &lt;div *ngFor&#x3D;&quot;let delivery of day.deliveries&quot; class&#x3D;&quot;delivery-item&quot;&gt;
+                            &lt;div class&#x3D;&quot;delivery-box&quot; [ngClass]&#x3D;&quot;{ &#x27;proposition-delivery&#x27;: delivery.proposition }&quot;&gt;
+                                &lt;div class&#x3D;&quot;delivery-info&quot;&gt;
+                                    &lt;div&gt;Date : {{ delivery.delivery_date | date:&#x27;short&#x27; }}&lt;/div&gt;
+                                    &lt;div&gt;Description : {{ delivery.order.description }}&lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;assigned-user&quot;&gt;Assigné à : {{ day.user }}&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+                        &lt;button class&#x3D;&quot;btn accept-btn&quot; (click)&#x3D;&quot;accept(day)&quot;&gt;Accepter&lt;/button&gt;
+                        &lt;button class&#x3D;&quot;btn decline-btn&quot; (click)&#x3D;&quot;decline(day)&quot;&gt;Refuser&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./create-proposition-modal.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+
+    &amp;.show {
+        display: flex;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        max-width: 600px;
+        overflow: hidden;
+
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .modal-title {
+                font-size: 1.25rem;
+                margin: 0;
+            }
+
+            .close {
+                border: none;
+                background: none;
+                color: #fff;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0;
+            }
+        }
+
+        .modal-body {
+            padding: 16px;
+
+            .schedule-days-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+
+                .day-container {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 12px;
+                    background-color: #f9f9f9;
+
+                    h6 {
+                        margin: 0;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        color: #333;
+                    }
+
+                    .deliveries-list {
+                        margin-top: 8px;
+                        padding-top: 8px;
+                        border-top: 1px solid #ddd;
+
+                        .delivery-item {
+                            margin-bottom: 8px;
+
+                            .delivery-box {
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                padding: 12px;
+
+                                &amp;.proposition-delivery {
+                                    border-color: #007bff; // Customize border color for propositions
+                                    background-color: #e7f3ff; // Highlight background color for propositions
+                                }
+
+                                .delivery-info {
+                                    font-size: 0.875rem;
+                                    color: #666;
+
+                                    div {
+                                        margin-bottom: 4px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .assigned-user {
+                        font-size: 0.875rem;
+                        color: #888;
+                        margin-top: 8px;
+                    }
+
+                    .action-buttons {
+                        margin-top: 12px;
+
+                        .btn {
+                            padding: 8px 16px;
+                            border: none;
+                            cursor: pointer;
+                            border-radius: 4px;
+                            font-size: 0.875rem;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            margin-right: 8px;
+                            transition: background-color 0.3s ease; // Smooth transition on background-color change
+
+                            &amp;:hover {
+                                filter: brightness(90%); // Darken the button on hover
+                            }
+                        }
+
+                        .accept-btn {
+                            background-color: #28a745;
+                            color: #fff;
+                        }
+
+                        .decline-btn {
+                            background-color: #dc3545;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="modal" [class.show]="isModalOpen" (click)="closeModal($event)">    <div class="modal-content" (click)="$event.stopPropagation()">        <div class="modal-header">            <h5 class="modal-title">Propositions de planning</h5>            <button type="button" class="close" (click)="closeModal($event)">&times;</button>        </div>        <div class="modal-body">            <div class="schedule-days-container">                <div *ngFor="let day of schedulePropositions" class="day-container">                    <h6>{{ day.date | date }}</h6>                    <div class="deliveries-list">                        <div *ngFor="let delivery of day.deliveries" class="delivery-item">                            <div class="delivery-box" [ngClass]="{ \'proposition-delivery\': delivery.proposition }">                                <div class="delivery-info">                                    <div>Date : {{ delivery.delivery_date | date:\'short\' }}</div>                                    <div>Description : {{ delivery.order.description }}</div>                                </div>                            </div>                        </div>                    </div>                    <div class="assigned-user">Assigné à : {{ day.user }}</div>                    <div class="action-buttons">                        <button class="btn accept-btn" (click)="accept(day)">Accepter</button>                        <button class="btn decline-btn" (click)="decline(day)">Refuser</button>                    </div>                </div>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PropositionComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PropositionComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

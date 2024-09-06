@@ -1,0 +1,99 @@
+.order-bar-container {
+    padding: 10px;
+    max-height: calc(80vh - 80px); /* Adjust height as needed */
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-left: 1px solid #e0e0e0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.filter-section-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #01aba8;
+    color: #fff;
+    list-style-type: none;
+    font-weight: 300;
+    font-size: 28px;
+    list-style: none;
+}
+
+
+.order-details {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+mat-expansion-panel-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    position: relative; /* Ensure that child elements are positioned relative to this header */
+    padding: 10px; /* Added padding to prevent text from touching the edges */
+}
+
+mat-panel-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align to the start of the flex container */
+    font-size: 1.2em;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.order-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    align-self: flex-start; /* Align the description to the top-left corner */
+    margin-bottom: 4px; /* Add some space below the description */
+}
+
+mat-panel-description {
+    font-size: 0.8em;
+    color: #757575;
+    position: absolute; /* Position the date at the bottom left */
+    bottom: 8px;
+    left: 16px;
+}
+
+.order-date {
+    font-size: 0.8em;
+    color: #757575;
+}
+
+button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
+
+.filter-section mat-form-field {
+    max-width: 200px; /* Reduce the width of the date picker inputs */
+    width: 100%; /* Make sure they remain responsive */
+}
+
+button {
+    margin-top: 10px;
+    display: block;
+    width: auto; /* Keeps the button auto-sized instead of full width */
+}
+
+.create-order {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.create-order button {
+    font-weight: 500;
+}

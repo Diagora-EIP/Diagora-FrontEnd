@@ -1,0 +1,2776 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front-end documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front-end documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MapComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/map/map.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+                <code>OnChanges</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">host</td>
+                <td class="col-md-9"><code>{<br>}</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/DestroyService.html" target="_self" >DestroyService</a></code>
+                                <code><a href="../injectables/ScheduleService.html" target="_self" >ScheduleService</a></code>
+                                <code><a href="../injectables/ItineraryService.html" target="_self" >ItineraryService</a></code>
+                                <code><a href="../injectables/FollowUpService.html" target="_self" >FollowUpService</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-map</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./map.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./map.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fetchedPermissions" >fetchedPermissions</a>
+                            </li>
+                            <li>
+                                <a href="#icon" >icon</a>
+                            </li>
+                            <li>
+                                <a href="#isError" >isError</a>
+                            </li>
+                            <li>
+                                <a href="#isErrorItinerary" >isErrorItinerary</a>
+                            </li>
+                            <li>
+                                <a href="#isErrorSchedule" >isErrorSchedule</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isLoadingItinerary" >isLoadingItinerary</a>
+                            </li>
+                            <li>
+                                <a href="#isLoadingSchedule" >isLoadingSchedule</a>
+                            </li>
+                            <li>
+                                <a href="#itinerary" >itinerary</a>
+                            </li>
+                            <li>
+                                <a href="#map" >map</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#mapElement" >mapElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onDataUpdated$" >onDataUpdated$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onInputChanged$" >onInputChanged$</a>
+                            </li>
+                            <li>
+                                <a href="#points" >points</a>
+                            </li>
+                            <li>
+                                <a href="#routeSteps" >routeSteps</a>
+                            </li>
+                            <li>
+                                <a href="#schedules" >schedules</a>
+                            </li>
+                            <li>
+                                <a href="#selectedSchedule" >selectedSchedule</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkPermission" >checkPermission</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#clearMapLayers" >clearMapLayers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchItinerary" >fetchItinerary</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchSchedule" >fetchSchedule</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchUserSchedules" >fetchUserSchedules</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#findScheduleWithItineraryId" >findScheduleWithItineraryId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getRouteSteps" >getRouteSteps</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#init" >init</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initMap" >initMap</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onDataUpdated" >onDataUpdated</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#renderItinerary" >renderItinerary</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#renderMap" >renderMap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#renderPoints" >renderPoints</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectStep" >selectStep</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#dateStr" >dateStr</a>
+                            </li>
+                            <li>
+                                <a href="#siderWidth" >siderWidth</a>
+                            </li>
+                            <li>
+                                <a href="#userId" >userId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#dateFormatted" >dateFormatted</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(destroy$: <a href="../injectables/DestroyService.html" target="_self">DestroyService</a>, followUpService: <a href="../injectables/FollowUpService.html" target="_self">FollowUpService</a>, scheduleService: <a href="../injectables/ScheduleService.html" target="_self">ScheduleService</a>, itineraryService: <a href="../injectables/ItineraryService.html" target="_self">ItineraryService</a>, permissionsService: <a href="../injectables/PermissionsService.html" target="_self">PermissionsService</a>, cdr: ChangeDetectorRef, zone: NgZone, utilsService: <a href="../injectables/UtilsService.html" target="_self">UtilsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="446" class="link-to-prism">src/app/components/map/map.component.ts:446</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>destroy$</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DestroyService.html" target="_self" >DestroyService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>followUpService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FollowUpService.html" target="_self" >FollowUpService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>scheduleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ScheduleService.html" target="_self" >ScheduleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>itineraryService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ItineraryService.html" target="_self" >ItineraryService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>permissionsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PermissionsService.html" target="_self" >PermissionsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>zone</td>
+                                                  
+                                                        <td>
+                                                                    <code>NgZone</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>utilsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UtilsService.html" target="_self" >UtilsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateStr"></a>
+                        <b>dateStr</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/map/map.component.ts:50</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="siderWidth"></a>
+                        <b>siderWidth</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/map/map.component.ts:52</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userId"></a>
+                        <b>userId</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/map/map.component.ts:49</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkPermission"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkPermission</b></span>
+                        <a href="#checkPermission"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkPermission(permission: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="430"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:430</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>permission</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearMapLayers"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>clearMapLayers</b></span>
+                        <a href="#clearMapLayers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clearMapLayers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchItinerary"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchItinerary</b></span>
+                        <a href="#fetchItinerary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchItinerary(itineraryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="271"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:271</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>itineraryId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchSchedule"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchSchedule</b></span>
+                        <a href="#fetchSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchSchedule()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="296"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:296</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchUserSchedules"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchUserSchedules</b></span>
+                        <a href="#fetchUserSchedules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchUserSchedules()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="246"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:246</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findScheduleWithItineraryId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>findScheduleWithItineraryId</b></span>
+                        <a href="#findScheduleWithItineraryId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findScheduleWithItineraryId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#FollowUpSchedule" target="_self" >FollowUpSchedule | null</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>formatDate(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, addDays: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>addDays</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>string | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRouteSteps"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getRouteSteps</b></span>
+                        <a href="#getRouteSteps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRouteSteps(itineraryData: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>itineraryData</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#RouteStep" target="_self" >RouteStep[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="init"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>init</b></span>
+                        <a href="#init"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>init()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initMap"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initMap</b></span>
+                        <a href="#initMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initMap()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="403"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:403</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="460"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:460</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="499"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:499</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDataUpdated"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>onDataUpdated</b></span>
+                        <a href="#onDataUpdated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onDataUpdated()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderItinerary"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>renderItinerary</b></span>
+                        <a href="#renderItinerary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>renderItinerary()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="363"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderMap"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>renderMap</b></span>
+                        <a href="#renderMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>renderMap()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="393"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:393</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderPoints"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>renderPoints</b></span>
+                        <a href="#renderPoints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>renderPoints()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="343"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:343</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectStep"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>selectStep</b></span>
+                        <a href="#selectStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectStep(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="437"
+                                    class="link-to-prism">src/app/components/map/map.component.ts:437</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchedPermissions"></a>
+                    <span class="name">
+                        <span ><b>fetchedPermissions</b></span>
+                        <a href="#fetchedPermissions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/components/map/map.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="icon"></a>
+                    <span class="name">
+                        <span ><b>icon</b></span>
+                        <a href="#icon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Leaflet.MarkerOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        icon: Leaflet.icon({
+            iconSize: [25, 41],
+            iconAnchor: [13, 0],
+            iconUrl: &#x27;assets/leaflet-logos/marker-icon.png&#x27;,
+            shadowUrl: &#x27;assets/leaflet-logos/marker-shadow.png&#x27;,
+        }),
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/components/map/map.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isError"></a>
+                    <span class="name">
+                        <span ><b>isError</b></span>
+                        <a href="#isError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/components/map/map.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isErrorItinerary"></a>
+                    <span class="name">
+                        <span ><b>isErrorItinerary</b></span>
+                        <a href="#isErrorItinerary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/components/map/map.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isErrorSchedule"></a>
+                    <span class="name">
+                        <span ><b>isErrorSchedule</b></span>
+                        <a href="#isErrorSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/components/map/map.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/components/map/map.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoadingItinerary"></a>
+                    <span class="name">
+                        <span ><b>isLoadingItinerary</b></span>
+                        <a href="#isLoadingItinerary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/components/map/map.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoadingSchedule"></a>
+                    <span class="name">
+                        <span ><b>isLoadingSchedule</b></span>
+                        <a href="#isLoadingSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/components/map/map.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="itinerary"></a>
+                    <span class="name">
+                        <span ><b>itinerary</b></span>
+                        <a href="#itinerary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/components/map/map.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="map"></a>
+                    <span class="name">
+                        <span ><b>map</b></span>
+                        <a href="#map"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Leaflet.Map | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/map/map.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mapElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>mapElement</b></span>
+                        <a href="#mapElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLDivElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;mapElem&#x27;, {static: false, read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/map/map.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDataUpdated$"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>onDataUpdated$</b></span>
+                        <a href="#onDataUpdated$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/components/map/map.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onInputChanged$"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>onInputChanged$</b></span>
+                        <a href="#onInputChanged$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/map/map.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="points"></a>
+                    <span class="name">
+                        <span ><b>points</b></span>
+                        <a href="#points"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FollowUpPoint" target="_self" >FollowUpPoint[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/components/map/map.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routeSteps"></a>
+                    <span class="name">
+                        <span ><b>routeSteps</b></span>
+                        <a href="#routeSteps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#RouteStep" target="_self" >RouteStep[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/map/map.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="schedules"></a>
+                    <span class="name">
+                        <span ><b>schedules</b></span>
+                        <a href="#schedules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FollowUpSchedule" target="_self" >FollowUpSchedule[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/map/map.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedSchedule"></a>
+                    <span class="name">
+                        <span ><b>selectedSchedule</b></span>
+                        <a href="#selectedSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FollowUpSchedule" target="_self" >FollowUpSchedule | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/map/map.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateFormatted"></a>
+                        <span class="name"><b>dateFormatted</b><a href="#dateFormatted"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>dateFormatted()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/components/map/map.component.ts:99</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    Component,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    AfterViewInit,
+    OnChanges,
+    Input,
+    ViewChild,
+    ElementRef,
+    SimpleChanges,
+    ChangeDetectorRef,
+    NgZone,
+} from &#x27;@angular/core&#x27;;
+import { Subject, take, takeUntil, tap } from &#x27;rxjs&#x27;;
+
+import * as Leaflet from &#x27;leaflet&#x27;;
+import &#x27;leaflet-routing-machine&#x27;;
+
+import { DestroyService } from &#x27;../../services/destroy.service&#x27;;
+import { ScheduleService } from &#x27;../../services/schedule.service&#x27;;
+import { ItineraryService } from &#x27;../../services/itinerary.service&#x27;;
+import { PermissionsService } from &#x27;../../services/permissions.service&#x27;;
+import { FollowUpService, FollowUpPoint, FollowUpSchedule } from &#x27;../../services/follow-up.service&#x27;;
+import { UtilsService } from &#x27;../../services/utils.service&#x27;;
+
+type RouteStep &#x3D; {
+    address: string;
+    arrive_at: string;
+    finished: boolean;
+};
+
+@Component({
+    selector: &#x27;app-map&#x27;,
+    templateUrl: &#x27;./map.component.html&#x27;,
+    styleUrls: [&#x27;./map.component.scss&#x27;],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        &#x27;[style.--app-map-sider-width]&#x27;: &#x27;siderWidth || null&#x27;,
+    },
+    providers: [
+        DestroyService,
+        ScheduleService,
+        ItineraryService,
+        FollowUpService,
+    ],
+})
+export class MapComponent implements AfterViewInit, OnChanges {
+    @Input() userId?: number;
+    @Input() dateStr?: string; // format: &#x27;YYYY-MM-DD&#x27;
+    // @Input() date?: Date;
+    @Input() siderWidth?: string;
+
+    @ViewChild(&#x27;mapElem&#x27;, { static: false, read: ElementRef }) mapElement!: ElementRef&lt;HTMLDivElement&gt;;
+    private onInputChanged$ &#x3D; new Subject&lt;void&gt;();
+    private onDataUpdated$ &#x3D; new Subject&lt;void&gt;();
+
+    schedules: FollowUpSchedule[] &#x3D; [];
+    selectedSchedule: FollowUpSchedule | null &#x3D; null;
+    points: FollowUpPoint[] &#x3D; [];
+    itinerary: any | null &#x3D; null;
+    routeSteps: RouteStep[] &#x3D; [];
+    map: Leaflet.Map | null &#x3D; null;
+    fetchedPermissions: boolean &#x3D; false;
+
+    // for followUpService
+    isLoading: boolean &#x3D; true;
+    isError: boolean &#x3D; false;
+    // for scheduleService
+    isLoadingSchedule: boolean &#x3D; false;
+    isErrorSchedule: boolean &#x3D; false;
+    // for itineraryService
+    isLoadingItinerary: boolean &#x3D; false;
+    isErrorItinerary: boolean &#x3D; false;
+
+    icon: Leaflet.MarkerOptions &#x3D; {
+        icon: Leaflet.icon({
+            iconSize: [25, 41],
+            iconAnchor: [13, 0],
+            iconUrl: &#x27;assets/leaflet-logos/marker-icon.png&#x27;,
+            shadowUrl: &#x27;assets/leaflet-logos/marker-shadow.png&#x27;,
+        }),
+    };
+
+    private formatDate(date: Date, addDays: number): string | null { // add one day to the date, because the follow-up is bad coded
+        if (!date || isNaN(date.getTime())) {
+            return null;
+        }
+        const day &#x3D; date.getDate();
+        const newDay &#x3D; String(day + addDays).padStart(2, &#x27;0&#x27;);
+        const month &#x3D; date.getMonth() + 1;
+        const newMonth &#x3D; String(month).padStart(2, &#x27;0&#x27;);
+        const year &#x3D; date.getFullYear();
+        const newYear &#x3D; String(year).padStart(4, &#x27;0&#x27;);
+
+        return &#x60;${newYear}-${newMonth}-${newDay}&#x60;;
+    }
+
+    private get dateFormatted(): string | null {
+        if (this.dateStr) {
+            const newDate &#x3D; new Date(this.dateStr);
+            // return this.formatDate(new Date(this.dateStr), 0);
+            return this.dateStr;
+        }
+        // if (this.date) {
+        //     return this.formatDate(this.date, 0);
+        // }
+        return null;
+    }
+
+    private init(): void {
+        if (!this.userId || !this.dateFormatted) {
+            this.isLoading &#x3D; false;
+            this.isError &#x3D; true;
+            // console.log(&quot;this.userId&quot;, this.userId)
+            // console.log(&quot;this.dateFormatted&quot;, this.dateFormatted)
+            // console.error(&#x27;MapComponent: Missing userId or date input&#x27;);
+            this.cdr.detectChanges();
+            if (!this.userId) {
+                this.userId &#x3D; +(this.utilsService.getUserId() || 0);
+            }
+            return;
+        }
+        // we put them here, because if this method is called again, we want to reset the values
+        this.schedules &#x3D; [];
+        this.selectedSchedule &#x3D; null;
+        this.points &#x3D; [];
+
+        this.isLoading &#x3D; true;
+        this.isError &#x3D; false;
+
+        this.isLoadingSchedule &#x3D; false;
+        this.isErrorSchedule &#x3D; false;
+
+        this.isLoadingItinerary &#x3D; false;
+        this.isErrorItinerary &#x3D; false;
+
+        this.routeSteps &#x3D; [];
+        this.itinerary &#x3D; null;
+        this.map &#x3D; null;
+
+        const startDependingOnPermissions &#x3D; () &#x3D;&gt; {
+            if (this.checkPermission(&#x27;manager&#x27;) &amp;&amp; this.userId !&#x3D;&#x3D; undefined &amp;&amp; this.userId !&#x3D;&#x3D; 0) {
+                // this.fetchUserSchedules(); // debug
+                this.followUpService.init(this.userId, this.dateFormatted!);
+            } else {
+                this.fetchUserSchedules();
+            }
+        };
+
+        if (this.fetchedPermissions) {
+            startDependingOnPermissions();
+        } else {
+            this.permissionsService.userPermissionsSubject.pipe(
+                take(1),
+                tap(() &#x3D;&gt; {
+                    this.fetchedPermissions &#x3D; true;
+                    startDependingOnPermissions();
+                })
+            ).subscribe();
+        }
+    }
+
+    private findScheduleWithItineraryId(): FollowUpSchedule | null {
+        if (this.schedules.length &#x3D;&#x3D;&#x3D; 0) {
+            return null;
+        }
+
+        const found &#x3D; this.schedules.find((schedule) &#x3D;&gt; {
+            const itineraryId &#x3D; schedule.itinerary_id;
+            if (!itineraryId || !Number(itineraryId) || itineraryId &#x3D;&#x3D;&#x3D; 0) {
+                return false;
+            }
+            return true;
+        });
+
+        if (found) {
+            return found;
+        }
+
+        return this.schedules[0];
+    }
+
+    private onDataUpdated() {
+        if (this.selectedSchedule &#x3D;&#x3D; null &amp;&amp; this.schedules.length &gt; 0) {
+            this.selectedSchedule &#x3D; this.findScheduleWithItineraryId();
+            this.fetchSchedule();
+        }
+
+        if (this.isLoading) {
+            this.isLoading &#x3D; false;
+            this.cdr.markForCheck();
+            this.initMap();
+        }
+
+        this.renderMap();
+        this.cdr.markForCheck();
+    }
+
+    private getRouteSteps(itineraryData: any): RouteStep[] {
+        const stops &#x3D; itineraryData.path.points;
+
+        if (!stops || stops.length &#x3D;&#x3D;&#x3D; 0) {
+            return [];
+        }
+
+        const routeSteps: RouteStep[] &#x3D; [];
+        for (let i &#x3D; 0; i &lt; stops.length; i++) {
+            const currentStop &#x3D; stops[i];
+
+            const timeInSeconds &#x3D; stops[i].arrive_at;
+            const timeInMilliseconds &#x3D; timeInSeconds * 1000;
+            const date &#x3D; new Date(timeInMilliseconds);
+            const formattedDate &#x3D; date.toLocaleDateString(&#x27;fr-FR&#x27;, {
+                day: &#x27;2-digit&#x27;,
+                month: &#x27;2-digit&#x27;,
+                year: &#x27;numeric&#x27;,
+                hour: &#x27;2-digit&#x27;,
+                minute: &#x27;2-digit&#x27;,
+            });
+
+            let isFinished &#x3D; false;
+            // if a point is registered, we consider that the first one (departure) is finished
+            if (isFinished &#x3D;&#x3D;&#x3D; false &amp;&amp; i &#x3D;&#x3D;&#x3D; 0 &amp;&amp; this.points.length &gt; 0) {
+                isFinished &#x3D; true;
+            }
+            // if schedule with the same adress and status 1 is found, we consider that the point is finished
+            if (isFinished &#x3D;&#x3D;&#x3D; false &amp;&amp; this.schedules.find((schedule) &#x3D;&gt; (schedule as any).status &#x3D;&#x3D;&#x3D; 1 &amp;&amp; currentStop.address &#x3D;&#x3D;&#x3D; (schedule as any).order?.delivery_address)) {
+                isFinished &#x3D; true;
+            }
+            // if schedule with the same adress and order_status 1 is found, we consider that the point is finished
+            if (isFinished &#x3D;&#x3D;&#x3D; false &amp;&amp; this.schedules.find((schedule) &#x3D;&gt; (schedule as any).order_status &#x3D;&#x3D;&#x3D; 1 &amp;&amp; currentStop.address &#x3D;&#x3D;&#x3D; (schedule as any).order?.delivery_address)) {
+                isFinished &#x3D; true;
+            }
+
+            routeSteps.push({
+                address: currentStop.address,
+                arrive_at: &#x60;Arrivée prévue le ${formattedDate}&#x60;,
+                finished: isFinished,
+            });
+        }
+
+        return routeSteps;
+    }
+
+    private fetchUserSchedules() {
+        const startDate &#x3D; this.dateFormatted + &#x27;T00:00:00.000Z&#x27;;
+        const endDate &#x3D; this.dateFormatted + &#x27;T23:59:59.999Z&#x27;;
+
+        this.scheduleService
+            .getScheduleBetweenDates(startDate, endDate)
+            .pipe(
+                tap({
+                    next: (data: any) &#x3D;&gt; {
+                        this.schedules &#x3D; data;
+                        this.isLoading &#x3D; false;
+                        this.isError &#x3D; false;
+                        this.initMap();
+                        this.onDataUpdated$.next();
+                        this.cdr.markForCheck();
+                    },
+                    error: (err: any) &#x3D;&gt; {
+                        this.isLoading &#x3D; false;
+                        this.isError &#x3D; true;
+                    },
+                })
+            )
+            .subscribe();
+    }
+
+    private fetchItinerary(itineraryId: number): void {
+        this.isLoadingItinerary &#x3D; true;
+
+        this.itineraryService
+            .getItinerary(&#x60;${itineraryId}&#x60;)
+            .pipe(
+                tap({
+                    next: (data: any) &#x3D;&gt; {
+                        this.isLoadingItinerary &#x3D; false;
+                        this.isErrorItinerary &#x3D; false;
+                        this.routeSteps &#x3D; this.getRouteSteps(data);
+                        this.itinerary &#x3D; data;
+                        this.renderMap();
+                        this.cdr.markForCheck();
+                    },
+                    error: (err) &#x3D;&gt; {
+                        this.isLoadingItinerary &#x3D; false;
+                        this.isErrorItinerary &#x3D; true;
+                        console.error(&#x27;Error fetching itinerary:&#x27;, err);
+                    },
+                })
+            )
+            .subscribe();
+    }
+
+    private fetchSchedule(): void {
+        if (!this.selectedSchedule || !this.selectedSchedule.schedule_id) {
+            this.isErrorSchedule &#x3D; true;
+            return;
+        }
+        this.isLoadingSchedule &#x3D; true;
+        const scheduleId &#x3D; Number(this.selectedSchedule.schedule_id);
+
+        this.scheduleService
+            .getScheduleById(scheduleId)
+            .pipe(
+                tap({
+                    next: (data: any) &#x3D;&gt; {
+                        this.isLoadingSchedule &#x3D; false;
+                        this.isErrorSchedule &#x3D; false;
+                        const itineraryId &#x3D; data.itinerary_id;
+                        if (!itineraryId || !Number(itineraryId)) {
+                            this.isErrorItinerary &#x3D; true;
+                            this.cdr.markForCheck();
+                            return;
+                        }
+                        this.fetchItinerary(itineraryId);
+                        this.cdr.markForCheck();
+                    },
+                    error: (err: any) &#x3D;&gt; {
+                        this.isLoadingSchedule &#x3D; false;
+                        this.isErrorSchedule &#x3D; true;
+                        console.error(&#x27;Error fetching schedule:&#x27;, err);
+                    },
+                })
+            )
+            .subscribe();
+    }
+
+    private clearMapLayers(): void {
+        if (this.map) {
+            this.map.eachLayer((layer) &#x3D;&gt; {
+                if (layer instanceof Leaflet.Marker) {
+                    this.map!.removeLayer(layer);
+                }
+                if (layer instanceof Leaflet.Polyline) {
+                    this.map!.removeLayer(layer);
+                }
+            });
+        }
+    }
+
+    private renderPoints(): void {
+        if (!this.map) {
+            return;
+        }
+        if (this.points.length &#x3D;&#x3D;&#x3D; 0) {
+            return;
+        }
+
+        const polylinePoints: Leaflet.LatLngExpression[] &#x3D; this.points.map((point) &#x3D;&gt; {
+            return [Number(point.latitude), Number(point.longitude)];
+        });
+        const polyline &#x3D; Leaflet.polyline(polylinePoints, { color: &#x27;red&#x27; }).addTo(this.map);
+
+        if (!this.routeSteps.length) {
+            this.map.fitBounds(polyline.getBounds());
+        }
+
+        return;
+    }
+
+    private renderItinerary(): void {
+        if (!this.map) {
+            return;
+        }
+        if (!this.itinerary) {
+            return;
+        }
+
+        const road &#x3D; this.itinerary.stop_point.road;
+        const stops &#x3D; this.itinerary.path.points;
+
+        if (!road || road.length &#x3D;&#x3D;&#x3D; 0 || !stops || stops.length &#x3D;&#x3D;&#x3D; 0) {
+            return;
+        }
+
+        const path_coordinates &#x3D; road.map((point: any) &#x3D;&gt; [point.y, point.x]);
+        const polyline &#x3D; Leaflet.polyline(path_coordinates, {
+            color: &#x27;blue&#x27;,
+        }).addTo(this.map);
+
+        stops.forEach((point: any) &#x3D;&gt; {
+            Leaflet.marker([point.y, point.x, point.address], this.icon)
+                .addTo(this.map!)
+                .bindPopup(&#x60;Adresse: ${point.address}&lt;br&gt;&#x60;)
+                .openPopup();
+        });
+
+        this.map.fitBounds(polyline.getBounds());
+    }
+
+    private renderMap(): void {
+        if (!this.map) {
+            return;
+        }
+
+        this.clearMapLayers();
+        this.renderPoints();
+        this.renderItinerary();
+    }
+
+    private initMap(): void {
+        if (!this.map) {
+            this.zone.onMicrotaskEmpty
+                .pipe(
+                    takeUntil(this.destroy$),
+                    take(1),
+                )
+                .subscribe(() &#x3D;&gt; {
+                    const defaultPosition: Leaflet.LatLngExpression &#x3D; this.points.length &gt; 0 ?
+                        [Number(this.points[0].latitude), Number(this.points[0].longitude)] :
+                        [43.610769, 3.876716];
+
+                    this.map &#x3D; Leaflet.map(this.mapElement.nativeElement, {
+                        center: defaultPosition,
+                        zoom: 13,
+                    });
+
+                    Leaflet.tileLayer(
+                        &#x27;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#x27;
+                    ).addTo(this.map);
+
+                    this.renderMap();
+                    this.cdr.markForCheck();
+                });
+        }
+    }
+
+    private checkPermission(permission: string): boolean {
+        if (localStorage.getItem(&#x27;token&#x27;) &#x3D;&#x3D;&#x3D; null) {
+            return false;
+        }
+        return this.permissionsService.hasPermission(permission);
+    }
+
+    public selectStep(index: number): void {
+        if (
+            this.itinerary &amp;&amp;
+            this.itinerary.path &amp;&amp;
+            this.itinerary.path.points
+        ) {
+            const selectedPoint &#x3D; this.itinerary.path.points[index];
+            this.map!.panTo([selectedPoint.y, selectedPoint.x]);
+        }
+    }
+
+    constructor(
+        private destroy$: DestroyService,
+        private followUpService: FollowUpService,
+        private scheduleService: ScheduleService,
+        private itineraryService: ItineraryService,
+        private permissionsService: PermissionsService,
+        private cdr: ChangeDetectorRef,
+        private zone: NgZone,
+        private utilsService: UtilsService,
+    ) {
+    }
+
+    ngAfterViewInit(): void {
+        this.followUpService.onError$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() &#x3D;&gt; {
+                this.isLoading &#x3D; false;
+                this.isError &#x3D; true;
+            });
+
+        this.followUpService.points$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((points) &#x3D;&gt; {
+                this.points &#x3D; points;
+                this.onDataUpdated$.next();
+                this.cdr.markForCheck();
+            });
+
+        this.followUpService.schedules$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((schedules) &#x3D;&gt; {
+                this.schedules &#x3D; schedules;
+                this.onDataUpdated$.next();
+                this.cdr.markForCheck();
+            });
+
+        this.onDataUpdated$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() &#x3D;&gt; {
+                this.onDataUpdated();
+            });
+
+        this.onInputChanged$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() &#x3D;&gt; {
+                this.init();
+            });
+
+        this.init();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { userId, dateStr, date } &#x3D; changes;
+
+        if (userId || dateStr || date) {
+            this.onInputChanged$.next();
+        }
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;isLoading || isError&quot; class&#x3D;&quot;app-map-container-full&quot;&gt;
+
+    &lt;ng-container *ngIf&#x3D;&quot;isLoading&quot;&gt;
+        &lt;app-loading-spinner&gt;&lt;/app-loading-spinner&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container *ngIf&#x3D;&quot;isError&quot;&gt;
+        &lt;app-alert type&#x3D;&quot;error&quot; title&#x3D;&quot;Une erreur est survenue.&quot;&gt;
+            Veuillez réessayer plus tard.
+        &lt;/app-alert&gt;
+    &lt;/ng-container&gt;
+
+&lt;/div&gt;
+
+&lt;div *ngIf&#x3D;&quot;!isLoading &amp;&amp; !isError&quot; class&#x3D;&quot;app-map-wrapper&quot;&gt;
+    &lt;div class&#x3D;&quot;app-map-sider&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;schedules.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+            &lt;app-alert type&#x3D;&quot;warning&quot; title&#x3D;&quot;Aucune commande planifiée.&quot;&gt;
+                Aucune commande n&#x27;a été planifiée pour cette journée.
+            &lt;/app-alert&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container *ngIf&#x3D;&quot;isLoadingSchedule&quot;&gt;
+            &lt;app-alert type&#x3D;&quot;info&quot; title&#x3D;&quot;Chargement de la journée en cours...&quot;&gt;
+                Cette opération peut prendre quelques instants.
+            &lt;/app-alert&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;isErrorSchedule&quot;&gt;
+            &lt;app-alert type&#x3D;&quot;error&quot; title&#x3D;&quot;Impossible de charger la journée.&quot;&gt;
+                Veuillez réessayer plus tard.
+            &lt;/app-alert&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container *ngIf&#x3D;&quot;isLoadingItinerary&quot;&gt;
+            &lt;app-alert type&#x3D;&quot;info&quot; title&#x3D;&quot;Chargement de l&#x27;itinéraire en cours...&quot;&gt;
+                Cette opération peut prendre quelques instants.
+            &lt;/app-alert&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;isErrorItinerary&quot;&gt;
+            &lt;app-alert type&#x3D;&quot;error&quot; title&#x3D;&quot;Impossible de charger l&#x27;itinéraire.&quot;&gt;
+                Veuillez réessayer plus tard.
+            &lt;/app-alert&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container *ngIf&#x3D;&quot;itinerary&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;routeSteps.length &#x3D;&#x3D; 0&quot;&gt;
+                &lt;app-alert type&#x3D;&quot;info&quot;&gt;
+                    Aucune étape de livraison n&#x27;est disponible.
+                &lt;/app-alert&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;routeSteps.length &gt; 0&quot;&gt;
+                &lt;div *ngFor&#x3D;&quot;let routeStep of routeSteps; let i &#x3D; index&quot; (click)&#x3D;&quot;selectStep(i)&quot; class&#x3D;&quot;app-map-sider-items&quot;&gt;
+                    &lt;ng-container *ngIf&#x3D;&quot;routeStep.finished&quot;&gt;
+                        &lt;app-alert type&#x3D;&quot;success&quot; [showIcon]&#x3D;&quot;routeStep.finished&quot;&gt;
+                            {{ routeStep.address }}
+                        &lt;/app-alert&gt;
+                    &lt;/ng-container&gt;
+                    &lt;ng-container *ngIf&#x3D;&quot;!routeStep.finished&quot;&gt;
+                        &lt;app-alert type&#x3D;&quot;info&quot; [title]&#x3D;&quot;routeStep.address&quot;&gt;
+                            {{ routeStep.arrive_at }}
+                        &lt;/app-alert&gt;
+                    &lt;/ng-container&gt;
+                &lt;/div&gt;
+            &lt;/ng-container&gt;
+        &lt;/ng-container&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;app-map-container&quot;&gt;
+        &lt;div class&#x3D;&quot;app-map-element&quot; #mapElem&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./map.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">app-map {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 24rem;
+
+    .app-map-container-full {
+        flex-grow: 1;
+        position: relative;
+    }
+
+    .app-map-wrapper {
+        display: flex;
+        flex-grow: 1;
+        gap: 1rem;
+
+        .app-map-sider {
+            width: var(--app-map-sider-width, 600px);
+
+            .app-map-sider-items {
+                margin-bottom: 1rem;
+                cursor: pointer;
+            }
+        }
+
+        .app-map-container {
+            min-height: 500px;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #e8e9ea;
+            border: 1px solid #dee2e6;
+            box-sizing: border-box;
+            text-align: center;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
+            border-radius: 4px;
+
+            .app-map-element {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="isLoading || isError" class="app-map-container-full">    <ng-container *ngIf="isLoading">        <app-loading-spinner></app-loading-spinner>    </ng-container>    <ng-container *ngIf="isError">        <app-alert type="error" title="Une erreur est survenue.">            Veuillez réessayer plus tard.        </app-alert>    </ng-container></div><div *ngIf="!isLoading && !isError" class="app-map-wrapper">    <div class="app-map-sider">        <ng-container *ngIf="schedules.length === 0">            <app-alert type="warning" title="Aucune commande planifiée.">                Aucune commande n\'a été planifiée pour cette journée.            </app-alert>        </ng-container>        <ng-container *ngIf="isLoadingSchedule">            <app-alert type="info" title="Chargement de la journée en cours...">                Cette opération peut prendre quelques instants.            </app-alert>        </ng-container>        <ng-container *ngIf="isErrorSchedule">            <app-alert type="error" title="Impossible de charger la journée.">                Veuillez réessayer plus tard.            </app-alert>        </ng-container>        <ng-container *ngIf="isLoadingItinerary">            <app-alert type="info" title="Chargement de l\'itinéraire en cours...">                Cette opération peut prendre quelques instants.            </app-alert>        </ng-container>        <ng-container *ngIf="isErrorItinerary">            <app-alert type="error" title="Impossible de charger l\'itinéraire.">                Veuillez réessayer plus tard.            </app-alert>        </ng-container>        <ng-container *ngIf="itinerary">            <ng-container *ngIf="routeSteps.length == 0">                <app-alert type="info">                    Aucune étape de livraison n\'est disponible.                </app-alert>            </ng-container>            <ng-container *ngIf="routeSteps.length > 0">                <div *ngFor="let routeStep of routeSteps; let i = index" (click)="selectStep(i)" class="app-map-sider-items">                    <ng-container *ngIf="routeStep.finished">                        <app-alert type="success" [showIcon]="routeStep.finished">                            {{ routeStep.address }}                        </app-alert>                    </ng-container>                    <ng-container *ngIf="!routeStep.finished">                        <app-alert type="info" [title]="routeStep.address">                            {{ routeStep.arrive_at }}                        </app-alert>                    </ng-container>                </div>            </ng-container>        </ng-container>    </div>    <div class="app-map-container">        <div class="app-map-element" #mapElem></div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddClientComponent', 'selector': 'app-add-client'},{'name': 'AddCommandComponent', 'selector': 'app-add-command'},{'name': 'AddVehiculeComponent', 'selector': 'app-add-vehicule'},{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarteComponent', 'selector': 'app-carte'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CommandsComponent', 'selector': 'app-commands'},{'name': 'CompanyCreateModalComponent', 'selector': 'app-company-create-modal'},{'name': 'CompanyUpdateModalComponent', 'selector': 'app-company-update-modal'},{'name': 'ConfirmModalComponent', 'selector': 'app-confirm-modal'},{'name': 'CreateScheduleModalComponent', 'selector': 'app-create-schedule-modal'},{'name': 'DelivererAbsenceModalComponent', 'selector': 'app-create-absent-modal'},{'name': 'DetailsCommandComponent', 'selector': 'app-details-command'},{'name': 'DetailsVehiculeComponent', 'selector': 'app-details-vehicule'},{'name': 'EditClientComponent', 'selector': 'app-edit-client'},{'name': 'EditCommandComponent', 'selector': 'app-edit-command'},{'name': 'EditVehiculeComponent', 'selector': 'app-edit-vehicule'},{'name': 'EditVehiculeExpenseComponent', 'selector': 'app-edit-vehicule-expense'},{'name': 'FilterBarComponent', 'selector': 'filter-bar'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'LoadingSpinnerComponent', 'selector': 'app-loading-spinner'},{'name': 'LockVehicleComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerComponent', 'selector': 'app-manager'},{'name': 'ManagerGestionClientComponent', 'selector': 'app-manager-gestion-client'},{'name': 'ManagerToolsComponent', 'selector': 'app-manager-tools'},{'name': 'ManagerUserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'ManagerUserListComponent', 'selector': 'app-manager-user-list'},{'name': 'ManagerUserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'ManagerUserVehicleUpdateModalComponent', 'selector': 'app-user-vehicle-update-modal'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'NotificationShowModalComponent', 'selector': 'app-notification-show-modal'},{'name': 'OrderBarComponent', 'selector': 'order-bar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PropositionComponent', 'selector': 'app-your-component'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ScheduleComponent', 'selector': 'app-full-calendar'},{'name': 'StatisticComponent', 'selector': 'app-statistic'},{'name': 'UpdateScheduleModalComponent', 'selector': 'app-update-schedule-modal'},{'name': 'UserCreateModalComponent', 'selector': 'app-user-create-modal'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserUpdateModalComponent', 'selector': 'app-user-update-modal'},{'name': 'VehicleExpenseCreateModalComponent', 'selector': 'app-vehicle-expense-create-modal'},{'name': 'VehiculeComponent', 'selector': 'app-vehicule'},{'name': 'VisualizeScheduleDayComponent', 'selector': 'app-visualize-schedule-day'},{'name': 'WebsocketComponent', 'selector': 'app-websocket'},{'name': 'WebsocketDialogComponent', 'selector': 'app-websocket-dialog'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MapComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MapComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
