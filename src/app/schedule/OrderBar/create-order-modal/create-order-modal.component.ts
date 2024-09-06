@@ -10,6 +10,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { tap } from 'rxjs';
 import { PermissionsService } from '../../../services/permissions.service';
 import { ManagerService } from '../../../services/manager.service';
+import { CommandsService } from '../../../services/commands.service';
 
 @Component({
     selector: 'app-create-order-modal',
@@ -37,12 +38,19 @@ export class CreateOrderModalComponent implements AfterViewInit {
         private snackBarService: SnackbarService,
         private dialog: MatDialog,
         private managerService: ManagerService,
+        private CommandsService: CommandsService,
     ) {
+        const defaultClient = {
+            name: '',
+            surname: '',
+            email: '',
+            address: ''
+        };
         this.scheduleForm = this.fb.group({
-            livreur: [this.livreurList, Validators.required],
+            livreur: [this.livreurList[0], Validators.required], // Default to "Aucun"
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],
-            deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
+            deliveryTime: ['12:00', Validators.required], // Default time
             client: [data.client, Validators.required],
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
@@ -164,11 +172,9 @@ export class CreateOrderModalComponent implements AfterViewInit {
                 delivery_address,
                 client_id: client.client_id,
             };
-            console.log(formData.livreur)
-            console.log("Permissiosn", this.checkPermission('manager'))
             if (this.checkPermission('manager')) {
-                this.scheduleService.createScheduleByUser(formData.livreur.user_id, newSchedule).pipe(
-                    tap({
+                if (formData.livreur.name === 'Aucun') {
+                    this.CommandsService.createOrderV2(formData.description, deliveryDateTime, formData.deliveryAddress, client.client_id).subscribe({
                         next: data => {
                             this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
                             this.closeDialog(data);
@@ -178,7 +184,21 @@ export class CreateOrderModalComponent implements AfterViewInit {
                             this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
                             this.closeDialog(error);
                         }
-                    })).subscribe();
+                    });
+                } else {
+                    this.scheduleService.createScheduleByUser(formData.livreur.user_id, newSchedule).pipe(
+                        tap({
+                            next: data => {
+                                this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                                this.closeDialog(data);
+                            },
+                            error: error => {
+                                console.log(error);
+                                this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
+                                this.closeDialog(error);
+                            }
+                        })).subscribe();
+                }
             }
         }
     }

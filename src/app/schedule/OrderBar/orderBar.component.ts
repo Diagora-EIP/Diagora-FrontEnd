@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/orders.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrderModalComponent } from './create-order-modal/create-order-modal.component';
+import { AssignDelivererModal } from './assign-deliverer-modal/assign-deliverer-modal.component';
 
 @Component({
     selector: 'order-bar',
@@ -45,11 +46,10 @@ export class OrderBarComponent implements OnInit {
             width: '600px',
             data: {}
         });
-
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 console.log(`Order created: ${result}`);
-                this.orders.push(result);
+                // this.orders.push(result);
                 this.applyFilters();
             }
         });
@@ -89,5 +89,9 @@ export class OrderBarComponent implements OnInit {
     assignOrder(order: any): void {
         console.log(`Assigning order with ID: ${order.order_id}`);
         // Add logic to assign the order to a user
+        const dialogRef = this.dialog.open(AssignDelivererModal, {
+            width: '600px',
+            data: order
+        });
     }
 }

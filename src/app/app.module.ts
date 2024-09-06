@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,6 +77,10 @@ import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
 import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
+import { DatePipe } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { AssignDelivererModal } from './schedule/OrderBar/assign-deliverer-modal/assign-deliverer-modal.component';
+registerLocaleData(localeFr);
 
 @NgModule({
     declarations: [
@@ -131,6 +136,7 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
         CreateOrderModalComponent,
+        AssignDelivererModal
     ],
     imports: [
         BrowserModule,
@@ -161,6 +167,8 @@ import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-e
         MatExpansionModule,
     ],
     providers: [
+        { provide: LOCALE_ID, useValue: 'fr' },
+        DatePipe,
     ],
     bootstrap: [AppComponent]
 })
