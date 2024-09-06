@@ -246,9 +246,11 @@ export class ScheduleComponent implements OnInit {
                 this.loading = true;
 
                 const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
-                    new Date().toISOString();
+                new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
+            
                 const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
-                    new Date().toISOString();
+                    new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
+            
                 if (this.checkPermission('manager') && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
