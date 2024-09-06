@@ -45,7 +45,10 @@
         <div ngClass="container-button-modals">
             <button ngClass="button-modals" mat-raised-button (click)="closeDialog()">Fermer</button>
             <button ngClass="button-modals" mat-raised-button color="warn" (click)="deleteSchedule()">Supprimer</button>
-            <button ngClass="button-modals" mat-raised-button (click)="redirectToItineraryPage()">Itinéraire</button>
+            <button ngClass="button-modals" mat-raised-button (click)="redirectToItineraryPage()">
+                <mat-icon ngClass="button-map-icon">map</mat-icon>
+                carte
+            </button>
             <button ngClass="button-modals" mat-raised-button color="primary" (click)="submitForm()">Modifier</button>
         </div>
     </div>
