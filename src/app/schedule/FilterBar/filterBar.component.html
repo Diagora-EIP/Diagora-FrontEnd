@@ -2,7 +2,8 @@
     <h2 class="filter-section-heading">Filtres</h2>
     <div class="filter-components">
         <!-- <app-loading-spinner *ngIf="isLoadingTeams" class="loading-spinner" >here</app-loading-spinner> -->
-        <div class="team-selectors" *ngIf="!isLoadingTeams">
+        <!-- <div class="team-selectors" *ngIf="!isLoadingTeams"> -->
+        <div class="team-selectors">
             <mat-accordion multi>
                 <mat-expansion-panel
                     *ngFor="let team of teams"

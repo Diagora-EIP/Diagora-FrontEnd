@@ -6,7 +6,6 @@ import { TeamService } from '../../services/team.service';
 import { ManagerService } from '../../services/manager.service';
 import { DelivererAbsenceModalComponent } from '../modals/create-absent-modal/create-absent-modal';
 
-
 @Component({
     selector: 'filter-bar',
     templateUrl: './filterBar.component.html',
@@ -19,7 +18,6 @@ export class FilterBarComponent implements AfterViewInit {
     teams: any[] = [];
     companyData: any = {};
     usersWithoutTeams: any[] = [];
-    isLoadingTeams: boolean = true;
     selectedTeams: { [key: number]: any[] } = {};
 
     @ViewChildren('teamPanel') teamPanels!: QueryList<MatExpansionPanel>;
@@ -33,11 +31,14 @@ export class FilterBarComponent implements AfterViewInit {
     ) {}
 
     ngOnInit(): void {
-        this.getAllTeamsInfos().then(() => {
-            this.isLoadingTeams = false;
+        Promise.all([
+            this.getAllTeamsInfos(),
+            this.getCompanyData()
+        ]).then(() => {
+            this.filterUsersWithoutTeams();
+            this.selectDefaultUser(); // Select the user by default after data is loaded
             this.openFirstTwoPanels();
         });
-        this.getCompanyData();
     }
 
     ngAfterViewInit(): void {
@@ -45,7 +46,6 @@ export class FilterBarComponent implements AfterViewInit {
             this.openFirstTwoPanels();
         });
     }
-
 
     openFirstTwoPanels(): void {
         const panels = this.teamPanels.toArray();
@@ -71,10 +71,10 @@ export class FilterBarComponent implements AfterViewInit {
     getUsersForTeam(userIds: any[], team: any): any[] {
         if (!userIds || userIds.length === 0)
             return [];
-    
+
         const teamColor = team.color;
         const userIdsArray = userIds.map(user => user.user_id);
-    
+
         // Filter the users based on user IDs and add the teamColor property
         const filteredUsers = this.filteredUsers
             .filter(user => userIdsArray.includes(user.user_id))
@@ -82,7 +82,7 @@ export class FilterBarComponent implements AfterViewInit {
                 ...user,         // Spread the original user properties
                 teamColor       // Add the teamColor property
             }));
-    
+
         return filteredUsers;
     }
 
@@ -115,7 +115,6 @@ export class FilterBarComponent implements AfterViewInit {
 
     onUserSelectionChange(): void {
         this.emitSelectedData()
-        
     }
 
     private emitSelectedData(): void {
@@ -145,7 +144,7 @@ export class FilterBarComponent implements AfterViewInit {
         if (!team)
             return false;
         const selectedUsers = this.selectedTeams[team.team_id] || [];
-        const teamUsers = this.getUsersForTeam(team.user_ids, team);
+        const teamUsers = this.getUsersForTeam(team.users, team);
 
         return selectedUsers.length > 0 && selectedUsers.length < teamUsers.length;
     }
@@ -178,7 +177,7 @@ export class FilterBarComponent implements AfterViewInit {
         });
     }
 
-    // Returns the company data of the logged in manager including the users within the company
+    // Returns the company data of the logged-in manager including the users within the company
     async getCompanyData(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
@@ -186,8 +185,6 @@ export class FilterBarComponent implements AfterViewInit {
                     console.log("getCompanyData() response:", response);
                     this.companyData = response;
                     this.filteredUsers = this.companyData.users || [];
-                    this.filterUsersWithoutTeams();
-                    this.companyDataChange.emit(this.companyData);
                     resolve();
                 },
                 error: (error: any) => {
@@ -200,7 +197,7 @@ export class FilterBarComponent implements AfterViewInit {
 
     openAbsenceModal(user: any, event: Event): void {
         event.stopPropagation(); // Prevents the click event from bubbling up to the mat-list-option
-    
+
         const dialogRef = this.dialog.open(DelivererAbsenceModalComponent, {
           width: '400px',
           data: { 
@@ -208,12 +205,39 @@ export class FilterBarComponent implements AfterViewInit {
             declaredAbsences: user.declaredAbsences || [] // Ensure declaredAbsences is passed
           }
         });
-    
+
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             // Handle the new absence declaration
             console.log('New absence declared:', result);
           }
         });
+    }
+
+    // Add this method to select a user by default
+    private selectDefaultUser(): void {
+        const defaultUserId = Number(localStorage.getItem('id')); // Use the logged-in user's ID
+
+        // Check if the user is in usersWithoutTeams
+        const defaultUser = this.usersWithoutTeams.find(user => user.user_id === defaultUserId);
+
+        if (defaultUser) {
+            this.selectedNoTeamUsers.push(defaultUser);
+        } else {
+            // If the user is part of a team, find the team and select the user
+            for (const team of this.teams) {
+                const userInTeam = team.users.find((user: any) => user.user_id === defaultUserId);
+                if (userInTeam) {
+                    if (!this.selectedTeams[team.team_id]) {
+                        this.selectedTeams[team.team_id] = [];
+                    }
+                    this.selectedTeams[team.team_id].push(userInTeam);
+                    break;
+                }
+            }
+        }
+
+        // Emit the selected data
+        this.emitSelectedData();
     }
 }
