@@ -77,6 +77,9 @@ import { FilterBarComponent } from './schedule/FilterBar/filterBar.component';
 import { OrderBarComponent } from './schedule/OrderBar/orderBar.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EditVehiculeExpenseComponent } from './statistic/modals/edit-vehicule-expense/edit-vehicule-expense.component';
+import { ManagerTeamsComponent } from './manager/manager-teams/manager-teams.component';
+import { UpdateTeamsModalComponent } from './manager/update-teams-modal/update-teams-modal.component';
+import { CreateTeamsModalComponent } from './manager/create-teams-modal/create-teams-modal.component';
 import { DatePipe } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { AssignDelivererModal } from './schedule/OrderBar/assign-deliverer-modal/assign-deliverer-modal.component';
@@ -137,6 +140,9 @@ import { LockVehicleModalComponent } from './vehicule/modals/lock-vehicle/lock-v
         PropositionComponent,
         DelivererAbsenceModalComponent,
         EditVehiculeExpenseComponent,
+        ManagerTeamsComponent,
+        UpdateTeamsModalComponent,
+        CreateTeamsModalComponent,
         CreateOrderModalComponent,
         AssignDelivererModal
     ],
