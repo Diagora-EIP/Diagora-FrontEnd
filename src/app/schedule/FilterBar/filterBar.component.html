@@ -1,14 +1,13 @@
 <div *ngIf="checkPermission('manager')" class="filter-container">
     <h2 class="filter-section-heading">Filtres</h2>
     <div class="filter-components">
-        <!-- <app-loading-spinner *ngIf="isLoadingTeams" class="loading-spinner" >here</app-loading-spinner> -->
-        <!-- <div class="team-selectors" *ngIf="!isLoadingTeams"> -->
         <div class="team-selectors">
             <mat-accordion multi>
                 <mat-expansion-panel
                     *ngFor="let team of teams"
                     class="team-selector"
                     #teamPanel
+                    [id]="'team-panel-' + team.team_id"
                     [ngStyle]="{
                         'background-color': isTeamFullySelected(team)
                             ? team.color
@@ -48,15 +47,15 @@
                                     : 'transparent'
                             }"
                         >
-                        <div class="user-info">
-                            <mat-icon 
-                                class="signalization-icon" 
-                                (click)="openAbsenceModal(user, $event)"
-                            >
-                                error_outline
-                            </mat-icon>
-                            <span class="user-name">{{ user.name }}</span>
-                        </div>
+                            <div class="user-info">
+                                <mat-icon 
+                                    class="signalization-icon" 
+                                    (click)="openAbsenceModal(user, $event)"
+                                >
+                                    error_outline
+                                </mat-icon>
+                                <span class="user-name">{{ user.name }}</span>
+                            </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
@@ -74,17 +73,18 @@
                             'background-color': isUserSelected(null, user) ? user.color : 'transparent'
                         }"
                     >
-                    <div class="user-info">
-                        <mat-icon 
-                            class="signalization-icon" 
-                            (click)="openAbsenceModal(user, $event)"
-                        >
-                            error_outline
-                        </mat-icon>
-                        <span class="user-name">{{ user.name }}</span>
-                    </div>
+                        <div class="user-info">
+                            <mat-icon 
+                                class="signalization-icon" 
+                                (click)="openAbsenceModal(user, $event)"
+                            >
+                                error_outline
+                            </mat-icon>
+                            <span class="user-name">{{ user.name }}</span>
+                        </div>
                     </mat-list-option>
                 </mat-selection-list>
             </div>
         </div>
+    </div>
 </div>

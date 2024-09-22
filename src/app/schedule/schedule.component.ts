@@ -130,10 +130,10 @@ export class ScheduleComponent implements OnInit {
 
             this.ngZone.runOutsideAngular(() => {
                 this.loading = true;
-    
-                const startDateFormatted = new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
-            
-                const endDateFormatted = new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
 
                 this.scheduleService
                     .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
@@ -167,70 +167,6 @@ export class ScheduleComponent implements OnInit {
                         })
                     )
                     .subscribe();
-            });
-        });
-    }
-
-    async getScheduleByUser(): Promise<any[]> {
-        return new Promise(async (resolve, reject) => {
-
-            this.ngZone.runOutsideAngular(async () => {
-                this.loading = true;
-
-                const startDateFormatted = new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
-            
-                const endDateFormatted = new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
-
-                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
-                    await this.getManagerEntreprise();
-                }
-                console.log('currUser:', this.currUser);
-                const user_id = this.currUser.user_id;
-
-                if (user_id === undefined) {
-                    return;
-                }
-
-                this.customHeaderText = this.managerControl.value.name;
-                this.ngZone.runOutsideAngular(() => {
-                    this.scheduleService
-                        .getScheduleBetweenDatesByUser(
-                            startDateFormatted,
-                            endDateFormatted,
-                            user_id
-                        )
-                        .pipe(
-                            tap({
-                                next: (data: any) => {
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                    if (!data || data.length === 0) {
-                                        resolve([]);
-                                        return;
-                                    }
-                                    return resolve(data);
-
-                                },
-                                error: (err) => {
-                                    console.error('Error fetching schedule:', err);
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                    reject(err);
-                                },
-                                complete: () => {
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                }
-                            })
-                        )
-                        .subscribe();
-                });
             });
         });
     }
