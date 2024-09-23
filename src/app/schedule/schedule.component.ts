@@ -112,7 +112,7 @@ export class ScheduleComponent implements OnInit {
     };
 
     async ngOnInit(): Promise<void> {
-        if (this.checkPermission('manager')) {
+        if (this.checkPermission('manager') || this.checkPermission('team leader')) {
             await this.getManagerEntreprise();
         }
     }
@@ -183,7 +183,7 @@ export class ScheduleComponent implements OnInit {
                 const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
                     new Date('2025-12-31T23:59:59Z').toISOString();
 
-                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
+                if ((this.checkPermission('manager') || this.checkPermission('team leader')) && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
                 console.log('userId:', userId);
@@ -290,7 +290,7 @@ export class ScheduleComponent implements OnInit {
         const estimatedTime = extendedProps.estimatedTime;
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
-        const isManager = this.checkPermission('manager');
+        const isManager = this.checkPermission('manager') || this.checkPermission('team leader') ;
         let user: any = extendedProps.user;
 
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
@@ -462,7 +462,7 @@ export class ScheduleComponent implements OnInit {
 
     openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
-        const isManager = this.checkPermission('manager');
+        const isManager = this.checkPermission('manager') || this.checkPermission('team leader');
         const currentUser = isManager ? this.currUser : { user_id: this.permissionsService.getUserId(), name: "Moi" };
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
             data: { start, end, currUser: currentUser }

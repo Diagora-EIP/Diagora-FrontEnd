@@ -13,11 +13,11 @@
             <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
                 <a>Commandes</a>
             </li>
-            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/vehicule"
+            <li *ngIf="checkPermission('livreur') ||  (checkPermission('manager') || checkPermission('team leader'))" routerLink="/vehicule"
                 class="contentBox" routerLinkActive="active">
                 <a>Vehicules</a>
             </li>
-            <li *ngIf="checkPermission('livreur') ||  checkPermission('manager')" routerLink="/statistic"
+            <li *ngIf="checkPermission('livreur') ||  (checkPermission('manager') || checkPermission('team leader'))" routerLink="/statistic"
                 class="contentBox" routerLinkActive="active">
                 <a>Statistiques</a>
             </li>
@@ -25,7 +25,7 @@
                 <a>Carte</a>
             </li>
 
-            <li *ngIf="checkPermission('manager')" class="contentBox">
+            <li *ngIf="(checkPermission('manager') || checkPermission('team leader'))" class="contentBox">
                 <mat-menu #managerMenu="matMenu" [overlapTrigger]="false" (closed)="toggleMenu()">
                     <button mat-menu-item routerLink="manager/userList">Gestion Livreurs</button>
                     <button mat-menu-item routerLink="manager/gestion-client">Gestion clients</button>
@@ -42,7 +42,7 @@
             </li>
         </ul>
         <ul class="right-nav-links">
-            <button *ngIf="checkPermission('admin') ||  checkPermission('manager')" mat-button  routerLink="/notification"><mat-icon>notifications</mat-icon></button>
+            <button *ngIf="checkPermission('admin') ||  (checkPermission('manager') || checkPermission('team leader'))" mat-button  routerLink="/notification"><mat-icon>notifications</mat-icon></button>
             <li routerLink="/profile" class="profile-button" routerLinkActive="active">
                 <a matTooltip="Profile">
                     <mat-icon>account_circle</mat-icon>

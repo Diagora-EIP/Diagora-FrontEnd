@@ -172,7 +172,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
                 delivery_address,
                 client_id: client.client_id,
             };
-            if (this.checkPermission('manager')) {
+            if ((this.checkPermission('manager') || this.checkPermission('team leader'))) {
                 if (formData.livreur.name === 'Aucun') {
                     this.CommandsService.createOrderV2(formData.description, deliveryDateTime, formData.deliveryAddress, client.client_id).subscribe({
                         next: data => {

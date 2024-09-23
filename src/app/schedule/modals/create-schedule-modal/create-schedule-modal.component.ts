@@ -147,7 +147,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 delivery_address,
                 client_id: client.client_id,
             };
-            if (!this.checkPermission('manager')) {
+            if (!this.checkPermission('manager') || !this.checkPermission('team leader')) {
                 this.scheduleService.createSchedule(newSchedule).pipe(
                     tap({
                         next: data => {
