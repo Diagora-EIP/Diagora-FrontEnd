@@ -51,7 +51,6 @@ export class ScheduleComponent implements OnInit {
     events = [];
     private selectedUsersCache: { [userId: number]: any } = {};
     private currentEventsCache: any[] = [];
-    private removedEventsCache: any[] = [];
 
     constructor(
         private scheduleService: ScheduleService,
@@ -66,7 +65,6 @@ export class ScheduleComponent implements OnInit {
 
     calendarOptions: CalendarOptions = {
         initialView: 'timeGridWeek',
-        // locales: [{ code: 'fr' }],
         locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: true,
@@ -78,10 +76,8 @@ export class ScheduleComponent implements OnInit {
 
             let fetchEventsPromise: Promise<any>;
 
-            if (this.checkPermission('manager'))
-                return;
-            else
-                fetchEventsPromise = this.getSchedule();
+            // Always fetch events using getSchedule
+            fetchEventsPromise = this.getSchedule();
 
             fetchEventsPromise
                 .then(events => {
@@ -108,15 +104,15 @@ export class ScheduleComponent implements OnInit {
         },
         firstDay: 1,
         titleFormat: (dateInfo) => {
-            const timePadding = 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
-            const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding); // Add 15 days to the start date to get the month
-            const formattedStartDate = dayjs(startDateString).format('MMMM YYYY'); // Format using French locale
+            const timePadding = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+            const startDateString = new Date(dateInfo.start.marker.valueOf() + timePadding);
+            const formattedStartDate = dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
     };
 
     async ngOnInit(): Promise<void> {
-        if (this.checkPermission('manager')) {
+        if (this.checkPermission('manager') || this.checkPermission('team leader')) {
             await this.getManagerEntreprise();
         }
     }
@@ -134,10 +130,10 @@ export class ScheduleComponent implements OnInit {
 
             this.ngZone.runOutsideAngular(() => {
                 this.loading = true;
-    
-                const startDateFormatted = new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
-            
-                const endDateFormatted = new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                    new Date().toISOString();
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date().toISOString();
 
                 this.scheduleService
                     .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
@@ -175,81 +171,19 @@ export class ScheduleComponent implements OnInit {
         });
     }
 
-    async getScheduleByUser(): Promise<any[]> {
-        return new Promise(async (resolve, reject) => {
-
-            this.ngZone.runOutsideAngular(async () => {
-                this.loading = true;
-
-                const startDateFormatted = new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
-            
-                const endDateFormatted = new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
-
-                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
-                    await this.getManagerEntreprise();
-                }
-                console.log('currUser:', this.currUser);
-                const user_id = this.currUser.user_id;
-
-                if (user_id === undefined) {
-                    return;
-                }
-
-                this.customHeaderText = this.managerControl.value.name;
-                this.ngZone.runOutsideAngular(() => {
-                    this.scheduleService
-                        .getScheduleBetweenDatesByUser(
-                            startDateFormatted,
-                            endDateFormatted,
-                            user_id
-                        )
-                        .pipe(
-                            tap({
-                                next: (data: any) => {
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                    if (!data || data.length === 0) {
-                                        resolve([]);
-                                        return;
-                                    }
-                                    return resolve(data);
-
-                                },
-                                error: (err) => {
-                                    console.error('Error fetching schedule:', err);
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                    reject(err);
-                                },
-                                complete: () => {
-                                    this.ngZone.run(() => {
-                                        this.loading = false;
-                                        this.cdref.detectChanges();
-                                    });
-                                }
-                            })
-                        )
-                        .subscribe();
-                });
-            });
-        });
-    }
-
     async newgetScheduleByUser(userId: any): Promise<any[]> {
         return new Promise(async (resolve, reject) => {
 
             this.ngZone.runOutsideAngular(async () => {
-                this.loading = true;
+                // this.loading = true;
 
-                const startDateFormatted = new Date('2020-01-01T00:00:00Z').toISOString(); // Set start date to January 1, 2020
-            
-                const endDateFormatted = new Date('2025-12-31T23:59:59Z').toISOString(); // Set end date to December 31, 2024
-            
-                if (this.checkPermission('manager') && this.currUser.user_id === 0) {
+                const startDateFormatted = (this.currentStartDate?.setHours(0, 0, 0, 0) && this.currentStartDate.toISOString()) ||
+                    new Date('2020-01-01T00:00:00Z').toISOString();
+
+                const endDateFormatted = (this.currentEndDate?.setHours(23, 59, 59, 999) && this.currentEndDate.toISOString()) ||
+                    new Date('2025-12-31T23:59:59Z').toISOString();
+
+                if ((this.checkPermission('manager') || this.checkPermission('team leader')) && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
                 console.log('userId:', userId);
@@ -356,7 +290,7 @@ export class ScheduleComponent implements OnInit {
         const estimatedTime = extendedProps.estimatedTime;
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
-        const isManager = this.checkPermission('manager');
+        const isManager = this.checkPermission('manager') || this.checkPermission('team leader') ;
         let user: any = extendedProps.user;
 
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
@@ -374,21 +308,11 @@ export class ScheduleComponent implements OnInit {
             }
         });
 
-        let fetchEventsPromise: Promise<any>;
-
         dialogRef.afterClosed().subscribe(result => {
-            if (this.checkPermission('manager'))
-                fetchEventsPromise = this.getScheduleByUser();
-            else
-                fetchEventsPromise = this.getSchedule();
-
-
-            fetchEventsPromise.then(events => {
-                this.calendarOptions.events = events.map((event: any) =>
-                    this.mapScheduleToEvent(event)
-                );
+            // After creating or updating an event, refresh the calendar
+            if (result) {
                 this.fullcalendar.getApi().refetchEvents();
-            });
+            }
         });
     }
 
@@ -424,22 +348,19 @@ export class ScheduleComponent implements OnInit {
 
         if (unselectedUserIds.length > 0) {
             console.log('Unselected users:', unselectedUserIds);
-            // Remove from the current evens the users that were unselected
+            // Remove from the current events the users that were unselected
             const filteredEvents = this.currentEventsCache.filter(
                 event => !unselectedUserIds.includes(event.user.user_id.toString())
             );
-            this.calendarOptions.events = filteredEvents.map((event: any) =>
-                this.mapScheduleToEvent(event)
-            );
-            this.fullcalendar.getApi().refetchEvents();
+            this.currentEventsCache = filteredEvents;
         }
 
         // Update the cache with the current selection
         this.selectedUsersCache = { ...currentSelectedUsers };
 
         if (Object.keys(currentSelectedUsers).length === 0) {
-            this.calendarOptions.events = [];
-            this.fullcalendar.getApi().refetchEvents();
+            this.currentEventsCache = [];
+            this.fullcalendar.getApi().removeAllEvents();
             return;
         }
 
@@ -457,7 +378,7 @@ export class ScheduleComponent implements OnInit {
                 allEvents.forEach((event: any) => {
                     console.log(event);
                     const user_id = event.user.user_id;
-                    
+
                     // Default to the user's color
                     console.log('SelectedUsersCache:', this.selectedUsersCache);
                     try {
@@ -467,32 +388,36 @@ export class ScheduleComponent implements OnInit {
                         console.log('Error:', error);
                     }
                     let eventColor = this.selectedUsersCache[user_id].color;
-                
+
                     // Check if the user belongs to a selected team and override with the team color if applicable
                     console.log(selectedData)
                     if (selectedData.teams) {
                         for (const teamId in selectedData.teams) {
                             if (selectedData.teams.hasOwnProperty(teamId)) {
                                 const team = selectedData.teams[teamId] as { user_id: number, teamColor: string }[];
-        
+
                                 const userInTeam = team.find(user => user.user_id === user_id);
-        
+
                                 if (userInTeam) {
                                     eventColor = userInTeam.teamColor;
                                 }
                             }
                         }
                     }
-                
+
                     event.color = eventColor;
                 });
-                
 
-                this.calendarOptions.events = allEvents.map((event: any) =>
-                    this.mapScheduleToEvent(event)
-                );
-                this.fullcalendar.getApi().refetchEvents();
+                // Update the current events cache
                 this.currentEventsCache = allEvents;
+
+                // Update the calendar events
+                const mappedEvents = allEvents.map((event: any) => this.mapScheduleToEvent(event));
+                const calendarApi = this.fullcalendar.getApi();
+                calendarApi.removeAllEvents();
+                calendarApi.addEventSource(mappedEvents);
+
+                this.cdref.detectChanges();
 
             })
             .catch(error => {
@@ -503,15 +428,10 @@ export class ScheduleComponent implements OnInit {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    // this.userList = teamjson.users;
-                    // localStorage.setItem('entreprise', teamjson.name);
-                    // localStorage.setItem('addressEntreprise', teamjson.address);
-                    // localStorage.setItem('company_id', teamjson.company_id);
-                    // localStorage.setItem('users', JSON.stringify(teamjson.users));
                     this.currUser = {
                         name: localStorage.getItem('name') || "undefined",
                         user_id: Number(localStorage.getItem('id')) || 0
-                      };
+                    };
                     this.managerControl.setValue(this.currUser);
                     resolve();
                 },
@@ -534,7 +454,6 @@ export class ScheduleComponent implements OnInit {
         return this.permissionsService.hasPermission(permission);
     }
 
-    // Inside your ScheduleComponent class
     handleDateSelection(selectInfo: any) {
         const start = selectInfo.startStr;
         const end = selectInfo.endStr;
@@ -543,33 +462,20 @@ export class ScheduleComponent implements OnInit {
 
     openEventCreationForm(start: string, end: string) {
         // Open the modal for event creation
-        const isManager = this.checkPermission('manager');
+        const isManager = this.checkPermission('manager') || this.checkPermission('team leader');
         const currentUser = isManager ? this.currUser : { user_id: this.permissionsService.getUserId(), name: "Moi" };
         const dialogRef = this.dialog.open(CreateScheduleModalComponent, {
             data: { start, end, currUser: currentUser }
         });
 
-        let fetchEventsPromise: Promise<any>;
-
         dialogRef.afterClosed().subscribe(result => {
-            if (!result)
-                return;
-
-            if (this.checkPermission('manager'))
-                fetchEventsPromise = this.getScheduleByUser();
-            else
-                fetchEventsPromise = this.getSchedule();
-
-            fetchEventsPromise.then(events => {
-                this.calendarOptions.events = events.map((event: any) =>
-                    this.mapScheduleToEvent(event)
-                );
+            if (result) {
                 this.fullcalendar.getApi().refetchEvents();
-            });
+            }
         });
     }
 
-    //Proposition Modal
+    // Proposition Modal
     openPropositionModal() {
         const dialogRef = this.dialog.open(PropositionComponent, {
         });

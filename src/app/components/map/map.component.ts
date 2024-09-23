@@ -140,7 +140,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.map = null;
 
         const startDependingOnPermissions = () => {
-            if (this.checkPermission('manager') && this.userId !== undefined && this.userId !== 0) {
+            if ((this.checkPermission('manager') || this.checkPermission('team leader')) && this.userId !== undefined && this.userId !== 0) {
                 // this.fetchUserSchedules(); // debug
                 this.followUpService.init(this.userId, this.dateFormatted!);
             } else {

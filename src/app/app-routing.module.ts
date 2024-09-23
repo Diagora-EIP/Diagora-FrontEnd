@@ -41,7 +41,7 @@ const routes: Routes = [
             { path: 'notification', component: NotificationComponent}
         ],
         data: {
-            permission: ['user', 'admin']
+            permission: ['user', 'team leader', 'admin']
         }
     },
     {
@@ -50,7 +50,7 @@ const routes: Routes = [
             { path: 'statistic', component: StatisticComponent },
         ],
         data: {
-            permission: ['manager', 'livreur']
+            permission: ['manager', 'team leader', 'livreur']
         }
     },
     {

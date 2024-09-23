@@ -1,6 +1,6 @@
 <div class="page-container">
     <filter-bar
-        *ngIf="checkPermission('manager')"
+        *ngIf="(checkPermission('manager') || checkPermission('team leader'))"
         class="filter-container"
         (selectedDataChange)="handleSelectedDataChange($event)"
         (companyDataChange)="handleCompanyDataChange($event)"

@@ -48,7 +48,10 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             name: [data.name, Validators.required],
             surname: [data.surname, Validators.required],
             email: [data.email, Validators.required],
-            address: [data.address, Validators.required],
+            number: [data.address, [Validators.required]],
+            rue: ['', [Validators.required]],
+            ville: ['', [Validators.required]],
+            postalCode: ['', [Validators.required]],
         });
 
         this.getClients();
@@ -82,7 +85,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 name: formData.name,
                 surname: formData.surname,
                 email: formData.email,
-                address: formData.address,
+                address: formData.number + ' ' + formData.rue + ', ' + formData.postalCode + ', ' + formData.ville
             };
             const already = this.clientsList?.find((client: { email: string; }) => client.email === newClient.email);
             if (already) {
@@ -144,7 +147,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 delivery_address,
                 client_id: client.client_id,
             };
-            if (!this.checkPermission('manager')) {
+            if (!this.checkPermission('manager') || !this.checkPermission('team leader')) {
                 this.scheduleService.createSchedule(newSchedule).pipe(
                     tap({
                         next: data => {

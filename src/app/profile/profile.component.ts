@@ -18,6 +18,7 @@ export class ProfileComponent {
     entrepriseForm: FormGroup;
     manager: boolean = false;
     users_company: any = [];
+    selectedColor: string;
 
     constructor(
         private router: Router,
@@ -28,6 +29,7 @@ export class ProfileComponent {
         public permissionsService: PermissionsService,
         private snackBarService: SnackbarService
     ) {
+        this.selectedColor = localStorage.getItem('color') || '#000000';
         this.userInformationFrom = this.fb.group({
             email: [
                 localStorage.getItem('email'),
@@ -39,13 +41,36 @@ export class ProfileComponent {
             password: ['', [Validators.required]],
             passwordConfirm: ['', [Validators.required]],
         });
-        this.entrepriseForm = this.fb.group({
-            name: [localStorage.getItem('entreprise'), [Validators.required]],
-            address: [
-                localStorage.getItem('addressEntreprise'),
-                [Validators.required],
-            ],
-        });
+        let addressEntreprise = localStorage.getItem('addressEntreprise');
+        if (addressEntreprise) {
+            console.log(addressEntreprise); 
+            const parts = addressEntreprise.split(/,?\s+/);
+
+            // Extract the country
+            const country = parts.slice(-1)[0];
+            const cityParts = parts.slice(-3, -2)[0].split(' ');
+
+            // Extract the postal code, city, and the street
+            const postalCode = cityParts[0];
+            const ville = cityParts.slice(1).join(' ');
+            const number = parts[0];
+            const rue = parts.slice(1, -3).join(' ');
+            this.entrepriseForm = this.fb.group({
+                name: [localStorage.getItem('entreprise'), [Validators.required]],
+                number: [number, [Validators.required]],
+                rue: [rue, [Validators.required]],
+                ville: [ville, [Validators.required]],
+                postalCode: [postalCode, [Validators.required]],
+            });
+        } else {
+            this.entrepriseForm = this.fb.group({
+                name: [localStorage.getItem('entreprise'), [Validators.required]],
+                number: ['', [Validators.required]],
+                rue: ['', [Validators.required]],
+                ville: ['', [Validators.required]],
+                postalCode: ['', [Validators.required]],
+            });
+        }
         this.getRoles();
     }
 
@@ -111,20 +136,23 @@ export class ProfileComponent {
                 }
             );
     }
-
-    logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        localStorage.removeItem('email');
-        localStorage.removeItem('remember');
-        localStorage.removeItem('name');
-        localStorage.removeItem('entreprise');
-        localStorage.removeItem('addressEntreprise');
-        localStorage.removeItem('users');
-        localStorage.removeItem('addressId');
-        localStorage.removeItem('entrepriseId');
-        this.permissionsService.deleteUserPermissions();
-        this.router.navigate(['/login']);
-        this.snackBarService.successSnackBar('Vous avez été déconnecté avec succès');
+    updateColor() {
+        localStorage.setItem('color', this.selectedColor);
     }
+
+    // logout() {
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('id');
+    //     localStorage.removeItem('email');
+    //     localStorage.removeItem('remember');
+    //     localStorage.removeItem('name');
+    //     localStorage.removeItem('entreprise');
+    //     localStorage.removeItem('addressEntreprise');
+    //     localStorage.removeItem('users');
+    //     localStorage.removeItem('addressId');
+    //     localStorage.removeItem('entrepriseId');
+    //     this.permissionsService.deleteUserPermissions();
+    //     this.router.navigate(['/login']);
+    //     this.snackBarService.successSnackBar('Vous avez été déconnecté avec succès');
+    // }
 }
