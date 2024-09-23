@@ -15,7 +15,10 @@ export class CompanyUpdateModalComponent {
     original_company_name: string = ''
     original_company_address: string = ''
     company_name: string = ''
-    company_address: string = ''
+    number: string = ''
+    rue: string = ''
+    ville: string = ''
+    codePostal: string = ''
     company_id: number = 0
     updateCompanySubscription: Subscription | undefined;
 
@@ -29,7 +32,12 @@ export class CompanyUpdateModalComponent {
         this.company_name = data.company.company_name
         this.company_id = data.company.company_id
         this.original_company_address = data.company.company_address
-        this.company_address = data.company.company_address
+        console.log(data.company.company_address)
+        const address = data.company.company_address.split(', ')
+        this.number = address[0].split(' ')[0]
+        this.rue = address[0].split(' ').slice(1).join(' ')
+        this.codePostal = address[1].split(' ')[0]
+        this.ville = address[1].split(' ').slice(1).join(' ')
     }
 
 
@@ -39,9 +47,10 @@ export class CompanyUpdateModalComponent {
     }
 
     dataCheck() {
+        const address = `${this.number} ${this.rue}, ${this.codePostal}, ${this.ville}`;
         if (this.company_name.length == 0)
             return false
-        if (this.company_address.length == 0)
+        if (address.length == 0)
             return false
         return true
     }
@@ -50,11 +59,13 @@ export class CompanyUpdateModalComponent {
         if (this.dataCheck() == false) {
             return
         }
-        if (this.company_name == this.original_company_name && this.company_address == this.original_company_address) {
+        const address = `${this.number} ${this.rue}, ${this.codePostal}, ${this.ville}`;
+
+        if (this.company_name == this.original_company_name && address == this.original_company_address) {
             this.dialogRef.close();
             return
         }
-        this.updateCompanySubscription = this.adminService.updateCompany(this.company_name.trim(), this.company_id, this.company_address.trim())
+        this.updateCompanySubscription = this.adminService.updateCompany(this.company_name.trim(), this.company_id, address.trim())
             .pipe(
                 tap({
                     error: (err) => {

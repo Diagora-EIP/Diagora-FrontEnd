@@ -17,9 +17,42 @@
             </div>
             <div ngClass="container-input-modals">
                 <mat-form-field ngClass="content-input-modals">
-                    <mat-label ngClass="title-input-modals">Adresse de l'entreprise</mat-label>
+                    <mat-label ngClass="title-input-modals">Numero de rue</mat-label>
                     <input matInput ngClass="input-modals"
-                        placeholder="Ex. 3 Rue Pierre, Montpellier, 34000, France" [(ngModel)]="address" name="address"
+                        placeholder="Ex. 3" [(ngModel)]="number" name="address"
+                        [required]="true">
+                </mat-form-field>
+                <p ngClass="error-message-input-modals" *ngIf="addressErrorMessage !== ''">
+                    *{{addressErrorMessage}}
+                </p>
+            </div>
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Nom de la rue</mat-label>
+                    <input matInput ngClass="input-modals"
+                        placeholder="Ex. place paul bec" [(ngModel)]="rue" name="address"
+                        [required]="true">
+                </mat-form-field>
+                <p ngClass="error-message-input-modals" *ngIf="addressErrorMessage !== ''">
+                    *{{addressErrorMessage}}
+                </p>
+            </div>
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Ville</mat-label>
+                    <input matInput ngClass="input-modals"
+                        placeholder="Ex. Montpellier" [(ngModel)]="ville" name="address"
+                        [required]="true">
+                </mat-form-field>
+                <p ngClass="error-message-input-modals" *ngIf="addressErrorMessage !== ''">
+                    *{{addressErrorMessage}}
+                </p>
+            </div>
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Code postal</mat-label>
+                    <input matInput ngClass="input-modals"
+                        placeholder="Ex. 34000" [(ngModel)]="codePostal" name="address"
                         [required]="true">
                 </mat-form-field>
                 <p ngClass="error-message-input-modals" *ngIf="addressErrorMessage !== ''">

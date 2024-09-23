@@ -43,10 +43,9 @@
             </div>
             <button mat-raised-button type="submit" [disabled]="formPassword.invalid" class="button-form">Modifier votre mot-de-passe</button>
         </form>
-        <button mat-raised-button (click)="logout()" class="logoutButton">Déconnection</button>
     </div>
     <div class="EntrepriseInformation">
-        <form [formGroup]="entrepriseForm" (ngSubmit)="updateEntreprise()" *ngIf="manager">
+        <form [formGroup]="entrepriseForm" (ngSubmit)="updateEntreprise()" >
             <div class="inputContainer-form-profil">
                 <mat-form-field class="example-full-width">
                     <mat-label>Nom de l'entreprise</mat-label>
@@ -56,37 +55,54 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="inputContainer-form-profil">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Adresse de l'entreprise</mat-label>
-                    <input type="text" matInput formControlName="address" placeholder="Ex. 1 rue de la paix">
-                    <mat-error *ngIf="entrepriseForm.get('address')?.hasError('required')">
-                        Adresse is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <button mat-raised-button type="submit"  class="button-form">Mettre à jour les informations de l'entreprise</button>
-        </form>
-    </div>
-    <div class="UserDiv" *ngIf="!manager; else other">
-        <div class="background-login"></div>
-    </div>
-
-    <ng-template #other>
-        <div class="managerDiv">
-            <h2>Employés de l'entreprise</h2>
-            <div class="userListContent">
-                <div class="titleItemList">
-                    <p>Nom</p>
-                    <p>Email</p>
+            <div class="twoInColumn">
+                <div class="inputContainer-form-profil">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Numero de la rue</mat-label>
+                        <input type="text" matInput formControlName="number" placeholder="Ex. 1 rue de la paix">
+                        <mat-error *ngIf="entrepriseForm.get('number')?.hasError('required')">
+                            Le numero de la rue est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="line"></div>
-                <li *ngFor="let user of users_company" class="userListItem">
-                    <p>{{user.name}}</p>
-                    <p>{{user.email}}</p>
-                </li>
+                <div class="inputContainer-form-profil">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Nom de la rue</mat-label>
+                        <input type="text" matInput formControlName="rue" placeholder="Ex. 1 rue de la paix">
+                        <mat-error *ngIf="entrepriseForm.get('rue')?.hasError('required')">
+                            Le nom de la rue est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
-            <button mat-raised-button class="button-form" routerLink="/manager/userList">Manager panel</button>
+            <div class="twoInColumn">
+                <div class="inputContainer-form-profil">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Ville</mat-label>
+                        <input type="text" matInput formControlName="ville" placeholder="Ex. 1 rue de la paix">
+                        <mat-error *ngIf="entrepriseForm.get('ville')?.hasError('required')">
+                            La ville est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer-form-profil">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Code postal</mat-label>
+                        <input type="text" matInput formControlName="postalCode" placeholder="Ex. 1 rue de la paix">
+                        <mat-error *ngIf="entrepriseForm.get('postalCode')?.hasError('required')">
+                            Le code postal est <strong>obligatoire</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button *ngIf="manager" mat-raised-button type="submit"  class="button-form">Mettre à jour les informations de l'entreprise</button>
+        </form>
+        <div class="contentSelectColor">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a color</mat-label>
+                <input matInput type="color" [(ngModel)]="selectedColor">
+            </mat-form-field>
+            <button (click)="updateColor()" mat-raised-button class="button-form">Mettre a jour votre couleur</button>
         </div>
-    </ng-template>
-</div>
+    </div>
+    </div>

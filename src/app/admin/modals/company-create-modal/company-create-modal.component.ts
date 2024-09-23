@@ -14,7 +14,10 @@ export class CompanyCreateModalComponent {
     nameErrorMessage: string = '';
     addressErrorMessage: string = '';
     name: string = ''
-    address: string = ''
+    number: string = ''
+    rue: string = ''
+    ville: string = ''
+    codePostal: string = ''
     createCompanySubscription: Subscription | undefined;
 
     constructor(
@@ -30,11 +33,12 @@ export class CompanyCreateModalComponent {
     }
 
     dataCheck() {
+        const address = `${this.number} ${this.rue}, ${this.codePostal}, ${this.ville}`;
         if (this.name.length == 0) {
             this.nameErrorMessage = 'Le nom ne peux être vide';
             return false
         }
-        if (this.address.length == 0) {
+        if (address.length == 0) {
             this.addressErrorMessage = 'L\'adresse ne peux être vide';
             return false
         }
@@ -47,7 +51,8 @@ export class CompanyCreateModalComponent {
         if (this.dataCheck() == false) {
             return
         }
-        this.createCompanySubscription = this.adminService.createCompany(this.name, this.address)
+        const address = `${this.number} ${this.rue}, ${this.codePostal}, ${this.ville}`;
+        this.createCompanySubscription = this.adminService.createCompany(this.name, address)
             .pipe(
                 tap({
                     error: (err) => {
