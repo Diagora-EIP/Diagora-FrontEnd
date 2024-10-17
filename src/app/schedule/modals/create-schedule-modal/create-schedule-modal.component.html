@@ -5,7 +5,8 @@
     </div>
 
     <div ngClass="content-space-around-modals-custom">
-        <form [formGroup]="scheduleForm" [ngClass]="{'expanded-form': !displayNewClient, 'collapsed-form': displayNewClient}">
+        <form [formGroup]="scheduleForm"
+            [ngClass]="{'expanded-form': !displayNewClient, 'collapsed-form': displayNewClient}">
             <!-- Date picker -->
             <div ngClass="container-input-modals">
                 <mat-form-field ngClass="content-input-modals">
@@ -25,7 +26,8 @@
             <div ngClass="container-input-modals">
                 <mat-form-field ngClass="content-input-modals">
                     <mat-label ngClass="title-input-modals">Description :</mat-label>
-                    <input matInput placeholder="Description" formControlName="description" required #descriptionInput autofocus>
+                    <input matInput placeholder="Description" formControlName="description" required #descriptionInput
+                        autofocus>
                 </mat-form-field>
             </div>
             <div ngClass="container-input-modals">
@@ -35,7 +37,6 @@
                         <mat-option *ngFor="let client of clientsList" [value]="client" (click)="updateAdress(client)">
                             <div class="clientSelct">
                                 <h3>{{client.email}}</h3>
-                                <p>{{client.address}}</p>
                             </div>
                         </mat-option>
                     </mat-select>
@@ -47,7 +48,7 @@
                     <textarea matInput formControlName="deliveryAddress" required></textarea>
                 </mat-form-field>
             </div>
-            <button  (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
+            <button (click)="displayNewClient = !displayNewClient" class="AddClientButton">Ajouter un client</button>
         </form>
         <form [formGroup]="newClientForm" *ngIf="displayNewClient">
             <fieldset>
@@ -99,11 +100,14 @@
                     <p>Voulez-vous tout de meme l'ajouter ?</p>
                     <div>
                         <button (click)="createClient()" class="addOrDelete">Oui</button>
-                        <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists" class="addOrDelete">Non</button>
+                        <button (click)="displayClientAlreadyExists = !displayClientAlreadyExists"
+                            class="addOrDelete">Non</button>
                     </div>
                 </div>
-                <button mat-button color="primary" (click)="addNewClient()" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Ajouter</button>
-                <button mat-button color="warn" (click)="displayNewClient = !displayNewClient" class="addOrDelete" *ngIf="!displayClientAlreadyExists">Annuler</button>
+                <button mat-button color="primary" (click)="addNewClient()" class="addOrDelete"
+                    *ngIf="!displayClientAlreadyExists">Ajouter</button>
+                <button mat-button color="warn" (click)="displayNewClient = !displayNewClient" class="addOrDelete"
+                    *ngIf="!displayClientAlreadyExists">Annuler</button>
             </fieldset>
         </form>
         <!-- Display error message -->
@@ -112,8 +116,10 @@
         </div>
         <div ngClass="container-button-modals">
             <button ngClass="button-modals" mat-raised-button (click)="visualizeDay()">Visualiser</button>
-            <button ngClass="cancel button-modals" mat-raised-button color="warn" (click)="closeDialog(null)">Fermer</button>
-            <button ngClass="validate button-modals" mat-raised-button color="primary" (click)="submitForm()">Ajouter</button>
+            <button ngClass="cancel button-modals" mat-raised-button color="warn"
+                (click)="closeDialog(null)">Fermer</button>
+            <button ngClass="validate button-modals" mat-raised-button color="primary"
+                (click)="submitForm()">Ajouter</button>
         </div>
     </div>
 </div>

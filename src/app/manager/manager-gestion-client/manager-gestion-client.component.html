@@ -25,8 +25,8 @@
                             <td ngClass="data-tab-userList" mat-cell *matCellDef="let data">
                                 {{data.address}} </td>
                         </ng-container>
-                        <ng-container *ngIf="(checkPermission('manager') || checkPermission('team leader'))" class="content-tab-userList"
-                            matColumnDef="action">
+                        <ng-container *ngIf="(checkPermission('manager') || checkPermission('team leader'))"
+                            class="content-tab-userList" matColumnDef="action">
                             <th ngClass="header-tab-userList" mat-header-cell *matHeaderCellDef> Action </th>
                             <td class="data-tab-userList" mat-cell *matCellDef="let data">
                                 <div class="company-container">
@@ -53,7 +53,7 @@
     </div>
     <div *ngIf="(checkPermission('manager') || checkPermission('team leader'))" class="buttonContainer">
         <button class="buttonADD" mat-fab extended (click)="openModal('ADD')">
-            Ajouter une commande
+            Ajouter un client
             <mat-icon>playlist_add</mat-icon>
         </button>
     </div>

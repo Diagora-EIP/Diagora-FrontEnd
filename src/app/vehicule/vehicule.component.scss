@@ -260,7 +260,8 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 auto
+    margin: 0 auto;
+    max-width: 12ch;
 }
 .sidebar-askPicture-icon-tab-vehicleList {
     color: #00D26A;
