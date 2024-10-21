@@ -1,6 +1,18 @@
 /* create-schedule-modal.component.scss */
 @import "../../../../modals.scss";
 
+
+.title-modals {
+    font-size: 3vw;
+    font-weight: bold;
+    margin: 30px;
+    margin-bottom: 50px;
+    color: $font-color;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
 .expanded-form {
     flex-grow: 1; /* Le premier formulaire prend tout l'espace disponible */
     flex-basis: inherit; /* Taille normale du premier formulaire */
@@ -13,8 +25,10 @@
 
 .content-space-around-modals-custom {
     display: flex;
-    width: 80%;
+    // width: 100%;
+    padding: 15px;
     gap: 30px;
+    height: 100%;
     justify-content: space-around;
     margin-bottom: 30px;
     flex-direction: row;
