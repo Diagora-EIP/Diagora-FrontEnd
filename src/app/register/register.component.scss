@@ -4,6 +4,7 @@
     display: flex;
     width: 100%;
     height: 100%;
+    flex-wrap: wrap;
 }
 
 .container-form-login {
@@ -35,6 +36,7 @@
     background-size: cover;
     background-position: center;
 }
+
 .inputContainer-form-login {
     display: grid;
     width: 100%;
@@ -56,19 +58,42 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.popUp {
-    position: absolute;
-    top: 0;
-    left: calc(50% - 100px);
-    width: 200px;
-    height: 100px;
-    background: #ffffff;
-    border: 5px solid #01ABA8;
-    border-radius: 10px;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    text-align: center;
+/* Ajustements pour les petits écrans */
+@media screen and (max-width: 768px) {
+    .contentPage {
+        flex-direction: column;
+    }
+
+    .container-form-login {
+        gap: 15px;
+    }
+
+    .numberAdresse {
+        grid-template-columns: 1fr;
+    }
+
+    .popUp {
+        left: calc(50% - 90px);
+        width: 180px;
+    }
+}
+
+/* Ajustements pour les très petits écrans (mobiles) */
+@media screen and (max-width: 480px) {
+    .contentPage {
+        padding: 10px;
+    }
+
+    .contentRegister {
+        padding: 10px;
+    }
+
+    .button-form-login {
+        font-size: smaller !important;
+    }
+
+    .popUp {
+        left: calc(50% - 80px);
+        width: 160px;
+    }
 }
