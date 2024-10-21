@@ -44,19 +44,18 @@ export class ProfileComponent {
         let addressEntreprise = localStorage.getItem('addressEntreprise');
         if (addressEntreprise) {
             console.log(addressEntreprise); 
-            const parts = addressEntreprise.split(/,?\s+/);
+            const parts = addressEntreprise.split(',');
 
-            // Extract the country
-            const country = parts.slice(-1)[0];
-            const cityParts = parts.slice(-3, -2)[0].split(' ');
+            const [streetPart, postalCodePart, cityPart] = parts.map(part => part.trim());
 
-            // Extract the postal code, city, and the street
-            const postalCode = cityParts[0];
-            const ville = cityParts.slice(1).join(' ');
-            const number = parts[0];
-            const rue = parts.slice(1, -3).join(' ');
+            const streetParts = streetPart.split(' ');
+            const number = streetParts[0]; 
+            const rue = streetParts.slice(1).join(' ');
+
+            const postalCode = postalCodePart.trim();
+            const ville = cityPart.trim();
             this.entrepriseForm = this.fb.group({
-                name: [localStorage.getItem('entreprise'), [Validators.required]],
+                name: [localStorage.getItem('nameEntreprise'), [Validators.required]],
                 number: [number, [Validators.required]],
                 rue: [rue, [Validators.required]],
                 ville: [ville, [Validators.required]],
@@ -64,7 +63,7 @@ export class ProfileComponent {
             });
         } else {
             this.entrepriseForm = this.fb.group({
-                name: [localStorage.getItem('entreprise'), [Validators.required]],
+                name: [localStorage.getItem('nameEntreprise'), [Validators.required]],
                 number: ['', [Validators.required]],
                 rue: ['', [Validators.required]],
                 ville: ['', [Validators.required]],
