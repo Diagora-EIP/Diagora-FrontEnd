@@ -185,6 +185,8 @@ export class FilterBarComponent implements AfterViewInit {
                     console.log("getCompanyData() response:", response);
                     this.companyData = response;
                     this.filteredUsers = this.companyData.users || [];
+                    localStorage.setItem('addressEntreprise', this.companyData.address);
+                    localStorage.setItem('nameEntreprise', this.companyData.name);
                     resolve();
                 },
                 error: (error: any) => {
