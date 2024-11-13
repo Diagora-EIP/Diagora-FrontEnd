@@ -64,18 +64,16 @@ export class CreateTeamsModalComponent {
     }
   }
   close(): void {
-    this.dialogRef.close();
+    console.log("close", this.team)
+    this.dialogRef.close(this.team);
     this.teamsUpdateSubscription?.unsubscribe();
   }
 
   addUser() {
-    console.log(this.myControl.value)
     const selectedUser = this.entrepriseUsers.find((user: any) => user.name === this.myControl.value)
-    console.log('selectedUser', selectedUser)
     if (selectedUser) {
       this.team.users.push(selectedUser);
       this.dataSource.data = [...this.team.users];  // Update the data source
-      console.log('team', this.team);
     }
   }
 
@@ -90,11 +88,16 @@ export class CreateTeamsModalComponent {
     const body = {
       name: this.name,
     }
+
+    this.team.name = this.name
+
     this.team.users.forEach((user: any) => {
       this.teamsService.createUserTeamLink(this.team.team_id, user.user_id).subscribe((data: any) => {
       });
     })
     this.teamsUpdateSubscription = this.teamsService.createTeam(body).subscribe((data: any) => {
+      this.team = data
+      this.team.users = []
       this.close();
       // location.reload();
     });

@@ -128,7 +128,8 @@ export class ProfileComponent {
                     console.log(res);
                     localStorage.setItem('entreprise', res.name);
                     localStorage.setItem('addressEntreprise', res.address);
-                    window.location.reload();
+                    this.snackBarService.successSnackBar('Vos informations ont été mis à jour avec succès');
+                    // window.location.reload();
                 },
                 (err) => {
                     console.log(err);
