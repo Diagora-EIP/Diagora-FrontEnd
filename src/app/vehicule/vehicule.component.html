@@ -16,7 +16,8 @@
                         enregistré dans
                         votre
                         entreprise.</div>
-                    <div *ngIf="!allVehicles.length && !isManager && !loading" class="default-message">Aucun véhicule ne
+                    <div *ngIf="allVehicles.length === 0 && !isManager && !loading" class="default-message">Aucun
+                        véhicule ne
                         vous est
                         assigné.</div>
 
