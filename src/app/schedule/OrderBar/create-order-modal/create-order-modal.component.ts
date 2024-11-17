@@ -92,7 +92,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
                 next: (response: any) => {
                     console.log("getCompanyData() response:", response);
                     this.livreurList = response.users || [];
-                    this.livreurList.unshift({ user_id: null, name: "Aucun" });
+                    // this.livreurList.unshift({ user_id: null, name: "Aucun" });
                     resolve();
                 },
                 error: (error: any) => {

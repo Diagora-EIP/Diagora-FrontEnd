@@ -10,9 +10,9 @@
             <li *ngIf="checkPermission('user')" routerLink="/schedule" class="contentBox" routerLinkActive="active">
                 <a>Calendrier</a>
             </li>
-            <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
+            <!-- <li *ngIf="checkPermission('user')" routerLink="/commands" class="contentBox" routerLinkActive="active">
                 <a>Commandes</a>
-            </li>
+            </li> -->
             <li *ngIf="checkPermission('livreur') ||  (checkPermission('manager') || checkPermission('team leader'))" routerLink="/vehicule"
                 class="contentBox" routerLinkActive="active">
                 <a>Vehicules</a>

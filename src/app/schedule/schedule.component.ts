@@ -67,7 +67,9 @@ export class ScheduleComponent implements OnInit {
         initialView: 'timeGridWeek',
         locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
-        editable: true,
+        editable: false,
+        // eventStartEditable: false,
+        // eventDurationEditable: false,
         selectable: true,
         select: this.handleDateSelection.bind(this),
         events: (info, successCallback, failureCallback) => {
@@ -273,6 +275,7 @@ export class ScheduleComponent implements OnInit {
 
         const extendedProps = info.event.extendedProps;
         const start = info.event.start.toISOString();
+        console.log(start);
         const description = info.event.title
         const scheduleId = extendedProps.scheduleId.toString();
         const order = {
