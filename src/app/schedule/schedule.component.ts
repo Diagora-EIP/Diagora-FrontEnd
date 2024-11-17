@@ -342,7 +342,7 @@ export class ScheduleComponent implements OnInit {
             currentSelectedUsers[user.user_id] = user;
         });
 
-        console.log("CurrentSelectedUsers", currentSelectedUsers)
+        // console.log("CurrentSelectedUsers", currentSelectedUsers)
 
         // Identify users that were previously selected but are no longer selected
         const unselectedUserIds = Object.keys(this.selectedUsersCache).filter(
@@ -350,7 +350,7 @@ export class ScheduleComponent implements OnInit {
         );
 
         if (unselectedUserIds.length > 0) {
-            console.log('Unselected users:', unselectedUserIds);
+            // console.log('Unselected users:', unselectedUserIds);
             // Remove from the current events the users that were unselected
             const filteredEvents = this.currentEventsCache.filter(
                 event => !unselectedUserIds.includes(event.user.user_id.toString())
@@ -383,10 +383,10 @@ export class ScheduleComponent implements OnInit {
                     const user_id = event.user.user_id;
 
                     // Default to the user's color
-                    console.log('SelectedUsersCache:', this.selectedUsersCache);
+                    // console.log('SelectedUsersCache:', this.selectedUsersCache);
                     try {
-                        console.log('User_id:', user_id);
-                        console.log('SelectedUsersCache:', this.selectedUsersCache[user_id]);
+                        // console.log('User_id:', user_id);
+                        // console.log('SelectedUsersCache:', this.selectedUsersCache[user_id]);
                     } catch (error) {
                         console.log('Error:', error);
                     }

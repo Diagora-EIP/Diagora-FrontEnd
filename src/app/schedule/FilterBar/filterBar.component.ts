@@ -19,6 +19,8 @@ export class FilterBarComponent implements AfterViewInit {
     companyData: any = {};
     usersWithoutTeams: any[] = [];
     selectedTeams: { [key: number]: any[] } = {};
+    selectedUsers: { [teamId: string]: any[] } = {};
+    teamUsersCache: { [teamId: number]: any[] } = {};
 
     @ViewChildren('teamPanel') teamPanels!: QueryList<MatExpansionPanel>;
     @Output() selectedDataChange: EventEmitter<{ teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }> = new EventEmitter<{ teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }>();
@@ -69,25 +71,36 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     getUsersForTeam(userIds: any[], team: any): any[] {
-        if (!userIds || userIds.length === 0)
-            return [];
-
+        if (!userIds || userIds.length === 0) return [];
+      
+        const teamKey = team.team_id;
         const teamColor = team.color;
+      
+        // If already cached, return the cached value
+        if (this.teamUsersCache[teamKey]) {
+          return this.teamUsersCache[teamKey];
+        }
+      
         const userIdsArray = userIds.map(user => user.user_id);
-
-        // Filter the users based on user IDs and add the teamColor property
-        const filteredUsers = this.filteredUsers
-            .filter(user => userIdsArray.includes(user.user_id))
-            .map(user => ({
-                ...user,         // Spread the original user properties
-                teamColor       // Add the teamColor property
-            }));
-
-        return filteredUsers;
-    }
+        this.teamUsersCache[teamKey] = this.filteredUsers
+          .filter(user => userIdsArray.includes(user.user_id))
+          .map(user => ({
+            email: user.email,
+            name: user.name,
+            user_id: user.user_id,
+            color: teamColor,
+          }));
+      
+        return this.teamUsersCache[teamKey];
+      }
 
     checkPermission(permission: string): boolean {
         return true;
+    }
+
+    compareUsers(user1: any, user2: any): boolean {
+        console.log('Comparing users:', user1, user2);
+        return user1 && user2 && user1.user_id === user2.user_id;
     }
 
     getScheduleByUser() {
@@ -114,6 +127,7 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     onUserSelectionChange(): void {
+        console.log("onUserSelectionChange")
         this.emitSelectedData()
     }
 
