@@ -80,10 +80,11 @@ export class ScheduleComponent implements OnInit {
             fetchEventsPromise = this.getSchedule();
 
             fetchEventsPromise
-                .then(events => {
+            .then(events => {
                     const mappedEvents = events.map((event: any) => {
                         return this.mapScheduleToEvent(event)
                     });
+                    console.log('Events: ', mappedEvents);
                     successCallback(mappedEvents);
                 })
                 .catch(error => {
@@ -186,12 +187,10 @@ export class ScheduleComponent implements OnInit {
                 if ((this.checkPermission('manager') || this.checkPermission('team leader')) && this.currUser.user_id === 0) {
                     await this.getManagerEntreprise();
                 }
-                console.log('userId:', userId);
+                // console.log('userId:', userId);
                 const user_id = userId;
 
-                if (user_id === undefined) {
-                    return;
-                }
+                if (user_id === undefined) { return }
 
                 this.customHeaderText = this.managerControl.value.name;
                 this.ngZone.runOutsideAngular(() => {
@@ -239,7 +238,7 @@ export class ScheduleComponent implements OnInit {
 
     // Helper function to map schedule data to CalendarEvent
     private mapScheduleToEvent(schedule: any): EventInput {
-        console.log("Le S:", schedule.client_id);
+        // console.log("Le S:", schedule.client_id);
         
         return {
             title: schedule.order?.description,
@@ -275,9 +274,9 @@ export class ScheduleComponent implements OnInit {
     handleEventClick(info: any) {
 
         const extendedProps = info.event.extendedProps;
-        console.log("Props: ", extendedProps);
+        // console.log("Props: ", extendedProps);
         const start = info.event.start.toISOString();
-        console.log(start);
+        // console.log(start);
         const description = info.event.title
         const scheduleId = extendedProps.scheduleId.toString();
         const order = {
@@ -325,7 +324,7 @@ export class ScheduleComponent implements OnInit {
 
     handleCompanyDataChange(companyData: any): void {
         // Handle company data
-        console.log('Company data:', companyData);
+        // console.log('Company data:', companyData);
     }
 
     handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): void {
@@ -379,11 +378,11 @@ export class ScheduleComponent implements OnInit {
         // Handle the fetched events
         Promise.all(fetchEventsPromises)
             .then(eventsArrays => {
-                console.log(eventsArrays);
+                // console.log(eventsArrays);
                 const allEvents = eventsArrays.flat();
 
                 allEvents.forEach((event: any) => {
-                    console.log(event);
+                    // console.log(event);
                     const user_id = event.user.user_id;
 
                     // Default to the user's color
@@ -397,7 +396,7 @@ export class ScheduleComponent implements OnInit {
                     let eventColor = this.selectedUsersCache[user_id].color;
 
                     // Check if the user belongs to a selected team and override with the team color if applicable
-                    console.log(selectedData)
+                    // console.log(selectedData)
                     if (selectedData.teams) {
                         for (const teamId in selectedData.teams) {
                             if (selectedData.teams.hasOwnProperty(teamId)) {
@@ -462,7 +461,6 @@ export class ScheduleComponent implements OnInit {
     }
 
     handleDateSelection(selectInfo: any) {
-        console.log(selectInfo);
         const start = selectInfo.dateStr;
         const end = selectInfo.dateStr;
         this.openEventCreationForm(start, end);

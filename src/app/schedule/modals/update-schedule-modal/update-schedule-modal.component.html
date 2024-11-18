@@ -19,6 +19,13 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
+
+            <div ngClass="container-input-modals">
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Heure de livraison :</mat-label>
+                    <input matInput type="time" formControlName="deliveryTime" required>
+                </mat-form-field>
+            </div>
             <!-- Date picker for delivery date -->
 
             <!-- Display order details (non-editable) -->

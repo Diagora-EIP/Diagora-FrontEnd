@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleService } from '../../../services/schedule.service';
 import { ClientService } from '../../../services/client.service';
+import { OrderService } from '../../../services/orders.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -36,6 +37,7 @@ export class UpdateScheduleModalComponent {
         private fb: FormBuilder,
         private scheduleService: ScheduleService,
         private clientService: ClientService,
+        private orderService: OrderService,
         private router: Router,
         private snackBarService: SnackbarService
     ) {
@@ -63,6 +65,7 @@ export class UpdateScheduleModalComponent {
         this.clientId = parseInt(data.clientId);
         this.updateForm = this.fb.group({
             deliveryDate: [new Date(this.start), Validators.required],
+            deliveryTime: [this.getStartHour(this.start), Validators.required],
             deliveryAddress: [this.order.deliveryAddress, Validators.required],
             // Add other form controls based on your data structure
         });
@@ -77,6 +80,10 @@ export class UpdateScheduleModalComponent {
         this.getAllClients();
     }
 
+    getStartHour(start: string) {
+        return `${new Date(start).getHours().toString().length == 2 ? new Date(start).getHours() : `0${new Date(start).getHours()}`}:${new Date(start).getMinutes() ? new Date(start).getMinutes() : '00'}`
+    }
+
     getAllClients() {
         this.clientService.getAllClientsByCompany().subscribe(
             (data) => {
@@ -88,11 +95,13 @@ export class UpdateScheduleModalComponent {
 
     submitForm() {
         if (this.updateForm.valid) {
-            const formData = this.updateForm.value;
-
+            const temp = new Date(this.updateForm.value.deliveryDate)
+            temp.setHours(this.updateForm.value.deliveryTime.split(':')[0])
+            temp.setMinutes(this.updateForm.value.deliveryTime.split(':')[1])
+            
             const updatedScheduleData = {
-                delivery_date: formData.deliveryDate,
-                delivery_address: formData.deliveryAddress,
+                delivery_date: temp,
+                delivery_address: this.updateForm.value.deliveryAddress,
                 // Add other properties based on your data structure
             };
 

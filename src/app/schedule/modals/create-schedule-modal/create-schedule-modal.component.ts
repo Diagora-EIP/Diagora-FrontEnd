@@ -36,6 +36,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         private snackBarService: SnackbarService,
         private dialog: MatDialog,
     ) {
+        console.log(data);
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],

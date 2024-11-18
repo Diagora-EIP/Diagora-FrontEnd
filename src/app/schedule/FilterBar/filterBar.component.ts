@@ -99,7 +99,7 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     compareUsers(user1: any, user2: any): boolean {
-        console.log('Comparing users:', user1, user2);
+        // console.log('Comparing users:', user1, user2);
         return user1 && user2 && user1.user_id === user2.user_id;
     }
 
@@ -108,7 +108,7 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     onSelectionChange(team: any) {
-        console.log('Team selection changed:', this.selectedTeams[team.team_id]);
+        // console.log('Team selection changed:', this.selectedTeams[team.team_id]);
         // Ensure this method properly handles changes
         this.emitSelectedData();
     }
@@ -127,12 +127,12 @@ export class FilterBarComponent implements AfterViewInit {
     }
 
     onUserSelectionChange(): void {
-        console.log("onUserSelectionChange")
+        // console.log("onUserSelectionChange")
         this.emitSelectedData()
     }
 
     private emitSelectedData(): void {
-        console.log("Selected Data:", this.selectedTeams);
+        // console.log("Selected Data:", this.selectedTeams);
         this.selectedDataChange.emit({
             teams: this.selectedTeams,
             usersWithoutTeams: this.selectedNoTeamUsers
@@ -179,7 +179,7 @@ export class FilterBarComponent implements AfterViewInit {
         return new Promise<void>((resolve, reject) => {
             this.TeamService.getAllTeams().subscribe({
                 next: (response: any) => {
-                    console.log("getAllTeamsInfos() response:", response);
+                    // console.log("getAllTeamsInfos() response:", response);
                     this.teams = response;
                     resolve();
                 },
@@ -196,7 +196,7 @@ export class FilterBarComponent implements AfterViewInit {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    console.log("getCompanyData() response:", response);
+                    // console.log("getCompanyData() response:", response);
                     this.companyData = response;
                     this.filteredUsers = this.companyData.users || [];
                     localStorage.setItem('addressEntreprise', this.companyData.address);
@@ -225,7 +225,7 @@ export class FilterBarComponent implements AfterViewInit {
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             // Handle the new absence declaration
-            console.log('New absence declared:', result);
+            // console.log('New absence declared:', result);
           }
         });
     }
