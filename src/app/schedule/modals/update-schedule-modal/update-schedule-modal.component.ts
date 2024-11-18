@@ -98,48 +98,113 @@ export class UpdateScheduleModalComponent {
             const temp = new Date(this.updateForm.value.deliveryDate)
             temp.setHours(this.updateForm.value.deliveryTime.split(':')[0])
             temp.setMinutes(this.updateForm.value.deliveryTime.split(':')[1])
+            const estimated_time = 4200;
+            const actual_time = 3600;
             
-            const updatedScheduleData = {
+            const newSchedule = {
                 delivery_date: temp,
+                estimated_time,
+                actual_time,
+                order_date: this.order.orderDate,
+                description: this.order.description,
                 delivery_address: this.updateForm.value.deliveryAddress,
-                // Add other properties based on your data structure
+                client_id: this.clientId,
             };
 
+            this.scheduleService.deleteSchedule(this.scheduleId).subscribe((res) => {
+                console.log(res);
+            });
+
             if (!this.manager) {
-                this.scheduleService
-                    .updateSchedule(this.scheduleId, updatedScheduleData)
-                    .pipe(
-                        tap((res) => {
-                            if (res.status === 'success') {
-
-                            } else {
-                                this.errorMessage = res.message;
-                            }
-                        })
-                    )
-                    .subscribe((res) => {
-                        console.log(res);
-                        // Handle success or error accordingly
-                    }
-                    )
+                this.scheduleService.createSchedule(newSchedule).pipe(
+                    tap({
+                        next: data => {
+                            this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                            this.closeDialog();
+                        },
+                        error: error => {
+                            console.log(error);
+                            this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
+                            this.closeDialog();
+                        }
+                    })).subscribe();
             } else {
-                this.scheduleService
-                    .updateScheduleByUser(this.user?.user_id, this.scheduleId, updatedScheduleData)
-                    .pipe(
-                        tap((res) => {
-                            if (res.status === 'success') {
-
-                            } else {
-                                this.errorMessage = res.message;
-                            }
-                        })
-                    )
-                    .subscribe((res) => {
-                        console.log(res);
-                        // Handle success or error accordingly
-                    }
-                    )
+                this.scheduleService.createScheduleByUser(this.user.user_id, newSchedule).pipe(
+                    tap({
+                        next: data => {
+                            this.snackBarService.successSnackBar('La livraison a été créée avec succès !');
+                            this.closeDialog();
+                        },
+                        error: error => {
+                            console.log(error);
+                            this.snackBarService.warningSnackBar('Erreur lors de la création de la livraison !');
+                            this.closeDialog();
+                        }
+                    })).subscribe();
             }
+
+            // const updatedScheduleData = {
+            //     delivery_date: temp,
+            //     delivery_address: this.updateForm.value.deliveryAddress,
+            //     // Add other properties based on your data structure
+            // };
+
+            // const updatedOrderData = {
+            //     delivery_address: this.updateForm.value.deliveryAddress
+            // };
+
+            // if (!this.manager) {
+            //     this.scheduleService
+            //         .updateSchedule(this.scheduleId, updatedScheduleData)
+            //         .pipe(
+            //             tap((res) => {
+            //                 if (res.status === 'success') {
+
+            //                 } else {
+            //                     this.errorMessage = res.message;
+            //                 }
+            //             })
+            //         )
+            //         .subscribe((res) => {
+            //             console.log(res);
+            //             // Handle success or error accordingly
+            //         }
+            //     )
+                
+            //     this.orderService
+            //         .updateOrderById(this.order.orderId, updatedOrderData)
+            //         .pipe(
+            //             tap((res) => {
+            //                 if (res.status === 'success') {
+
+            //                 } else {
+            //                     this.errorMessage = res.message;
+            //                 }
+            //             })
+            //         )
+            //         .subscribe((res) => {
+            //             console.log(res);
+            //             // Handle success or error accordingly
+            //         }
+            //     )
+            // } else {
+            //     this.scheduleService
+            //         .updateScheduleByUser(this.user?.user_id, this.scheduleId, updatedScheduleData)
+            //         .pipe(
+            //             tap((res) => {
+            //                 if (res.status === 'success') {
+
+            //                 } else {
+            //                     this.errorMessage = res.message;
+            //                 }
+            //             })
+            //         )
+            //         .subscribe((res) => {
+            //             console.log(res);
+            //             // Handle success or error accordingly
+            //         }
+            //         )
+            // }
         }
         this.snackBarService.successSnackBar('Le planning a été modifié avec succès !');
         this.closeDialog();
