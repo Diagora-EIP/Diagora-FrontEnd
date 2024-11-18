@@ -55,10 +55,8 @@ export class FilterBarComponent {
             // Wait for both promises to resolve
             await Promise.all([this.getAllTeamsInfos(), this.getCompanyData()]);
 
-            // After both promises are resolved
             this.filterUsersWithoutTeams();
-            // this.selectDefaultUser(); // Uncomment to select the user by default
-            this.openFirstTwoPanels(); // Open the panels after everything is done
+            this.openFirstTwoPanels();
         } catch (error) {
             console.error('Error in fetching data:', error);
         }
@@ -67,9 +65,6 @@ export class FilterBarComponent {
     openFirstTwoPanels(): void {
         const panels = this.teamPanels.toArray();
         if (panels.length > 0) panels[0].open();
-        // this.selectedTeams[this.teams[0].team_id]=[this.teams[0].users];
-        // this.teamUsersCache[this.teams[0].team_id] = this.getUsersForTeam(this.teams[0].users, this.teams[0]);
-        // console.log("test2", this.teamUsersCache);
     }
 
     onManagerInput(event: any): void {
@@ -106,7 +101,8 @@ export class FilterBarComponent {
                 email: user.email,
                 name: user.name,
                 user_id: user.user_id,
-                color: teamColor,
+                color: user.color,
+                teamColor: teamColor,
             }));
 
 
@@ -124,11 +120,6 @@ export class FilterBarComponent {
     getScheduleByUser() {}
 
     onSelectionChange(team: any) {
-        // console.log(
-        //     'Team selection changed:',
-        //     this.selectedTeams[team.team_id]
-        // );
-        // Ensure this method properly handles changes
         this.emitSelectedData();
     }
 
@@ -149,12 +140,10 @@ export class FilterBarComponent {
     }
 
     onUserSelectionChange(): void {
-        console.log('onUserSelectionChange');
         this.emitSelectedData();
     }
 
     private emitSelectedData(): void {
-        console.log('Selected Data:', this.selectedTeams);
         this.selectedDataChange.emit({
             teams: this.selectedTeams,
             usersWithoutTeams: this.selectedNoTeamUsers,
@@ -190,10 +179,8 @@ export class FilterBarComponent {
         );
     }
 
-    // Filter users who are not assigned to any team
     filterUsersWithoutTeams(): void {
         if (!this.teams || this.teams.length === 0) {
-            // If no teams are available, all users are without teams
             this.usersWithoutTeams = [...this.filteredUsers];
         } else {
             const teamUserIds = new Set(
@@ -211,7 +198,6 @@ export class FilterBarComponent {
         return new Promise<void>((resolve, reject) => {
             this.TeamService.getAllTeams().subscribe({
                 next: (response: any) => {
-                    console.log('getAllTeamsInfos() response:', response);
                     this.teams = response;
                     resolve();
                 },
@@ -228,7 +214,6 @@ export class FilterBarComponent {
         return new Promise<void>((resolve, reject) => {
             this.managerService.getManagerEntreprise().subscribe({
                 next: (response: any) => {
-                    console.log('getCompanyData() response:', response);
                     this.companyData = response;
                     this.filteredUsers = this.companyData.users || [];
                     localStorage.setItem(
