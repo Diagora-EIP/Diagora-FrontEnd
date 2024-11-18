@@ -4,6 +4,7 @@ import { UpdateTeamsModalComponent } from '../update-teams-modal/update-teams-mo
 import { CreateTeamsModalComponent } from '../create-teams-modal/create-teams-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagerService } from '../../services/manager.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-manager-teams',
@@ -35,6 +36,7 @@ export class ManagerTeamsComponent {
   entreprise: string = "";
   loading: boolean = false;
   teamsList : any = [];
+  teamList : any = [];
   displayedColumns = ['Nom de la team', 'settings'];
   selectedTeam: any = null;
   entrepriseUsers: any = [];
@@ -53,6 +55,7 @@ export class ManagerTeamsComponent {
   getTeamsList() {
     this.teamsService.getTeamsList().subscribe((data: any) => {
       this.teamsList = data;
+      this.teamList = data;
       this.loading = false;
       console.log('Teams list', this.teamsList);
     });
@@ -62,6 +65,9 @@ export class ManagerTeamsComponent {
     this.managerService.getManagerEntreprise().subscribe((data: any) => {
       console.log('User entreprise', data);
       this.entrepriseUsers = data.users;
+      if (this.entreprise == '') {
+        this.entreprise = data.name
+      }
       });
   }
   getTeamUsers() {
@@ -86,15 +92,25 @@ export class ManagerTeamsComponent {
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-        if (!data)
-            return
-        action(data);
+      if (data) {
+        this.teamList.push(data);
+        console.log(this.teamList)
+        this.teamsList = new MatTableDataSource(this.teamList);
+        return
+      }
+      if (!data)
+        return
+      action(data);
     });
 }
 
-  callUpdateTeam(team: any) {
-      console.log('Update team', team);
-      this.selectedTeam = team;
+  callUpdateTeam(teamSelected: any) {
+      console.log('Update team', teamSelected);
+      this.selectedTeam = teamSelected;
+      // this.teamsList = this.teamsList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
+      this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
+      // Mettre à jour `teamsList` avec la liste filtrée
+      this.teamsList = new MatTableDataSource(this.teamList);
       this.openModal('UPDATETEAM');
   }
 
@@ -102,9 +118,11 @@ export class ManagerTeamsComponent {
     this.openModal('CREATETEAM');
   }
 
-  callDeleteTeam(team: any) {
-    this.teamsService.deleteTeam(team.team_id).subscribe((data: any) => {
-      location.reload();
+  callDeleteTeam(teamSelected: any) {
+    console.log("delete", teamSelected)
+    this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
+    this.teamsList = new MatTableDataSource(this.teamList);
+    this.teamsService.deleteTeam(teamSelected.team_id).subscribe((data: any) => {
     });
   }
 }

@@ -17,8 +17,8 @@
                 class="contentBox" routerLinkActive="active">
                 <a>Vehicules</a>
             </li>
-            <li *ngIf="checkPermission('livreur') ||  (checkPermission('manager') || checkPermission('team leader'))" routerLink="/statistic"
-                class="contentBox" routerLinkActive="active">
+            <li *ngIf="checkPermission('livreur') ||  (checkPermission('manager') || checkPermission('team leader'))"
+                routerLink="/statistic" class="contentBox" routerLinkActive="active">
                 <a>Statistiques</a>
             </li>
             <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
@@ -42,7 +42,8 @@
             </li>
         </ul>
         <ul class="right-nav-links">
-            <button *ngIf="checkPermission('admin') ||  (checkPermission('manager') || checkPermission('team leader'))" mat-button  routerLink="/notification"><mat-icon>notifications</mat-icon></button>
+            <button *ngIf="checkPermission('admin') ||  (checkPermission('manager') || checkPermission('team leader'))"
+                mat-button routerLink="/notification"><mat-icon>notifications</mat-icon></button>
             <li routerLink="/profile" class="profile-button" routerLinkActive="active">
                 <a matTooltip="Profile">
                     <mat-icon>account_circle</mat-icon>
