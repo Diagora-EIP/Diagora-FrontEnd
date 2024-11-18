@@ -400,12 +400,11 @@ export class ScheduleComponent implements OnInit {
                     if (selectedData.teams) {
                         for (const teamId in selectedData.teams) {
                             if (selectedData.teams.hasOwnProperty(teamId)) {
-                                const team = selectedData.teams[teamId] as { user_id: number, teamColor: string }[];
+                                const team = selectedData.teams[teamId] as { user_id: number, teamColor: string, color: string, isFullySelected: boolean }[];
 
                                 const userInTeam = team.find(user => user.user_id === user_id);
-
                                 if (userInTeam) {
-                                    eventColor = userInTeam.teamColor;
+                                    eventColor = userInTeam.isFullySelected ? userInTeam.teamColor : userInTeam.color;
                                 }
                             }
                         }

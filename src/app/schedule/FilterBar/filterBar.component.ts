@@ -144,6 +144,16 @@ export class FilterBarComponent {
     }
 
     private emitSelectedData(): void {
+        let selectedteamObj = this.selectedTeams;
+        for (const team of this.teams) {
+            team.isFullySelected = this.isTeamFullySelected(team);
+            if (selectedteamObj[team.team_id]) {
+                selectedteamObj[team.team_id].forEach((user) => {
+                    user.isFullySelected = this.isTeamFullySelected(team);
+                });
+            }
+        }
+
         this.selectedDataChange.emit({
             teams: this.selectedTeams,
             usersWithoutTeams: this.selectedNoTeamUsers,
