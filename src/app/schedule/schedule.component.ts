@@ -68,10 +68,8 @@ export class ScheduleComponent implements OnInit {
         locale: 'fr',
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
         editable: false,
-        // eventStartEditable: false,
-        // eventDurationEditable: false,
-        selectable: true,
-        select: this.handleDateSelection.bind(this),
+        selectable: false,
+        dateClick: this.handleDateSelection.bind(this),
         events: (info, successCallback, failureCallback) => {
             this.currentStartDate = new Date(info.start.valueOf());
             this.currentEndDate = new Date(info.end.valueOf());
@@ -241,12 +239,15 @@ export class ScheduleComponent implements OnInit {
 
     // Helper function to map schedule data to CalendarEvent
     private mapScheduleToEvent(schedule: any): EventInput {
+        console.log("Le S:", schedule.client_id);
+        
         return {
             title: schedule.order?.description,
             start: schedule.delivery_date,
             color: schedule.color,
             extendedProps: {
                 scheduleId: schedule.schedule_id,
+                clientId: schedule.client_id,
                 order: {
                     orderId: schedule.order?.order_id,
                     orderDate: schedule.order?.order_date,
@@ -274,6 +275,7 @@ export class ScheduleComponent implements OnInit {
     handleEventClick(info: any) {
 
         const extendedProps = info.event.extendedProps;
+        console.log("Props: ", extendedProps);
         const start = info.event.start.toISOString();
         console.log(start);
         const description = info.event.title
@@ -293,6 +295,7 @@ export class ScheduleComponent implements OnInit {
         const estimatedTime = extendedProps.estimatedTime;
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
+        const clientId = extendedProps.clientId.toString();
         const isManager = this.checkPermission('manager') || this.checkPermission('team leader') ;
         let user: any = extendedProps.user;
 
@@ -303,6 +306,7 @@ export class ScheduleComponent implements OnInit {
                 scheduleId,
                 order,
                 itineraryId,
+                clientId,
                 estimatedTime,
                 actualTime,
                 status,
@@ -458,8 +462,9 @@ export class ScheduleComponent implements OnInit {
     }
 
     handleDateSelection(selectInfo: any) {
-        const start = selectInfo.startStr;
-        const end = selectInfo.endStr;
+        console.log(selectInfo);
+        const start = selectInfo.dateStr;
+        const end = selectInfo.dateStr;
         this.openEventCreationForm(start, end);
     }
 

@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleService } from '../../../services/schedule.service';
+import { ClientService } from '../../../services/client.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -26,12 +27,15 @@ export class UpdateScheduleModalComponent {
     status: any; // You may need to define the type based on your data structure
     manager: boolean
     user: any
+    clientId: number
+    clientName: string = '';
 
     constructor(
         public dialogRef: MatDialogRef<UpdateScheduleModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
         private scheduleService: ScheduleService,
+        private clientService: ClientService,
         private router: Router,
         private snackBarService: SnackbarService
     ) {
@@ -54,9 +58,9 @@ export class UpdateScheduleModalComponent {
         this.estimatedTime = data.estimatedTime;
         this.actualTime = data.actualTime;
         this.status = data.status;
-        this.manager = data.manager
-        this.user = data.user
-
+        this.manager = data.manager;
+        this.user = data.user;
+        this.clientId = parseInt(data.clientId);
         this.updateForm = this.fb.group({
             deliveryDate: [new Date(this.start), Validators.required],
             deliveryAddress: [this.order.deliveryAddress, Validators.required],
@@ -70,6 +74,16 @@ export class UpdateScheduleModalComponent {
             // deliveryDate: new Date(this.start),
             // deliveryAddress: this.order.deliveryAddress,
         });
+        this.getAllClients();
+    }
+
+    getAllClients() {
+        this.clientService.getAllClientsByCompany().subscribe(
+            (data) => {
+                let temp = data.find((e: any) => e.client_id == this.clientId);
+                this.clientName = temp.name;
+            }
+        )
     }
 
     submitForm() {

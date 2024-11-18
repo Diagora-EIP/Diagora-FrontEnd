@@ -64,7 +64,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
     }
 
     getStartHour(start: string) {
-        return `${new Date(start).getHours()}:${new Date(start).getMinutes() ? new Date(start).getMinutes() : '00'}`
+        return `${new Date(start).getHours().toString().length == 2 ? new Date(start).getHours() : `0${new Date(start).getHours()}`}:${new Date(start).getMinutes() ? new Date(start).getMinutes() : '00'}`
     }
 
     getClients() {
