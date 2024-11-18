@@ -1,4 +1,4 @@
-import { ViewChild, ElementRef, OnInit } from '@angular/core';
+import { ViewChild, ElementRef, OnInit, resolveForwardRef } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Component } from '@angular/core';
 import { CalendarOptions, EventInput } from '@fullcalendar/core'; // useful for typechecking
@@ -49,6 +49,7 @@ export class ScheduleComponent implements OnInit {
     currUser: User = { name: '', user_id: 0 };
     loading: boolean = false;
     events = [];
+    sideBarData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] } = { teams: {}, usersWithoutTeams: []};
     private selectedUsersCache: { [userId: number]: any } = {};
     private currentEventsCache: any[] = [];
 
@@ -75,21 +76,31 @@ export class ScheduleComponent implements OnInit {
             this.currentEndDate = new Date(info.end.valueOf());
 
             let fetchEventsPromise: Promise<any>;
-
             // Always fetch events using getSchedule
             fetchEventsPromise = this.getSchedule();
+            
+            if (!this.checkPermission('manager') && !this.checkPermission('team leader')) {
 
-            fetchEventsPromise
-            .then(events => {
-                    const mappedEvents = events.map((event: any) => {
-                        return this.mapScheduleToEvent(event)
+                fetchEventsPromise
+                    .then(events => {
+                        const mappedEvents = events.map((event: any) => {
+                            return this.mapScheduleToEvent(event)
+                        });
+                        // console.log('Events: ', mappedEvents);
+                        successCallback(mappedEvents);
+                    })
+                    .catch(error => {
+                        failureCallback(error);
                     });
-                    console.log('Events: ', mappedEvents);
-                    successCallback(mappedEvents);
-                })
-                .catch(error => {
-                    failureCallback(error);
-                });
+            } else {
+                console.log('IVINTS', this.sideBarData);
+                if (Object.keys(this.sideBarData.teams).length === 0) {
+                    successCallback([]);
+                } else {
+                    this.handleSelectedDataChange(this.sideBarData)
+                    .then((mappedEvent) => { this.fullcalendar.getApi().removeAllEvents(); successCallback(mappedEvent); })
+                }
+            }
         },
         headerToolbar: {
             start: 'prev,next today',
@@ -110,7 +121,18 @@ export class ScheduleComponent implements OnInit {
             const formattedStartDate = dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
+        // datesSet: this.onDatesSet.bind(this),
     };
+
+    onDatesSet(dateInfo: any) {
+        console.log('Dates visibles :', dateInfo.start, dateInfo.end);
+        if (!((new Date(dateInfo.start) <= new Date()) && (new Date(dateInfo.end) >= new Date()))) {
+            const temp = this.fullcalendar.getApi().getEventSources();
+            this.fullcalendar.getApi().removeAllEvents();
+            this.fullcalendar.getApi().addEventSource(temp);
+            this.fullcalendar.getApi().refetchEvents();
+        }
+    }
 
     async ngOnInit(): Promise<void> {
         if (this.checkPermission('manager') || this.checkPermission('team leader')) {
@@ -138,6 +160,47 @@ export class ScheduleComponent implements OnInit {
 
                 this.scheduleService
                     .getScheduleBetweenDates(startDateFormatted, endDateFormatted)
+                    .pipe(
+                        tap({
+                            next: (data: any) => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
+
+                                if (!data || data.length === 0) {
+                                    resolve([]);
+                                    return;
+                                }
+                                return resolve(data);
+                            },
+                            error: (err) => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
+                                reject(err);
+                            },
+                            complete: () => {
+                                this.ngZone.run(() => {
+                                    this.loading = false;
+                                    this.cdref.detectChanges();
+                                });
+                            }
+                        })
+                    )
+                    .subscribe();
+            });
+        });
+    }
+
+    getScheduleBetweenDate(start: Date, end: Date): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+
+            this.ngZone.runOutsideAngular(() => {
+
+                this.scheduleService
+                    .getScheduleBetweenDates(start.toISOString(), end.toISOString())
                     .pipe(
                         tap({
                             next: (data: any) => {
@@ -239,7 +302,7 @@ export class ScheduleComponent implements OnInit {
     // Helper function to map schedule data to CalendarEvent
     private mapScheduleToEvent(schedule: any): EventInput {
         // console.log("Le S:", schedule.client_id);
-        
+
         return {
             title: schedule.order?.description,
             start: schedule.delivery_date,
@@ -295,7 +358,7 @@ export class ScheduleComponent implements OnInit {
         const actualTime = extendedProps.actualTime;
         const status = extendedProps.status;
         const clientId = extendedProps.clientId.toString();
-        const isManager = this.checkPermission('manager') || this.checkPermission('team leader') ;
+        const isManager = this.checkPermission('manager') || this.checkPermission('team leader');
         let user: any = extendedProps.user;
 
         const dialogRef = this.dialog.open(UpdateScheduleModalComponent, {
@@ -327,106 +390,112 @@ export class ScheduleComponent implements OnInit {
         // console.log('Company data:', companyData);
     }
 
-    handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): void {
-        // Create a new object to track current selected users
-        const currentSelectedUsers: { [userId: number]: any } = {};
+    handleSelectedDataChange(selectedData: { teams: { [teamId: number]: any[] }, usersWithoutTeams: any[] }): Promise<any[]> {
+        return new Promise((resolve, reject) => {
 
-        // Collect all users from selected teams
-        for (const teamId in selectedData.teams) {
-            if (selectedData.teams.hasOwnProperty(teamId)) {
-                selectedData.teams[teamId].forEach(user => {
-                    currentSelectedUsers[user.user_id] = user;
-                });
+            this.sideBarData = selectedData;
+            const mappedEventsCache = [];
+            // Create a new object to track current selected users
+            const currentSelectedUsers: { [userId: number]: any } = {};
+    
+            // Collect all users from selected teams
+            for (const teamId in selectedData.teams) {
+                if (selectedData.teams.hasOwnProperty(teamId)) {
+                    selectedData.teams[teamId].forEach(user => {
+                        currentSelectedUsers[user.user_id] = user;
+                    });
+                }
             }
-        }
-
-        // Collect all users without teams
-        selectedData.usersWithoutTeams.forEach(user => {
-            currentSelectedUsers[user.user_id] = user;
-        });
-
-        // console.log("CurrentSelectedUsers", currentSelectedUsers)
-
-        // Identify users that were previously selected but are no longer selected
-        const unselectedUserIds = Object.keys(this.selectedUsersCache).filter(
-            userId => !currentSelectedUsers[parseInt(userId)]
-        );
-
-        if (unselectedUserIds.length > 0) {
-            // console.log('Unselected users:', unselectedUserIds);
-            // Remove from the current events the users that were unselected
-            const filteredEvents = this.currentEventsCache.filter(
-                event => !unselectedUserIds.includes(event.user.user_id.toString())
+    
+            // Collect all users without teams
+            selectedData.usersWithoutTeams.forEach(user => {
+                currentSelectedUsers[user.user_id] = user;
+            });
+    
+            // console.log("CurrentSelectedUsers", currentSelectedUsers)
+    
+            // Identify users that were previously selected but are no longer selected
+            const unselectedUserIds = Object.keys(this.selectedUsersCache).filter(
+                userId => !currentSelectedUsers[parseInt(userId)]
             );
-            this.currentEventsCache = filteredEvents;
-        }
-
-        // Update the cache with the current selection
-        this.selectedUsersCache = { ...currentSelectedUsers };
-
-        if (Object.keys(currentSelectedUsers).length === 0) {
-            this.currentEventsCache = [];
-            this.fullcalendar.getApi().removeAllEvents();
-            return;
-        }
-
-        // Fetch schedules for newly selected users
-        const fetchEventsPromises = Object.keys(currentSelectedUsers).map(userId => {
-            return this.newgetScheduleByUser(parseInt(userId));
-        });
-
-        // Handle the fetched events
-        Promise.all(fetchEventsPromises)
-            .then(eventsArrays => {
-                // console.log(eventsArrays);
-                const allEvents = eventsArrays.flat();
-
-                allEvents.forEach((event: any) => {
-                    // console.log(event);
-                    const user_id = event.user.user_id;
-
-                    // Default to the user's color
-                    // console.log('SelectedUsersCache:', this.selectedUsersCache);
-                    try {
-                        // console.log('User_id:', user_id);
-                        // console.log('SelectedUsersCache:', this.selectedUsersCache[user_id]);
-                    } catch (error) {
-                        console.log('Error:', error);
-                    }
-                    let eventColor = this.selectedUsersCache[user_id].color;
-
-                    // Check if the user belongs to a selected team and override with the team color if applicable
-                    // console.log(selectedData)
-                    if (selectedData.teams) {
-                        for (const teamId in selectedData.teams) {
-                            if (selectedData.teams.hasOwnProperty(teamId)) {
-                                const team = selectedData.teams[teamId] as { user_id: number, teamColor: string, color: string, isFullySelected: boolean }[];
-
-                                const userInTeam = team.find(user => user.user_id === user_id);
-                                if (userInTeam) {
-                                    eventColor = userInTeam.isFullySelected ? userInTeam.teamColor : userInTeam.color;
+    
+            if (unselectedUserIds.length > 0) {
+                // console.log('Unselected users:', unselectedUserIds);
+                // Remove from the current events the users that were unselected
+                const filteredEvents = this.currentEventsCache.filter(
+                    event => !unselectedUserIds.includes(event.user.user_id.toString())
+                );
+                this.currentEventsCache = filteredEvents;
+            }
+    
+            // Update the cache with the current selection
+            this.selectedUsersCache = { ...currentSelectedUsers };
+    
+            if (Object.keys(currentSelectedUsers).length === 0) {
+                this.currentEventsCache = [];
+                this.fullcalendar.getApi().removeAllEvents();
+                return;
+            }
+    
+            // Fetch schedules for newly selected users
+            const fetchEventsPromises = Object.keys(currentSelectedUsers).map(userId => {
+                return this.newgetScheduleByUser(parseInt(userId));
+            });
+    
+            // Handle the fetched events
+            Promise.all(fetchEventsPromises)
+                .then(eventsArrays => {
+                    // console.log(eventsArrays);
+                    const allEvents = eventsArrays.flat();
+    
+                    allEvents.forEach((event: any) => {
+                        // console.log(event);
+                        const user_id = event.user.user_id;
+    
+                        // Default to the user's color
+                        // console.log('SelectedUsersCache:', this.selectedUsersCache);
+                        try {
+                            // console.log('User_id:', user_id);
+                            // console.log('SelectedUsersCache:', this.selectedUsersCache[user_id]);
+                        } catch (error) {
+                            console.log('Error:', error);
+                        }
+                        let eventColor = this.selectedUsersCache[user_id].color;
+    
+                        // Check if the user belongs to a selected team and override with the team color if applicable
+                        // console.log(selectedData)
+                        if (selectedData.teams) {
+                            for (const teamId in selectedData.teams) {
+                                if (selectedData.teams.hasOwnProperty(teamId)) {
+                                    const team = selectedData.teams[teamId] as { user_id: number, teamColor: string, color: string, isFullySelected: boolean }[];
+    
+                                    const userInTeam = team.find(user => user.user_id === user_id);
+                                    if (userInTeam) {
+                                        eventColor = userInTeam.isFullySelected ? userInTeam.teamColor : userInTeam.color;
+                                    }
                                 }
                             }
                         }
-                    }
-
-                    event.color = eventColor;
+    
+                        event.color = eventColor;
+                    });
+    
+                    // Update the current events cache
+                    this.currentEventsCache = allEvents;
+    
+                    // Update the calendar events
+                    const mappedEvents = allEvents.map((event: any) => this.mapScheduleToEvent(event));
+                    const calendarApi = this.fullcalendar.getApi();
+                    calendarApi.removeAllEvents();
+                    calendarApi.addEventSource(mappedEvents);
+    
+                    this.cdref.detectChanges();
+                    resolve(mappedEvents);
+                })
+                .catch(error => {
+                    reject(error);
                 });
-
-                // Update the current events cache
-                this.currentEventsCache = allEvents;
-
-                // Update the calendar events
-                const mappedEvents = allEvents.map((event: any) => this.mapScheduleToEvent(event));
-                const calendarApi = this.fullcalendar.getApi();
-                calendarApi.removeAllEvents();
-                calendarApi.addEventSource(mappedEvents);
-
-                this.cdref.detectChanges();
-
-            })
-            .catch(error => {
-            });
+        })
     }
 
     async getManagerEntreprise(): Promise<void> {
