@@ -93,7 +93,6 @@ export class ScheduleComponent implements OnInit {
                         failureCallback(error);
                     });
             } else {
-                console.log('IVINTS', this.sideBarData);
                 if (Object.keys(this.sideBarData.teams).length === 0) {
                     successCallback([]);
                 } else {
@@ -121,18 +120,7 @@ export class ScheduleComponent implements OnInit {
             const formattedStartDate = dayjs(startDateString).format('MMMM YYYY');
             return this.customHeaderText + ' - ' + formattedStartDate;
         },
-        // datesSet: this.onDatesSet.bind(this),
     };
-
-    onDatesSet(dateInfo: any) {
-        console.log('Dates visibles :', dateInfo.start, dateInfo.end);
-        if (!((new Date(dateInfo.start) <= new Date()) && (new Date(dateInfo.end) >= new Date()))) {
-            const temp = this.fullcalendar.getApi().getEventSources();
-            this.fullcalendar.getApi().removeAllEvents();
-            this.fullcalendar.getApi().addEventSource(temp);
-            this.fullcalendar.getApi().refetchEvents();
-        }
-    }
 
     async ngOnInit(): Promise<void> {
         if (this.checkPermission('manager') || this.checkPermission('team leader')) {
@@ -394,7 +382,6 @@ export class ScheduleComponent implements OnInit {
         return new Promise((resolve, reject) => {
 
             this.sideBarData = selectedData;
-            const mappedEventsCache = [];
             // Create a new object to track current selected users
             const currentSelectedUsers: { [userId: number]: any } = {};
     
