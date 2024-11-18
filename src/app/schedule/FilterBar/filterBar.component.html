@@ -17,13 +17,16 @@
                             </mat-checkbox>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list [(ngModel)]="selectedTeams[team.team_id]" [ngStyle]="{
+                    <mat-selection-list [(ngModel)]="selectedTeams[team.team_id]" (ngModelChange)="onSelectionChange(team)"
+                        [ngStyle]="{
                             'background-color': isTeamFullySelected(team)
                                 ? team.color
                                 : 'transparent'
-                        }" (ngModelChange)="onSelectionChange(team)">
+                        }"
+                    >
                         <mat-list-option class="team-users" *ngFor="let user of getUsersForTeam(team.users, team)"
-                            [value]="user" [ngStyle]="{
+                            [value]="user"
+                            [ngStyle]="{
                                 'background-color': isTeamFullySelected(team)
                                     ? team.color
                                     : isUserSelected(team, user)

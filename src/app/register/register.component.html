@@ -94,8 +94,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <button mat-raised-button type="submit" class="button-form-login" [disabled]="registerGroup.invalid">Créer
-                votre compte</button>
+            <button *ngIf="registerGroup.invalid" mat-raised-button type="submit" class="button-form-login-disabled" [disabled]="registerGroup.invalid">Créer votre compte</button>
+            <button *ngIf="registerGroup.valid" mat-raised-button type="submit" class="button-form-login">Créer votre compte</button>
         </form>
     </div>
     <div class="container-right-login">

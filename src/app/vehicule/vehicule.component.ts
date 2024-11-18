@@ -125,12 +125,18 @@ export class VehiculeComponent {
     getVehicules() {
         this.loading = true;
         this.vehiculesService.getVehicules()
-            .subscribe((data) => {
-                this.allVehicles = data;
-                this.loading = false;
-                this.modelsList = Array.from(new Set(data.map((vehicle: any) => vehicle.model)));
-                this.getVehiclePictures();
-
+            .subscribe({
+                next: (data) => {
+                    this.allVehicles = data;
+                    this.loading = false;
+                    this.modelsList = Array.from(new Set(data.map((vehicle: any) => vehicle.model)));
+                    this.getVehiclePictures();
+                },
+                error: (error) => {
+                    if (error.status === 404) {
+                        this.loading = false;
+                    }
+                }
             });
     }
 
