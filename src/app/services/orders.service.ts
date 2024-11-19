@@ -36,4 +36,13 @@ export class OrderService {
             this.header
         );
     }
+
+    updateOrderById(order_id: number, updatedData: any): Observable<any> {
+        return this.http.patch<any>(
+            `${this.apiUrl}/order/update/${order_id}`,
+            updatedData,
+            this.header
+        );
+    }
+    
 }

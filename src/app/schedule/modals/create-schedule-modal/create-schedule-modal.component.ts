@@ -36,10 +36,11 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         private snackBarService: SnackbarService,
         private dialog: MatDialog,
     ) {
+        console.log(data);
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],
-            deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
+            deliveryTime: [this.getStartHour(data.start), Validators.required], // Default time, adjust as needed
             client: [data.client, Validators.required],
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
@@ -61,6 +62,10 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         this.scheduleForm.patchValue({
             deliveryAddress: client.address
         });
+    }
+
+    getStartHour(start: string) {
+        return `${new Date(start).getHours().toString().length == 2 ? new Date(start).getHours() : `0${new Date(start).getHours()}`}:${new Date(start).getMinutes() ? new Date(start).getMinutes() : '00'}`
     }
 
     getClients() {
