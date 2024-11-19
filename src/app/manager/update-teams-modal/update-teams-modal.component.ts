@@ -35,6 +35,7 @@ export class UpdateTeamsModalComponent {
     private managerService: ManagerService,
     private teamsService: TeamsService
   ) {
+    console.log(this.team)
     this.team = JSON.parse(JSON.stringify(data.teams))
     this.name = this.team.name
     this.selectedColor = this.team.color

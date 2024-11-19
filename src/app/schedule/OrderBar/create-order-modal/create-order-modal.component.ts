@@ -27,6 +27,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
     displayNewClient: boolean = false;
     displayClientAlreadyExists: boolean = false;
     livreurList: any = [];
+    enableEndTime = false;
 
     constructor(
         public dialogRef: MatDialogRef<CreateOrderModalComponent>,
@@ -51,6 +52,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],
             deliveryTime: ['12:00', Validators.required], // Default time
+            deliveryTimeEnd: [{value: '13:00', disabled: true}],
             client: [data.client, Validators.required],
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
@@ -63,6 +65,17 @@ export class CreateOrderModalComponent implements AfterViewInit {
 
         this.getClients();
         this.getCompanyData();
+    }
+
+
+    toggleEndTime() {
+        if (!this.enableEndTime) {
+          this.scheduleForm.get('deliveryTimeEnd')?.enable();
+          this.enableEndTime = true
+        } else {
+          this.scheduleForm.get('deliveryTimeEnd')?.disable();
+          this.enableEndTime = false
+        }
     }
 
     updateAdress(client: any) {
@@ -162,7 +175,12 @@ export class CreateOrderModalComponent implements AfterViewInit {
             const description = formData.description;
             const delivery_address = formData.deliveryAddress;
             const client = formData.client;
-
+            let end_hour
+            if (this.enableEndTime) {
+                end_hour = this.combineDateAndTime(formData.deliveryDate, formData.deliveryTimeEnd)
+            } else {
+                end_hour = null
+            }
             const newSchedule = {
                 delivery_date: deliveryDateTime,
                 estimated_time,
@@ -171,6 +189,7 @@ export class CreateOrderModalComponent implements AfterViewInit {
                 description,
                 delivery_address,
                 client_id: client.client_id,
+                end_hour,
             };
             if ((this.checkPermission('manager') || this.checkPermission('team leader'))) {
                 if (formData.livreur.name === 'Aucun') {
