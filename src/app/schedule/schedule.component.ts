@@ -71,6 +71,7 @@ export class ScheduleComponent implements OnInit {
         selectable: true,
         select: this.handleDateSelection.bind(this),
         events: (info, successCallback, failureCallback) => {
+            console.log(info)
             this.currentStartDate = new Date(info.start.valueOf());
             this.currentEndDate = new Date(info.end.valueOf());
 
@@ -89,6 +90,7 @@ export class ScheduleComponent implements OnInit {
                 .catch(error => {
                     failureCallback(error);
                 });
+            console.log(fetchEventsPromise)
         },
         headerToolbar: {
             start: 'prev,next today',
