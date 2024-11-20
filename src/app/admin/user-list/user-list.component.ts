@@ -249,6 +249,11 @@ export class UserListComponent {
     }
 
     addCompany = (company: any) => {
+        company = {
+            company_id: company.company_id,
+            company_name: company.name,
+            company_address: company.address,
+        }
         this.companyList.push(company)
     }
 

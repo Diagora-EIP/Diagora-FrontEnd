@@ -32,12 +32,11 @@ export class CompanyUpdateModalComponent {
         this.company_name = data.company.company_name
         this.company_id = data.company.company_id
         this.original_company_address = data.company.company_address
-        console.log(data.company.company_address)
         const address = data.company.company_address.split(', ')
         this.number = address[0].split(' ')[0]
         this.rue = address[0].split(' ').slice(1).join(' ')
         this.codePostal = address[1].split(' ')[0]
-        this.ville = address[1].split(' ').slice(1).join(' ')
+        this.ville = address[2].split(' ')[0]
     }
 
 
