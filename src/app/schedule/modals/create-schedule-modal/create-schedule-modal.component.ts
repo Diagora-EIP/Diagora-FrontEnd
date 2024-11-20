@@ -132,6 +132,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                         this.clientsList = [data];
                     else
                         this.clientsList = [...this.clientsList, data];
+                    this.snackBarService.successSnackBar('Client créé avec succès !');
                 },
                 error: (error) => {
                     this.errorMessage = 'Failed to create client. Please try again.';
