@@ -85,12 +85,15 @@ button {
 button {
     margin-top: 10px;
     display: block;
-    width: auto; /* Keeps the button auto-sized instead of full width */
+    width: auto;
+    width: 100%;
 }
 
 .create-order {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    max-width: 200px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
