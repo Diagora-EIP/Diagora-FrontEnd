@@ -47,6 +47,9 @@ export class LoginComponent {
             this.popUp = true;
             this.loginForm.controls['password'].setErrors({ 'loginFailed': true });
             this.loginForm.controls['email'].setErrors({ 'loginFailed': true });
+            this.loginForm.controls['email'].setValue('')
+            this.loginForm.controls['password'].setValue('')
+            this.loginForm.controls['remember'].setValue(false)
             return;
         }
     }
@@ -55,6 +58,9 @@ export class LoginComponent {
         if (this.loginForm.invalid) {
             this.snackBarService.warningSnackBar('Veuillez remplir tous les champs correctement.');
             this.popUp = true;
+            // this.loginForm.value.email = ''
+            // this.loginForm.value.password = ''
+            // this.loginForm.value.remember = false
             return;
         }
 
@@ -85,6 +91,9 @@ export class LoginComponent {
                     error: (err) => {
                         let errorMessage = 'Une erreur est survenue';
                         this.loginRequest(err);
+                        this.loginForm.value.email = ''
+                        this.loginForm.value.password = ''
+                        this.loginForm.value.remember = false
                         return throwError(() => new Error(err.error?.error || 'Une erreur est survenue'));
                     },
                 }),

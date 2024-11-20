@@ -93,9 +93,19 @@ export class ManagerTeamsComponent {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
+        // Si on est dans le contexte d'update, on supprime d'abord l'ancienne entrée
+        if (modalType.toUpperCase() === 'UPDATETEAM') {
+          this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== this.selectedTeam.team_id);
+          console.log(this.teamList)
+        }
+
+        // Ajouter les données mises à jour ou créées
         this.teamList.push(data);
-        console.log(this.teamList)
+
+        // Mettre à jour la source de données
         this.teamsList = new MatTableDataSource(this.teamList);
+
+        console.log(this.teamList);
         return
       }
       if (!data)
@@ -105,12 +115,12 @@ export class ManagerTeamsComponent {
 }
 
   callUpdateTeam(teamSelected: any) {
-      console.log('Update team', teamSelected);
+      // console.log('Update team', teamSelected);
       this.selectedTeam = teamSelected;
-      // this.teamsList = this.teamsList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
-      this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
-      // Mettre à jour `teamsList` avec la liste filtrée
-      this.teamsList = new MatTableDataSource(this.teamList);
+      // // this.teamsList = this.teamsList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
+      // this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
+      // // Mettre à jour `teamsList` avec la liste filtrée
+      // this.teamsList = new MatTableDataSource(this.teamList);
       this.openModal('UPDATETEAM');
   }
 
