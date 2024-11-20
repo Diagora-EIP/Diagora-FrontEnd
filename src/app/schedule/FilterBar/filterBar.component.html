@@ -43,8 +43,7 @@
                     </mat-selection-list>
                 </mat-expansion-panel>
             </mat-accordion>
-            <!-- Section for users without teams -->
-            <div class="no-team-users">
+            <div *ngIf="!isLoadingUsersWithoutTeams && usersWithoutTeams.length > 0">
                 <mat-selection-list [(ngModel)]="selectedNoTeamUsers" (ngModelChange)="onNoTeamUserSelectionChange()">
                     <mat-list-option *ngFor="let user of usersWithoutTeams" [value]="user" [ngStyle]="{
                             'background-color': isUserSelected(null, user) ? user.color : 'transparent'

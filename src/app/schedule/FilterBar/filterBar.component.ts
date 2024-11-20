@@ -17,6 +17,8 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { TeamService } from '../../services/team.service';
 import { ManagerService } from '../../services/manager.service';
 import { DelivererAbsenceModalComponent } from '../modals/create-absent-modal/create-absent-modal';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
     selector: 'filter-bar',
@@ -33,6 +35,7 @@ export class FilterBarComponent {
     selectedTeams: { [key: number]: any[] } = {};
     selectedUsers: { [teamId: string]: any[] } = {};
     teamUsersCache: { [teamId: number]: any[] } = {};
+    isLoadingUsersWithoutTeams = true;
 
     @ViewChildren('teamPanel') teamPanels!: QueryList<MatExpansionPanel>;
     @Output() selectedDataChange: EventEmitter<{
@@ -47,18 +50,23 @@ export class FilterBarComponent {
     constructor(
         private dialog: MatDialog,
         private TeamService: TeamService,
-        private managerService: ManagerService
+        private managerService: ManagerService,
+        private cdr: ChangeDetectorRef
+
     ) {}
 
     async ngOnInit(): Promise<void> {
         try {
-            // Wait for both promises to resolve
+            this.isLoadingUsersWithoutTeams = true;
+    
             await Promise.all([this.getAllTeamsInfos(), this.getCompanyData()]);
-
             this.filterUsersWithoutTeams();
             this.openFirstTwoPanels();
         } catch (error) {
             console.error('Error in fetching data:', error);
+        } finally {
+            this.isLoadingUsersWithoutTeams = false;
+            this.cdr.detectChanges();  // Manually trigger change detection
         }
     }
 
@@ -145,12 +153,14 @@ export class FilterBarComponent {
 
     private emitSelectedData(): void {
         let selectedteamObj = this.selectedTeams;
-        for (const team of this.teams) {
-            team.isFullySelected = this.isTeamFullySelected(team);
-            if (selectedteamObj[team.team_id]) {
-                selectedteamObj[team.team_id].forEach((user) => {
-                    user.isFullySelected = this.isTeamFullySelected(team);
-                });
+        if (this.teams && this.teams.length > 0) {
+            for (const team of this.teams) {
+                team.isFullySelected = this.isTeamFullySelected(team);
+                if (selectedteamObj[team.team_id]) {
+                    selectedteamObj[team.team_id].forEach((user) => {
+                        user.isFullySelected = this.isTeamFullySelected(team);
+                    });
+                }
             }
         }
 

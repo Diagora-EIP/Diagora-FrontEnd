@@ -119,7 +119,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             name: formData.name,
             surname: formData.surname,
             email: formData.email,
-            address: formData.address,
+            address: formData.number + ' ' + formData.rue + ', ' + formData.postalCode + ', ' + formData.ville
         };
         this.clientService.
             createClient(newClient).subscribe({
