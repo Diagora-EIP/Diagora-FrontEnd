@@ -86,7 +86,7 @@ export class ScheduleComponent implements OnInit {
                         const mappedEvents = events.map((event: any) => {
                             return this.mapScheduleToEvent(event)
                         });
-                        // console.log('Events: ', mappedEvents);
+                        console.log('Events: ', mappedEvents);
                         successCallback(mappedEvents);
                     })
                     .catch(error => {
@@ -294,6 +294,7 @@ export class ScheduleComponent implements OnInit {
         return {
             title: schedule.order?.description,
             start: schedule.delivery_date,
+            end: schedule.end_hour,
             color: schedule.color,
             extendedProps: {
                 scheduleId: schedule.schedule_id,
