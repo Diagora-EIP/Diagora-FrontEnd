@@ -21,9 +21,9 @@
                 routerLink="/statistic" class="contentBox" routerLinkActive="active">
                 <a>Statistiques</a>
             </li>
-            <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
+            <!-- <li *ngIf="checkPermission('user')" routerLink="/carte" class="contentBox" routerLinkActive="active">
                 <a>Carte</a>
-            </li>
+            </li> -->
 
             <li *ngIf="(checkPermission('manager') || checkPermission('team leader'))" class="contentBox">
                 <mat-menu #managerMenu="matMenu" [overlapTrigger]="false" (closed)="toggleMenu()">
