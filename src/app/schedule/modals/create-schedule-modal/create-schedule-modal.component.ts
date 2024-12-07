@@ -25,6 +25,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
     clientsList: any = [];
     displayNewClient: boolean = false;
     displayClientAlreadyExists: boolean = false;
+    enableEndTime = false;
 
     constructor(
         public dialogRef: MatDialogRef<CreateScheduleModalComponent>,
@@ -36,10 +37,12 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         private snackBarService: SnackbarService,
         private dialog: MatDialog,
     ) {
+        console.log(data);
         this.scheduleForm = this.fb.group({
             deliveryDate: [new Date(this.data.start), Validators.required],
             description: [this.data.description, Validators.required],
-            deliveryTime: ['12:00', Validators.required], // Default time, adjust as needed
+            deliveryTime: [this.getStartHour(data.start), Validators.required], // Default time, adjust as needed
+            deliveryTimeEnd: [{value: this.getStartHour(data.start), disabled: true}],
             client: [data.client, Validators.required],
             deliveryAddress: [this.data.delivery_address, Validators.required],
         });
@@ -57,10 +60,24 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         this.getClients();
     }
 
+    toggleEndTime() {
+        if (!this.enableEndTime) {
+          this.scheduleForm.get('deliveryTimeEnd')?.enable();
+          this.enableEndTime = true
+        } else {
+          this.scheduleForm.get('deliveryTimeEnd')?.disable();
+          this.enableEndTime = false
+        }
+    }
+    
     updateAdress(client: any) {
         this.scheduleForm.patchValue({
             deliveryAddress: client.address
         });
+    }
+
+    getStartHour(start: string) {
+        return `${new Date(start).getHours().toString().length == 2 ? new Date(start).getHours() : `0${new Date(start).getHours()}`}:${new Date(start).getMinutes() ? new Date(start).getMinutes() : '00'}`
     }
 
     getClients() {
@@ -131,6 +148,12 @@ export class CreateScheduleModalComponent implements AfterViewInit {
         if (this.scheduleForm.valid) {
             const formData = this.scheduleForm.value;
             const deliveryDateTime = this.combineDateAndTime(formData.deliveryDate, formData.deliveryTime);
+            let end_hour
+            if (this.enableEndTime) {
+                end_hour = this.combineDateAndTime(formData.deliveryDate, formData.deliveryTimeEnd)
+            } else {
+                end_hour = null
+            }
             const estimated_time = 4200;
             const actual_time = 3600;
             const order_date = formData.deliveryDate;
@@ -146,6 +169,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                 description,
                 delivery_address,
                 client_id: client.client_id,
+                end_hour
             };
             if (!this.checkPermission('manager') || !this.checkPermission('team leader')) {
                 this.scheduleService.createSchedule(newSchedule).pipe(

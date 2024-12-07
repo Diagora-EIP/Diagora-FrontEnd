@@ -137,6 +137,10 @@ export class VehiculesService {
     getVehiclePictures(models: string[]): Observable<any> {
         let url = `${this.apiUrl}/vehiclePicture`;
 
+        if (models.length === 1) {
+            models.push(' ');
+        }
+
         models.forEach((model, index) => {
             model = model.replace(' ', '_');
             if (index === 0) {

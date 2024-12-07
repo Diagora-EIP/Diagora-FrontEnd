@@ -35,6 +35,7 @@ export class UpdateTeamsModalComponent {
     private managerService: ManagerService,
     private teamsService: TeamsService
   ) {
+    console.log(this.team)
     this.team = JSON.parse(JSON.stringify(data.teams))
     this.name = this.team.name
     this.selectedColor = this.team.color
@@ -59,13 +60,16 @@ export class UpdateTeamsModalComponent {
         user.name
       );
     })
-    this.team.users.forEach((user: any) => {
-      this.displayedUsers = this.displayedUsers.filter((name: string) => name !== user.name)
-    })
+    if (this.team.users != null) {  
+      this.team.users.forEach((user: any) => {
+        this.displayedUsers = this.displayedUsers.filter((name: string) => name !== user.name)
+      })
+    }
   }
   close(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.team);
     this.teamsUpdateSubscription?.unsubscribe();
+    
   }
 
   addUser() {
@@ -105,8 +109,11 @@ export class UpdateTeamsModalComponent {
       });
     })
     this.teamsUpdateSubscription = this.teamsService.updateTeam(this.team.team_id, body).subscribe((data: any) => {
+      const users = this.team.users
+      this.team = data
+      this.team.users = users
       this.close();
-      location.reload();
+      // location.reload();
     });
   }
 }

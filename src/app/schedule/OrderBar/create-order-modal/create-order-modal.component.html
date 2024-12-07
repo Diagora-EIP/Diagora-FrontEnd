@@ -1,5 +1,5 @@
 <!-- create-order-modal.component.html -->
-<div ngClass="container-modals">
+<div ngClass="content-space-around-modals-custom">
     <div ngClass="container-title-modals">
         <h1 ngClass="title-modals">Ajouter une commande</h1>
     </div>
@@ -31,6 +31,15 @@
                 <mat-form-field ngClass="content-input-modals">
                     <mat-label ngClass="title-input-modals">Heure de livraison :</mat-label>
                     <input matInput type="time" formControlName="deliveryTime" required>
+                </mat-form-field>
+                <mat-checkbox [(ngModel)]="enableEndTime" (change)="toggleEndTime()">
+                    Ajouter une heure de fin de livraison
+                </mat-checkbox>
+            
+                <!-- Heure de fin de livraison -->
+                <mat-form-field ngClass="content-input-modals">
+                    <mat-label ngClass="title-input-modals">Heure de fin de livraison :</mat-label>
+                    <input matInput type="time" formControlName="deliveryTimeEnd" [disabled]="!enableEndTime">
                 </mat-form-field>
             </div>
             <div ngClass="container-input-modals">
