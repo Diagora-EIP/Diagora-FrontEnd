@@ -27,7 +27,9 @@ export class DelivererAbsenceModalComponent {
 
   async declareAbsence(): Promise<void> {
     if (this.absenceDate) {
-      const absenceDateString = this.absenceDate.toISOString(); // Convert Date to string in YYYY-MM-DD format
+      const date = new Date(this.absenceDate);
+      date.setHours(12, 0, 0, 0);
+      const absenceDateString = date.toISOString().split('T')[0];
       
       return new Promise<void>((resolve, reject) => {
         this.absenceService.createAbsence(this.user.user_id, absenceDateString).subscribe({
