@@ -42,8 +42,8 @@
             </li>
         </ul>
         <ul class="right-nav-links">
-            <button *ngIf="checkPermission('admin') ||  (checkPermission('manager') || checkPermission('team leader'))"
-                mat-button routerLink="/notification"><mat-icon>notifications</mat-icon></button>
+            <!-- <button *ngIf="checkPermission('admin') ||  (checkPermission('manager') || checkPermission('team leader'))"
+                mat-button routerLink="/notification"><mat-icon>notifications</mat-icon></button> -->
             <li routerLink="/profile" class="profile-button" routerLinkActive="active">
                 <a matTooltip="Profile">
                     <mat-icon>account_circle</mat-icon>
