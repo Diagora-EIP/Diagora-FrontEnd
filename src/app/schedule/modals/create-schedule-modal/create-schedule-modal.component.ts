@@ -119,7 +119,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
             name: formData.name,
             surname: formData.surname,
             email: formData.email,
-            address: formData.address,
+            address: formData.number + ' ' + formData.rue + ', ' + formData.postalCode + ', ' + formData.ville
         };
         this.clientService.
             createClient(newClient).subscribe({
@@ -132,6 +132,7 @@ export class CreateScheduleModalComponent implements AfterViewInit {
                         this.clientsList = [data];
                     else
                         this.clientsList = [...this.clientsList, data];
+                    this.snackBarService.successSnackBar('Client créé avec succès !');
                 },
                 error: (error) => {
                     this.errorMessage = 'Failed to create client. Please try again.';

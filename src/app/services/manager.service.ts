@@ -51,7 +51,7 @@ export class ManagerService {
     updateEntreprise(body: any): Observable<any> {
 
         // const requestBody = body;
-        const requestBody = { name: body.name, address: body.number + ' ' + body.rue + ' ' + body.ville};
+        const requestBody = { name: body.name, address: body.number + ' ' + body.rue + ',' + body.postalCode + ',' + body.ville };
         return this.http.patch<any>(`${this.apiUrl}/company`, requestBody, this.header);
     }
 

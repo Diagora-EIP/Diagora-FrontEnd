@@ -5,12 +5,14 @@ import { CreateTeamsModalComponent } from '../create-teams-modal/create-teams-mo
 import { MatDialog } from '@angular/material/dialog';
 import { ManagerService } from '../../services/manager.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-manager-teams',
   templateUrl: './manager-teams.component.html',
   styleUrls: ['./manager-teams.component.scss']
 })
+
 export class ManagerTeamsComponent {
   modalComponentMapping: { [key: string]: { component: Type<any>; constructor: () => any, action: (instance: any) => void } } = {
     UPDATETEAM: {
@@ -43,7 +45,8 @@ export class ManagerTeamsComponent {
 
   constructor(private teamsService: TeamsService,
     public dialog: MatDialog,
-    private managerService: ManagerService
+    private managerService: ManagerService,
+    private snackBarService: SnackbarService
   ) {
     this.loading = true;
     this.entreprise = localStorage.getItem('entreprise') || '';
@@ -133,6 +136,7 @@ export class ManagerTeamsComponent {
     this.teamList = this.teamList.filter((team: { team_id: any; }) => team.team_id !== teamSelected.team_id);
     this.teamsList = new MatTableDataSource(this.teamList);
     this.teamsService.deleteTeam(teamSelected.team_id).subscribe((data: any) => {
+      this.snackBarService.successSnackBar('Team supprimée avec succès');
     });
   }
 }
