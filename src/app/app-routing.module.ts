@@ -38,7 +38,7 @@ const routes: Routes = [
             { path: 'profile', component: ProfileComponent },
             { path: 'schedule', component: ScheduleComponent },
             { path: 'commands', component: CommandsComponent },
-            { path: 'notification', component: NotificationComponent}
+            // { path: 'notification', component: NotificationComponent}
         ],
         data: {
             permission: ['user', 'team leader', 'admin']
